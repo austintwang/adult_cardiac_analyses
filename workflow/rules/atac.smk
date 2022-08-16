@@ -278,7 +278,7 @@ rule export_atac_dataset_names:
     output:
         "export/atac/datasets.txt"
     params:
-        datasets = [i.split("_")[-1].split("-")[0] for i in samples_atac+samples_multiome]
+        datasets = [i.split("_")[-1].split("-")[0] for i in samples]
     conda:
         "../envs/fetch.yaml"
     shell:
