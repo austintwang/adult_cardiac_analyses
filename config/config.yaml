@@ -6,12 +6,21 @@ dcc_lab: anshul-kundaje
 dcc_award: UM1HG009442
 dcc_mode: prod
 
+chrom_sizes: https://www.encodeproject.org/files/GRCh38_EBV.chrom.sizes/@@download/GRCh38_EBV.chrom.sizes.tsv
+
 bc_wl_rna: http://mitra.stanford.edu/kundaje/atwang/rna_whitelists/737K-arc-v1.txt.gz
 bc_wl_atac: http://mitra.stanford.edu/kundaje/atwang/atac_whitelists/737K-arc-v1.txt.gz
+
+amulet_repo: https://github.com/UcarLab/AMULET.git
 
 archr_seed: 8757647
 archr_min_frags: 5000
 archr_min_tss_enr: 5
+
+bsgenome: http://mitra.stanford.edu/kundaje/surag/ENCODE_scatac/BSgenome/BSgenome.Hsapiens.ENCODE.GRCh38/BSgenome.Hsapiens.ENCODE.GRCh38_1.0.0.tar.gz
+bsgenome_name: BSgenome.Hsapiens.ENCODE.GRCh38
+archr_gene_anno: https://github.com/GreenleafLab/ArchR/raw/v1.0.1/data/geneAnnoHg38.rda
+gene_anno_name: geneAnnoHg38
 
 seurat_seed: 2398756
 seurat_min_count: 1000

@@ -18,27 +18,55 @@ Sys.setenv("HDF5_USE_FILE_LOCKING" = "FALSE")
 Sys.setenv("RHDF5_USE_FILE_LOCKING" = "FALSE")
 
 build_archr_project <- function(params, input_paths, output_paths, threads, log_paths) {
-    arrow_sample_names <- unlist(params[["sample_names"]])
+    arrow_sample_name <- params[["sample_name"]]
+    bsgenome_name <- params[["bsgenome"]]
+    gene_anno_name <- params[["gene_anno"]]
     seed <- params[["seed"]]
     min_frags <- params[["min_frags"]]
     min_tss_enr <- params[["min_tss_enr"]]
 
     set.seed(seed)
+
+    blacklist_path <- input_paths[["blacklist"]]
+    regions <- read.table(blacklist_path, sep = '\t', header = FALSE)
+    colnames(regions) <- c('chr','start','end')
+    blacklist <- GRanges(regions)
+
+    bsgenome_path <- input_paths[["bsgenome"]]
+    install.packages(bsgenome_path, repos = NULL, type = "source")
+    library(bsgenome_name, character.only = TRUE)
+    bsgenome <- get(bsgenome_name)
+
+    chromSizes <- GRanges(names(seqlengths(bsgenome)), IRanges(1, seqlengths(bsgenome)))
+    chromSizes <- filterChrGR(chromSizes, remove = c("chrM"))
+    seqlengths(chromSizes) <- end(chromSizes)
+
+    genome_annotation <- createGenomeAnnotation(
+        genome = bsgenome,
+        chromSizes = chromSizes,
+        blacklist = blacklist
+    )
+
+    gene_anno_path <- input_paths[["gene_anno"]]
+    load(gene_anno_path)
+    gene_annotation <- get(gene_anno_name)
     
     addArchRThreads(threads = threads)
 
     addArchRGenome("hg38")
 
-    frag_paths <- unlist(input_paths[["frags"]])
+    frag_path <- input_paths[["frag"]]
 
     arrow_output_dir <- output_paths[["arrow_dir"]]
-    arrow_output_names <- file.path(arrow_output_dir, arrow_sample_names)
+    arrow_output_names <- file.path(arrow_output_dir, arrow_sample_name)
     # print(arrow_output_dir) ####
     dir.create(arrow_output_dir, recursive = TRUE)
     arrows <- createArrowFiles(
-        inputFiles = frag_paths,
-        sampleNames = arrow_sample_names,
-        outputNames = arrow_output_names,
+        inputFiles = c(frag_path),
+        sampleNames = c(arrow_sample_name),
+        outputNames = c(arrow_output_name),
+        geneAnnotation = gene_annotation,
+        genomeAnnotation = genome_annotation,
         offsetPlus = 0,
         offsetMinus = 0,
         minFrags = min_frags,
@@ -51,26 +79,15 @@ build_archr_project <- function(params, input_paths, output_paths, threads, log_
         QCDir = output_paths[["qc_dir"]]
     )
 
-    # Calculate doublet scores
-    doub_scores <- addDoubletScores(
-        input = arrows,
-        k = 10, 
-        knnMethod = "UMAP", 
-        LSIMethod = 1,
-        outDir = output_paths[["qc_dir"]],
-        logFile = log_paths[["doublets"]],
-    )
-
     # Create project
     dir.create(output_paths[["project_dir"]])
     proj <- ArchRProject(
         ArrowFiles = arrows, 
         outputDirectory = output_paths[["project_dir"]],
         copyArrows = FALSE,
+        geneAnnotation = gene_annotation,
+        genomeAnnotation = genome_annotation,
     )
-    
-    # Filter doublets
-    proj <- filterDoublets(proj)
 
     metadata <- getCellColData(ArchRProj = proj)
     write.table(metadata, output_paths[["metadata"]], quote = FALSE, sep = '\t', col.names = NA)

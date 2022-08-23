@@ -11,7 +11,7 @@ samples = []
 with open("config/samples.tsv") as sample_file:
     h = sample_file.readline().rstrip('\n').split('\t')
     series_ind = h.index("Series")
-    samples_rna = []
+    samples = []
     for line in sample_file:
         if line.startswith("#"):
             continue
@@ -42,7 +42,8 @@ rule all:
     Generate all outputs (default)
     """
     input: 
-        "results_merged/atac/archr_init",
+        expand("results/{sample}/atac/amulet", sample=samples),
+        # "results_merged/atac/archr_init",
         # "results_merged/atac/archr_label",
         # "export/atac/embeddings/harmony.tsv.gz",
         # "export/atac/embeddings/umap.tsv.gz",
@@ -115,8 +116,8 @@ rule download_fragments:
     conda:
         "envs/fetch.yaml"
     shell:
-        # "curl --no-progress-meter -L -u {params.usr}:{params.pwd} $(< {input}) > {output}"
-        "curl --no-progress-meter -L $(< {input}) > {output}"
+        "curl --no-progress-meter -L $(< {input}) > {output} || "
+        "curl --no-progress-meter -L -u {params.usr}:{params.pwd} $(< {input}) > {output}"
 
 rule extract_fragments:
     """
@@ -262,8 +263,8 @@ rule download_barcode_wl:
     Download barcode whitelist
     """
     output:
-        rna = "whitelists/rna.txt",
-        atac = "whitelists/atac.txt"
+        rna = "resources/whitelist_rna.txt",
+        atac = "resources/whitelist_atac.txt"
     params:
         url_rna = config["bc_wl_rna"],
         url_atac = config["bc_wl_atac"],
@@ -272,3 +273,47 @@ rule download_barcode_wl:
     shell:
         "curl --no-progress-meter -L '{params.url_rna}' | zcat -f > {output.rna}; "
         "curl --no-progress-meter -L '{params.url_atac}' | zcat -f > {output.atac}"
+
+rule download_archr_resources:
+    """
+    Download genome data for ArchR
+    """
+    output:
+        bsgenome = "resources/bsgenome.tar.gz",
+        anno = "resources/gene_annotation.rda"
+    params:
+        url_bsgenome = config["bsgenome"],
+        url_anno = config["archr_gene_anno"],
+    conda:
+        "envs/fetch.yaml"
+    shell:
+        "curl --no-progress-meter -L '{params.url_bsgenome}' > {output.bsgenome}; "
+        "curl --no-progress-meter -L '{params.url_anno}' > {output.anno}"
+
+rule download_chromsizes:
+    """
+    Download chromsizes data
+    """
+    output:
+       sizes = "resources/GRCh38.chrom.sizes.tsv",
+       chroms = "resources/GRCh38.chroms.tsv"
+    params:
+        url = config["chrom_sizes"]
+    conda:
+        "envs/fetch.yaml"
+    shell:
+        "curl --no-progress-meter -L '{params.url}' > {output.sizes}; "
+        "awk '{ print $1 }' {output.sizes} > {output.chroms}"
+
+rule download_amulet:
+    """
+    Download AMULET utility
+    """
+    output:
+        directory("resources/amulet")
+    params:
+        repo = config["amulet_repo"]
+    conda:
+        "envs/fetch.yaml"
+    shell:
+        "git clone {params.repo} {output}"

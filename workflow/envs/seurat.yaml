@@ -11,4 +11,5 @@ dependencies:
   - conda-forge::r-plyr=1.8.7
   - conda-forge::r-remotes=2.4.2
   - conda-forge::r-pheatmap=1.0.12
+  - conda-forge::r-soupx=1.6.1
   - bioconda::r-harmony=0.1
