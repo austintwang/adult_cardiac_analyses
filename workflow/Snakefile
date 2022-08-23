@@ -303,7 +303,7 @@ rule download_chromsizes:
         "envs/fetch.yaml"
     shell:
         "curl --no-progress-meter -L '{params.url}' > {output.sizes}; "
-        "awk '{ print $1 }' {output.sizes} > {output.chroms}"
+        "awk '{{ print $1 }}' {output.sizes} > {output.chroms}"
 
 rule download_blacklist:
     """
