@@ -305,6 +305,19 @@ rule download_chromsizes:
         "curl --no-progress-meter -L '{params.url}' > {output.sizes}; "
         "awk '{ print $1 }' {output.sizes} > {output.chroms}"
 
+rule download_blacklist:
+    """
+    Download genome blacklist
+    """
+    output:
+        "resources/blacklist.bed"
+    params:
+        url = config["blacklist"]
+    conda:
+        "envs/fetch.yaml"
+    shell:
+        "curl --no-progress-meter -L '{params.url}' | zcat -f > {output}"
+
 rule download_amulet:
     """
     Download AMULET utility

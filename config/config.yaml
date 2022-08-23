@@ -7,6 +7,7 @@ dcc_award: UM1HG009442
 dcc_mode: prod
 
 chrom_sizes: https://www.encodeproject.org/files/GRCh38_EBV.chrom.sizes/@@download/GRCh38_EBV.chrom.sizes.tsv
+blacklist: https://www.encodeproject.org/files/ENCFF356LFX/@@download/ENCFF356LFX.bed.gz
 
 bc_wl_rna: http://mitra.stanford.edu/kundaje/atwang/rna_whitelists/737K-arc-v1.txt.gz
 bc_wl_atac: http://mitra.stanford.edu/kundaje/atwang/atac_whitelists/737K-arc-v1.txt.gz
