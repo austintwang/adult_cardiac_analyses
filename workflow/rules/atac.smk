@@ -10,7 +10,7 @@ rule extract_barcodes:
         "../envs/fetch.yaml"
     shell:
         "echo 'barcode,is__cell_barcode' > {output} && " 
-        "awk '{{ print $4 }}' {input} | sort -u | sed $'s/$/,1/' >> {output}"
+        "zcat | awk '{{ print $4 }}' | sort -u | sed $'s/$/,1/' >> {output}"
     
 rule run_amulet:
     """
