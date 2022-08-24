@@ -116,8 +116,12 @@ rule download_fragments:
     conda:
         "envs/fetch.yaml"
     shell:
+        "filename=$(basename -- '$(< {input})'); "
+        "extension='${{filename##*.}}'; "
+        "fid='${{filename%.*}}'; "
         "curl --no-progress-meter -L -f $(< {input}) > {output} || "
-        "curl --no-progress-meter -L -f -u {params.usr}:{params.pwd} $(< {input}) > {output}"
+        "curl --no-progress-meter -L -f -u {params.usr}:{params.pwd} $(< {input}) > {output} || "
+        "curl --no-progress-meter -L -f -u {params.usr}:{params.pwd} 'https://www.encodeproject.org/files/${{fid}}/@@download/${{filename}}' > {output} "
 
 rule extract_fragments:
     """
