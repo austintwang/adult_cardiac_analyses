@@ -27,6 +27,7 @@ rule run_amulet:
     conda:
         "../envs/amulet.yaml"
     shell:
+        "mkdir -p {output}; "
         "{input.amulet_dir}/AMULET.sh {input.frag} {input.barcodes} {input.chroms} {input.blacklist} {output} {input.amulet_dir}"
 
 rule archr_build:
