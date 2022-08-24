@@ -116,8 +116,8 @@ rule download_fragments:
     conda:
         "envs/fetch.yaml"
     shell:
-        "curl --no-progress-meter -L $(< {input}) > {output} || "
-        "curl --no-progress-meter -L -u {params.usr}:{params.pwd} $(< {input}) > {output}"
+        "curl --no-progress-meter -L -f $(< {input}) > {output} || "
+        "curl --no-progress-meter -L -f -u {params.usr}:{params.pwd} $(< {input}) > {output}"
 
 rule extract_fragments:
     """
@@ -181,8 +181,8 @@ rule download_expression:
     conda:
         "envs/fetch.yaml"
     shell:
-        # "curl --no-progress-meter -L -u {params.usr}:{params.pwd} $(< {input}) > {output}"
-        "curl --no-progress-meter -L $(< {input}) > {output}"
+        # "curl --no-progress-meter -L -f -u {params.usr}:{params.pwd} $(< {input}) > {output}"
+        "curl --no-progress-meter -L -f $(< {input}) > {output}"
 
 rule extract_expression:
     """
@@ -226,7 +226,7 @@ rule download_rna_ref_counts:
     conda:
         "envs/fetch.yaml"
     shell:
-        "curl --no-progress-meter -L '{params.url}' > {output}"
+        "curl --no-progress-meter -L -f '{params.url}' > {output}"
 
 rule extract_rna_ref_counts:
     """
@@ -256,7 +256,7 @@ rule download_rna_ref_metadata:
     conda:
         "envs/fetch.yaml"
     shell:
-        "curl --no-progress-meter -L '{params.url}' > {output}"
+        "curl --no-progress-meter -L -f '{params.url}' > {output}"
 
 rule download_barcode_wl:
     """
@@ -271,8 +271,8 @@ rule download_barcode_wl:
     conda:
         "envs/fetch.yaml"
     shell:
-        "curl --no-progress-meter -L '{params.url_rna}' | zcat -f > {output.rna}; "
-        "curl --no-progress-meter -L '{params.url_atac}' | zcat -f > {output.atac}"
+        "curl --no-progress-meter -L -f '{params.url_rna}' | zcat -f > {output.rna}; "
+        "curl --no-progress-meter -L -f '{params.url_atac}' | zcat -f > {output.atac}"
 
 rule download_archr_resources:
     """
@@ -287,8 +287,8 @@ rule download_archr_resources:
     conda:
         "envs/fetch.yaml"
     shell:
-        "curl --no-progress-meter -L '{params.url_bsgenome}' > {output.bsgenome}; "
-        "curl --no-progress-meter -L '{params.url_anno}' > {output.anno}"
+        "curl --no-progress-meter -L -f '{params.url_bsgenome}' > {output.bsgenome}; "
+        "curl --no-progress-meter -L -f '{params.url_anno}' > {output.anno}"
 
 rule download_chromsizes:
     """
@@ -302,7 +302,7 @@ rule download_chromsizes:
     conda:
         "envs/fetch.yaml"
     shell:
-        "curl --no-progress-meter -L '{params.url}' > {output.sizes}; "
+        "curl --no-progress-meter -L -f '{params.url}' > {output.sizes}; "
         "awk '{{ print $1 }}' {output.sizes} > {output.chroms}"
 
 rule download_blacklist:
@@ -316,7 +316,7 @@ rule download_blacklist:
     conda:
         "envs/fetch.yaml"
     shell:
-        "curl --no-progress-meter -L '{params.url}' | zcat -f > {output}"
+        "curl --no-progress-meter -L -f '{params.url}' | zcat -f > {output}"
 
 rule download_amulet:
     """
