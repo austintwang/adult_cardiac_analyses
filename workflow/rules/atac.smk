@@ -20,15 +20,14 @@ rule run_amulet:
         frag = "results/{sample}/fetch/fragments.tsv.gz", 
         barcodes = "results/{sample}/atac/amulet_barcode_data.csv",
         chroms = "resources/GRCh38.chroms.tsv",
-        blacklist = "resources/blacklist.bed"
+        blacklist = "resources/blacklist.bed",
+        amulet_dir = "resources/amulet"
     output:
         directory("results/{sample}/atac/amulet")
-    params:
-        amulet_dir = "resources/amulet"
     conda:
         "../envs/amulet.yaml"
     shell:
-        "{params.amulet_dir}/AMULET/AMULET.sh {input.frag} {input.barcodes} {input.chroms} {input.blacklist} {output} {params.amulet_dir}"
+        "{input.amulet_dir}/AMULET/AMULET.sh {input.frag} {input.barcodes} {input.chroms} {input.blacklist} {output} {params.amulet_dir}"
 
 rule archr_build:
     """
