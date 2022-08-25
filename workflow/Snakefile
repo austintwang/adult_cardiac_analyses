@@ -336,3 +336,16 @@ rule download_amulet:
         "envs/fetch.yaml"
     shell:
         "git clone {params.repo} {output}"
+
+rule download_amulet:
+    """
+    Download AMULET utility (low memory patch)
+    """
+    output:
+        directory("resources/amulet_lowmem")
+    params:
+        repo = config["amulet_repo_lowmem"]
+    conda:
+        "envs/fetch.yaml"
+    shell:
+        "git clone {params.repo} {output}"

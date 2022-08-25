@@ -13,6 +13,7 @@ bc_wl_rna: http://mitra.stanford.edu/kundaje/atwang/rna_whitelists/737K-arc-v1.t
 bc_wl_atac: http://mitra.stanford.edu/kundaje/atwang/atac_whitelists/737K-arc-v1.txt.gz
 
 amulet_repo: https://github.com/UcarLab/AMULET.git
+amulet_repo_lowmem: https://github.com/austintwang/AMULET.git
 
 archr_seed: 8757647
 archr_min_frags: 5000

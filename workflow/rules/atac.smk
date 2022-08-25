@@ -21,14 +21,16 @@ rule run_amulet:
         barcodes = "results/{sample}/atac/amulet_barcode_data.csv",
         chroms = "resources/GRCh38.chroms.tsv",
         blacklist = "resources/blacklist.bed",
-        amulet_dir = "resources/amulet"
+        amulet_dir = "resources/amulet",
+        amulet_lowmem_dir = "resources/amulet_lowmem"
     output:
         directory("results/{sample}/atac/amulet")
     conda:
         "../envs/amulet.yaml"
     shell:
         "mkdir -p {output}; "
-        "{input.amulet_dir}/AMULET.sh {input.frag} {input.barcodes} {input.chroms} {input.blacklist} {output} {input.amulet_dir}"
+        "{input.amulet_dir}/AMULET.sh {input.frag} {input.barcodes} {input.chroms} {input.blacklist} {output} {input.amulet_dir} || "
+        "{input.amulet_lowmem_dir}/AMULET.sh {input.frag} {input.barcodes} {input.chroms} {input.blacklist} {output} {input.amulet_lowmem_dir}"
 
 rule archr_build:
     """

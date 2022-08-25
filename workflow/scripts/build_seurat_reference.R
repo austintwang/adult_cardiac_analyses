@@ -43,8 +43,6 @@ proj$cell_type <- proj[["annot"]]
 # proj <- subset(proj, subset = cell_type != "NA")
 proj <- subset(proj, subset = typeSample == "nucSeq")
 
-print(head(proj@meta.data)) ####
-
 plt <- VlnPlot(proj, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
 ggsave(output_paths[["qc_violin"]], plt, device = "pdf")
 
@@ -55,7 +53,9 @@ ggsave(output_paths[["qc_scatter"]], plt, device = "pdf")
 
 proj <- subset(proj, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
 
-proj <- SCTransform(proj, vars.to.regress = "percent.mt", verbose = FALSE)
+proj <- NormalizeData(proj, normalization.method = "LogNormalize", scale.factor = 10000)
+proj <- FindVariableFeatures(proj, selection.method = "vst", nfeatures = 2000)
+proj <- ScaleData(proj)
 
 proj <- RunPCA(proj, features = VariableFeatures(object = proj))
 
