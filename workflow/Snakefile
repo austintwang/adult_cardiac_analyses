@@ -118,7 +118,7 @@ rule download_fragments:
     shell:
         "filename=$(basename -- \"$(< {input})\"); "
         "extension=\"${{filename##*.}}\"; "
-        "fid=\"${{filename%.*}}\"; "
+        "fid=\"${{filename%%.*}}\"; "
         "alturl=\"https://www.encodeproject.org/files/${{fid}}/@@download/${{filename}}\"; "
         "echo $alturl; " ####
         "curl --no-progress-meter -L -f $(< {input}) > {output} || "
