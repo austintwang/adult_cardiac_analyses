@@ -324,7 +324,7 @@ rule download_blacklist:
     shell:
         "curl --no-progress-meter -L -f '{params.url}' | zcat -f > {output}"
 
-rule download_amulet:
+rule download_amulet_lowmem:
     """
     Download AMULET utility
     """
