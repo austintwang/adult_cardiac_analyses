@@ -283,6 +283,23 @@ rule move_expression:
         "cp {input}/features.tsv {output.features}; "
         "cp {input}/barcodes.tsv {output.barcodes};"
 
+rule move_expression_raw:
+    """
+    Move expression data files to final location
+    """
+    input:
+        "results/{sample}/fetch/expression_raw_extracted"
+    output:
+        matrix = "results/{sample}/fetch/matrix_raw.mtx",
+        features = "results/{sample}/fetch/features_raw.tsv",
+        barcodes = "results/{sample}/fetch/barcodes_raw.tsv",
+    conda:
+        "envs/fetch.yaml"
+    shell:
+        "cp {input}/matrix.mtx {output.matrix}; "
+        "cp {input}/features.tsv {output.features}; "
+        "cp {input}/barcodes.tsv {output.barcodes};"
+
 rule download_rna_ref_counts:
     """
     Download reference expression tarball
