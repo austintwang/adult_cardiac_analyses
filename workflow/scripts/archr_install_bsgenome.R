@@ -8,8 +8,6 @@ output_paths = snakemake@output
 threads = snakemake@threads
 log_paths = snakemake@log
 
-dir.create(out_dir)
-
 bsgenome_path <- input_paths[["bsgenome"]]
 dir.create(output_paths[["bsgenome_library_dir"]], recursive = TRUE)
 install.packages(bsgenome_path, repos = NULL, type = "source", lib = output_paths[["bsgenome_library_dir"]])
