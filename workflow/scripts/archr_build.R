@@ -32,9 +32,9 @@ build_archr_project <- function(params, input_paths, output_paths, threads, log_
     colnames(regions) <- c('chr','start','end')
     blacklist <- GRanges(regions)
 
-    bsgenome_path <- input_paths[["bsgenome"]]
-    install.packages(bsgenome_path, repos = NULL, type = "source")
-    library(bsgenome_name, character.only = TRUE)
+    # bsgenome_path <- input_paths[["bsgenome"]]
+    # install.packages(bsgenome_path, repos = NULL, type = "source")
+    library(bsgenome_name, character.only = TRUE, ib.loc=input_paths[["bsgenome_library_dir"]])
     bsgenome <- get(bsgenome_name)
 
     chromSizes <- GRanges(names(seqlengths(bsgenome)), IRanges(1, seqlengths(bsgenome)))

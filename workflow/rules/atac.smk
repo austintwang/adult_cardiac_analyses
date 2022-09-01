@@ -32,6 +32,21 @@ rule run_amulet:
         "{input.amulet_dir}/AMULET.sh {input.frag} {input.barcodes} {input.chroms} {input.blacklist} {output} {input.amulet_dir} || "
         "{input.amulet_lowmem_dir}/AMULET.sh {input.frag} {input.barcodes} {input.chroms} {input.blacklist} {output} {input.amulet_lowmem_dir}"
 
+rule archr_install_bsgenome:
+    """
+    Install custom bsgenome object for ArchR
+    """
+    input:
+        bsgenome = "resources/bsgenome.tar.gz",
+    output:
+        bsgenome_library_dir = directory("resources/bsgenome_lib")
+    log:
+        console = "logs/resources/archr_install_bsgenome/console.log",
+    conda:
+        "../envs/archr.yaml"
+    script:
+        "../scripts/archr_install_bsgenome.R"
+
 rule archr_build:
     """
     Build ArchR project
@@ -40,7 +55,7 @@ rule archr_build:
         frag = "results/{sample}/fetch/fragments.tsv.gz", 
         frag_ind = "results/{sample}/fetch/fragments.tsv.gz.tbi",
         blacklist = "resources/blacklist.bed",
-        bsgenome = "resources/bsgenome.tar.gz",
+        bsgenome_library_dir = "resources/bsgenome_lib",
         gene_anno = "resources/gene_annotation.rda"
     output:
         qc_dir = directory("results/{sample}/atac/archr_qc"),
