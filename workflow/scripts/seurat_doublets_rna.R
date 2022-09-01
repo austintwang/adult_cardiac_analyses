@@ -46,18 +46,44 @@ proj <- doubletFinder_v3(
     seu = proj, 
     PCs = 1:30, 
     pK = optimal.pk,
-    nExp = nExp.poi.adj,
-    sct = TRUE
+    nExp = nExp.poi.adj
 )
 print(head(proj@meta.data)) ####
 doublets_col <- grep("DF.classifications", names(proj@meta.data), value = TRUE)
-proj$doublet_classification <- proj[[doublets_col]]
-proj_filtered <- subset(proj, subset = doublet_classification == "Singlet")
+proj$doublet_doubletfinder <- proj[[doublets_col]] != "Singlet"
+proj$doublet_amulet <- proj$amulet_qval > params[["amulet_fdr"]]
+proj$doublet_union <- proj$doublet_doubletfinder | proj$doublet_amulet
+proj$doublet_intersect <- proj$doublet_doubletfinder & proj$doublet_amulet
+
+proj$doublet_status <- rep(NA, length(Cells(proj)))
+proj$doublet_status[proj$doublet_amulet] <- "Amulet only"
+proj$doublet_status[proj$doublet_doubletfinder] <- "DoubletFinder only"
+proj$doublet_status[proj$doublet_intersect] <- "Amulet and DoubletFinder"
+plt <- DimPlot(proj, reduction = "umap", group.by = "doublet_status")
+ggsave(output_paths[["umap"]], plt, device = "pdf")
+
+proj_filtered <- subset(proj, subset = doublet_union == FALSE)
+
+proj_filtered <- NormalizeData(proj_filtered, normalization.method = "LogNormalize", scale.factor = 10000)
+proj_filtered <- FindVariableFeatures(proj_filtered, selection.method = "vst", nfeatures = 2000)
+proj_filtered <- ScaleData(proj_filtered)
+
+proj_filtered <- RunPCA(proj_filtered, features = VariableFeatures(object = proj))
+
+proj_filtered <- FindNeighbors(proj_filtered, dims = 1:30)
+proj_filtered <- FindClusters(object = proj_filtered) 
+
+proj_filtered <- RunUMAP(proj_filtered, dims = 1:30, return.model = TRUE)
+
+plt <- DimPlot(proj_filtered, reduction = "umap", group.by = "seurat_clusters")
+ggsave(output_paths[["umap_filtered"]], plt, device = "pdf")
 
 print(proj)
 print(proj_filtered)
 saveRDS(proj, file = output_paths[["project_out_all"]])
 saveRDS(proj_filtered, file = output_paths[["project_out_filtered"]])
+
+write.table(proj_filtered@meta.data, file=output_paths[["metadata"]], quote=FALSE, sep='\t', col.names = NA)
 
 sink(type = "message")
 sink()

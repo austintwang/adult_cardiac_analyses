@@ -22,8 +22,13 @@ expression_matrix <- ReadMtx(
   features = input_paths[["features"]],
   cells = input_paths[["cells"]]
 )
+
+metadata <- read.table(file = input_paths[["metadata"]], sep = ',', header = TRUE)
+rownames(metadata) <- metadata$barcode_rna
+print(head(metadata)) ####
+
 # Initialize the Seurat object with the raw (non-normalized data).
-proj <- CreateSeuratObject(counts = expression_matrix, project = params[["sample_name"]], min.cells = 3, min.features = 0)
+proj <- CreateSeuratObject(counts = expression_matrix, project = params[["sample_name"]], min.cells = 3, min.features = 0, meta.data = metadata)
 proj <- AddMetaData(
   object = proj,
   metadata = rep(params[["sample_name"]], length(Cells(proj))),
@@ -42,12 +47,27 @@ ggsave(output_paths[["qc_scatter"]], plt, device = "pdf")
 
 write.table(proj@meta.data, file=output_paths[["metadata"]], quote=FALSE, sep='\t', col.names = NA)
 
-proj <- subset(proj, subset = nCount_RNA > params[["min_count_rna"]] & percent.mt < params[["max_pct_mito_rna"]])
+proj <- subset(
+  proj, 
+  subset = (
+    nCount_RNA > params[["min_count_rna"]] 
+    & percent.mt < params[["max_pct_mito_rna"]]
+    & frag_count > params[["min_frags_rna"]]
+    & tss_enr > params[["min_tss_enr"]]
+  )
+)
 
-proj <- SCTransform(proj, vars.to.regress = "percent.mt", verbose = FALSE)
+proj <- NormalizeData(proj, normalization.method = "LogNormalize", scale.factor = 10000)
+proj <- FindVariableFeatures(proj, selection.method = "vst", nfeatures = 2000)
+proj <- ScaleData(proj)
+
 proj <- RunPCA(proj, features = VariableFeatures(object = proj))
+
 proj <- FindNeighbors(proj, dims = 1:30)
 proj <- FindClusters(object = proj) 
+
+proj <- RunUMAP(proj, dims = 1:30, return.model = TRUE)
+ggsave(output_paths[["umap"]], plt, device = "pdf")
 
 saveRDS(proj, file = output_paths[["project_out"]])
 

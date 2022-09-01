@@ -76,10 +76,10 @@ rule write_atac_qc:
         bc_atac_path = "resources/whitelist_atac.txt",
         bc_rna_path = "resources/whitelist_rna.txt"
     output:
-        directory("export/rna/markers")
+        "results/{sample}/atac/atac_qc.tsv"
     params:
         sample_name = lambda w: w.sample,
     conda:
         "../envs/fetch.yaml"
     script:
-        "../scripts/export_rna_markers.py"
+        "../scripts/write_atac_qc.py"

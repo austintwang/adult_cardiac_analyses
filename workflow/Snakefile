@@ -42,7 +42,7 @@ rule all:
     Generate all outputs (default)
     """
     input: 
-        expand("results/{sample}/atac/amulet", sample=samples),
+        expand("results/{sample}/rna/seurat_transfer_rna/proj.rds", sample=samples),
         # "results_merged/atac/archr_init",
         # "results_merged/atac/archr_label",
         # "export/atac/embeddings/harmony.tsv.gz",
@@ -167,11 +167,30 @@ rule query_expression:
         dcc_api_key = os.environ["DCC_API_KEY"], 
         dcc_secret_key = os.environ["DCC_SECRET_KEY"]
     log:
-        directory("logs/{sample}/query_fragments")
+        directory("logs/{sample}/query_expression")
     conda:
         "envs/fetch.yaml"
     script:
         "scripts/get_expression_url.py"
+
+rule query_expression_raw:
+    """
+    Query ENCODE portal for gene expression matrix URL
+    """
+    output:
+        "results/{sample}/fetch/expression_url.txt"
+    params:
+        series = get_series,
+        replicate = 1,
+        dcc_mode = config["dcc_mode"],
+        dcc_api_key = os.environ["DCC_API_KEY"], 
+        dcc_secret_key = os.environ["DCC_SECRET_KEY"]
+    log:
+        directory("logs/{sample}/query_expression_raw")
+    conda:
+        "envs/fetch.yaml"
+    script:
+        "scripts/get_expression_raw_url.py"
 
 rule download_expression:
     """
@@ -187,8 +206,37 @@ rule download_expression:
     conda:
         "envs/fetch.yaml"
     shell:
-        # "curl --no-progress-meter -L -f -u {params.usr}:{params.pwd} $(< {input}) > {output}"
-        "curl --no-progress-meter -L -f $(< {input}) > {output}"
+        "filename=$(basename -- \"$(< {input})\"); "
+        "extension=\"${{filename##*.}}\"; "
+        "fid=\"${{filename%%.*}}\"; "
+        "alturl=\"https://www.encodeproject.org/files/${{fid}}/@@download/${{filename}}\"; "
+        "echo $alturl; " ####
+        "curl --no-progress-meter -L -f $(< {input}) > {output} || "
+        "curl --no-progress-meter -L -f -u {params.usr}:{params.pwd} $(< {input}) > {output} || "
+        "curl --no-progress-meter -L -f -u {params.usr}:{params.pwd} \"$alturl\" > {output} "
+
+rule download_expression_raw:
+    """
+    Download raw expression tarball
+    """
+    input:
+        "results/{sample}/fetch/expression_raw_url.txt"
+    output:
+        "results/{sample}/fetch/expression_raw.tar.gz"
+    params:
+        usr = os.environ["DCC_API_KEY"],
+        pwd = os.environ["DCC_SECRET_KEY"]
+    conda:
+        "envs/fetch.yaml"
+    shell:
+        "filename=$(basename -- \"$(< {input})\"); "
+        "extension=\"${{filename##*.}}\"; "
+        "fid=\"${{filename%%.*}}\"; "
+        "alturl=\"https://www.encodeproject.org/files/${{fid}}/@@download/${{filename}}\"; "
+        "echo $alturl; " ####
+        "curl --no-progress-meter -L -f $(< {input}) > {output} || "
+        "curl --no-progress-meter -L -f -u {params.usr}:{params.pwd} $(< {input}) > {output} || "
+        "curl --no-progress-meter -L -f -u {params.usr}:{params.pwd} \"$alturl\" > {output} "
 
 rule extract_expression:
     """
@@ -198,6 +246,20 @@ rule extract_expression:
         "results/{sample}/fetch/expression.tar.gz"
     output:
         directory("results/{sample}/fetch/expression_extracted")
+    conda:
+        "envs/fetch.yaml"
+    shell:
+        "mkdir -p {output}; "
+        "tar -xzf {input} --transform='s/.*\///' -C {output}"
+
+rule extract_expression_raw:
+    """
+    Extract expression data from tarball
+    """
+    input:
+        "results/{sample}/fetch/expression_raw.tar.gz"
+    output:
+        directory("results/{sample}/fetch/expression_raw_extracted")
     conda:
         "envs/fetch.yaml"
     shell:

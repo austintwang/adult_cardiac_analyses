@@ -28,7 +28,6 @@ ref <- readRDS(file = input_paths[["project_ref"]])
 anchors <- FindTransferAnchors(
   reference = ref,
   query = proj,
-  normalization.method = "SCT",
   dims = 1:30, 
   reference.reduction = "pca",
   reduction = "pcaproject"

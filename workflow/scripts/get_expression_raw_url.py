@@ -34,7 +34,7 @@ files = data["files"]
 for f in files:
     if f["biological_replicates"][0] != replicate_num:
         continue
-    if (f["file_format"] == "tar") and (f["output_type"] == "sparse gene count matrix of unique reads"):
+    if (f["file_format"] == "tar") and (f["output_type"] == "unfiltered sparse gene count matrix of unique reads"):
         path = f["cloud_metadata"]["url"]
         break
 

@@ -19,30 +19,7 @@ rule seurat_build_reference:
     conda:
         "../envs/seurat.yaml"
     script:
-        "../scripts/build_seurat_reference.R"
-
-rule seurat_build_reference_log1p:
-    """
-    Build Seurat reference dataset (no SCT)
-    """
-    input:
-        mat = "reference/fetch/matrix.mtx",
-        features = "reference/fetch/features.tsv",
-        cells = "reference/fetch/barcodes.tsv",
-        metadata = "reference/fetch/metadata.csv"
-    output:
-        project_out = "reference/seurat_build_reference_log1p/proj.rds",
-        qc_violin = "reference/seurat_build_reference_log1p/qc_violin.pdf",
-        qc_scatter = "reference/seurat_build_reference_log1p/qc_scatter.pdf",
-        umap =  "reference/seurat_build_reference_log1p/umap.pdf"
-    params:
-        seed = config["seurat_seed"]
-    log:
-        console = "logs/reference/seurat_build_reference_log1p/seurat_build_rna/console.log"
-    conda:
-        "../envs/seurat.yaml"
-    script:
-        "../scripts/build_seurat_reference_log1p.R"
+        "../scripts/seurat_build_reference.R"
 
 rule seurat_build_rna:
     """
@@ -51,7 +28,8 @@ rule seurat_build_rna:
     input:
         mat = "results/{sample}/fetch/matrix.mtx",
         features = "results/{sample}/fetch/features.tsv",
-        cells = "results/{sample}/fetch/barcodes.tsv"
+        cells = "results/{sample}/fetch/barcodes.tsv",
+        metadata = "results/{sample}/atac/atac_qc.tsv"
     output:
         project_out = "results/{sample}/rna/seurat_build_rna/proj.rds",
         metadata = "results/{sample}/rna/seurat_build_rna/metadata.tsv",
@@ -67,7 +45,7 @@ rule seurat_build_rna:
     conda:
         "../envs/seurat.yaml"
     script:
-        "../scripts/build_seurat_rna.R"
+        "../scripts/seurat_build.R"
 
 rule seurat_doublets_rna:
     """
@@ -77,7 +55,10 @@ rule seurat_doublets_rna:
         project_in = "results/{sample}/rna/seurat_build_rna/proj.rds"
     output:
         project_out_all = "results/{sample}/rna/seurat_doublets_rna/proj_all.rds",
-        project_out_filtered = "results/{sample}/rna/seurat_doublets_rna/proj_filtered.rds"
+        project_out_filtered = "results/{sample}/rna/seurat_doublets_rna/proj_filtered.rds",
+        metadata = "results/{sample}/rna/seurat_doublets_rna/metadata.tsv",
+        umap = "results/{sample}/rna/seurat_doublets_rna/umap.pdf",
+        umap_filtered = "results/{sample}/rna/seurat_doublets_rna/umap_filtered.pdf"
     params:
         seed = config["seurat_seed"],
         doublet_rate = config["doublet_formation_rate"]
@@ -90,7 +71,34 @@ rule seurat_doublets_rna:
     script:
         "../scripts/seurat_doublets_rna.R"
 
-rule seurat_label_rna:
+rule seurat_soupx_rna:
+    """
+    Filter ambient RNA with SoupX
+    """
+    input:
+        mat = "results/{sample}/fetch/matrix.mtx",
+        features = "results/{sample}/fetch/features.tsv",
+        cells = "results/{sample}/fetch/barcodes.tsv",
+        mat_raw = "results/{sample}/fetch/matrix_raw.mtx",
+        features_raw = "results/{sample}/fetch/features_raw.tsv",
+        cells_raw = "results/{sample}/fetch/barcodes_raw.tsv",
+        metadata = "results/{sample}/atac/atac_qc.tsv"
+    output:
+        project_out = "results/{sample}/rna/seurat_soupx_rna/proj.rds",
+        umap = "results/{sample}/rna/seurat_soupx_rna/umap.pdf"
+    params:
+        sample_name = lambda w: w.sample,
+        seed = config["seurat_seed"],
+        min_count_rna = config["seurat_min_count"],
+        max_pct_mito_rna = config["seurat_max_pct_mito"]
+    log:
+        console = "logs/{sample}/rna/seurat_build_rna/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_build.R"
+
+rule seurat_transfer_rna:
     """
     Seurat RNA reference labeling
     """
@@ -98,23 +106,23 @@ rule seurat_label_rna:
         project_rna = "results/{sample}/rna/seurat_doublets_rna/proj_filtered.rds",
         project_ref = "reference/seurat_build_reference/proj.rds"
     output:
-        project_out = "results/{sample}/rna/seurat_label_rna/proj.rds",
-        umap = "results/{sample}/rna/seurat_label_rna/umap.pdf"
+        project_out = "results/{sample}/rna/seurat_transfer_rna/proj.rds",
+        umap = "results/{sample}/rna/seurat_transfer_rna/umap.pdf"
     params:
         seed = config["seurat_seed"],
     log:
-        console = "logs/{sample}/rna/seurat_label_rna/console.log"
+        console = "logs/{sample}/rna/seurat_transfer_rna/console.log"
     conda:
         "../envs/seurat.yaml"
     script:
-        "../scripts/seurat_label_rna.R"
+        "../scripts/seurat_transfer_rna.R"
 
 rule seurat_merge_rna:
     """
     Merge RNA samples
     """
     input:
-        projects_in = expand("results/{sample}/rna/seurat_label_rna/proj.rds", sample=samples)
+        projects_in = expand("results/{sample}/rna/seurat_transfer_rna/proj.rds", sample=samples)
     output:
         project_out = "results_merged/rna/seurat_merge_rna/proj.rds",
         umap_dataset_pre_harmony = "results_merged/rna/seurat_merge_rna/umap_dataset_pre_harmony.pdf",
