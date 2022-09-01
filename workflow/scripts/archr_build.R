@@ -58,7 +58,7 @@ build_archr_project <- function(params, input_paths, output_paths, threads, log_
     frag_path <- input_paths[["frag"]]
 
     arrow_output_dir <- output_paths[["arrow_dir"]]
-    arrow_output_names <- file.path(arrow_output_dir, arrow_sample_name)
+    arrow_output_name <- file.path(arrow_output_dir, arrow_sample_name)
     # print(arrow_output_dir) ####
     dir.create(arrow_output_dir, recursive = TRUE)
     arrows <- createArrowFiles(
