@@ -42,7 +42,7 @@ rule all:
     Generate all outputs (default)
     """
     input: 
-        expand("results/{sample}/rna/seurat_transfer_rna/proj.rds", sample=samples),
+        expand("results/{sample}/rna/seurat_soupx_rna/proj.rds", sample=samples),
         # "results_merged/atac/archr_init",
         # "results_merged/atac/archr_label",
         # "export/atac/embeddings/harmony.tsv.gz",
