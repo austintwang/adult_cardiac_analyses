@@ -82,7 +82,7 @@ rule seurat_soupx_rna:
         mat_raw = "results/{sample}/fetch/matrix_raw.mtx",
         features_raw = "results/{sample}/fetch/features_raw.tsv",
         cells_raw = "results/{sample}/fetch/barcodes_raw.tsv",
-        metadata = "results/{sample}/atac/atac_qc.tsv"
+        metadata = "results/{sample}/rna/seurat_doublets_rna/metadata.tsv"
     output:
         project_out = "results/{sample}/rna/seurat_soupx_rna/proj.rds",
         umap = "results/{sample}/rna/seurat_soupx_rna/umap.pdf"
