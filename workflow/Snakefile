@@ -178,7 +178,7 @@ rule query_expression_raw:
     Query ENCODE portal for gene expression matrix URL
     """
     output:
-        "results/{sample}/fetch/expression_url.txt"
+        "results/{sample}/fetch/expression_raw_url.txt"
     params:
         series = get_series,
         replicate = 1,
