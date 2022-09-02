@@ -17,7 +17,19 @@ def load_barcode_map(bc_atac_path, bc_rna_path):
 
     return bc_map
 
-def load_records(metadata_path, barcode_map):
+def load_barcodes(barcodes_path):
+    barcodes = []
+    with open(barcodes_path) as f:
+        h = f.readline().rstrip('\n').split('\t')
+        bc_ind = h.index("barcode")
+        for line in f:
+            entries = line.rstrip("\n").split(",")
+            b = entries[bc_ind]
+            barcodes.append(b)
+
+    return barcodes
+
+def load_records(barcodes, metadata_path, barcode_map):
     records = {}
     with open(metadata_path) as f:
         h = f.readline().rstrip('\n').split('\t')
@@ -43,6 +55,19 @@ def load_records(metadata_path, barcode_map):
                 "pass_atac_filter": False
             }
             records[barcode] = record
+
+    for b in barcodes:
+        if b not in records:
+            barcode = b
+            barcode_rna = barcode_map[barcode]
+            record = {
+                "barcode_rna": barcode_rna,
+                "barcode_atac": barcode,
+                "frag_count": "NA",
+                "tss_enr": "NA",
+                "pass_atac_filter": False
+            }
+            records[b] = record
 
     return records
 
@@ -90,18 +115,20 @@ def load_amulet_data(barcodes, amulet_data_path):
     return records
 
 
-def main(sample_name, metadata_dir, final_data_path, amulet_data_dir, bc_atac_path, bc_rna_path, out_path):
+def main(sample_name, metadata_dir, final_data_path, amulet_data_dir, bc_atac_path, bc_rna_path, barcodes_path, out_path):
     metadata_path = os.path.join(metadata_dir, sample_name, "metadata.tsv")
 
+    barcodes = load_barcodes(barcodes_path)
+
     bc_map = load_barcode_map(bc_atac_path, bc_rna_path)
-    records = load_records(metadata_path, bc_map)
+    records = load_records(barcodes, metadata_path, bc_map)
 
     final_ids = load_final_data(final_data_path)
     for i in final_ids:
         records[i]["pass_filter"] = True
 
     amulet_data_path = os.path.join(amulet_data_dir, "MultipletProbabilities.txt")
-    records_amulet = load_amulet_data(records.keys(), amulet_data_path)
+    records_amulet = load_amulet_data(barcodes, amulet_data_path)
     for k, v in records_amulet.items():
         records[k].update(v)
 
@@ -119,9 +146,10 @@ final_data_path = snakemake.input["final_data"]
 amulet_data_dir = snakemake.input["amulet"]
 bc_atac_path = snakemake.input["bc_atac"]
 bc_rna_path = snakemake.input["bc_rna"]
+barcodes_path = snakemake.input["barcodes"]
 
 out_path, = snakemake.output
 
 sample_name = snakemake.params["sample_name"]
 
-main(sample_name, metadata_dir, final_data_path, amulet_data_dir, bc_atac_path, bc_rna_path, out_path)
+main(sample_name, metadata_dir, final_data_path, amulet_data_dir, bc_atac_path, bc_rna_path, barcodes_path, out_path)
