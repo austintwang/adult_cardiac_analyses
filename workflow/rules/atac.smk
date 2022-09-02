@@ -88,8 +88,8 @@ rule write_atac_qc:
         metadata = "results/{sample}/atac/archr_qc",
         final_data = "results/{sample}/atac/archr_metadata.tsv",
         amulet = "results/{sample}/atac/amulet",
-        bc_atac_path = "resources/whitelist_atac.txt",
-        bc_rna_path = "resources/whitelist_rna.txt"
+        bc_atac = "resources/whitelist_atac.txt",
+        bc_rna = "resources/whitelist_rna.txt"
     output:
         "results/{sample}/atac/atac_qc.tsv"
     params:
