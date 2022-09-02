@@ -125,7 +125,7 @@ def main(sample_name, metadata_dir, final_data_path, amulet_data_dir, bc_atac_pa
 
     final_ids = load_final_data(final_data_path)
     for i in final_ids:
-        records[i]["pass_filter"] = True
+        records[i]["pass_atac_filter"] = True
 
     amulet_data_path = os.path.join(amulet_data_dir, "MultipletProbabilities.txt")
     records_amulet = load_amulet_data(barcodes, amulet_data_path)
