@@ -20,7 +20,7 @@ def load_barcode_map(bc_atac_path, bc_rna_path):
 def load_barcodes(barcodes_path):
     barcodes = []
     with open(barcodes_path) as f:
-        h = f.readline().rstrip('\n').split('\t')
+        h = f.readline().rstrip('\n').split(',')
         bc_ind = h.index("barcode")
         for line in f:
             entries = line.rstrip("\n").split(",")
