@@ -85,7 +85,7 @@ def load_amulet_data(barcodes, amulet_data_path):
                 "amulet_pval": "NA",
                 "amulet_qval": "NA"
             }
-            records[barcode] = record
+            records[b] = record
 
     return records
 
