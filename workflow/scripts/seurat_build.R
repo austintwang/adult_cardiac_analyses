@@ -23,7 +23,7 @@ expression_matrix <- ReadMtx(
   cells = input_paths[["cells"]]
 )
 
-metadata <- read.table(file = input_paths[["metadata"]], sep = ',', header = TRUE)
+metadata <- read.table(file = input_paths[["metadata"]], sep = '\t', header = TRUE)
 rownames(metadata) <- metadata$barcode_rna
 print(head(metadata)) ####
 
