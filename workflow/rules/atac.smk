@@ -80,12 +80,27 @@ rule archr_build:
     script:
         "../scripts/archr_build.R"
 
+rule archr_write_qc:
+    """
+    ArchR write sample QC data
+    """
+    input:
+        qc_dir = "results/{sample}/atac/archr_qc"
+    output:
+        out_dir = directory("results/{sample}/atac/archr_qc_parsed")
+    log:
+        console = "logs/{sample}/atac/archr_write_qc/console.log"
+    conda:
+        "../envs/archr.yaml"
+    script:
+        "../scripts/archr_write_qc.R"
+
 rule write_atac_qc:
     """
     Write ATAC QC data
     """
     input:
-        metadata = "results/{sample}/atac/archr_qc",
+        metadata = "results/{sample}/atac/archr_qc_parsed",
         final_data = "results/{sample}/atac/archr_metadata.tsv",
         amulet = "results/{sample}/atac/amulet",
         bc_atac = "resources/whitelist_atac.txt",
