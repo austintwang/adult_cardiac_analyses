@@ -138,7 +138,7 @@ def main(sample_name, metadata_dir, final_data_path, amulet_data_dir, bc_atac_pa
         f.write("\t".join(cols) + "\n")
 
         for cell_id, r in records.items():
-            line = "\t".join(r[c] for c in cols) + "\n"
+            line = "\t".join(str(r[c]) for c in cols) + "\n"
             f.write(line)
 
 metadata_dir = snakemake.input["metadata"]
