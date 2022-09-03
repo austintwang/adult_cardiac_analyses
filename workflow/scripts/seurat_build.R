@@ -52,7 +52,7 @@ proj <- subset(
   subset = (
     nCount_RNA > params[["min_count_rna"]] 
     & percent.mt < params[["max_pct_mito_rna"]]
-    & frag_count > params[["min_frags_rna"]]
+    & frag_count > params[["min_frags"]]
     & tss_enr > params[["min_tss_enr"]]
   )
 )

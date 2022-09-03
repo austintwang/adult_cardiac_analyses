@@ -90,7 +90,7 @@ rule seurat_soupx_rna:
         sample_name = lambda w: w.sample,
         seed = config["seurat_seed"],
         min_frags = config["archr_min_frags"],
-         min_tss_enr = config["archr_min_tss_enr"],
+        min_tss_enr = config["archr_min_tss_enr"],
         min_count_rna = config["seurat_min_count"],
         max_pct_mito_rna = config["seurat_max_pct_mito"]
     log:
