@@ -99,7 +99,7 @@ rule seurat_soupx_rna:
     conda:
         "../envs/seurat.yaml"
     script:
-        "../scripts/seurat_build.R"
+        "../scripts/seurat_soupx_rna.R"
 
 rule seurat_transfer_rna:
     """
