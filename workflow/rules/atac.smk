@@ -1,36 +1,4 @@
-rule extract_barcodes:
-    """
-    Extract barcode data from fragments
-    """
-    input:
-        "results/{sample}/fetch/fragments.tsv.gz"
-    output:
-        "results/{sample}/atac/amulet_barcode_data.csv"
-    conda:
-        "../envs/fetch.yaml"
-    shell:
-        "echo 'barcode,is__cell_barcode' > {output} && " 
-        "zcat {input} | awk '{{ print $4 }}' - | sort -u | sed $'s/$/,1/' >> {output}"
-    
-rule run_amulet:
-    """
-    Run AMULET batch correction tool
-    """
-    input:
-        frag = "results/{sample}/fetch/fragments.tsv.gz", 
-        barcodes = "results/{sample}/atac/amulet_barcode_data.csv",
-        chroms = "resources/GRCh38.chroms.tsv",
-        blacklist = "resources/blacklist.bed",
-        amulet_dir = "resources/amulet",
-        amulet_lowmem_dir = "resources/amulet_lowmem"
-    output:
-        directory("results/{sample}/atac/amulet")
-    conda:
-        "../envs/amulet.yaml"
-    shell:
-        "mkdir -p {output}; "
-        "{input.amulet_dir}/AMULET.sh {input.frag} {input.barcodes} {input.chroms} {input.blacklist} {output} {input.amulet_dir} || "
-        "{input.amulet_lowmem_dir}/AMULET.sh {input.frag} {input.barcodes} {input.chroms} {input.blacklist} {output} {input.amulet_lowmem_dir}"
+
 
 rule archr_install_bsgenome:
     """
@@ -94,6 +62,58 @@ rule archr_write_qc:
         "../envs/archr.yaml"
     script:
         "../scripts/archr_write_qc.R"
+
+rule extract_barcodes:
+    """
+    Extract barcode data from fragments
+    """
+    input:
+        "results/{sample}/fetch/fragments.tsv.gz"
+    output:
+        "results/{sample}/atac/amulet_barcode_data.csv"
+    conda:
+        "../envs/fetch.yaml"
+    shell:
+        "echo 'barcode,is__cell_barcode' > {output} && " 
+        "zcat {input} | awk '{{ print $4 }}' - | sort -u | sed $'s/$/,1/' >> {output}"
+
+rule write_amulet_barcodes:
+    """
+    Filter amulet input barcodes
+    """
+    input:
+        metadata = "results/{sample}/atac/archr_qc_parsed",
+        amulet_barcodes = "results/{sample}/atac/amulet_barcode_data_final.csv"
+    output:
+        "results/{sample}/atac/amulet_barcode_data_final.csv"
+    params:
+        sample_name = lambda w: w.sample,
+        min_frags = config["archr_min_frags"],
+        min_tss_enr = config["archr_min_tss_enr"]
+    conda:
+        "../envs/fetch.yaml"
+    script:
+        "../scripts/write_amulet_barcodes.py"
+    
+rule run_amulet:
+    """
+    Run AMULET batch correction tool
+    """
+    input:
+        frag = "results/{sample}/fetch/fragments.tsv.gz", 
+        barcodes = "results/{sample}/atac/amulet_barcode_data_final.csv",
+        chroms = "resources/GRCh38.chroms.tsv",
+        blacklist = "resources/blacklist.bed",
+        amulet_dir = "resources/amulet",
+        amulet_lowmem_dir = "resources/amulet_lowmem"
+    output:
+        directory("results/{sample}/atac/amulet")
+    conda:
+        "../envs/amulet.yaml"
+    shell:
+        "mkdir -p {output}; "
+        "{input.amulet_dir}/AMULET.sh {input.frag} {input.barcodes} {input.chroms} {input.blacklist} {output} {input.amulet_dir} || "
+        "{input.amulet_lowmem_dir}/AMULET.sh {input.frag} {input.barcodes} {input.chroms} {input.blacklist} {output} {input.amulet_lowmem_dir}"
 
 rule write_atac_qc:
     """
