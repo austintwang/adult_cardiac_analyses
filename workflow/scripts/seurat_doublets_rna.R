@@ -10,12 +10,13 @@ library(dplyr)
 library(Seurat)
 library(patchwork)
 library(ggplot2)
-library(DoubletFinder, lib.loc=input_paths[["doubletfinder_library_dir"]])
 
 params = snakemake@params 
 input_paths = snakemake@input
 output_paths = snakemake@output
 log_paths = snakemake@log
+
+library(DoubletFinder, lib.loc=input_paths[["doubletfinder_library_dir"]])
 
 set.seed(params[["seed"]])
 
