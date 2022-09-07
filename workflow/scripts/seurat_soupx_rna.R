@@ -29,7 +29,7 @@ expression_matrix_raw <- ReadMtx(
   cells = input_paths[["cells_raw"]]
 )
 
-metadata <- read.table(file = input_paths[["metadata"]], sep = ',', header = TRUE)
+metadata <- read.table(file = input_paths[["metadata"]], sep = '\t', header = TRUE)
 print(head(metadata)) ####
 
 sc <- SoupChannel(expression_matrix_raw, expression_matrix)
