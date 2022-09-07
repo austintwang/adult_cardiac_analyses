@@ -9,7 +9,7 @@ threads = snakemake@threads
 log_paths = snakemake@log
 
 dir.create(output_paths[["doubletfinder_library_dir"]], recursive = TRUE)
-remotes::install_github('chris-mcginnis-ucsf/DoubletFinder', lib = output_paths[["bsgenome_library_dir"]])
+remotes::install_github('chris-mcginnis-ucsf/DoubletFinder', lib = output_paths[["doubletfinder_library_dir"]])
 
 sink(type = "message")
 sink()
