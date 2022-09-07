@@ -43,6 +43,7 @@ print(sapply(proj@meta.data, typeof)) ####
 sb <- proj@meta.data$frag_count > params[["min_frags"]] ####
 print(params[["min_frags"]]) ####
 print(head(proj@meta.data[sb,])) ####
+print(params) ####
 
 plt <- VlnPlot(proj, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
 ggsave(output_paths[["qc_violin"]], plt, device = "pdf")
