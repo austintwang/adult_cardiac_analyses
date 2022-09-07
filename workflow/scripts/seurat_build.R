@@ -36,6 +36,7 @@ proj <- AddMetaData(
 )
 proj[["percent.mt"]] <- PercentageFeatureSet(proj, pattern = "^MT-")
 proj[["percent.ribo"]] <- PercentageFeatureSet(proj, pattern = "^RP[SL]")
+print(head(proj@meta.data)) ####
 
 plt <- VlnPlot(proj, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
 ggsave(output_paths[["qc_violin"]], plt, device = "pdf")
