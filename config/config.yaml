@@ -15,7 +15,7 @@ bc_wl_atac: http://mitra.stanford.edu/kundaje/atwang/atac_whitelists/737K-arc-v1
 amulet_repo: https://github.com/UcarLab/AMULET.git
 amulet_repo_lowmem: https://github.com/austintwang/AMULET.git
 
-amulet_fdr: 0.1
+amulet_fdr: 0.01
 
 archr_seed: 8757647
 archr_min_frags: 5000
