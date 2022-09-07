@@ -95,7 +95,7 @@ rule seurat_soupx_rna:
         min_count_rna = config["seurat_min_count"],
         max_pct_mito_rna = config["seurat_max_pct_mito"]
     log:
-        console = "logs/{sample}/rna/seurat_build_rna/console.log"
+        console = "logs/{sample}/rna/seurat_soupx_rna/console.log"
     conda:
         "../envs/seurat.yaml"
     script:

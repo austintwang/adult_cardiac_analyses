@@ -36,9 +36,11 @@ sc <- SoupChannel(expression_matrix_raw, expression_matrix)
 sc <- setClusters(sc, metadata[,"seurat_clusters", drop=FALSE])
 sc <- autoEstCont(sc)
 out <- adjustCounts(sc)
+head(out) ####
 
 # Initialize the Seurat object with the raw (non-normalized data).
 proj <- CreateSeuratObject(counts = out, project = params[["sample_name"]], min.cells = 3, min.features = 0, meta.data = metadata)
+print(proj) ####
 
 proj <- NormalizeData(proj, normalization.method = "LogNormalize", scale.factor = 10000)
 proj <- FindVariableFeatures(proj, selection.method = "vst", nfeatures = 2000)
