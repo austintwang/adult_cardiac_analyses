@@ -63,7 +63,8 @@ rule seurat_doublets_rna:
         umap_filtered = "results/{sample}/rna/seurat_doublets_rna/umap_filtered.pdf"
     params:
         seed = config["seurat_seed"],
-        doublet_rate = config["doublet_formation_rate"]
+        doublet_rate = config["doublet_formation_rate"],
+        amulet_fdr = config["amulet_fdr"]
     log:
         console = "logs/{sample}/rna/seurat_doublets_rna/console.log"
     threads:
