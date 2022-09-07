@@ -37,6 +37,8 @@ proj <- AddMetaData(
 proj[["percent.mt"]] <- PercentageFeatureSet(proj, pattern = "^MT-")
 proj[["percent.ribo"]] <- PercentageFeatureSet(proj, pattern = "^RP[SL]")
 print(head(proj@meta.data)) ####
+print(sapply(proj@meta.data, class)) ####
+print(sapply(proj@meta.data, typeof)) ####
 sb = proj@meta.data$nCount_RNA > params[["min_count_rna"]] & proj@meta.data$percent.mt < params[["max_pct_mito_rna"]] & proj@meta.data$frag_count > params[["min_frags"]]
 sb = proj@meta.data$frag_count > params[["min_frags"]] ####
 print(head(proj@meta.data[sb])) ####
