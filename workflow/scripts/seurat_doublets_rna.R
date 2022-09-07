@@ -55,10 +55,13 @@ proj$doublet_amulet <- proj$amulet_qval > params[["amulet_fdr"]]
 proj$doublet_union <- proj$doublet_doubletfinder | proj$doublet_amulet
 proj$doublet_intersect <- proj$doublet_doubletfinder & proj$doublet_amulet
 
+print(head(proj@meta.data)) ####
 proj$doublet_status <- rep(NA, length(Cells(proj)))
 proj$doublet_status[proj$doublet_amulet] <- "Amulet only"
 proj$doublet_status[proj$doublet_doubletfinder] <- "DoubletFinder only"
 proj$doublet_status[proj$doublet_intersect] <- "Amulet and DoubletFinder"
+print(head(proj@meta.data)) ####
+
 plt <- DimPlot(proj, reduction = "umap", group.by = "doublet_status")
 ggsave(output_paths[["umap"]], plt, device = "pdf")
 
