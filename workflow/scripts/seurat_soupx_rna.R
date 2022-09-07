@@ -33,8 +33,11 @@ metadata <- read.table(file = input_paths[["metadata"]], sep = ',', header = TRU
 print(head(metadata)) ####
 
 sc <- SoupChannel(expression_matrix_raw, expression_matrix)
+sc ####
 sc <- setClusters(sc, metadata[,"seurat_clusters", drop=FALSE])
+sc ####
 sc <- autoEstCont(sc)
+sc ####
 out <- adjustCounts(sc)
 head(out) ####
 
