@@ -6,13 +6,11 @@ sink(console_log, type = "message")
 
 library(remotes)
 
-remotes::install_github('chris-mcginnis-ucsf/DoubletFinder')
-
 library(dplyr)
 library(Seurat)
 library(patchwork)
 library(ggplot2)
-library(DoubletFinder)
+library(DoubletFinder, lib.loc=input_paths[["doubletfinder_library_dir"]])
 
 params = snakemake@params 
 input_paths = snakemake@input

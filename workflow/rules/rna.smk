@@ -1,3 +1,16 @@
+rule seurat_install_doubletfinder:
+    """
+    Install doubletfinder R package
+    """
+    output:
+        doubletfinder_library_dir = directory("resources/doubletfinder_lib")
+    log:
+        console = "logs/resources/seurat_install_doubletfinder/console.log"
+    conda:
+        "../envs/archr.yaml"
+    script:
+        "../scripts/seurat_install_doubletfinder.R"
+
 rule seurat_build_reference:
     """
     Build Seurat reference dataset
@@ -54,7 +67,8 @@ rule seurat_doublets_rna:
     Filter doublets
     """
     input:
-        project_in = "results/{sample}/rna/seurat_build_rna/proj.rds"
+        project_in = "results/{sample}/rna/seurat_build_rna/proj.rds",
+        doubletfinder_library_dir = directory("resources/doubletfinder_lib")
     output:
         project_out_all = "results/{sample}/rna/seurat_doublets_rna/proj_all.rds",
         project_out_filtered = "results/{sample}/rna/seurat_doublets_rna/proj_filtered.rds",
