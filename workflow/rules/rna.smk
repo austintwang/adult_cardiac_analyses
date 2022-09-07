@@ -68,7 +68,7 @@ rule seurat_doublets_rna:
     """
     input:
         project_in = "results/{sample}/rna/seurat_build_rna/proj.rds",
-        doubletfinder_library_dir = directory("resources/doubletfinder_lib")
+        doubletfinder_library_dir = "resources/doubletfinder_lib"
     output:
         project_out_all = "results/{sample}/rna/seurat_doublets_rna/proj_all.rds",
         project_out_filtered = "results/{sample}/rna/seurat_doublets_rna/proj_filtered.rds",
