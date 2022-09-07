@@ -51,7 +51,7 @@ proj <- doubletFinder_v3(
 print(head(proj@meta.data)) ####
 doublets_col <- grep("DF.classifications", names(proj@meta.data), value = TRUE)
 proj$doublet_doubletfinder <- proj[[doublets_col]] != "Singlet"
-proj$doublet_amulet <- proj$amulet_qval > params[["amulet_fdr"]]
+proj$doublet_amulet <- proj$amulet_qval < params[["amulet_fdr"]]
 print(head(proj@meta.data)) ####
 proj$doublet_union <- proj$doublet_doubletfinder | proj$doublet_amulet
 proj$doublet_intersect <- proj$doublet_doubletfinder & proj$doublet_amulet
