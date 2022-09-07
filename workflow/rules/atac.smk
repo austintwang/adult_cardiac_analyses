@@ -83,7 +83,7 @@ rule write_amulet_barcodes:
     """
     input:
         metadata = "results/{sample}/atac/archr_qc_parsed",
-        amulet_barcodes = "results/{sample}/atac/amulet_barcode_data_final.csv"
+        amulet_barcodes = "results/{sample}/atac/amulet_barcode_data.csv"
     output:
         "results/{sample}/atac/amulet_barcode_data_final.csv"
     params:
