@@ -36,6 +36,7 @@ rownames(expression_matrix_raw) <- noquote(rownames(expression_matrix_raw)) ####
 # expression_matrix ####
 
 metadata <- read.table(file = input_paths[["metadata"]], sep = '\t', header = TRUE)
+rownames(metadata) <- metadata$X
 print(head(metadata)) ####
 print(head(colnames(expression_matrix))) ####
 print(head(rownames(expression_matrix))) ####
