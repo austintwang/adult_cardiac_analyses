@@ -23,11 +23,13 @@ expression_matrix <- ReadMtx(
   features = input_paths[["features"]],
   cells = input_paths[["cells"]]
 )
+expression_matrix ####
 expression_matrix_raw <- ReadMtx(
   mtx = input_paths[["mat_raw"]], 
   features = input_paths[["features_raw"]],
   cells = input_paths[["cells_raw"]]
 )
+expression_matrix ####
 
 metadata <- read.table(file = input_paths[["metadata"]], sep = '\t', header = TRUE)
 print(head(metadata)) ####
