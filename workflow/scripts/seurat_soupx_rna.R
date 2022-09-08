@@ -9,6 +9,7 @@ library(Seurat)
 library(patchwork)
 library(ggplot2)
 library(SoupX)
+library(Matrix)
 
 params = snakemake@params 
 input_paths = snakemake@input
