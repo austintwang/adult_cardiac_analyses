@@ -49,7 +49,8 @@ print(head(clusters)) ####
 print(length(clusters)) ####
 clusters <- as.list(clusters)[[1]]
 print(length(colnames(expression_matrix))) ####
-print(all(colnames(expression_matrix) %in% names(clusters))) ####
+# print(all(colnames(expression_matrix) %in% names(clusters))) ####
+clusters ####
 
 sc <- SoupChannel(expression_matrix_raw, expression_matrix)
 sc ####
