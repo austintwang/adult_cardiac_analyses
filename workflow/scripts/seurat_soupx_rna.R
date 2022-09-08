@@ -34,7 +34,7 @@ print(head(metadata)) ####
 
 sc <- SoupChannel(expression_matrix_raw, expression_matrix)
 # sc ####
-sc <- setClusters(sc, metadata[rownames(expression_matrix),"seurat_clusters", drop=FALSE])
+sc <- setClusters(sc, metadata[colnames(expression_matrix),"seurat_clusters", drop=FALSE])
 # sc ####
 sc <- autoEstCont(sc)
 # sc ####
