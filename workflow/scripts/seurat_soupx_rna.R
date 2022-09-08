@@ -35,7 +35,7 @@ metadata <- read.table(file = input_paths[["metadata"]], sep = '\t', header = TR
 print(head(metadata)) ####
 print(head(colnames(expression_matrix))) ####
 clusters <- metadata[colnames(expression_matrix),"seurat_clusters", drop=FALSE]
-print(head(clusters)) ####
+print(clusters) ####
 print(length(clusters)) ####
 print(length(colnames(expression_matrix))) ####
 print(all(colnames(expression_matrix) %in% names(clusters))) ####
