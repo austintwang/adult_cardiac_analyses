@@ -45,6 +45,7 @@ clusters <- metadata[colnames(expression_matrix),"seurat_clusters", drop=FALSE]
 rownames(clusters) <- colnames(expression_matrix)
 print(head(clusters)) ####
 print(length(clusters)) ####
+clusters <- as.list(clusters)[[1]]
 print(length(colnames(expression_matrix))) ####
 print(all(colnames(expression_matrix) %in% names(clusters))) ####
 
