@@ -23,7 +23,7 @@ expression_matrix <- ReadMtx(
   features = input_paths[["features"]],
   cells = input_paths[["cells"]]
 )
-# expression_matrix ####
+# colnames(expression_matrix) ####
 expression_matrix_raw <- ReadMtx(
   mtx = input_paths[["mat_raw"]], 
   features = input_paths[["features_raw"]],
@@ -34,8 +34,10 @@ expression_matrix_raw <- ReadMtx(
 metadata <- read.table(file = input_paths[["metadata"]], sep = '\t', header = TRUE)
 print(head(metadata)) ####
 print(head(colnames(expression_matrix))) ####
+print(head(rownames(expression_matrix))) ####
+
 clusters <- metadata[colnames(expression_matrix),"seurat_clusters", drop=FALSE]
-print(clusters) ####
+print(head(clusters)) ####
 print(length(clusters)) ####
 print(length(colnames(expression_matrix))) ####
 print(all(colnames(expression_matrix) %in% names(clusters))) ####
