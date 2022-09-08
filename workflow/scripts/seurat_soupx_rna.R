@@ -23,16 +23,16 @@ expression_matrix <- ReadMtx(
   features = input_paths[["features"]],
   cells = input_paths[["cells"]]
 )
-colnames(expression_matrix) <- unquote(colnames(expression_matrix)) ####
-rownames(expression_matrix) <- unquote(rownames(expression_matrix)) ####
+colnames(expression_matrix) <- noquote(colnames(expression_matrix)) ####
+rownames(expression_matrix) <- noquote(rownames(expression_matrix)) ####
 
 expression_matrix_raw <- ReadMtx(
   mtx = input_paths[["mat_raw"]], 
   features = input_paths[["features_raw"]],
   cells = input_paths[["cells_raw"]]
 )
-colnames(expression_matrix_raw) <- unquote(colnames(expression_matrix_raw)) ####
-rownames(expression_matrix_raw) <- unquote(rownames(expression_matrix_raw)) ####
+colnames(expression_matrix_raw) <- noquote(colnames(expression_matrix_raw)) ####
+rownames(expression_matrix_raw) <- noquote(rownames(expression_matrix_raw)) ####
 # expression_matrix ####
 
 metadata <- read.table(file = input_paths[["metadata"]], sep = '\t', header = TRUE)
