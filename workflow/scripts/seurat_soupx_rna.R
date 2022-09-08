@@ -47,7 +47,6 @@ rownames(clusters) <- colnames(expression_matrix)
 clusters$seurat_clusters[is.na(clusters$seurat_clusters)] <- -1
 print(head(clusters)) ####
 print(length(clusters)) ####
-clusters <- as.list(clusters)[[1]]
 print(length(colnames(expression_matrix))) ####
 setNames(clusters$seurat_clusters, rownames(clusters))
 # print(all(colnames(expression_matrix) %in% names(clusters))) ####
