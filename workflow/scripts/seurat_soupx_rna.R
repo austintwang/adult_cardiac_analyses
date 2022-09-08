@@ -31,9 +31,10 @@ expression_matrix_raw <- ReadMtx(
 
 metadata <- read.table(file = input_paths[["metadata"]], sep = '\t', header = TRUE)
 print(head(metadata)) ####
+print(head(metadata[colnames(expression_matrix),"seurat_clusters", drop=FALSE])) ####
 
 sc <- SoupChannel(expression_matrix_raw, expression_matrix)
-# sc ####
+sc ####
 sc <- setClusters(sc, metadata[colnames(expression_matrix),"seurat_clusters", drop=FALSE])
 # sc ####
 sc <- autoEstCont(sc)
