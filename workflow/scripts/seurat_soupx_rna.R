@@ -33,6 +33,7 @@ expression_matrix_raw <- ReadMtx(
 
 metadata <- read.table(file = input_paths[["metadata"]], sep = '\t', header = TRUE)
 print(head(metadata)) ####
+print(head(colnames(expression_matrix))) ####
 clusters <- metadata[colnames(expression_matrix),"seurat_clusters", drop=FALSE]
 print(head(clusters)) ####
 print(length(clusters)) ####
