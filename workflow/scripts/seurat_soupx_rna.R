@@ -75,51 +75,51 @@ sc ####
 # print(a) ####
 # print(head(sc$metaData)) ####
 # print(sc$soupProfile$est) ####
-out <- as(sc$toc,'dgTMatrix') ####
-expSoupCnts <- sc$metaData$nUMIs * sc$metaData$rho ####
-soupFrac <- sc$soupProfile$est ####
+# out <- as(sc$toc,'dgTMatrix') ####
+# expSoupCnts <- sc$metaData$nUMIs * sc$metaData$rho ####
+# soupFrac <- sc$soupProfile$est ####
 # tempf <- function(...) {
 #     argg <- c(as.list(environment()), list(...))
 #     print(argg)
 #     SoupX:::alloc(...)
 # }
-alloc = function(tgt,bucketLims,ws=rep(1/length(bucketLims),length(bucketLims))){
-  #Normalise weights
-  ws = ws/sum(ws)
-  #Save time in line
-  if(all(tgt*ws<=bucketLims))
-    return(tgt*ws)
-  print(head(ws)) ####
-  #Need to order things in the order they'll be removed as the tgt increases
-  o = order(bucketLims/ws)
-  w = ws[o]
-  y = bucketLims[o]
-  print(head(y)) ####
-  #The formula for number removed at entry i is
-  #k_i = \frac{y_i}{w_i} (1- \sum_j=0^{i-1} w_j) + \sum_j=0^{i-1} y_j
-  cw = cumsum(c(0,w[-length(w)]))
-  print(head(cw)) ####
-  print("weighowe") ####
-  print(head(y[-length(y)])) ####
-  print(head(c(0,y[-length(y)]))) ####
-  print(cumsum(c(0,y[-length(y)]))) ####
-  cy = cumsum(c(0,y[-length(y)]))
-  print(head(cy)) ####
-  k = y/w* (1 - cw) + cy
-  print(head(k)) ####
-  #Handle zero-weights appropriately
-  k[w==0] = Inf
-  #Everything that has k<=tgt will be set to y
-  b = (k<=tgt)
-  #We then need to work out how many counts to distribute we have left over and distribute them according to re-normalised weights
-  resid = tgt-sum(y[b])
-  w = w/(1-sum(w[b]))
-  out = ifelse(b,y,resid*w)
-  print(head(out)) ####
-  #Need to reverse sort
-  return(out[order(o)])
-}
-out <- out - do.call(cbind,lapply(seq(ncol(out)),function(e) alloc(expSoupCnts[e],out[,e],soupFrac))) ####
+# alloc = function(tgt,bucketLims,ws=rep(1/length(bucketLims),length(bucketLims))){
+#   #Normalise weights
+#   ws = ws/sum(ws)
+#   #Save time in line
+#   if(all(tgt*ws<=bucketLims))
+#     return(tgt*ws)
+#   print(head(ws)) ####
+#   #Need to order things in the order they'll be removed as the tgt increases
+#   o = order(bucketLims/ws)
+#   w = ws[o]
+#   y = bucketLims[o]
+#   print(head(y)) ####
+#   #The formula for number removed at entry i is
+#   #k_i = \frac{y_i}{w_i} (1- \sum_j=0^{i-1} w_j) + \sum_j=0^{i-1} y_j
+#   cw = cumsum(c(0,w[-length(w)]))
+#   print(head(cw)) ####
+#   print("weighowe") ####
+#   print(head(y[-length(y)])) ####
+#   print(head(c(0,y[-length(y)]))) ####
+#   print(cumsum(c(0,y[-length(y)]))) ####
+#   cy = cumsum(c(0,y[-length(y)]))
+#   print(head(cy)) ####
+#   k = y/w* (1 - cw) + cy
+#   print(head(k)) ####
+#   #Handle zero-weights appropriately
+#   k[w==0] = Inf
+#   #Everything that has k<=tgt will be set to y
+#   b = (k<=tgt)
+#   #We then need to work out how many counts to distribute we have left over and distribute them according to re-normalised weights
+#   resid = tgt-sum(y[b])
+#   w = w/(1-sum(w[b]))
+#   out = ifelse(b,y,resid*w)
+#   print(head(out)) ####
+#   #Need to reverse sort
+#   return(out[order(o)])
+# }
+# out <- out - do.call(cbind,lapply(seq(ncol(out)),function(e) alloc(expSoupCnts[e],out[,e],soupFrac))) ####
 
 out <- adjustCounts(sc) 
 # head(out) ####
