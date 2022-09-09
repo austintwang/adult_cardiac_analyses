@@ -83,7 +83,7 @@ tempf <- function(...) {
     print(argg)
     SoupX:::alloc(...)
 } ####
-out <- out - do.call(cbind,lapply(seq(ncol(out)),function(e) tempf) ####
+out <- out - do.call(cbind,lapply(seq(ncol(out)),function(e) tempf)) ####
 
 out <- adjustCounts(sc) 
 # head(out) ####
