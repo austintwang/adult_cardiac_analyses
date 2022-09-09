@@ -62,11 +62,13 @@ sc ####
 s <- split(colnames(sc$toc),clusters[colnames(sc$toc)]) ####
 print(s) ####
 # print(sc$toc) ####
-# print(sc$toc[,s[[2]]]) ####
-# print(sc$toc[,s[[2]],drop=FALSE]) ####
-# print(rowSums(sc$toc[,s[[2]],drop=FALSE])) ####
-# a <- do.call(cbind,lapply(s,function(e) rowSums(sc$toc[,e,drop=FALSE]))) ####
-# print(a) ####
+print(s[[2]]) ####
+print(colnames(s)) ####
+print(sc$toc[,s[[2]]]) ####
+print(sc$toc[,s[[2]],drop=FALSE]) ####
+print(rowSums(sc$toc[,s[[2]],drop=FALSE])) ####
+a <- do.call(cbind,lapply(s,function(e) rowSums(sc$toc[,e,drop=FALSE]))) ####
+print(a) ####
 out <- adjustCounts(sc)
 # head(out) ####
 
