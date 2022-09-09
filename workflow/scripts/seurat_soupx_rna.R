@@ -78,7 +78,7 @@ sc ####
 out <- as(sc$toc,'dgTMatrix') ####
 expSoupCnts <- sc$metaData$nUMIs * sc$metaData$rho ####
 soupFrac <- sc$soupProfile$est ####
-out <- out - do.call(cbind,lapply(seq(ncol(out)),function(e) SoupX::alloc(expSoupCnts[e],out[,e],soupFrac))) ####
+out <- out - do.call(cbind,lapply(seq(ncol(out)),function(e) SoupX:::alloc(expSoupCnts[e],out[,e],soupFrac))) ####
 
 out <- adjustCounts(sc) 
 # head(out) ####
