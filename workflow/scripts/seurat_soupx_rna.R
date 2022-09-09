@@ -51,6 +51,8 @@ print(length(colnames(expression_matrix))) ####
 clusters <- setNames(clusters$seurat_clusters, rownames(clusters))
 print(all(colnames(expression_matrix) %in% names(clusters))) ####
 # clusters ####
+s <- split(colnames(sc$toc),clusters[colnames(sc$toc)])
+do.call(cbind,lapply(s,function(e) rowSums(sc$toc[,e,drop=FALSE])))
 
 sc <- SoupChannel(expression_matrix_raw, expression_matrix)
 sc ####
@@ -58,6 +60,10 @@ sc <- setClusters(sc, clusters)
 # sc ####
 sc <- autoEstCont(sc)
 # sc ####
+s <- split(colnames(sc$toc),clusters[colnames(sc$toc)]) ####
+print(s) ####
+a <- do.call(cbind,lapply(s,function(e) rowSums(sc$toc[,e,drop=FALSE]))) ####
+print(a) ####
 out <- adjustCounts(sc)
 # head(out) ####
 
