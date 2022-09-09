@@ -59,7 +59,7 @@ sc <- setClusters(sc, clusters)
 sc ####
 sc <- autoEstCont(sc)
 sc ####
-s <- split(colnames(sc$toc),clusters[colnames(sc$toc)]) ####
+# s <- split(colnames(sc$toc),clusters[colnames(sc$toc)]) ####
 # print(s) ####
 # # print(sc$toc) ####
 # print(s$`0`) ####
@@ -75,7 +75,12 @@ s <- split(colnames(sc$toc),clusters[colnames(sc$toc)]) ####
 # print(a) ####
 print(head(sc$metaData)) ####
 print(sc$soupProfile$est) ####
-out <- adjustCounts(sc)
+out <- as(sc$toc,'dgTMatrix') ####
+expSoupCnts <- sc$metaData$nUMIs * sc$metaData$rho ####
+soupFrac <- sc$soupProfile$est ####
+out <- out - do.call(cbind,lapply(seq(ncol(out)),function(e) alloc(expSoupCnts[e],out[,e],soupFrac))) ####
+
+out <- adjustCounts(sc) 
 # head(out) ####
 
 # Initialize the Seurat object with the raw (non-normalized data).
