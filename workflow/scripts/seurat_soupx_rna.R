@@ -64,7 +64,8 @@ print(s) ####
 # print(sc$toc) ####
 print(s$`0`) ####
 b <- s$`0`[1:3]
-# print(colnames(sc$toc)) ####
+print(typeof(s$`0`))
+print(typeof(colnames(sc$toc))) ####
 # print(all(s$`0` %in% colnames(sc$toc))) ####
 print(b) ####
 print(sc$toc[,b]) ####
