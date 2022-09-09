@@ -138,6 +138,8 @@ proj <- FindNeighbors(proj, dims = 1:30)
 proj <- FindClusters(object = proj) 
 
 proj <- RunUMAP(proj, dims = 1:30, return.model = TRUE)
+
+plt <- DimPlot(proj, reduction = "umap", group.by = "seurat_clusters")
 ggsave(output_paths[["umap"]], plt, device = "pdf")
 
 saveRDS(proj, file = output_paths[["project_out"]])
