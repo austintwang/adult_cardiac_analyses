@@ -73,12 +73,12 @@ sc ####
 # print(rowSums(sc$toc[,s[[2]],drop=FALSE])) ####
 # a <- do.call(cbind,lapply(s,function(e) rowSums(sc$toc[,e,drop=FALSE]))) ####
 # print(a) ####
-print(head(sc$metaData)) ####
-print(sc$soupProfile$est) ####
+# print(head(sc$metaData)) ####
+# print(sc$soupProfile$est) ####
 out <- as(sc$toc,'dgTMatrix') ####
 expSoupCnts <- sc$metaData$nUMIs * sc$metaData$rho ####
 soupFrac <- sc$soupProfile$est ####
-out <- out - do.call(cbind,lapply(seq(ncol(out)),function(e) alloc(expSoupCnts[e],out[,e],soupFrac))) ####
+out <- out - do.call(cbind,lapply(seq(ncol(out)),function(e) SoupX::alloc(expSoupCnts[e],out[,e],soupFrac))) ####
 
 out <- adjustCounts(sc) 
 # head(out) ####
