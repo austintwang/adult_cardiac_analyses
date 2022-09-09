@@ -98,7 +98,9 @@ alloc = function(tgt,bucketLims,ws=rep(1/length(bucketLims),length(bucketLims)))
   #The formula for number removed at entry i is
   #k_i = \frac{y_i}{w_i} (1- \sum_j=0^{i-1} w_j) + \sum_j=0^{i-1} y_j
   cw = cumsum(c(0,w[-length(w)]))
+  print(head(cw)) ####
   cy = cumsum(c(0,y[-length(y)]))
+  print(head(cy)) ####
   k = y/w* (1 - cw) + cy
   print(head(k)) ####
   #Handle zero-weights appropriately
