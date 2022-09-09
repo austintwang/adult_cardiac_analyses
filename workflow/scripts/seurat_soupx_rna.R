@@ -53,7 +53,7 @@ print(all(colnames(expression_matrix) %in% names(clusters))) ####
 # clusters ####
 
 sc <- SoupChannel(expression_matrix_raw, expression_matrix)
-j(sc) ####
+sc ####
 sc <- setClusters(sc, clusters)
 sc ####
 sc <- autoEstCont(sc)
