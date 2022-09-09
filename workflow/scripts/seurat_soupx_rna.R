@@ -10,6 +10,7 @@ library(patchwork)
 library(ggplot2)
 library(SoupX)
 library(Matrix)
+library(MatrixExtra)
 
 params = snakemake@params 
 input_paths = snakemake@input
@@ -61,11 +62,11 @@ sc ####
 s <- split(colnames(sc$toc),clusters[colnames(sc$toc)]) ####
 print(s) ####
 # print(sc$toc) ####
-print(sc$toc[,s[[2]]]) ####
-print(sc$toc[,s[[2]],drop=FALSE]) ####
-print(rowSums(sc$toc[,s[[2]],drop=FALSE])) ####
-a <- do.call(cbind,lapply(s,function(e) rowSums(sc$toc[,e,drop=FALSE]))) ####
-print(a) ####
+# print(sc$toc[,s[[2]]]) ####
+# print(sc$toc[,s[[2]],drop=FALSE]) ####
+# print(rowSums(sc$toc[,s[[2]],drop=FALSE])) ####
+# a <- do.call(cbind,lapply(s,function(e) rowSums(sc$toc[,e,drop=FALSE]))) ####
+# print(a) ####
 out <- adjustCounts(sc)
 # head(out) ####
 
