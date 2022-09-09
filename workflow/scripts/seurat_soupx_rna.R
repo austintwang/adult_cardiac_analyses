@@ -10,7 +10,7 @@ library(patchwork)
 library(ggplot2)
 library(SoupX)
 library(Matrix)
-library(MatrixExtra)
+# library(MatrixExtra)
 
 params = snakemake@params 
 input_paths = snakemake@input
