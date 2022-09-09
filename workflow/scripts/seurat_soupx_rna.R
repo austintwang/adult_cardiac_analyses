@@ -100,6 +100,9 @@ alloc = function(tgt,bucketLims,ws=rep(1/length(bucketLims),length(bucketLims)))
   cw = cumsum(c(0,w[-length(w)]))
   print(head(cw)) ####
   print("weighowe") ####
+  print(head(y[-length(y)])) ####
+  print(head(c(0,y[-length(y)]))) ####
+  print(cumsum(c(0,y[-length(y)]))) ####
   cy = cumsum(c(0,y[-length(y)]))
   print(head(cy)) ####
   k = y/w* (1 - cw) + cy
