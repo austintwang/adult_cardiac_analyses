@@ -81,9 +81,9 @@ soupFrac <- sc$soupProfile$est ####
 tempf <- function(...) {
     argg <- c(as.list(environment()), list(...))
     print(argg)
-    # SoupX:::alloc(...)
-} ####
-print(do.call(cbind,lapply(seq(ncol(out)),function(e) tempf))) ####
+    SoupX:::alloc(...)
+}
+out <- out - do.call(cbind,lapply(seq(ncol(out)),function(e) tempf(expSoupCnts[e],out[,e],soupFrac))) ####
 
 out <- adjustCounts(sc) 
 # head(out) ####
