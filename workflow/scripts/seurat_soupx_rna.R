@@ -73,6 +73,7 @@ s <- split(colnames(sc$toc),clusters[colnames(sc$toc)]) ####
 # print(rowSums(sc$toc[,s[[2]],drop=FALSE])) ####
 # a <- do.call(cbind,lapply(s,function(e) rowSums(sc$toc[,e,drop=FALSE]))) ####
 # print(a) ####
+print(sc$metaData) ####
 out <- adjustCounts(sc)
 # head(out) ####
 
