@@ -63,7 +63,7 @@ s <- split(colnames(sc$toc),clusters[colnames(sc$toc)]) ####
 print(s) ####
 # print(sc$toc) ####
 print(s$`0`) ####
-print(colnames(s)) ####
+print(colnames(sc$toc)) ####
 print(sc$toc[,s$`0`]) ####
 print(sc$toc[,s$`0`,drop=FALSE]) ####
 print(rowSums(sc$toc[,s[[2]],drop=FALSE])) ####
