@@ -63,9 +63,10 @@ s <- split(colnames(sc$toc),clusters[colnames(sc$toc)]) ####
 print(s) ####
 # print(sc$toc) ####
 print(s$`0`) ####
+b <- s$`0`[1:3]
 # print(colnames(sc$toc)) ####
-print(all(s$`0` %in% colnames(sc$toc))) ####
-print(sc$toc[,s$`0`]) ####
+# print(all(s$`0` %in% colnames(sc$toc))) ####
+print(sc$toc[,b]) ####
 print(sc$toc[,s$`0`,drop=FALSE]) ####
 print(rowSums(sc$toc[,s[[2]],drop=FALSE])) ####
 a <- do.call(cbind,lapply(s,function(e) rowSums(sc$toc[,e,drop=FALSE]))) ####
