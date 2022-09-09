@@ -73,7 +73,8 @@ s <- split(colnames(sc$toc),clusters[colnames(sc$toc)]) ####
 # print(rowSums(sc$toc[,s[[2]],drop=FALSE])) ####
 # a <- do.call(cbind,lapply(s,function(e) rowSums(sc$toc[,e,drop=FALSE]))) ####
 # print(a) ####
-print(sc$metaData) ####
+print(head(sc$metaData)) ####
+print(sc$soupProfile$est) ####
 out <- adjustCounts(sc)
 # head(out) ####
 
