@@ -15,6 +15,7 @@ params = snakemake@params
 input_paths = snakemake@input
 output_paths = snakemake@output
 log_paths = snakemake@log
+wildcards = snakemake@wildcards
 
 library(DoubletFinder, lib.loc=input_paths[["doubletfinder_library_dir"]])
 
@@ -62,7 +63,7 @@ proj$doublet_status[proj$doublet_doubletfinder] <- "DoubletFinder only"
 proj$doublet_status[proj$doublet_intersect] <- "Amulet and DoubletFinder"
 print(head(proj@meta.data)) ####
 
-plt <- DimPlot(proj, reduction = "umap", group.by = "doublet_status")
+plt <- DimPlot(proj, reduction = "umap", group.by = "doublet_status") + labs(title=wildcards[["sample"]])
 ggsave(output_paths[["umap"]], plt, device = "pdf")
 
 proj_filtered <- subset(proj, subset = doublet_union == FALSE)

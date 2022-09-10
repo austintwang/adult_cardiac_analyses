@@ -43,6 +43,7 @@ rule all:
     """
     input: 
         expand("results/{sample}/rna/seurat_soupx_rna/proj.rds", sample=samples),
+        "qc_all/seurat_doublet_umaps.pdf"
         # "results_merged/atac/archr_init",
         # "results_merged/atac/archr_label",
         # "export/atac/embeddings/harmony.tsv.gz",

@@ -88,6 +88,19 @@ rule seurat_doublets_rna:
     script:
         "../scripts/seurat_doublets_rna.R"
 
+rule seurat_merge_doublet_plots:
+    """
+    Merge doublet plot pdf's
+    """
+    input:
+        expand("results/{sample}/rna/seurat_doublets_rna/umap.pdf", sample=samples)
+    output:
+        "qc_all/seurat_doublet_umaps.pdf"
+    conda:
+        "../envs/fetch.yaml"
+    shell:
+        "pdfunite {input} {output}"
+
 rule seurat_soupx_rna:
     """
     Filter ambient RNA with SoupX

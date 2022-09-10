@@ -34,6 +34,6 @@ rna_ref_counts: https://www.livercellatlas.org/data_files/toDownload/rawData_hum
 rna_ref_metadata: https://www.livercellatlas.org/data_files/toDownload/annot_humanAll.csv
 
 # doublet_formation_rate: 0.15
-doublet_formation_rate: 0.3
+doublet_formation_rate: 0.075
 
 gtf: https://www.encodeproject.org/files/ENCFF159KBI/@@download/ENCFF159KBI.gtf.gz
