@@ -34,7 +34,7 @@ rownames(metadata) <- metadata$NAME
 
 clusters <- metadata[colnames(expression_matrix),"cell_type_leiden06", drop=FALSE]
 rownames(clusters) <- colnames(expression_matrix)
-clusters$seurat_clusters[is.na(clusters$cell_type_leiden06)] <- -1
+clusters$cell_type_leiden06[is.na(clusters$cell_type_leiden06)] <- "Unknown"
 clusters <- setNames(clusters$cell_type_leiden06, rownames(clusters))
 
 sc <- SoupChannel(expression_matrix_raw, expression_matrix)

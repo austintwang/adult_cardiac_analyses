@@ -127,6 +127,7 @@ out <- adjustCounts(sc)
 # Initialize the Seurat object with the raw (non-normalized data).
 proj <- CreateSeuratObject(counts = out, project = params[["sample_name"]], min.cells = 3, min.features = 0, meta.data = metadata)
 proj <- proj[,colnames(proj) %in% rownames(metadata)]
+proj <- AddMetaData(object = proj, metadata = sc$metaData)
 print(proj) ####
 
 proj <- NormalizeData(proj, normalization.method = "LogNormalize", scale.factor = 10000)
@@ -140,7 +141,7 @@ proj <- FindClusters(object = proj)
 
 proj <- RunUMAP(proj, dims = 1:30, return.model = TRUE)
 
-plt <- DimPlot(proj, reduction = "umap", group.by = "seurat_clusters")
+plt <- FeaturePlot(proj, reduction = "umap", features = "rho")
 ggsave(output_paths[["umap"]], plt, device = "pdf")
 
 saveRDS(proj, file = output_paths[["project_out"]])
