@@ -30,7 +30,16 @@ seurat_seed: 2398756
 seurat_min_count: 1000
 seurat_max_pct_mito: 5
 
-rna_ref_kuppe: http://mitra.stanford.edu/kundaje/atwang/encode_scatac/cardiac_refs/kramann/local.rds
+rna_ref_kramann_data: http://mitra.stanford.edu/kundaje/atwang/encode_scatac_manual/cardiac_refs/kramann/local.rds
+
+rna_ref_ellinor:
+  mat: http://mitra.stanford.edu/kundaje/atwang/encode_scatac_manual/cardiac_refs/ellinor/SCP1303/expression/614a0209771a5b0d7f03370f/DCM_HCM_Expression_Matrix_V1.mtx.gz
+  features: http://mitra.stanford.edu/kundaje/atwang/encode_scatac_manual/cardiac_refs/ellinor/SCP1303/expression/614a0209771a5b0d7f03370f/DCM_HCM_Expression_Matrix_genes_norm_V1.tsv.gz
+  cells: http://mitra.stanford.edu/kundaje/atwang/encode_scatac_manual/cardiac_refs/ellinor/SCP1303/expression/614a0209771a5b0d7f03370f/DCM_HCM_Expression_Matrix_barcodes_norm_V1.tsv.gz
+  mat_raw: http://mitra.stanford.edu/kundaje/atwang/encode_scatac_manual/cardiac_refs/ellinor/SCP1303/expression/614a0209771a5b0d7f033712/DCM_HCM_Expression_Matrix_raw_counts_V1.mtx.gz
+  features_raw: http://mitra.stanford.edu/kundaje/atwang/encode_scatac_manual/cardiac_refs/ellinor/SCP1303/expression/614a0209771a5b0d7f033712/DCM_HCM_Expression_Matrix_genes_V1.tsv.gz
+  cells_raw: http://mitra.stanford.edu/kundaje/atwang/encode_scatac_manual/cardiac_refs/ellinor/SCP1303/expression/614a0209771a5b0d7f033712/DCM_HCM_Expression_Matrix_barcodes_V1.tsv.gz
+  metadata: http://mitra.stanford.edu/kundaje/atwang/encode_scatac_manual/cardiac_refs/ellinor/SCP1303/metadata/DCM_HCM_MetaData_V1.txt.gz
 
 rna_ref_counts: https://www.livercellatlas.org/data_files/toDownload/rawData_human.zip
 rna_ref_metadata: https://www.livercellatlas.org/data_files/toDownload/annot_humanAll.csv

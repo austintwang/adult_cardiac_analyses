@@ -11,28 +11,51 @@ rule seurat_install_doubletfinder:
     script:
         "../scripts/seurat_install_doubletfinder.R"
 
-rule seurat_build_reference:
+rule seurat_build_reference_kramann:
     """
     Build Seurat reference dataset
     """
     input:
-        mat = "reference/fetch/matrix.mtx",
-        features = "reference/fetch/features.tsv",
-        cells = "reference/fetch/barcodes.tsv",
-        metadata = "reference/fetch/metadata.csv"
+        seurat_object = "reference/kramann/fetch/seurat.rds",
     output:
-        project_out = "reference/seurat_build_reference/proj.rds",
-        qc_violin = "reference/seurat_build_reference/qc_violin.pdf",
-        qc_scatter = "reference/seurat_build_reference/qc_scatter.pdf",
-        umap =  "reference/seurat_build_reference/umap.pdf"
+        project_out = "reference/kramann/seurat_build_reference/proj.rds",
+        qc_violin = "reference/kramann/seurat_build_reference/qc_violin.pdf",
+        qc_scatter = "reference/kramann/seurat_build_reference/qc_scatter.pdf",
+        umap = "reference/kramann/seurat_build_reference/umap.pdf"
     params:
         seed = config["seurat_seed"]
     log:
-        console = "logs/reference/seurat_build_reference/seurat_build_rna/console.log"
+        console = "logs/reference/kramann/seurat_build_reference/seurat_build_rna/console.log"
     conda:
         "../envs/seurat.yaml"
     script:
-        "../scripts/seurat_build_reference.R"
+        "../scripts/seurat_build_reference_kramann.R"
+
+rule seurat_build_reference_ellinor:
+    """
+    Build Seurat reference dataset
+    """
+    input:
+        mat = "reference/ellinor/fetch/matrix.mtx.gz",
+        features = "reference/ellinor/fetch/features.tsv.gz",
+        cells = "reference/ellinor/fetch/barcodes.tsv.gz",
+        mat_raw = "reference/ellinor/fetch/matrix_raw.mtx.gz",
+        features_raw = "reference/ellinor/fetch/features_raw.tsv.gz",
+        cells_raw = "reference/ellinor/fetch/barcodes_raw.tsv.gz",
+        metadata = "reference/ellinor/fetch/metadata.tsv.gz"
+    output:
+        project_out = "reference/ellinor/seurat_build_reference/proj.rds",
+        qc_violin = "reference/ellinor/seurat_build_reference/qc_violin.pdf",
+        qc_scatter = "reference/ellinor/seurat_build_reference/qc_scatter.pdf",
+        umap = "reference/ellinor/seurat_build_reference/umap.pdf"
+    params:
+        seed = config["seurat_seed"]
+    log:
+        console = "logs/reference/ellinor/seurat_build_reference/seurat_build_rna/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_build_reference_ellinor.R"
 
 rule seurat_build_rna:
     """

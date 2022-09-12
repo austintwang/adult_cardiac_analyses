@@ -43,7 +43,9 @@ rule all:
     """
     input: 
         expand("results/{sample}/rna/seurat_soupx_rna/proj.rds", sample=samples),
-        "qc_all/seurat_doublet_umaps.pdf"
+        "qc_all/seurat_doublet_umaps.pdf",
+        "reference/kramann/seurat_build_reference/proj.rds", ####
+        "reference/ellinor/seurat_build_reference/proj.rds", ####
         # "results_merged/atac/archr_init",
         # "results_merged/atac/archr_label",
         # "export/atac/embeddings/harmony.tsv.gz",
@@ -301,48 +303,49 @@ rule move_expression_raw:
         "cp {input}/features.tsv {output.features}; "
         "cp {input}/barcodes.tsv {output.barcodes};"
 
-rule download_rna_ref_counts:
-    """
-    Download reference expression tarball
-    """
-    output:
-        "reference/fetch/expression.zip"
-    params:
-        url = config["rna_ref_counts"]
-    conda:
-        "envs/fetch.yaml"
-    shell:
-        "curl --no-progress-meter -L -f '{params.url}' > {output}"
-
-rule extract_rna_ref_counts:
-    """
-    Extract reference expression data from tarball
-    """
-    input:
-        "reference/fetch/expression.zip"
-    output:
-        matrix = "reference/fetch/matrix.mtx",
-        features = "reference/fetch/features.tsv",
-        barcodes = "reference/fetch/barcodes.tsv",
-    conda:
-        "envs/fetch.yaml"
-    shell:
-        "unzip -p {input} rawData_human/countTable_human/matrix.mtx.gz | zcat > {output.matrix}; "
-        "unzip -p {input} rawData_human/countTable_human/features.tsv.gz | zcat > {output.features}; "
-        "unzip -p {input} rawData_human/countTable_human/barcodes.tsv.gz | zcat > {output.barcodes} "
-
-rule download_rna_ref_metadata:
+rule download_kramann_data:
     """
     Download reference metadata
     """
     output:
-        "reference/fetch/metadata.csv"
+        "reference/kramann/fetch/seurat.rds"
     params:
-        url = config["rna_ref_metadata"]
+        url = config["rna_ref_kramann_data"]
     conda:
         "envs/fetch.yaml"
     shell:
         "curl --no-progress-meter -L -f '{params.url}' > {output}"
+
+rule download_ellinor_data:
+    """
+    Download reference data
+    """
+    output:
+        mat = "reference/ellinor/fetch/matrix.mtx.gz",
+        features = "reference/ellinor/fetch/features.tsv.gz",
+        cells = "reference/ellinor/fetch/barcodes.tsv.gz",
+        mat_raw = "reference/ellinor/fetch/matrix_raw.mtx.gz",
+        features_raw = "reference/ellinor/fetch/features_raw.tsv.gz",
+        cells_raw = "reference/ellinor/fetch/barcodes_raw.tsv.gz",
+        metadata = "reference/ellinor/fetch/metadata.tsv.gz"
+    params:
+        url_mat = config["rna_ref_ellinor"]["mat"],
+        url_features = config["rna_ref_ellinor"]["features"],
+        url_cells = config["rna_ref_ellinor"]["cells"],
+        url_mat_raw = config["rna_ref_ellinor"]["mat_raw"],
+        url_features_raw = config["rna_ref_ellinor"]["features_raw"],
+        url_cells_raw = config["rna_ref_ellinor"]["cells_raw"],
+        url_metadata = config["rna_ref_ellinor"]["metadata"],
+    conda:
+        "envs/fetch.yaml"
+    shell:
+        "curl --no-progress-meter -L -f '{params.url_mat}' > {output.mat}; "
+        "curl --no-progress-meter -L -f '{params.url_features}' > {output.features}; "
+        "curl --no-progress-meter -L -f '{params.url_cells}' > {output.cells}; "
+        "curl --no-progress-meter -L -f '{params.url_mat_raw}' > {output.mat_raw}; "
+        "curl --no-progress-meter -L -f '{params.url_features_raw}' > {output.features_raw}; "
+        "curl --no-progress-meter -L -f '{params.url_cells_raw}' > {output.cells_raw}; "
+        "curl --no-progress-meter -L -f '{params.url_metadata}' > {output.metadata}; "
 
 rule download_barcode_wl:
     """
