@@ -18,10 +18,10 @@ set.seed(params[["seed"]])
 
 proj <- readRDS(input_paths[["seurat_object"]])
 print(proj) ####
-proj <- DietSeurat(proj)
+# proj <- DietSeurat(proj)
 Project(proj) <- "Kramann"
 
-print(proj) ####
+# print(proj) ####
 
 proj[["percent.mt"]] <- PercentageFeatureSet(proj, pattern = "^MT-")
 proj$cell_type <- proj[["annot"]]
