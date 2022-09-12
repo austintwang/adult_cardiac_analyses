@@ -126,6 +126,7 @@ out <- adjustCounts(sc)
 
 # Initialize the Seurat object with the raw (non-normalized data).
 proj <- CreateSeuratObject(counts = out, project = params[["sample_name"]], min.cells = 3, min.features = 0, meta.data = metadata)
+proj <- proj[,colnames(proj) %in% rownames(metadata)]
 print(proj) ####
 
 proj <- NormalizeData(proj, normalization.method = "LogNormalize", scale.factor = 10000)

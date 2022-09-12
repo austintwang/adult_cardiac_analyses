@@ -16,32 +16,14 @@ log_paths <- snakemake@log
 
 set.seed(params[["seed"]])
 
-# Load the proj dataset
-expression_matrix <- ReadMtx(
-  mtx = input_paths[["mat"]], 
-  features = input_paths[["features"]],
-  cells = input_paths[["cells"]],
-  feature.column = 1,
-)
-# print(expression_matrix) ####
-metadata <- read.table(file = input_paths[["metadata"]], sep = ',', header = TRUE)
-rownames(metadata) <- metadata$cell
-print(head(metadata)) ####
-# expression_matrix <- expression_matrix[rownames(metadata)]
+proj <- readRDS(input_paths[["object"]])
+proj <- DietSeurat(proj, data = FALSE)
+Project(proj) <- "Kramann"
 
-# Initialize the Seurat object with the raw (non-normalized data).
-proj <- CreateSeuratObject(
-    counts = expression_matrix, 
-    project = "reference", 
-    min.cells = 3, 
-    min.features = 200, 
-    meta.data = metadata
-)
+print(proj) ####
+
 proj[["percent.mt"]] <- PercentageFeatureSet(proj, pattern = "^MT-")
 proj$cell_type <- proj[["annot"]]
-# proj$cell_type <- replace(proj$cell_type, proj$cell_type == "", "Unknown")
-# proj <- subset(proj, subset = cell_type != "NA")
-proj <- subset(proj, subset = typeSample == "nucSeq")
 
 plt <- VlnPlot(proj, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
 ggsave(output_paths[["qc_violin"]], plt, device = "pdf")
