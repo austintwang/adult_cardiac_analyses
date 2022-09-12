@@ -46,6 +46,7 @@ rule seurat_build_rna:
     output:
         project_out = "results/{sample}/rna/seurat_build_rna/proj.rds",
         metadata = "results/{sample}/rna/seurat_build_rna/metadata.tsv",
+        metadata_filtered = "results/{sample}/rna/seurat_build_rna/metadata_filtered.tsv",
         qc_violin = "results/{sample}/rna/seurat_build_rna/qc_violin.pdf",
         qc_scatter = "results/{sample}/rna/seurat_build_rna/qc_scatter.pdf",
     params:
@@ -73,7 +74,7 @@ rule seurat_soupx_rna:
         mat_raw = "results/{sample}/fetch/matrix_raw.mtx",
         features_raw = "results/{sample}/fetch/features_raw.tsv",
         cells_raw = "results/{sample}/fetch/barcodes_raw.tsv",
-        metadata = "results/{sample}/rna/seurat_build_rna/metadata.tsv"
+        metadata = "results/{sample}/rna/seurat_build_rna/metadata_filtered.tsv"
     output:
         project_out = "results/{sample}/rna/seurat_soupx_rna/proj.rds",
         umap = "results/{sample}/rna/seurat_soupx_rna/umap.pdf"

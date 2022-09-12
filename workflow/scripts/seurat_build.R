@@ -76,6 +76,8 @@ proj <- FindClusters(object = proj)
 
 proj <- RunUMAP(proj, dims = 1:30, return.model = TRUE)
 
+write.table(proj@meta.data, file=output_paths[["metadata_filtered"]], quote=FALSE, sep='\t', col.names = NA)
+
 plt <- DimPlot(proj, reduction = "umap", group.by = "seurat_clusters")
 ggsave(output_paths[["umap"]], plt, device = "pdf")
 
