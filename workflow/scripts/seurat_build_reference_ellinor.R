@@ -22,15 +22,18 @@ expression_matrix <- ReadMtx(
   features = input_paths[["features"]],
   cells = input_paths[["cells"]]
 )
+input_paths[is.na(input_paths)] <- 0
 
 expression_matrix_raw <- ReadMtx(
   mtx = input_paths[["mat_raw"]], 
   features = input_paths[["features_raw"]],
   cells = input_paths[["cells_raw"]]
 )
+expression_matrix_raw[is.na(expression_matrix_raw)] <- 0
 
 metadata <- read.table(file = input_paths[["metadata"]], sep = '\t', header = TRUE)
 rownames(metadata) <- metadata$NAME
+print(head(metadata)) ####
 
 clusters <- metadata[colnames(expression_matrix),"cell_type_leiden06", drop=FALSE]
 rownames(clusters) <- colnames(expression_matrix)
