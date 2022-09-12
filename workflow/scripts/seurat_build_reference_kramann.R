@@ -17,7 +17,7 @@ log_paths <- snakemake@log
 set.seed(params[["seed"]])
 
 proj <- readRDS(input_paths[["seurat_object"]])
-proj <- DietSeurat(proj, data = FALSE)
+proj <- DietSeurat(proj)
 Project(proj) <- "Kramann"
 
 print(proj) ####
