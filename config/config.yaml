@@ -30,6 +30,8 @@ seurat_seed: 2398756
 seurat_min_count: 1000
 seurat_max_pct_mito: 5
 
+rna_ref_kuppe: ""
+
 rna_ref_counts: https://www.livercellatlas.org/data_files/toDownload/rawData_human.zip
 rna_ref_metadata: https://www.livercellatlas.org/data_files/toDownload/annot_humanAll.csv
 

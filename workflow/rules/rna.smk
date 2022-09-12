@@ -62,12 +62,39 @@ rule seurat_build_rna:
     script:
         "../scripts/seurat_build.R"
 
+rule seurat_soupx_rna:
+    """
+    Filter ambient RNA with SoupX
+    """
+    input:
+        mat = "results/{sample}/fetch/matrix.mtx",
+        features = "results/{sample}/fetch/features.tsv",
+        cells = "results/{sample}/fetch/barcodes.tsv",
+        mat_raw = "results/{sample}/fetch/matrix_raw.mtx",
+        features_raw = "results/{sample}/fetch/features_raw.tsv",
+        cells_raw = "results/{sample}/fetch/barcodes_raw.tsv",
+        metadata = "results/{sample}/rna/seurat_build_rna/metadata.tsv"
+    output:
+        project_out = "results/{sample}/rna/seurat_soupx_rna/proj.rds",
+        umap = "results/{sample}/rna/seurat_soupx_rna/umap.pdf"
+    params:
+        sample_name = lambda w: w.sample,
+        seed = config["seurat_seed"],
+        min_count_rna = config["seurat_min_count"],
+        max_pct_mito_rna = config["seurat_max_pct_mito"]
+    log:
+        console = "logs/{sample}/rna/seurat_soupx_rna/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_soupx_rna.R"
+
 rule seurat_doublets_rna:
     """
     Filter doublets
     """
     input:
-        project_in = "results/{sample}/rna/seurat_build_rna/proj.rds",
+        project_in = "results/{sample}/rna/seurat_soupx_rna/proj.rds",
         doubletfinder_library_dir = "resources/doubletfinder_lib"
     output:
         project_out_all = "results/{sample}/rna/seurat_doublets_rna/proj_all.rds",
@@ -100,33 +127,6 @@ rule seurat_merge_doublet_plots:
         "../envs/fetch.yaml"
     shell:
         "pdfunite {input} {output}"
-
-rule seurat_soupx_rna:
-    """
-    Filter ambient RNA with SoupX
-    """
-    input:
-        mat = "results/{sample}/fetch/matrix.mtx",
-        features = "results/{sample}/fetch/features.tsv",
-        cells = "results/{sample}/fetch/barcodes.tsv",
-        mat_raw = "results/{sample}/fetch/matrix_raw.mtx",
-        features_raw = "results/{sample}/fetch/features_raw.tsv",
-        cells_raw = "results/{sample}/fetch/barcodes_raw.tsv",
-        metadata = "results/{sample}/rna/seurat_doublets_rna/metadata.tsv"
-    output:
-        project_out = "results/{sample}/rna/seurat_soupx_rna/proj.rds",
-        umap = "results/{sample}/rna/seurat_soupx_rna/umap.pdf"
-    params:
-        sample_name = lambda w: w.sample,
-        seed = config["seurat_seed"],
-        min_count_rna = config["seurat_min_count"],
-        max_pct_mito_rna = config["seurat_max_pct_mito"]
-    log:
-        console = "logs/{sample}/rna/seurat_soupx_rna/console.log"
-    conda:
-        "../envs/seurat.yaml"
-    script:
-        "../scripts/seurat_soupx_rna.R"
 
 rule seurat_transfer_rna:
     """
