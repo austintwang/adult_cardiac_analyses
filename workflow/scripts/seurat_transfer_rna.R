@@ -39,25 +39,29 @@ anchors <- FindTransferAnchors(
 head(proj@meta.data) ####
 head(rownames(proj)) ####
 
-proj <- MapQuery(
+proj_tmp <- MapQuery(
   anchorset = anchors,
   query = proj,
   reference = ellinor,
   refdata = "cell_type",
   reference.reduction = "pcaproject"
 )
-proj$cell_type_ellinor_fine <- proj$predicted.id
+head(proj_tmp@meta.data) ####
+head(rownames(proj_tmp)) ####
+proj$cell_type_ellinor_fine <- proj_tmp$predicted.id
 head(proj@meta.data) ####
 head(rownames(proj)) ####
 
-proj <- MapQuery(
+proj_tmp <- MapQuery(
   anchorset = anchors,
   query = proj,
   reference = ellinor,
   refdata = "cell_type_leiden06",
   reference.reduction = "pcaproject"
 )
-proj$cell_type_ellinor_coarse <- proj$predicted.id
+head(proj_tmp@meta.data) ####
+head(rownames(proj_tmp)) ####
+proj$cell_type_ellinor_coarse <- proj_tmp$predicted.id
 head(proj@meta.data) ####
 head(rownames(proj)) ####
 
@@ -68,14 +72,14 @@ anchors <- FindTransferAnchors(
   reference.reduction = "pca",
   reduction = "pcaproject"
 )
-proj <- MapQuery(
+proj_tmp <- MapQuery(
   anchorset = anchors,
   query = proj,
   reference = kramann,
   refdata = "cell_type",
   reference.reduction = "pcaproject"
 )
-proj$cell_type_kramann <- proj$predicted.id
+proj$cell_type_kramann <- proj_tmp$predicted.id
 
 proj <- FindNeighbors(proj, dims = 1:30, reduction = "pca")
 proj <- RunUMAP(proj, dims = 1:30, reduction = "pca")
