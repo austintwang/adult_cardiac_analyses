@@ -33,6 +33,8 @@ expression_matrix <- ReadMtx(
 
 metadata <- read.table(file = input_paths[["metadata"]], sep = '\t', header = TRUE, quote = "")
 rownames(metadata) <- metadata$NAME
+metadata <- metadata[colnames(expression_matrix),]
+rownames(metadata) <- colnames(expression_matrix)
 print(head(metadata)) ####
 
 # clusters <- metadata[colnames(expression_matrix),"cell_type_leiden06", drop=FALSE]
