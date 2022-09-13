@@ -113,6 +113,19 @@ rule seurat_soupx_rna:
     script:
         "../scripts/seurat_soupx_rna.R"
 
+rule seurat_merge_soupx_plots:
+    """
+    Merge soupx plot pdf's
+    """
+    input:
+        expand("results/{sample}/rna/seurat_soupx_rna/umap.pdf", sample=samples)
+    output:
+        "qc_all/seurat_soupx_umaps.pdf"
+    conda:
+        "../envs/fetch.yaml"
+    shell:
+        "pdfunite {input} {output}"
+
 rule seurat_doublets_rna:
     """
     Filter doublets

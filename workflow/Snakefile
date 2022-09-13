@@ -44,6 +44,7 @@ rule all:
     input: 
         expand("results/{sample}/rna/seurat_soupx_rna/proj.rds", sample=samples),
         "qc_all/seurat_doublet_umaps.pdf",
+        "qc_all/seurat_soupx_umaps.pdf",
         "reference/kramann/seurat_build_reference/proj.rds", ####
         "reference/ellinor/seurat_build_reference/proj.rds", ####
         # "results_merged/atac/archr_init",
