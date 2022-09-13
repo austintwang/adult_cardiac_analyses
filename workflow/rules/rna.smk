@@ -39,9 +39,9 @@ rule seurat_build_reference_ellinor:
         mat = "reference/ellinor/fetch/matrix.mtx.gz",
         features = "reference/ellinor/fetch/features.tsv.gz",
         cells = "reference/ellinor/fetch/barcodes.tsv.gz",
-        mat_raw = "reference/ellinor/fetch/matrix_raw.mtx.gz",
-        features_raw = "reference/ellinor/fetch/features_raw.tsv.gz",
-        cells_raw = "reference/ellinor/fetch/barcodes_raw.tsv.gz",
+        # mat_raw = "reference/ellinor/fetch/matrix_raw.mtx.gz",
+        # features_raw = "reference/ellinor/fetch/features_raw.tsv.gz",
+        # cells_raw = "reference/ellinor/fetch/barcodes_raw.tsv.gz",
         metadata = "reference/ellinor/fetch/metadata.tsv.gz"
     output:
         project_out = "reference/ellinor/seurat_build_reference/proj.rds",
@@ -171,10 +171,12 @@ rule seurat_transfer_rna:
     """
     input:
         project_rna = "results/{sample}/rna/seurat_doublets_rna/proj_filtered.rds",
-        project_ref = "reference/seurat_build_reference/proj.rds"
+        project_ellinor = "reference/ellinor/seurat_build_reference/proj.rds",
+        project_kramann = "reference/kramann/seurat_build_reference/proj.rds"
     output:
         project_out = "results/{sample}/rna/seurat_transfer_rna/proj.rds",
-        umap = "results/{sample}/rna/seurat_transfer_rna/umap.pdf"
+        umap_ellinor = "results/{sample}/rna/seurat_transfer_rna/umap_ellinor.pdf",
+        umap_kramann = "results/{sample}/rna/seurat_transfer_rna/umap_kramann.pdf"
     params:
         seed = config["seurat_seed"],
     log:

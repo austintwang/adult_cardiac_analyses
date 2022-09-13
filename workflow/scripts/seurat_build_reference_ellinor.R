@@ -8,7 +8,7 @@ library(dplyr)
 library(Seurat)
 library(patchwork)
 library(ggplot2)
-library(SoupX)
+# library(SoupX)
 
 params <- snakemake@params
 input_paths <- snakemake@input
@@ -22,34 +22,34 @@ expression_matrix <- ReadMtx(
   features = input_paths[["features"]],
   cells = input_paths[["cells"]]
 )
-expression_matrix[is.na(expression_matrix)] <- 0
+# expression_matrix[is.na(expression_matrix)] <- 0
 
-expression_matrix_raw <- ReadMtx(
-  mtx = input_paths[["mat_raw"]], 
-  features = input_paths[["features_raw"]],
-  cells = input_paths[["cells_raw"]]
-)
-expression_matrix_raw[is.na(expression_matrix_raw)] <- 0
+# expression_matrix_raw <- ReadMtx(
+#   mtx = input_paths[["mat_raw"]], 
+#   features = input_paths[["features_raw"]],
+#   cells = input_paths[["cells_raw"]]
+# )
+# expression_matrix_raw[is.na(expression_matrix_raw)] <- 0
 
 metadata <- read.table(file = input_paths[["metadata"]], sep = '\t', header = TRUE, quote = "")
 rownames(metadata) <- metadata$NAME
 print(head(metadata)) ####
 
-clusters <- metadata[colnames(expression_matrix),"cell_type_leiden06", drop=FALSE]
-rownames(clusters) <- colnames(expression_matrix)
-clusters$cell_type_leiden06[is.na(clusters$cell_type_leiden06)] <- "Unknown"
-clusters <- setNames(clusters$cell_type_leiden06, rownames(clusters))
-print(head(clusters)) ####
+# clusters <- metadata[colnames(expression_matrix),"cell_type_leiden06", drop=FALSE]
+# rownames(clusters) <- colnames(expression_matrix)
+# clusters$cell_type_leiden06[is.na(clusters$cell_type_leiden06)] <- "Unknown"
+# clusters <- setNames(clusters$cell_type_leiden06, rownames(clusters))
+# print(head(clusters)) ####
 
-sc <- SoupChannel(expression_matrix_raw, expression_matrix)
-sc <- setClusters(sc, clusters)
-sc <- autoEstCont(sc)
+# sc <- SoupChannel(expression_matrix_raw, expression_matrix)
+# sc <- setClusters(sc, clusters)
+# sc <- autoEstCont(sc)
 
-out <- adjustCounts(sc) 
+# out <- adjustCounts(sc) 
 
 # Initialize the Seurat object with the raw (non-normalized data).
 proj <- CreateSeuratObject(
-    counts = out, 
+    counts = expression_matrix, 
     project = "reference", 
     min.cells = 3, 
     min.features = 200, 
@@ -57,6 +57,7 @@ proj <- CreateSeuratObject(
 )
 proj[["percent.mt"]] <- PercentageFeatureSet(proj, pattern = "^MT-")
 proj$cell_type <- proj[["sub_cluster"]]
+proj$cell_type[is.na(clusters$cell_type)] <- proj[["cell_type_leiden06"]][is.na(clusters$cell_type)]
 
 plt <- VlnPlot(proj, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
 ggsave(output_paths[["qc_violin"]], plt, device = "pdf")
