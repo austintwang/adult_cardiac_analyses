@@ -39,6 +39,7 @@ clusters <- metadata[colnames(expression_matrix),"cell_type_leiden06", drop=FALS
 rownames(clusters) <- colnames(expression_matrix)
 clusters$cell_type_leiden06[is.na(clusters$cell_type_leiden06)] <- "Unknown"
 clusters <- setNames(clusters$cell_type_leiden06, rownames(clusters))
+print(head(clusters)) ####
 
 sc <- SoupChannel(expression_matrix_raw, expression_matrix)
 sc <- setClusters(sc, clusters)
@@ -46,17 +47,9 @@ sc <- autoEstCont(sc)
 
 out <- adjustCounts(sc) 
 
-# Load the proj dataset
-expression_matrix <- ReadMtx(
-  mtx = input_paths[["mat"]], 
-  features = input_paths[["features"]],
-  cells = input_paths[["cells"]],
-  feature.column = 1,
-)
-
 # Initialize the Seurat object with the raw (non-normalized data).
 proj <- CreateSeuratObject(
-    counts = expression_matrix, 
+    counts = out, 
     project = "reference", 
     min.cells = 3, 
     min.features = 200, 
