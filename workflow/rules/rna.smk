@@ -191,7 +191,7 @@ rule seurat_merge_rna:
     Merge RNA samples
     """
     input:
-        projects_in = lambda w: f"results/{i}/rna/seurat_transfer_rna/proj.rds" for i in groups[w.group]
+        projects_in = lambda w: [f"results/{i}/rna/seurat_transfer_rna/proj.rds" for i in groups[w.group]]
     output:
         project_out = "results_merged/{group}/rna/seurat_merge_rna/proj.rds",
         umap_dataset_pre_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_dataset_pre_harmony.pdf",
