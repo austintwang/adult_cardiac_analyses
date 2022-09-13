@@ -41,7 +41,16 @@ proj <- MapQuery(
   refdata = "cell_type",
   reference.reduction = "pcaproject"
 )
-proj$cell_type_ellinor <- proj$predicted.id
+proj$cell_type_ellinor_fine <- proj$predicted.id
+
+proj <- MapQuery(
+  anchorset = anchors,
+  query = proj,
+  reference = ellinor,
+  refdata = "cell_type_leiden06",
+  reference.reduction = "pcaproject"
+)
+proj$cell_type_ellinor_coarse <- proj$predicted.id
 
 anchors <- FindTransferAnchors(
   reference = kramann,
@@ -63,7 +72,10 @@ proj <- FindNeighbors(proj, dims = 1:30, reduction = "pca")
 proj <- RunUMAP(proj, dims = 1:30, reduction = "pca")
 
 plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_ellinor")
-ggsave(output_paths[["umap_ellinor"]], plt, device = "pdf")
+ggsave(output_paths[["umap_ellinor_fine"]], plt, device = "pdf")
+
+plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_ellinor")
+ggsave(output_paths[["umap_ellinor_coarse"]], plt, device = "pdf")
 
 plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_kramann")
 ggsave(output_paths[["umap_kramann"]], plt, device = "pdf")
