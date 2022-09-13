@@ -59,7 +59,7 @@ proj <- CreateSeuratObject(
 )
 proj[["percent.mt"]] <- PercentageFeatureSet(proj, pattern = "^MT-")
 proj$cell_type <- proj[["sub_cluster"]]
-proj$cell_type[is.na(proj$cell_type)] <- proj[["cell_type_leiden06"]][is.na(proj$cell_type)]
+proj$cell_type[is.na(proj$cell_type)] <- proj$cell_type_leiden06[is.na(proj$cell_type)]
 
 plt <- VlnPlot(proj, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
 ggsave(output_paths[["qc_violin"]], plt, device = "pdf")
