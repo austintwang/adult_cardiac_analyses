@@ -37,6 +37,8 @@ anchors <- FindTransferAnchors(
   reduction = "pcaproject"
 )
 head(proj@meta.data) ####
+head(rownames(proj)) ####
+
 proj <- MapQuery(
   anchorset = anchors,
   query = proj,
@@ -46,6 +48,7 @@ proj <- MapQuery(
 )
 proj$cell_type_ellinor_fine <- proj$predicted.id
 head(proj@meta.data) ####
+head(rownames(proj)) ####
 
 proj <- MapQuery(
   anchorset = anchors,
@@ -56,6 +59,7 @@ proj <- MapQuery(
 )
 proj$cell_type_ellinor_coarse <- proj$predicted.id
 head(proj@meta.data) ####
+head(rownames(proj)) ####
 
 anchors <- FindTransferAnchors(
   reference = kramann,
