@@ -23,9 +23,10 @@ head(proj@meta.data)
 Project(proj) <- "Kramann"
 
 # print(proj) ####
+proj$nCount_RNA <- proj[["nCounts_RNA"]]
+proj$nFeature_RNA <- proj[["nFeaturess_RNA"]]
 
 proj[["percent.mt"]] <- PercentageFeatureSet(proj, pattern = "^MT-")
-proj$cell_type <- proj[["annot"]]
 
 plt <- VlnPlot(proj, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
 ggsave(output_paths[["qc_violin"]], plt, device = "pdf")
