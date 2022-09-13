@@ -22,6 +22,7 @@ proj <- readRDS(file = input_paths[["project_rna"]])
 
 ellinor <- readRDS(file = input_paths[["project_ellinor"]])
 kramann <- readRDS(file = input_paths[["project_kramann"]])
+head(rownames(kramann)) ####
 
 # print(head(ref@meta.data)) ####
 # print(ref) ####
@@ -36,8 +37,8 @@ anchors <- FindTransferAnchors(
   reference.reduction = "pca",
   reduction = "pcaproject"
 )
-head(proj@meta.data) ####
-head(rownames(proj)) ####
+# head(proj@meta.data) ####
+# head(rownames(proj)) ####
 
 proj_tmp <- MapQuery(
   anchorset = anchors,
@@ -46,11 +47,11 @@ proj_tmp <- MapQuery(
   refdata = "cell_type",
   reference.reduction = "pcaproject"
 )
-head(proj_tmp@meta.data) ####
-head(rownames(proj_tmp)) ####
+# head(proj_tmp@meta.data) ####
+# head(rownames(proj_tmp)) ####
 proj$cell_type_ellinor_fine <- proj_tmp$predicted.id
-head(proj@meta.data) ####
-head(rownames(proj)) ####
+# head(proj@meta.data) ####
+# head(rownames(proj)) ####
 
 proj_tmp <- MapQuery(
   anchorset = anchors,
@@ -59,11 +60,11 @@ proj_tmp <- MapQuery(
   refdata = "cell_type_leiden06",
   reference.reduction = "pcaproject"
 )
-head(proj_tmp@meta.data) ####
-head(rownames(proj_tmp)) ####
+# head(proj_tmp@meta.data) ####
+# head(rownames(proj_tmp)) ####
 proj$cell_type_ellinor_coarse <- proj_tmp$predicted.id
-head(proj@meta.data) ####
-head(rownames(proj)) ####
+# head(proj@meta.data) ####
+# head(rownames(proj)) ####
 
 anchors <- FindTransferAnchors(
   reference = kramann,
