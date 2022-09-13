@@ -9,6 +9,8 @@ library(Seurat)
 library(patchwork)
 library(ggplot2)
 
+options(future.globals.maxSize = 8000 * 1024^2)
+
 params = snakemake@params 
 input_paths = snakemake@input
 output_paths = snakemake@output
