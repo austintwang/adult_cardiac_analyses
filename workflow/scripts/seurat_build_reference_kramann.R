@@ -18,6 +18,7 @@ set.seed(params[["seed"]])
 
 proj <- readRDS(input_paths[["seurat_object"]])
 print(proj) ####
+head(proj$meta.data)
 # proj <- DietSeurat(proj)
 Project(proj) <- "Kramann"
 
