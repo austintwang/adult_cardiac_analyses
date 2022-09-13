@@ -191,18 +191,18 @@ rule seurat_merge_rna:
     Merge RNA samples
     """
     input:
-        projects_in = expand("results/{sample}/rna/seurat_transfer_rna/proj.rds", sample=samples)
+        projects_in = lambda w: f"results/{i}/rna/seurat_transfer_rna/proj.rds" for i in groups[w.group]
     output:
-        project_out = "results_merged/rna/seurat_merge_rna/proj.rds",
-        umap_dataset_pre_harmony = "results_merged/rna/seurat_merge_rna/umap_dataset_pre_harmony.pdf",
-        umap_pre_harmony = "results_merged/rna/seurat_merge_rna/umap_pre_harmony.pdf",
-        umap_dataset = "results_merged/rna/seurat_merge_rna/umap_dataset.pdf",
-        umap = "results_merged/rna/seurat_merge_rna/umap.pdf",
+        project_out = "results_merged/{group}/rna/seurat_merge_rna/proj.rds",
+        umap_dataset_pre_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_dataset_pre_harmony.pdf",
+        umap_pre_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_pre_harmony.pdf",
+        umap_dataset = "results_merged/{group}/rna/seurat_merge_rna/umap_dataset.pdf",
+        umap = "results_merged/{group}/rna/seurat_merge_rna/umap.pdf",
     params:
         seed = config["seurat_seed"],
         samples = samples,
     log:
-        console = "logs/merged/rna/seurat_merge_rna/console.log"
+        console = "logs/merged/{group}/rna/seurat_merge_rna/console.log"
     conda:
         "../envs/seurat.yaml"
     script:

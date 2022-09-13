@@ -8,16 +8,23 @@ configfile:
     "config/config.yaml"
 
 samples = []
+groups = {}
 with open("config/samples.tsv") as sample_file:
     h = sample_file.readline().rstrip('\n').split('\t')
     series_ind = h.index("Series")
+    region_ind = h.index("Region")
+    status_ind = h.index("Status")
     samples = []
     for line in sample_file:
         if line.startswith("#"):
             continue
         entries = line.rstrip('\n').split('\t')
         series = entries[series_ind]
+        region = entries[region_ind]
+        status = entries[status_ind]
+
         samples.append(series)
+        groups.setdefault(f"{region}-{status}", []).append(series)
 
 # with open("config/rna_cluster_names.txt") as f:
 #     rna_cluster_names = []
