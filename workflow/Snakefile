@@ -42,7 +42,7 @@ rule all:
     Generate all outputs (default)
     """
     input: 
-        expand("results/{sample}/rna/seurat_soupx_rna/proj.rds", sample=samples),
+        expand("results/{sample}/rna/seurat_transfer_rna/proj.rds", sample=samples),
         "qc_all/seurat_doublet_umaps.pdf",
         "qc_all/seurat_soupx_umaps.pdf",
         "reference/kramann/seurat_build_reference/proj.rds", ####
