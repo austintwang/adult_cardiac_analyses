@@ -26,7 +26,7 @@ proj_merged <- NormalizeData(proj_merged, normalization.method = "LogNormalize",
 proj_merged <- FindVariableFeatures(proj_merged, selection.method = "vst", nfeatures = 2000)
 proj_merged <- ScaleData(proj_merged)
 
-proj_merged <- RunPCA(proj_merged, features = VariableFeatures(object = proj))
+proj_merged <- RunPCA(proj_merged, features = VariableFeatures(object = proj_merged))
 
 proj_merged <- FindNeighbors(proj_merged, dims = 1:30, reduction = "pca")
 proj_merged <- RunUMAP(proj_merged, dims = 1:30, reduction = "pca")
