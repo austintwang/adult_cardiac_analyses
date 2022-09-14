@@ -30,13 +30,13 @@ res <- getBM(
     values = rownames(proj),
     mart = ensembl
 )
-head(res) ####
+# head(res) ####
 res <- res[res[["hgnc_symbol"]] != "",]
-head(res) ####
+# head(res) ####
 # rownames(res) <- res[["ensembl_gene_id"]]
-head(rownames(proj)) ####
+# head(rownames(proj)) ####
 feats <- res[match(rownames(proj), res[["ensembl_gene_id"]]), "hgnc_symbol"]
-head(feats) ####
+# head(feats) ####
 
 counts <- GetAssayData(proj, assay = "RNA", slot = "counts")
 rownames(counts) <- feats
@@ -71,8 +71,23 @@ ggsave(output_paths[["qc_scatter"]], plt, device = "pdf")
 
 proj <- subset(proj, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
 
-proj <- NormalizeData(proj, normalization.method = "LogNormalize", scale.factor = 10000)
-proj <- FindVariableFeatures(proj, selection.method = "vst", nfeatures = 2000)
+# split the dataset into a list of two seurat objects (stim and CTRL)
+proj_list <- SplitObject(proj, split.by = "sample")
+
+# normalize and identify variable features for each dataset independently
+proj_list <- lapply(X = proj_list, FUN = function(x) {
+    x <- NormalizeData(x)
+    x <- FindVariableFeatures(x, selection.method = "vst", nfeatures = 2000)
+})
+
+features <- SelectIntegrationFeatures(object.list = proj_list)
+
+anchors <- FindIntegrationAnchors(object.list = proj_list, anchor.features = features)
+proj <- IntegrateData(anchorset = anchors)
+DefaultAssay(proj) <- "integrated"
+
+# proj <- NormalizeData(proj, normalization.method = "LogNormalize", scale.factor = 10000)
+# proj <- FindVariableFeatures(proj, selection.method = "vst", nfeatures = 2000)
 proj <- ScaleData(proj)
 
 proj <- RunPCA(proj, features = VariableFeatures(object = proj))
@@ -82,7 +97,7 @@ proj <- FindNeighbors(proj, dims = 1:30)
 proj <- RunUMAP(proj, dims = 1:30, return.model = TRUE)
 
 plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type")
-ggsave(output_paths[["umap"]], plt, device = "pdf")
+ggsave(output_paths[["umap"]], plt, device = "pdf", width = 10, height = 7)
 
 saveRDS(proj, file = output_paths[["project_out"]])
 

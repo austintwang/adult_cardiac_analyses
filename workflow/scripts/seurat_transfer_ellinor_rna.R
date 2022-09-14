@@ -67,10 +67,10 @@ proj$cell_type_ellinor_coarse <- proj_tmp$predicted.id
 proj <- FindNeighbors(proj, dims = 1:30, reduction = "pca")
 proj <- RunUMAP(proj, dims = 1:30, reduction = "pca")
 
-plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_ellinor_fine", label = TRUE)
+plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_ellinor_fine", label = TRUE, width = 10, height = 7)
 ggsave(output_paths[["umap_ellinor_fine"]], plt, device = "pdf")
 
-plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_ellinor_coarse", label = TRUE)
+plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_ellinor_coarse", label = TRUE, width = 10, height = 7)
 ggsave(output_paths[["umap_ellinor_coarse"]], plt, device = "pdf")
 
 saveRDS(proj, file = output_paths[["project_out"]])
