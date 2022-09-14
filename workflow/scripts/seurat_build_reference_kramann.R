@@ -40,7 +40,7 @@ head(feats) ####
 
 counts <- GetAssayData(proj, assay = "RNA", slot = "counts")
 rownames(counts) <- feats
-rownames(counts)[is.na(rownames(counts))] <- rownames(proj)
+rownames(counts)[is.na(rownames(counts))] <- rownames(proj)[is.na(rownames(counts))]
 metadata <- proj@meta.data
 
 proj <- CreateSeuratObject(
