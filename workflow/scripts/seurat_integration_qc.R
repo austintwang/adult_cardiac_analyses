@@ -6,6 +6,7 @@ sink(console_log, type = "message")
 
 library(Seurat)
 library(ggplot2)
+library(patchwork)
 
 params = snakemake@params 
 input_paths = snakemake@input
