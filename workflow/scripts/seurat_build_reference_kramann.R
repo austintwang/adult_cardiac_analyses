@@ -9,6 +9,7 @@ library(Seurat)
 library(patchwork)
 library(ggplot2)
 library(biomaRt)
+library(harmony)
 
 params <- snakemake@params
 input_paths <- snakemake@input
