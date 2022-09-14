@@ -179,7 +179,7 @@ rule seurat_integrate_rna:
         umap_mixing_harmony = "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_harmony.pdf",
     params:
         seed = config["seurat_seed"],
-        samples = samples,
+        samples = lambda w: groups[w.group],
     log:
         console = "logs/merged/{group}/rna/seurat_integrate_rna/console.log"
     conda:
@@ -202,6 +202,13 @@ rule seurat_merge_integration_plots:
         "../envs/fetch.yaml"
     shell:
         "pdfunite {input} {output}; "
+
+
+
+
+
+
+
 
 rule seurat_transfer_kramann_rna:
     """
