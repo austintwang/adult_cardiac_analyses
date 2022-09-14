@@ -264,7 +264,7 @@ rule seurat_merge_ellinor_plots:
         fine = expand("results/{sample}/rna/seurat_transfer_rna/umap_ellinor_fine.pdf", sample=samples)
     output:
         coarse = "qc_all/seurat_ellinor_coarse_umaps.pdf",
-        coarse = "qc_all/seurat_ellinor_fine_umaps.pdf"
+        fine = "qc_all/seurat_ellinor_fine_umaps.pdf"
     conda:
         "../envs/fetch.yaml"
     shell:
