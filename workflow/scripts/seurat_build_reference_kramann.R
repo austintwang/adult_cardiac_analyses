@@ -8,6 +8,7 @@ library(dplyr)
 library(Seurat)
 library(patchwork)
 library(ggplot2)
+library(biomart)
 
 params <- snakemake@params
 input_paths <- snakemake@input
@@ -20,10 +21,22 @@ proj <- readRDS(input_paths[["seurat_object"]])
 proj@assays$RNA@key <- "rna_"
 # print(Key(proj)) ####
 proj <- UpdateSeuratObject(proj)
+Project(proj) <- "Kramann"
+
+ensembl <- useEnsembl(biomart = "genes", dataset = "hsapiens_gene_ensembl")
+res <- getBM(
+    attributes=c("ensembl_gene_id","hgnc_symbol"), 
+    filters = 'ensembl_gene_id', 
+    values = rownames(proj),
+    mart = ensembl
+)
+rownames(res) <- res[["ensembl_gene_id"]]
+feats <- res[rownames(proj), "hgnc_symbol"]
+rownames(proj) <- feats
+
 print(proj) ####
 head(proj@meta.data)
 # proj <- DietSeurat(proj)
-Project(proj) <- "Kramann"
 
 # print(proj) ####
 proj$nCount_RNA <- proj[["nCounts_RNA"]]
