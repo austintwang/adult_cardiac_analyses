@@ -22,7 +22,7 @@ plt <- FeaturePlot(proj, reduction = "umap", features = "log_counts") + labs(tit
 ggsave(output_paths[["umap_counts"]], plt, device = "pdf", width = 10, height = 7)
 
 doubletfinder_col <- grep("pANN", names(proj@meta.data), value = TRUE)
-plt <- FeaturePlot(proj, reduction = "umap", features = doubletfinder_col) + labs(title="Post-Harmony Doubletfinder pANN")
+plt <- FeaturePlot(proj, reduction = "umap", features = doubletfinder_col) +  plot_annotation(title = "main title")
 ggsave(output_paths[["umap_doubletfinder"]], plt, device = "pdf", width = 10, height = 7)
 
 proj$amulet_nlp <- -log10(proj$amulet_pval)
