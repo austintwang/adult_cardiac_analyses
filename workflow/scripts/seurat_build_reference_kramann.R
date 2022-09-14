@@ -35,7 +35,6 @@ res <- res[res[[hsapiens_gene_ensembl]] != "",]
 feats <- res[match(rownames(proj), res[["ensembl_gene_id"]]), "hgnc_symbol"]
 head(feats) ####
 RenameCells(proj, new.names = feats)
-rownames(proj) <- feats
 
 print(proj) ####
 head(proj@meta.data)
