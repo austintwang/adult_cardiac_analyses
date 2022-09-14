@@ -157,7 +157,7 @@ rule seurat_integrate_qc_extras:
     conda:
         "../envs/seurat.yaml"
     script:
-        "../scripts/seurat_integrate_rna.R"
+        "../scripts/seurat_integration_qc.R"
 
 rule seurat_merge_integration_plots:
     """
