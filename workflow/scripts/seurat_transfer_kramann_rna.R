@@ -39,10 +39,9 @@ proj_tmp <- MapQuery(
 )
 proj$cell_type_kramann <- proj_tmp$predicted.id
 
-proj <- FindNeighbors(proj, dims = 1:30, reduction = "pca")
-proj <- RunUMAP(proj, dims = 1:30, reduction = "pca")
-
 plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_kramann", label = TRUE)
 ggsave(output_paths[["umap_kramann"]], plt, device = "pdf", width = 10, height = 7)
+
+
 
 saveRDS(proj, file = output_paths[["project_out"]])
