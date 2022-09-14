@@ -295,7 +295,7 @@ rule seurat_integrate_labels:
     script:
         "../scripts/seurat_integrate_labels.R"
 
-rule seurat_merge_integration_plots:
+rule seurat_merge_integrated_label_plots:
     """
     Merge ellinor projection plot pdf's
     """
