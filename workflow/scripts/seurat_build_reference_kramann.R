@@ -8,7 +8,7 @@ library(dplyr)
 library(Seurat)
 library(patchwork)
 library(ggplot2)
-library(biomart)
+library(biomaRt)
 
 params <- snakemake@params
 input_paths <- snakemake@input
