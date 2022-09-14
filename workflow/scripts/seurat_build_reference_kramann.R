@@ -30,7 +30,7 @@ res <- getBM(
     values = rownames(proj),
     mart = ensembl
 )
-res <- res[res[[hsapiens_gene_ensembl]] != "",]
+res <- res[res[["hsapiens_gene_ensembl"]] != "",]
 # rownames(res) <- res[["ensembl_gene_id"]]
 feats <- res[match(rownames(proj), res[["ensembl_gene_id"]]), "hgnc_symbol"]
 head(feats) ####
