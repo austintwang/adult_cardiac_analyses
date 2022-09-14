@@ -34,7 +34,17 @@ res <- res[res[["hsapiens_gene_ensembl"]] != "",]
 # rownames(res) <- res[["ensembl_gene_id"]]
 feats <- res[match(rownames(proj), res[["ensembl_gene_id"]]), "hgnc_symbol"]
 head(feats) ####
-RenameCells(proj, new.names = feats)
+
+counts <- GetAssayData(proj, assay = "RNA", slot = "counts")
+rownames(counts) <- feats
+
+proj <- CreateSeuratObject(
+    counts = counts, 
+    project = "kramann", 
+    min.cells = 3, 
+    min.features = 200, 
+    meta.data = metadata
+)
 
 print(proj) ####
 head(proj@meta.data)
