@@ -21,8 +21,6 @@ set.seed(params[["seed"]])
 proj <- readRDS(file = input_paths[["project_rna"]])
 
 ellinor <- readRDS(file = input_paths[["project_ellinor"]])
-kramann <- readRDS(file = input_paths[["project_kramann"]])
-head(rownames(kramann)) ####
 
 # print(head(ref@meta.data)) ####
 # print(ref) ####
@@ -66,22 +64,6 @@ proj$cell_type_ellinor_coarse <- proj_tmp$predicted.id
 # head(proj@meta.data) ####
 # head(rownames(proj)) ####
 
-anchors <- FindTransferAnchors(
-  reference = kramann,
-  query = proj,
-  dims = 1:30, 
-  reference.reduction = "pca",
-  reduction = "pcaproject"
-)
-proj_tmp <- MapQuery(
-  anchorset = anchors,
-  query = proj,
-  reference = kramann,
-  refdata = "cell_type",
-  reference.reduction = "pcaproject"
-)
-proj$cell_type_kramann <- proj_tmp$predicted.id
-
 proj <- FindNeighbors(proj, dims = 1:30, reduction = "pca")
 proj <- RunUMAP(proj, dims = 1:30, reduction = "pca")
 
@@ -90,8 +72,5 @@ ggsave(output_paths[["umap_ellinor_fine"]], plt, device = "pdf")
 
 plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_ellinor_coarse", label = TRUE)
 ggsave(output_paths[["umap_ellinor_coarse"]], plt, device = "pdf")
-
-plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_kramann", label = TRUE)
-ggsave(output_paths[["umap_kramann"]], plt, device = "pdf")
 
 saveRDS(proj, file = output_paths[["project_out"]])
