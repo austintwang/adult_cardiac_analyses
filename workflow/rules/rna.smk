@@ -165,6 +165,44 @@ rule seurat_merge_doublet_plots:
     shell:
         "pdfunite {input} {output}"
 
+rule seurat_integrate_rna:
+    """
+    Integrate RNA samples using Harmony
+    """
+    input:
+        projects_in = lambda w: [f"results/{i}/rna/seurat_doublets_rna/proj_filtered.rds" for i in groups[w.group]]
+    output:
+        project_out = "results_merged/{group}/rna/seurat_integrate_rna/proj.rds",
+        umap_dataset_pre_harmony = "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_pre_harmony.pdf",
+        umap_mixing_pre_harmony = "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_pre_harmony.pdf",
+        umap_dataset_harmony = "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_harmony.pdf",
+        umap_mixing_harmony = "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_harmony.pdf",
+    params:
+        seed = config["seurat_seed"],
+        samples = samples,
+    log:
+        console = "logs/merged/{group}/rna/seurat_integrate_rna/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_integrate_rna.R"
+
+rule seurat_merge_integration_plots:
+    """
+    Merge integration QC pdf's
+    """
+    input:
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_pre_harmony.pdf",
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_harmony.pdf",
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_pre_harmony.pdf",
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_harmony.pdf"
+    output:
+        "results_merged/{group}/rna/seurat_integrate_rna/integration_plots.pdf"
+    conda:
+        "../envs/fetch.yaml"
+    shell:
+        "pdfunite {input} {output}; "
+
 rule seurat_transfer_kramann_rna:
     """
     Seurat RNA reference labeling
@@ -189,7 +227,7 @@ rule seurat_transfer_ellinor_rna:
     Seurat RNA reference labeling
     """
     input:
-        project_rna = "results/{sample}/rna/seurat_transfer_rna/proj_inter.rds",
+        project_rna = "results/{sample}/rna/seurat_doublets_rna/proj_filtered.rds",
         project_ellinor = "reference/ellinor/seurat_build_reference/proj.rds",
     output:
         project_out = "results/{sample}/rna/seurat_transfer_rna/proj.rds",
@@ -204,40 +242,87 @@ rule seurat_transfer_ellinor_rna:
     script:
         "../scripts/seurat_transfer_ellinor_rna.R"
 
-rule seurat_merge_rna:
+rule seurat_merge_kramann_plots:
     """
-    Merge RNA samples
+    Merge kramann projection plot pdf's
     """
     input:
-        projects_in = lambda w: [f"results/{i}/rna/seurat_transfer_rna/proj.rds" for i in groups[w.group]]
+        expand("results/{sample}/rna/seurat_transfer_rna/umap_kramann.pdf", sample=samples)
     output:
-        project_out = "results_merged/{group}/rna/seurat_merge_rna/proj.rds",
-        umap_dataset_pre_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_dataset_pre_harmony.pdf",
-        umap_kramann_pre_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_kramann_pre_harmony.pdf",
-        umap_ellinor_coarse_pre_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_ellinor_coarse_pre_harmony.pdf",
-        umap_ellinor_fine_pre_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_ellinor_fine_pre_harmony.pdf",
-        umap_mixing_pre_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_mixing_pre_harmony.pdf",
-        umap_dataset_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_dataset_harmony.pdf",
-        umap_kramann_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_kramann_harmony.pdf",
-        umap_ellinor_coarse_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_ellinor_coarse_harmony.pdf",
-        umap_ellinor_fine_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_ellinor_fine_harmony.pdf",
-        umap_mixing_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_mixing_harmony.pdf",
+        "qc_all/seurat_kramann_umaps.pdf"
+    conda:
+        "../envs/fetch.yaml"
+    shell:
+        "pdfunite {input} {output}"
+
+rule seurat_merge_ellinor_plots:
+    """
+    Merge ellinor projection plot pdf's
+    """
+    input:
+        coarse = expand("results/{sample}/rna/seurat_transfer_rna/umap_ellinor_coarse.pdf", sample=samples),
+        fine = expand("results/{sample}/rna/seurat_transfer_rna/umap_ellinor_fine.pdf", sample=samples)
+    output:
+        coarse = "qc_all/seurat_ellinor_coarse_umaps.pdf",
+        coarse = "qc_all/seurat_ellinor_fine_umaps.pdf"
+    conda:
+        "../envs/fetch.yaml"
+    shell:
+        "pdfunite {input.coarse} {output.coarse}; "
+        "pdfunite {input.fine} {output.fine}"
+
+
+
+rule seurat_integrate_labels:
+    """
+    Add labels to integrated analyses
+    """
+    input:
+        project_integrated = "results_merged/{group}/rna/seurat_integrate_rna/proj.rds",
+        projects_labeled = lambda w: [f"results/{i}/rna/seurat_transfer_rna/proj.rds" for i in groups[w.group]]
+    output:
+        project_out = "results_merged/{group}/rna/seurat_integrate_labels/proj.rds",
+        umap_kramann = "results_merged/{group}/rna/seurat_integrate_rna/umap_kramann_harmony.pdf",
+        umap_ellinor_coarse = "results_merged/{group}/rna/seurat_integrate_rna/umap_ellinor_coarse.pdf",
+        umap_ellinor_fine = "results_merged/{group}/rna/seurat_integrate_rna/umap_ellinor_fine.pdf",
     params:
         seed = config["seurat_seed"],
         samples = samples,
     log:
-        console = "logs/merged/{group}/rna/seurat_merge_rna/console.log"
+        console = "logs/merged/{group}/rna/seurat_integrate_rna/console.log"
     conda:
         "../envs/seurat.yaml"
     script:
-        "../scripts/seurat_merge_rna.R"
+        "../scripts/seurat_integrate_labels.R"
+
+rule seurat_merge_integration_plots:
+    """
+    Merge ellinor projection plot pdf's
+    """
+    input:
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_pre_harmony.pdf",
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_harmony.pdf",
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_kramann_pre_harmony.pdf",
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_kramann_harmony.pdf",
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_ellinor_coarse_pre_harmony.pdf",
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_ellinor_coarse_harmony.pdf",
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_ellinor_fine_pre_harmony.pdf",
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_ellinor_fine_harmony.pdf",
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_pre_harmony.pdf",
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_harmony.pdf"
+    output:
+        "results_merged/{group}/rna/seurat_integrate_rna/integration_plots.pdf"
+    conda:
+        "../envs/fetch.yaml"
+    shell:
+        "pdfunite {input} {output}; "
 
 rule seurat_cluster_rna:
     """
     Seurat RNA clustering
     """
     input:
-        project_in = "results_merged/rna/seurat_merge_rna/proj.rds",
+        project_in = "results_merged/rna/seurat_integrate_rna/proj.rds",
         # project_ref = "reference/seurat_build_reference/proj.rds"
     output:
         project_out = "results_merged/rna/seurat_cluster_rna/proj.rds",
@@ -370,7 +455,7 @@ rule export_rna_figures:
     """
     input:
         umap_labels = "results_merged/rna/seurat_name_rna/umap_clusters.pdf",
-        umap_samples = "results_merged/rna/seurat_merge_rna/umap_dataset.pdf"
+        umap_samples = "results_merged/rna/seurat_integrate_rna/umap_dataset.pdf"
     output:
         scratch = directory("results_merged/rna/export_figures"),
         tarball = "export/rna/figures.tar.gz"
