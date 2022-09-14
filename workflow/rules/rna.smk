@@ -148,7 +148,9 @@ rule seurat_integrate_qc_extras:
     input:
         project_in = "results_merged/{group}/rna/seurat_integrate_rna/proj.rds"
     output:
-        umap_cell_prop = "results_merged/{group}/rna/seurat_integrate_rna/umap_cell_prop.pdf",
+        umap_counts = "results_merged/{group}/rna/seurat_integrate_rna/umap_counts.pdf",
+        umap_doubletfinder = "results_merged/{group}/rna/seurat_integrate_rna/umap_doubletfinder.pdf",
+        umap_amulet = "results_merged/{group}/rna/seurat_integrate_rna/umap_amulet.pdf"
     params:
         seed = config["seurat_seed"],
         samples = lambda w: groups[w.group],
@@ -168,7 +170,9 @@ rule seurat_merge_integration_plots:
         "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_harmony.pdf",
         "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_pre_harmony.pdf",
         "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_harmony.pdf",
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_cell_prop.pdf",
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_counts.pdf",
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_doubletfinder.pdf",
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_amulet.pdf"
     output:
         "results_merged/{group}/rna/seurat_integrate_rna/integration_plots.pdf"
     conda:
