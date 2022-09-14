@@ -22,8 +22,11 @@ lapply(projs, print) ####
 
 proj_merged <- merge(projs[[1]], projs[-1], project = "merged_rna", add.cell.ids = unlist(params[["samples"]]))
 
-proj_merged <- SCTransform(proj_merged, vars.to.regress = "percent.mt", verbose = FALSE)
-proj_merged <- RunPCA(proj_merged)
+proj_merged <- NormalizeData(proj_merged, normalization.method = "LogNormalize", scale.factor = 10000)
+proj_merged <- FindVariableFeatures(proj_merged, selection.method = "vst", nfeatures = 2000)
+proj_merged <- ScaleData(proj_merged)
+
+proj_merged <- RunPCA(proj_merged, features = VariableFeatures(object = proj))
 
 proj_merged <- FindNeighbors(proj_merged, dims = 1:30, reduction = "pca")
 proj_merged <- RunUMAP(proj_merged, dims = 1:30, reduction = "pca")
