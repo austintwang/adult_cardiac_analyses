@@ -31,7 +31,7 @@ res <- getBM(
     mart = ensembl
 )
 rownames(res) <- res[["ensembl_gene_id"]]
-feats <- res[rownames(proj), "hgnc_symbol"]
+feats <- res[match(rownames(proj), res[["ensembl_gene_id"]]), "hgnc_symbol"]
 rownames(proj) <- feats
 
 print(proj) ####
