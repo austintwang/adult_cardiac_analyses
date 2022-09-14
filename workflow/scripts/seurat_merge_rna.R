@@ -37,7 +37,7 @@ proj_merged$mixing_pca <- MixingMetric(
 )
 
 plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_ref")
-ggsave(output_paths[["umap_pre_harmony"]], plt, device = "pdf")
+ggsave(output_paths[["umap_clusters_pre_harmony"]], plt, device = "pdf")
 
 plt <- DimPlot(proj_merged, reduction = "umap", group.by = "dataset")
 ggsave(output_paths[["umap_dataset_pre_harmony"]], plt, device = "pdf")
@@ -58,7 +58,7 @@ proj_merged$mixing_harmony <- MixingMetric(
 )
 
 plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_ref")
-ggsave(output_paths[["umap_harmony"]], plt, device = "pdf")
+ggsave(output_paths[["umap_clusters_harmony"]], plt, device = "pdf")
 
 plt <- DimPlot(proj_merged, reduction = "umap", group.by = "dataset")
 ggsave(output_paths[["umap_dataset_harmony"]], plt, device = "pdf")
