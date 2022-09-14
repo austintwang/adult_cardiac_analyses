@@ -195,9 +195,9 @@ rule seurat_merge_rna:
     output:
         project_out = "results_merged/{group}/rna/seurat_merge_rna/proj.rds",
         umap_dataset_pre_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_dataset_pre_harmony.pdf",
-        umap_pre_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_pre_harmony.pdf",
-        umap_dataset = "results_merged/{group}/rna/seurat_merge_rna/umap_dataset.pdf",
-        umap = "results_merged/{group}/rna/seurat_merge_rna/umap.pdf",
+        umap_pre_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_clusters_pre_harmony.pdf",
+        umap_dataset_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_dataset_harmony.pdf",
+        umap_harmony = "results_merged/{group}/rna/seurat_merge_rna/umap_clusters_harmony.pdf",
     params:
         seed = config["seurat_seed"],
         samples = samples,

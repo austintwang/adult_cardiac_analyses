@@ -30,13 +30,17 @@ res <- getBM(
     values = rownames(proj),
     mart = ensembl
 )
+head(res) ####
 res <- res[res[["hsapiens_gene_ensembl"]] != "",]
+head(res) ####
 # rownames(res) <- res[["ensembl_gene_id"]]
+head(rownames(proj)) ####
 feats <- res[match(rownames(proj), res[["ensembl_gene_id"]]), "hgnc_symbol"]
 head(feats) ####
 
 counts <- GetAssayData(proj, assay = "RNA", slot = "counts")
 rownames(counts) <- feats
+metadata <- proj@meta.data
 
 proj <- CreateSeuratObject(
     counts = counts, 
