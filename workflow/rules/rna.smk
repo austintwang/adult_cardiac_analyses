@@ -141,6 +141,24 @@ rule seurat_integrate_rna:
     script:
         "../scripts/seurat_integrate_rna.R"
 
+rule seurat_integrate_qc_extras:
+    """
+    Additional integration QC plots
+    """
+    input:
+        project_in = "results_merged/{group}/rna/seurat_integrate_rna/proj.rds"
+    output:
+        umap_cell_prop = "results_merged/{group}/rna/seurat_integrate_rna/umap_cell_prop.pdf",
+    params:
+        seed = config["seurat_seed"],
+        samples = lambda w: groups[w.group],
+    log:
+        console = "logs/merged/{group}/rna/seurat_integrate_rna/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_integrate_rna.R"
+
 rule seurat_merge_integration_plots:
     """
     Merge integration QC pdf's
@@ -149,7 +167,8 @@ rule seurat_merge_integration_plots:
         "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_pre_harmony.pdf",
         "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_harmony.pdf",
         "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_pre_harmony.pdf",
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_harmony.pdf"
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_harmony.pdf",
+        "results_merged/{group}/rna/seurat_integrate_rna/umap_cell_prop.pdf",
     output:
         "results_merged/{group}/rna/seurat_integrate_rna/integration_plots.pdf"
     conda:
