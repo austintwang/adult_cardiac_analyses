@@ -5,6 +5,7 @@ sink(console_log)
 sink(console_log, type = "message")
 
 library(Seurat)
+library(ggplot2)
 
 params = snakemake@params 
 input_paths = snakemake@input
