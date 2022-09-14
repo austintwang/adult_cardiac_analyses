@@ -42,6 +42,6 @@ proj$cell_type_kramann <- proj_tmp$predicted.id
 plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_kramann", label = TRUE)
 ggsave(output_paths[["umap_kramann"]], plt, device = "pdf", width = 10, height = 7)
 
-
+label_data <- proj@meta.data[,"cell_type_kramann",drop=FALSE]
 
 saveRDS(proj, file = output_paths[["project_out"]])
