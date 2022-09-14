@@ -92,6 +92,8 @@ proj <- ScaleData(proj)
 
 proj <- RunPCA(proj, features = VariableFeatures(object = proj))
 
+proj <- RunHarmony(proj, "sample")
+
 proj[['harmony2']] <- CreateDimReducObject(
   embeddings = proj[['harmony']]@cell.embeddings,
   key = "harmony2_",
