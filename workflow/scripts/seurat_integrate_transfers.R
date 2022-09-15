@@ -12,7 +12,7 @@ log_paths = snakemake@log
 set.seed(params[["seed"]])
 
 read_fn <- function(path, sample) {
-    data <- read.table(file = path, sep = '\t', quote = "")
+    data <- read.table(file = path, sep = '\t', quote = "", header = TRUE)
     rownames(data) <- paste0(sample, "_", rownames(data))
     print(head(data)) ####
     data
