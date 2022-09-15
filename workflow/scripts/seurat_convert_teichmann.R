@@ -16,10 +16,10 @@ log_paths <- snakemake@log
 
 set.seed(params[["seed"]])
 
-Convert(input_paths[["h5ad"]], dest = output_paths[["h5seurat"]])
-
 library(SeuratData, lib.loc=input_paths[["azimuth_library_dir"]])
 library(SeuratDisk, lib.loc=input_paths[["seuratdisk_library_dir"]])
+
+Convert(input_paths[["h5ad"]], dest = output_paths[["h5seurat"]])
 
 sink(type = "message")
 sink()
