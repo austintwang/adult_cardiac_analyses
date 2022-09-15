@@ -14,14 +14,15 @@ set.seed(params[["seed"]])
 read_fn <- function(path, sample) {
     data <- read.table(file = path, sep = '\t', quote = "", header = TRUE, row.names=1)
     rownames(data) <- paste0(sample, "_", rownames(data))
-    print(head(data)) ####
+    # print(head(data)) ####
     data
 }
 
 tables <- mapply(read_fn, input_paths[["tables"]], params[["samples"]], SIMPLIFY = FALSE)
-head(tables[[1]]) ####
+print(tables) ####
+# head(tables[[1]]) ####
 data_stacked <- do.call(rbind, tables)
-head(data_stacked)
+head(data_stacked) ####
 
 write.table(data_stacked, file = output_paths[["data_out"]], quote=FALSE, sep='\t', col.names = NA)
 
