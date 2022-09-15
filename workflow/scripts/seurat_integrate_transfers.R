@@ -18,6 +18,7 @@ read_fn <- function(path, sample) {
 }
 
 tables <- mapply(read_fn, input_paths[["tables"]], params[["samples"]])
+head(tables[[1]]) ####
 data_stacked <- do.call(rbind, tables)
 
 write.table(data_stacked, file = output_paths[["data_out"]], quote=FALSE, sep='\t', col.names = NA)
