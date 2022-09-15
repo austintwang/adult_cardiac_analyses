@@ -24,6 +24,7 @@ read_fn <- function(path) {
 tables <- lapply(input_paths[["tables"]], read_fn)
 label_data <- do.call(cbind, tables)
 
+proj <- readRDS(file = input_paths[["project_integrated"]])
 proj_merged <- AddMetaData(proj, label_data)
 
 plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_kramann") + labs(title="Kramann labels")
