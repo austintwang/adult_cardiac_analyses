@@ -11,6 +11,36 @@ rule seurat_install_azimuth:
     script:
         "../scripts/seurat_install_azimuth.R"
 
+rule seurat_install_seuratdisk:
+    """
+    Install Azimuth package
+    """
+    output:
+        seuratdisk_library_dir = directory("resources/seuratdisk_lib")
+    log:
+        console = "logs/resources/seurat_install_seuratdisk/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_install_seuratdisk.R"
+
+rule seurat_convert_teichmann:
+    """
+    Convert Teichmann dataset to Seurat
+    """
+    input:
+        h5ad = "reference/teichmann/fetch/data.h5ad",
+        azimuth_library_dir = "resources/azimuth_lib",
+        seuratdisk_library_dir = "resources/seuratdisk_lib"
+    output:
+        h5seurat = "reference/teichmann/fetch/data.h5seurat"
+    log:
+        console = "logs/resources/seurat_install_seuratdisk/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_install_seuratdisk.R"
+
 rule seurat_build_reference_kramann:
     """
     Build Kramann reference dataset
@@ -56,6 +86,26 @@ rule seurat_build_reference_ellinor:
         "../envs/seurat.yaml"
     script:
         "../scripts/seurat_build_reference_ellinor.R"
+
+rule seurat_build_reference_teichmann:
+    """
+    Build Teichmann reference dataset
+    """
+    input:
+        h5seurat = "reference/teichmann/fetch/data.h5seurat"
+    output:
+        project_out = "reference/teichmann/seurat_build_reference/proj.rds",
+        qc_violin = "reference/teichmann/seurat_build_reference/qc_violin.pdf",
+        qc_scatter = "reference/teichmann/seurat_build_reference/qc_scatter.pdf",
+        umap = "reference/teichmann/seurat_build_reference/umap.pdf"
+    params:
+        seed = config["seurat_seed"]
+    log:
+        console = "logs/reference/teichmann/seurat_build_reference/seurat_build_rna/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_build_reference_teichmann.R"
 
 rule seurat_transfer_kramann_rna:
     """

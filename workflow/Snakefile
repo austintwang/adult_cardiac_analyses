@@ -57,8 +57,7 @@ rule all:
         expand("results_merged/{group}/rna/seurat_integrate_rna/integration_plots.pdf", group=groups.keys()),
         "qc_all/seurat_doublet_umaps.pdf",
         "qc_all/seurat_soupx_umaps.pdf",
-        "reference/kramann/seurat_build_reference/proj.rds", ####
-        "reference/ellinor/seurat_build_reference/proj.rds", ####
+        "reference/teichmann/fetch/data.h5seurat", ####
         # "results_merged/atac/archr_init",
         # "results_merged/atac/archr_label",
         # "export/atac/embeddings/harmony.tsv.gz",
@@ -359,6 +358,19 @@ rule download_ellinor_data:
         "curl --no-progress-meter -L -f '{params.url_features_raw}' > {output.features_raw}; "
         "curl --no-progress-meter -L -f '{params.url_cells_raw}' > {output.cells_raw}; "
         "curl --no-progress-meter -L -f '{params.url_metadata}' > {output.metadata}; "
+
+rule download_teichmann_data:
+    """
+    Download reference data
+    """
+    output:
+        "reference/teichmann/fetch/data.h5ad"
+    params:
+        url = config["rna_ref_teichmann_data"]
+    conda:
+        "envs/fetch.yaml"
+    shell:
+        "curl --no-progress-meter -L -f '{params.url}' > {output}"
 
 rule download_barcode_wl:
     """
