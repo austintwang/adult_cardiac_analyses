@@ -2,6 +2,8 @@ console_log <- file(snakemake@log[[1]], open = "wt")
 sink(console_log)
 sink(console_log, type = "message")
 
+library(Seurat)
+
 params = snakemake@params 
 input_paths = snakemake@input
 output_paths = snakemake@output
