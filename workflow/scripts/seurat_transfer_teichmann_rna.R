@@ -72,10 +72,10 @@ proj$cell_type_teichmann_coarse <- predictions$predicted.id
 # head(proj@meta.data) ####
 # head(rownames(proj)) ####
 
-plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_ellinor_fine", label = TRUE)
+plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_teichmann_fine", label = TRUE)
 ggsave(output_paths[["umap_teichmann_fine"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_ellinor_coarse", label = TRUE)
+plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_teichmann_coarse", label = TRUE)
 ggsave(output_paths[["umap_teichmann_coarse"]], plt, device = "pdf", width = 10, height = 7)
 
 label_data <- proj@meta.data[,c("cell_type_teichmann_coarse", "cell_type_teichmann_fine"),drop=FALSE]
