@@ -33,6 +33,8 @@ proj[["percent.mt"]] <- PercentageFeatureSet(proj, pattern = "^MT-")
 proj$cell_type_coarse <- proj[["cell_type"]]
 proj$cell_type_fine <- proj[["cell_states"]]
 proj$cell_type_fine[is.na(proj$cell_type_fine)] <- proj$cell_type_coarse[is.na(proj$cell_type_fine)]
+proj$cell_type_fine[proj$cell_type_fine == "nan"] <- proj$cell_type_coarse[proj$cell_type_fine == "nan"]
+proj <- subset(proj, subset = cell_type_coarse != "NotAssigned")
 
 plt <- VlnPlot(proj, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
 ggsave(output_paths[["qc_violin"]], plt, device = "pdf")

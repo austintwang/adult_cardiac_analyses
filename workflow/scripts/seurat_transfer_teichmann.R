@@ -20,7 +20,7 @@ set.seed(params[["seed"]])
 
 proj <- readRDS(file = input_paths[["project_rna"]])
 
-ellinor <- readRDS(file = input_paths[["project_ellinor"]])
+ellinor <- readRDS(file = input_paths[["project_teichmann"]])
 
 # print(head(ref@meta.data)) ####
 # print(ref) ####
@@ -47,11 +47,11 @@ anchors <- FindTransferAnchors(
 # )
 predictions <- TransferData(
   anchorset = anchors,
-  refdata = proj$cell_type
+  refdata = proj$cell_type_fine
 )
 # head(proj_tmp@meta.data) ####
 # head(rownames(proj_tmp)) ####
-proj$cell_type_ellinor_fine <- predictions$predicted.id
+proj$cell_type_teichmann_fine <- predictions$predicted.id
 # head(proj@meta.data) ####
 # head(rownames(proj)) ####
 
@@ -64,19 +64,19 @@ proj$cell_type_ellinor_fine <- predictions$predicted.id
 # )
 predictions <- TransferData(
   anchorset = anchors,
-  refdata = proj$cell_type_leiden06
+  refdata = proj$cell_type_coarse
 )
 # head(proj_tmp@meta.data) ####
 # head(rownames(proj_tmp)) ####
-proj$cell_type_ellinor_coarse <- predictions$predicted.id
+proj$cell_type_teichmann_coarse <- predictions$predicted.id
 # head(proj@meta.data) ####
 # head(rownames(proj)) ####
 
 plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_ellinor_fine", label = TRUE)
-ggsave(output_paths[["umap_ellinor_fine"]], plt, device = "pdf", width = 10, height = 7)
+ggsave(output_paths[["umap_teichmann_fine"]], plt, device = "pdf", width = 10, height = 7)
 
 plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_ellinor_coarse", label = TRUE)
-ggsave(output_paths[["umap_ellinor_coarse"]], plt, device = "pdf", width = 10, height = 7)
+ggsave(output_paths[["umap_teichmann_coarse"]], plt, device = "pdf", width = 10, height = 7)
 
-label_data <- proj@meta.data[,c("cell_type_ellinor_coarse", "cell_type_ellinor_fine"),drop=FALSE]
+label_data <- proj@meta.data[,c("cell_type_teichmann_coarse", "cell_type_teichmann_fine"),drop=FALSE]
 write.table(label_data, file= output_paths[["data_out"]], quote=FALSE, sep='\t', col.names = NA)

@@ -30,14 +30,18 @@ anchors <- FindTransferAnchors(
   reference.reduction  = "harmony2",
   reduction = "pcaproject"
 )
-proj_tmp <- MapQuery(
+# proj_tmp <- MapQuery(
+#   anchorset = anchors,
+#   query = proj,
+#   reference = kramann,
+#   refdata = "cell_type",
+#   reference.reduction = "pcaproject"
+# )
+predictions <- TransferData(
   anchorset = anchors,
-  query = proj,
-  reference = kramann,
-  refdata = "cell_type",
-  reference.reduction = "pcaproject"
+  refdata = proj$cell_type
 )
-proj$cell_type_kramann <- proj_tmp$predicted.id
+proj$cell_type_kramann <- predictions$predicted.id
 
 plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_kramann", label = TRUE)
 ggsave(output_paths[["umap_kramann"]], plt, device = "pdf", width = 10, height = 7)
