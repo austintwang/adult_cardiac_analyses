@@ -92,7 +92,9 @@ rule seurat_build_reference_teichmann:
     Build Teichmann reference dataset
     """
     input:
-        h5seurat = "reference/teichmann/fetch/data.h5seurat"
+        h5seurat = "reference/teichmann/fetch/data.h5seurat",
+        azimuth_library_dir = "resources/azimuth_lib",
+        seuratdisk_library_dir = "resources/seuratdisk_lib"
     output:
         project_out = "reference/teichmann/seurat_build_reference/proj.rds",
         qc_violin = "reference/teichmann/seurat_build_reference/qc_violin.pdf",
