@@ -188,7 +188,8 @@ rule seurat_load_transfer_labels:
         project_integrated = "results_merged/{group}/rna/seurat_integrate_rna/proj.rds",
         tables = expand(
             "results_merged/{group}/rna/seurat_integrate_transfers/{reference}.tsv", 
-            reference = ["kramann"]
+            reference = ["kramann"], 
+            allow_missing=True
         )
     output:
         project_out = "results_merged/{group}/rna/seurat_load_transfer_labels/proj.rds",
