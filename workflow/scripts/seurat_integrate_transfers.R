@@ -12,15 +12,13 @@ log_paths = snakemake@log
 set.seed(params[["seed"]])
 
 read_fn <- function(path, sample) {
-    data <- read.table(file = path, sep = '\t', header = TRUE, quote = "")
-    rownames(data) <- paste0(sample, "_", data$X)
-    print(head(data)) ####
+    data <- read.table(file = path, sep = '\t', quote = "")
+    rownames(data) <- paste0(sample, "_", rownames(data))
     data
 }
 
-tables <- mapply(read_fn, input_paths[["tables"]], params[["samples"]])
+tables <- mapply(read_fn, input_paths[["tables_in"]], params[["samples"]])
 data_stacked <- do.call(rbind, tables)
-head(data_stacked) ####
 
 write.table(data_stacked, file = output_paths[["data_out"]], quote=FALSE, sep='\t', col.names = NA)
 
