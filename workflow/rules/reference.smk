@@ -149,6 +149,26 @@ rule seurat_transfer_ellinor_rna:
     script:
         "../scripts/seurat_transfer_ellinor_rna.R"
 
+rule seurat_transfer_teichmann_rna:
+    """
+    Seurat RNA reference labeling
+    """
+    input:
+        project_rna = "results/{sample}/rna/seurat_doublets_rna/proj_filtered.rds",
+        project_teichmann = "reference/teichmann/seurat_build_reference/proj.rds",
+    output:
+        data_out = "results/{sample}/rna/seurat_transfer_rna/labels_teichmann.tsv",
+        umap_teichmann_coarse = "results/{sample}/rna/seurat_transfer_rna/umap_teichmann_coarse.pdf",
+        umap_teichmann_fine = "results/{sample}/rna/seurat_transfer_rna/umap_teichmann_fine.pdf",
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/{sample}/rna/seurat_transfer_rna/teichmann.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_transfer_teichmann_rna.R"
+
 rule seurat_transfer_azimuth_rna:
     """
     Seurat RNA reference labeling
@@ -162,11 +182,29 @@ rule seurat_transfer_azimuth_rna:
     params:
         seed = config["seurat_seed"],
     log:
-        console = "logs/{sample}/rna/seurat_transfer_rna/ellinor.log"
+        console = "logs/{sample}/rna/seurat_transfer_rna/azimuth.log"
     conda:
         "../envs/seurat.yaml"
     script:
         "../scripts/seurat_transfer_azimuth_rna.R"
+
+rule seurat_integrate_transfers:
+    """
+    Integrate transfer labels across datasets
+    """
+    input:
+        tables = lambda w: [f"results/{i}/rna/seurat_transfer_rna/labels_{w.reference}.tsv" for i in groups[w.group]]
+    output:
+        data_out = "results_merged/{group}/rna/seurat_integrate_transfers/{reference}.tsv"
+    params:
+        seed = config["seurat_seed"],
+        samples = lambda w: groups[w.group]
+    log:
+        console = "logs/{sample}/rna/seurat_integrate_transfers/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_integrate_transfers.R"
 
 rule seurat_merge_kramann_plots:
     """

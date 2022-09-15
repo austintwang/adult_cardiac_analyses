@@ -180,33 +180,27 @@ rule seurat_merge_integration_plots:
     shell:
         "pdfunite {input} {output}; "
 
-
-
-
-
-
-
-rule seurat_integrate_labels:
+rule seurat_load_transfer_labels:
     """
     Add labels to integrated analyses
     """
     input:
         project_integrated = "results_merged/{group}/rna/seurat_integrate_rna/proj.rds",
-        projects_labeled = lambda w: [f"results/{i}/rna/seurat_transfer_rna/proj.rds" for i in groups[w.group]]
+        tables = expand(
+            "results_merged/{group}/rna/seurat_integrate_transfers/{reference}.tsv", 
+            reference = ["kramann"]
+        )
     output:
-        project_out = "results_merged/{group}/rna/seurat_integrate_labels/proj.rds",
-        umap_kramann = "results_merged/{group}/rna/seurat_integrate_rna/umap_kramann_harmony.pdf",
-        umap_ellinor_coarse = "results_merged/{group}/rna/seurat_integrate_rna/umap_ellinor_coarse.pdf",
-        umap_ellinor_fine = "results_merged/{group}/rna/seurat_integrate_rna/umap_ellinor_fine.pdf",
+        project_out = "results_merged/{group}/rna/seurat_load_transfer_labels/proj.rds",
+        umap_kramann = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_harmony.pdf",
     params:
         seed = config["seurat_seed"],
-        samples = samples,
     log:
-        console = "logs/merged/{group}/rna/seurat_integrate_rna/console.log"
+        console = "logs/merged/{group}/rna/seurat_load_transfer_labels/console.log"
     conda:
         "../envs/seurat.yaml"
     script:
-        "../scripts/seurat_integrate_labels.R"
+        "../scripts/seurat_load_transfer_labels.R"
 
 rule seurat_merge_integrated_label_plots:
     """
