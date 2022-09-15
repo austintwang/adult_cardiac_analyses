@@ -19,7 +19,7 @@ read_fn <- function(path, sample) {
 }
 
 tables <- mapply(read_fn, input_paths[["tables"]], params[["samples"]], SIMPLIFY = FALSE, USE.NAMES = FALSE)
-print(tables) ####
+# print(tables) ####
 # head(tables[[1]]) ####
 data_stacked <- do.call(rbind, tables)
 head(data_stacked) ####
