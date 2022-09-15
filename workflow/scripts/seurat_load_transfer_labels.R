@@ -21,7 +21,7 @@ read_fn <- function(path) {
    read.table(file = path, sep = '\t', header = TRUE, quote = "")
 }
 
-tables <- mapply(input_paths[["tables"]], read_fn)
+tables <- lapply(input_paths[["tables"]], read_fn)
 label_data <- do.call(cbind, tables)
 
 proj_merged <- AddMetaData(proj, label_data)
