@@ -20,7 +20,7 @@ set.seed(params[["seed"]])
 
 proj <- readRDS(file = input_paths[["project_rna"]])
 
-ellinor <- readRDS(file = input_paths[["project_teichmann"]])
+teichmann <- readRDS(file = input_paths[["project_teichmann"]])
 
 # print(head(ref@meta.data)) ####
 # print(ref) ####
@@ -29,7 +29,7 @@ ellinor <- readRDS(file = input_paths[["project_teichmann"]])
 # print(proj) ####
 
 anchors <- FindTransferAnchors(
-  reference = ellinor,
+  reference = teichmann,
   query = proj,
   dims = 1:30, 
   reference.reduction = "pca",
@@ -46,7 +46,7 @@ anchors <- FindTransferAnchors(
 #   reference.reduction = "pcaproject"
 # )
 predictions <- TransferData(
-  anchorset = anchors,
+  anchorset = teichmann,
   refdata = proj$cell_type_fine
 )
 # head(proj_tmp@meta.data) ####
@@ -63,7 +63,7 @@ proj$cell_type_teichmann_fine <- predictions$predicted.id
 #   reference.reduction = "pcaproject"
 # )
 predictions <- TransferData(
-  anchorset = anchors,
+  anchorset = teichmann,
   refdata = proj$cell_type_coarse
 )
 # head(proj_tmp@meta.data) ####

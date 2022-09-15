@@ -39,7 +39,7 @@ anchors <- FindTransferAnchors(
 # )
 predictions <- TransferData(
   anchorset = anchors,
-  refdata = proj$cell_type
+  refdata = kramann$cell_type
 )
 proj$cell_type_kramann <- predictions$predicted.id
 

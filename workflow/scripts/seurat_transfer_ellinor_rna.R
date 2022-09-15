@@ -47,7 +47,7 @@ anchors <- FindTransferAnchors(
 # )
 predictions <- TransferData(
   anchorset = anchors,
-  refdata = proj$cell_type
+  refdata = ellinor$cell_type
 )
 # head(proj_tmp@meta.data) ####
 # head(rownames(proj_tmp)) ####
@@ -64,7 +64,7 @@ proj$cell_type_ellinor_fine <- predictions$predicted.id
 # )
 predictions <- TransferData(
   anchorset = anchors,
-  refdata = proj$cell_type_leiden06
+  refdata = ellinor$cell_type_leiden06
 )
 # head(proj_tmp@meta.data) ####
 # head(rownames(proj_tmp)) ####
