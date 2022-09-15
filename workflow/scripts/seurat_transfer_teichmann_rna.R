@@ -46,8 +46,8 @@ anchors <- FindTransferAnchors(
 #   reference.reduction = "pcaproject"
 # )
 predictions <- TransferData(
-  anchorset = teichmann,
-  refdata = proj$cell_type_fine
+  anchorset = anchors,
+  refdata = teichmann$cell_type_fine
 )
 # head(proj_tmp@meta.data) ####
 # head(rownames(proj_tmp)) ####
@@ -63,8 +63,8 @@ proj$cell_type_teichmann_fine <- predictions$predicted.id
 #   reference.reduction = "pcaproject"
 # )
 predictions <- TransferData(
-  anchorset = teichmann,
-  refdata = proj$cell_type_coarse
+  anchorset = anchors,
+  refdata = teichmann$cell_type_coarse
 )
 # head(proj_tmp@meta.data) ####
 # head(rownames(proj_tmp)) ####
