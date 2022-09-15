@@ -32,7 +32,7 @@ plt <- FeaturePlot(proj, reduction = "umap", features = "pANN") +  labs(title = 
 ggsave(output_paths[["umap_doubletfinder"]], plt, device = "pdf", width = 10, height = 7)
 
 proj$amulet_nlp <- -log10(proj$amulet_pval)
-plt <- FeaturePlot(proj, reduction = "umap", features = "log_counts") + labs(title="Post-Harmony Amulet -log10 p-Value")
+plt <- FeaturePlot(proj, reduction = "umap", features = "amulet_nlp") + labs(title="Post-Harmony Amulet -log10 p-Value")
 ggsave(output_paths[["umap_amulet"]], plt, device = "pdf", width = 10, height = 7)
 
 sink(type = "message")
