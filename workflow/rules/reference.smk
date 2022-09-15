@@ -35,11 +35,11 @@ rule seurat_convert_teichmann:
     output:
         h5seurat = "reference/teichmann/fetch/data.h5seurat"
     log:
-        console = "logs/resources/seurat_install_seuratdisk/console.log"
+        console = "logs/resources/seurat_convert_teichmann/console.log"
     conda:
         "../envs/seurat.yaml"
     script:
-        "../scripts/seurat_install_seuratdisk.R"
+        "../scripts/seurat_convert_teichmann.R"
 
 rule seurat_build_reference_kramann:
     """
