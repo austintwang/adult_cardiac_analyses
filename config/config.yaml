@@ -41,7 +41,7 @@ rna_ref_ellinor:
   cells_raw: http://mitra.stanford.edu/kundaje/atwang/encode_scatac_manual/cardiac_refs/ellinor/SCP1303/expression/614a0209771a5b0d7f033712/DCM_HCM_Expression_Matrix_barcodes_V1.tsv.gz
   metadata: http://mitra.stanford.edu/kundaje/atwang/encode_scatac_manual/cardiac_refs/ellinor/SCP1303/metadata/DCM_HCM_MetaData_V1.txt.gz
 
-rna_ref_teichmann: https://cellgeni.cog.sanger.ac.uk/heartcellatlas/data/global_raw.h5ad
+rna_ref_teichmann_data: https://cellgeni.cog.sanger.ac.uk/heartcellatlas/data/global_raw.h5ad
 
 doublet_formation_rate: 0.06
 
