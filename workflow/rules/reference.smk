@@ -200,7 +200,7 @@ rule seurat_integrate_transfers:
         seed = config["seurat_seed"],
         samples = lambda w: groups[w.group]
     log:
-        console = "logs/{sample}/rna/seurat_integrate_transfers/console.log"
+        console = "logs/merged/{group}/rna/seurat_integrate_transfers/console.log"
     conda:
         "../envs/seurat.yaml"
     script:
