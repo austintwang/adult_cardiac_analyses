@@ -18,7 +18,7 @@ log_paths = snakemake@log
 set.seed(params[["seed"]])
 
 read_fn <- function(path) {
-   read.table(file = path, sep = '\t', header = TRUE, quote = "")
+   read.table(file = path, sep = '\t', header = TRUE, row.names = 1)
 }
 
 tables <- lapply(input_paths[["tables"]], read_fn)
