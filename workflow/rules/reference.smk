@@ -44,8 +44,6 @@ rule seurat_build_reference_ellinor:
     script:
         "../scripts/seurat_build_reference_ellinor.R"
 
-
-
 rule seurat_transfer_kramann_rna:
     """
     Seurat RNA reference labeling
@@ -54,7 +52,7 @@ rule seurat_transfer_kramann_rna:
         project_rna = "results/{sample}/rna/seurat_doublets_rna/proj_filtered.rds",
         project_kramann = "reference/kramann/seurat_build_reference/proj.rds"
     output:
-        project_out = "results/{sample}/rna/seurat_transfer_rna/proj_inter.rds",
+        data_out = "results/{sample}/rna/seurat_transfer_rna/labels_kramann.tsv",
         umap_kramann = "results/{sample}/rna/seurat_transfer_rna/umap_kramann.pdf"
     params:
         seed = config["seurat_seed"],
@@ -73,7 +71,7 @@ rule seurat_transfer_ellinor_rna:
         project_rna = "results/{sample}/rna/seurat_doublets_rna/proj_filtered.rds",
         project_ellinor = "reference/ellinor/seurat_build_reference/proj.rds",
     output:
-        project_out = "results/{sample}/rna/seurat_transfer_rna/proj.rds",
+        data_out = "results/{sample}/rna/seurat_transfer_rna/labels_ellinor.tsv",
         umap_ellinor_coarse = "results/{sample}/rna/seurat_transfer_rna/umap_ellinor_coarse.pdf",
         umap_ellinor_fine = "results/{sample}/rna/seurat_transfer_rna/umap_ellinor_fine.pdf",
     params:
@@ -84,6 +82,24 @@ rule seurat_transfer_ellinor_rna:
         "../envs/seurat.yaml"
     script:
         "../scripts/seurat_transfer_ellinor_rna.R"
+
+rule seurat_transfer_azimuth_rna:
+    """
+    Seurat RNA reference labeling
+    """
+    input:
+        project_rna = "results/{sample}/rna/seurat_doublets_rna/proj_filtered.rds"
+    output:
+        data_out = "results/{sample}/rna/seurat_transfer_rna/labels_azimuth.tsv",
+        umap_azimuth = "results/{sample}/rna/seurat_transfer_rna/umap_azimuth.pdf",
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/{sample}/rna/seurat_transfer_rna/ellinor.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_transfer_azimuth_rna.R"
 
 rule seurat_merge_kramann_plots:
     """
