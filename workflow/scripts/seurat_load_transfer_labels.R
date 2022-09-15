@@ -22,8 +22,9 @@ read_fn <- function(path) {
 }
 
 tables <- lapply(input_paths[["tables"]], read_fn)
+head(tables[[1]])
 label_data <- do.call(cbind, tables)
-head(label_data) ####
+# head(label_data) ####
 
 proj <- readRDS(file = input_paths[["project_integrated"]])
 proj_merged <- AddMetaData(proj, label_data)
