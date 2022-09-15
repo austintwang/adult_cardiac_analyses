@@ -52,6 +52,7 @@ rule all:
     """
     input: 
         expand("results/{sample}/rna/seurat_transfer_rna/labels_kramann.tsv", sample=samples),
+        expand("results/{sample}/rna/seurat_transfer_rna/labels_ellinor.tsv", sample=samples),
         expand("results_merged/{group}/rna/seurat_integrate_rna/proj.rds", group=groups.keys()),
         expand("results_merged/{group}/rna/seurat_integrate_rna/integration_plots.pdf", group=groups.keys()),
         "qc_all/seurat_doublet_umaps.pdf",

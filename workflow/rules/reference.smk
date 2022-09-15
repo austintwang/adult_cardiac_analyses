@@ -1,3 +1,16 @@
+rule seurat_install_azimuth:
+    """
+    Install Azimuth package
+    """
+    output:
+        azimuth_library_dir = directory("resources/azimuth_lib")
+    log:
+        console = "logs/resources/seurat_install_azimuth/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_install_azimuth.R"
+
 rule seurat_build_reference_kramann:
     """
     Build Kramann reference dataset
@@ -88,7 +101,8 @@ rule seurat_transfer_azimuth_rna:
     Seurat RNA reference labeling
     """
     input:
-        project_rna = "results/{sample}/rna/seurat_doublets_rna/proj_filtered.rds"
+        project_rna = "results/{sample}/rna/seurat_doublets_rna/proj_filtered.rds",
+        azimuth_library_dir = "resources/azimuth_lib"
     output:
         data_out = "results/{sample}/rna/seurat_transfer_rna/labels_azimuth.tsv",
         umap_azimuth = "results/{sample}/rna/seurat_transfer_rna/umap_azimuth.pdf",
