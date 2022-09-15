@@ -14,7 +14,7 @@ set.seed(params[["seed"]])
 read_fn <- function(path, sample) {
     data <- read.table(file = path, sep = '\t', header = TRUE, quote = "")
     rownames(data) <- paste0(sample, "_", rownames(data))
-    head(data) ####
+    print(head(data)) ####
     data
 }
 
