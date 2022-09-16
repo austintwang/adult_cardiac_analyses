@@ -188,12 +188,16 @@ rule seurat_load_transfer_labels:
         project_integrated = "results_merged/{group}/rna/seurat_integrate_rna/proj.rds",
         tables = expand(
             "results_merged/{group}/rna/seurat_integrate_transfers/{reference}.tsv", 
-            reference = ["kramann"], 
+            reference = ["kramann", "ellinor", "teichmann"], 
             allow_missing=True
         )
     output:
         project_out = "results_merged/{group}/rna/seurat_load_transfer_labels/proj.rds",
         umap_kramann = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_harmony.pdf",
+        umap_ellinor_coarse = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_coarse.pdf",
+        umap_ellinor_fine = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_fine.pdf",
+        umap_teichmann_coarse = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_coarse.pdf",
+        umap_teichmann_fine = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_fine.pdf",
     params:
         seed = config["seurat_seed"],
     log:
@@ -203,23 +207,18 @@ rule seurat_load_transfer_labels:
     script:
         "../scripts/seurat_load_transfer_labels.R"
 
-rule seurat_merge_integrated_label_plots:
+rule seurat_merge_reference_label_plots:
     """
-    Merge ellinor projection plot pdf's
+    Merge reference projection plot pdf's
     """
     input:
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_pre_harmony.pdf",
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_harmony.pdf",
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_kramann_pre_harmony.pdf",
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_kramann_harmony.pdf",
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_ellinor_coarse_pre_harmony.pdf",
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_ellinor_coarse_harmony.pdf",
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_ellinor_fine_pre_harmony.pdf",
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_ellinor_fine_harmony.pdf",
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_pre_harmony.pdf",
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_harmony.pdf"
+        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_harmony.pdf",
+        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_coarse.pdf",
+        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_fine.pdf",
+        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_coarse.pdf",
+        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_fine.pdf",
     output:
-        "results_merged/{group}/rna/seurat_integrate_rna/integration_plots.pdf"
+        "results_merged/{group}/rna/seurat_load_transfer_labels/reference_plots.pdf"
     conda:
         "../envs/fetch.yaml"
     shell:

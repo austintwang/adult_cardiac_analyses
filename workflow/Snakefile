@@ -57,9 +57,10 @@ rule all:
         expand("results_merged/{group}/rna/seurat_integrate_rna/proj.rds", group=groups.keys()),
         expand("results_merged/{group}/rna/seurat_integrate_rna/integration_plots.pdf", group=groups.keys()),
         expand("results_merged/{group}/rna/seurat_load_transfer_labels/proj.rds", group=groups.keys()),
+        expand("results_merged/{group}/rna/seurat_load_transfer_labels/reference_plots.pdf", group=groups.keys()),
         "qc_all/seurat_doublet_umaps.pdf",
         "qc_all/seurat_soupx_umaps.pdf",
-        "reference/teichmann/seurat_build_reference/proj.rds", ####
+
         # "results_merged/atac/archr_init",
         # "results_merged/atac/archr_label",
         # "export/atac/embeddings/harmony.tsv.gz",

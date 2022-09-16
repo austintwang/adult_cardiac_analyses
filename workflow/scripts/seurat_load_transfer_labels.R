@@ -32,11 +32,17 @@ proj_merged <- AddMetaData(proj, label_data)
 plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_kramann") + labs(title="Kramann labels")
 ggsave(output_paths[["umap_kramann"]], plt, device = "pdf", width = 10, height = 7)
 
-# plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_ellinor_coarse") + labs(title="Ellinor coarse labels")
-# ggsave(output_paths[["umap_ellinor_coarse"]], plt, device = "pdf", width = 10, height = 7)
+plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_ellinor_coarse") + labs(title="Ellinor coarse labels")
+ggsave(output_paths[["umap_ellinor_coarse"]], plt, device = "pdf", width = 10, height = 7)
 
-# plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_ellinor_fine") + labs(title="Ellinor fine labels")
-# ggsave(output_paths[["umap_ellinor_fine"]], plt, device = "pdf", width = 10, height = 7)
+plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_ellinor_fine") + labs(title="Ellinor fine labels")
+ggsave(output_paths[["umap_ellinor_fine"]], plt, device = "pdf", width = 10, height = 7)
+
+plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_teichmann_coarse") + labs(title="Teichmann coarse labels")
+ggsave(output_paths[["umap_teichmann_coarse"]], plt, device = "pdf", width = 10, height = 7)
+
+plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_teichmann_fine") + labs(title="Teichmann fine labels")
+ggsave(output_paths[["umap_teichmann_fine"]], plt, device = "pdf", width = 10, height = 7)
 
 
 saveRDS(proj_merged, file = output_paths[["project_out"]])
