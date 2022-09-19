@@ -22,7 +22,7 @@ read_fn <- function(path) {
 }
 
 plot_fn <- function(object, group, reduction, colors) {
-    cats <- unique(object@meta.data[[group]])
+    cats <- sort(unique(object@meta.data[[group]]))
     colors_out <- rep_len(colors, length(cats))
     names(colors_out) <- cats
     print(colors_out) ####
