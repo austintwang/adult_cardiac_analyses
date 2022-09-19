@@ -25,6 +25,7 @@ plot_fn <- function(object, group, reduction, colors) {
     cats <- unique(object[[group]])
     colors_out <- rep_len(colors, length(cats))
     names(colors_out) <- cats
+    print(colors_out) ####
     DimPlot(proj_merged, reduction = reduction, group.by = group, label = TRUE, cols = colors_out, pt.size=0.1)
 }
 
