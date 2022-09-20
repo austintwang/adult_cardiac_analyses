@@ -33,10 +33,14 @@ print("a") ####
 print(head(proj@meta.data)) ####
 
 plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_l1", label = TRUE)
+print("b") ####
 ggsave(output_paths[["umap_azimuth_l1"]], plt, device = "pdf", width = 10, height = 7)
+print("bb") ####
 
 plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_l2", label = TRUE)
+print("bbb") ####
 ggsave(output_paths[["umap_azimuth_l2"]], plt, device = "pdf", width = 10, height = 7)
+print("bbbb") ####
 
 print("aa") ####
 
