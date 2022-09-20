@@ -37,4 +37,5 @@ plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_l2", label = TRUE
 ggsave(output_paths[["umap_azimuth_l2"]], plt, device = "pdf", width = 10, height = 7)
 
 label_data <- proj@meta.data[,c("cell_type_l1", "cell_type_l2"),drop=FALSE]
+print(head(label_data)) ####
 write.table(label_data, file= output_paths[["data_out"]], quote=FALSE, sep='\t', col.names = NA)
