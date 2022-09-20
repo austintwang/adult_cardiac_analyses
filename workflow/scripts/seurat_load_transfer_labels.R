@@ -62,10 +62,10 @@ plt <- plot_fn(proj_merged, "cell_type_teichmann_fine", "umap", stallion) + labs
 # plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_teichmann_fine", label = TRUE) + labs(title="Teichmann fine labels")
 ggsave(output_paths[["umap_teichmann_fine"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_fn(proj_merged, "cell_type_azimuth_l1", "umap", stallion) + labs(title="Azimuth coarse labels")
+plt <- plot_fn(proj_merged, "cell_type_azimuth_coarse", "umap", stallion) + labs(title="Azimuth coarse labels")
 ggsave(output_paths[["umap_azimuth_coarse"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_fn(proj_merged, "cell_type_azimuth_l2", "umap", stallion) + labs(title="Azimuth fine labels")
+plt <- plot_fn(proj_merged, "cell_type_azimuth_fine", "umap", stallion) + labs(title="Azimuth fine labels")
 ggsave(output_paths[["umap_azimuth_fine"]], plt, device = "pdf", width = 10, height = 7)
 
 
