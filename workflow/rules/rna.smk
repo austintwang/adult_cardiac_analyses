@@ -188,7 +188,7 @@ rule seurat_load_transfer_labels:
         project_integrated = "results_merged/{group}/rna/seurat_integrate_rna/proj.rds",
         tables = expand(
             "results_merged/{group}/rna/seurat_integrate_transfers/{reference}.tsv", 
-            reference = ["kramann", "ellinor", "teichmann"], 
+            reference = ["kramann", "ellinor", "teichmann", "azimuth"], 
             allow_missing=True
         )
     output:
@@ -198,6 +198,8 @@ rule seurat_load_transfer_labels:
         umap_ellinor_fine = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_fine.pdf",
         umap_teichmann_coarse = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_coarse.pdf",
         umap_teichmann_fine = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_fine.pdf",
+        umap_azimuth_coarse = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_azimuth_coarse.pdf",
+        umap_azimuth_fine = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_azimuth_fine.pdf",
     params:
         seed = config["seurat_seed"],
     log:
