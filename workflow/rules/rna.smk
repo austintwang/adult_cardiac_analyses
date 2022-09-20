@@ -219,6 +219,8 @@ rule seurat_merge_reference_label_plots:
         "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_fine.pdf",
         "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_coarse.pdf",
         "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_fine.pdf",
+        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_azimuth_coarse.pdf",
+        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_azimuth_fine.pdf",
     output:
         "results_merged/{group}/rna/seurat_load_transfer_labels/reference_plots.pdf"
     conda:
