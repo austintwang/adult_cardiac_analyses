@@ -179,7 +179,8 @@ rule seurat_transfer_azimuth_rna:
         azimuth_library_dir = "resources/azimuth_lib"
     output:
         data_out = "results/{sample}/rna/seurat_transfer_rna/labels_azimuth.tsv",
-        umap_azimuth = "results/{sample}/rna/seurat_transfer_rna/umap_azimuth.pdf",
+        umap_azimuth_l1 = "results/{sample}/rna/seurat_transfer_rna/umap_azimuth_l1.pdf",
+        umap_azimuth_l2 = "results/{sample}/rna/seurat_transfer_rna/umap_azimuth_l2.pdf"
     params:
         seed = config["seurat_seed"],
     log:
