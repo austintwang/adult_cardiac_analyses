@@ -23,7 +23,9 @@ set.seed(params[["seed"]])
 
 proj <- readRDS(file = input_paths[["project_rna"]])
 
-proj_tmp <- RunAzimuth(query = input_paths[["project_rna"]], reference = "heartref")
+ref_path <- file.path(input_paths[["azimuth_data"]], "heartref.SeuratData", "inst", "azimuth")
+
+proj_tmp <- RunAzimuth(query = input_paths[["project_rna"]], reference = ref_path)
 proj$cell_type_l1 <- proj_tmp$predicted.celltype.l1
 proj$cell_type_l2 <- proj_tmp$predicted.celltype.l2
 

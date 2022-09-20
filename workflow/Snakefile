@@ -376,6 +376,22 @@ rule download_teichmann_data:
     shell:
         "curl --no-progress-meter -L -f '{params.url}' > {output}"
 
+rule download_azimuth_data:
+    """
+    Download reference data
+    """
+    output:
+        tarball = "reference/azimuth/heartref.SeuratData_1.0.0.tar.gz",
+        data = directory("reference/azimuth/heartref")
+    params:
+        url = config["azimuth_ref"]
+    conda:
+        "envs/fetch.yaml"
+    shell:
+        "curl --no-progress-meter -L -f '{params.url}' > {output.tarball}; "
+        "mkdir -p {output.data}; "
+        "tar -xf {output.tarball} -C {output.data}"
+
 rule download_barcode_wl:
     """
     Download barcode whitelist

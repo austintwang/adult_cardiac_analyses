@@ -43,6 +43,8 @@ rna_ref_ellinor:
 
 rna_ref_teichmann_data: https://cellgeni.cog.sanger.ac.uk/heartcellatlas/data/global_raw.h5ad
 
+azimuth_ref: http://seurat.nygenome.org/src/contrib/heartref.SeuratData_1.0.0.tar.gz
+
 doublet_formation_rate: 0.06
 
 gtf: https://www.encodeproject.org/files/ENCFF159KBI/@@download/ENCFF159KBI.gtf.gz

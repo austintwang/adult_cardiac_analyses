@@ -175,6 +175,7 @@ rule seurat_transfer_azimuth_rna:
     """
     input:
         project_rna = "results/{sample}/rna/seurat_doublets_rna/proj_filtered.rds",
+        azimuth_data = "reference/azimuth/heartref",
         azimuth_library_dir = "resources/azimuth_lib"
     output:
         data_out = "results/{sample}/rna/seurat_transfer_rna/labels_azimuth.tsv",
