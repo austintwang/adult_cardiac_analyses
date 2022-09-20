@@ -9,15 +9,15 @@ library(Seurat)
 library(patchwork)
 library(ggplot2)
 
-library(Azimuth, lib.loc=input_paths[["azimuth_library_dir"]])
-library(SeuratData, lib.loc=input_paths[["azimuth_library_dir"]])
-
 options(future.globals.maxSize = 8000 * 1024^2)
 
 params = snakemake@params 
 input_paths = snakemake@input
 output_paths = snakemake@output
 log_paths = snakemake@log
+
+library(Azimuth, lib.loc=input_paths[["azimuth_library_dir"]])
+library(SeuratData, lib.loc=input_paths[["azimuth_library_dir"]])
 
 set.seed(params[["seed"]])
 
