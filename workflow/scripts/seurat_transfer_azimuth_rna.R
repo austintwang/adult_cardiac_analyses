@@ -30,6 +30,7 @@ print(head(proj_tmp@meta.data)) ####
 proj$cell_type_l1 <- proj_tmp$predicted.celltype.l1
 proj$cell_type_l2 <- proj_tmp$predicted.celltype.l2
 print("a") ####
+print(head(proj@meta.data)) ####
 
 plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_l1", label = TRUE)
 ggsave(output_paths[["umap_azimuth_l1"]], plt, device = "pdf", width = 10, height = 7)
