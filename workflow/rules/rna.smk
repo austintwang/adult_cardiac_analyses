@@ -193,7 +193,9 @@ rule seurat_load_transfer_labels:
         )
     output:
         project_out = "results_merged/{group}/rna/seurat_load_transfer_labels/proj.rds",
-        umap_kramann = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_harmony.pdf",
+        umap_kramann_coarse = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_coarse.pdf",
+        umap_kramann_fine = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_fine.pdf",
+        umap_kramann_fine_2 = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_fine_2.pdf",
         umap_ellinor_coarse = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_coarse.pdf",
         umap_ellinor_fine = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_fine.pdf",
         umap_teichmann_coarse = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_coarse.pdf",
@@ -214,7 +216,9 @@ rule seurat_merge_reference_label_plots:
     Merge reference projection plot pdf's
     """
     input:
-        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_harmony.pdf",
+        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_coarse.pdf",
+        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_fine.pdf",
+        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_fine_2.pdf",
         "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_coarse.pdf",
         "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_fine.pdf",
         "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_coarse.pdf",

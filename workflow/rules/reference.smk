@@ -141,7 +141,9 @@ rule seurat_transfer_kramann_rna:
         project_kramann = "reference/kramann/seurat_build_reference/proj.rds"
     output:
         data_out = "results/{sample}/rna/seurat_transfer_rna/labels_kramann.tsv",
-        umap_kramann = "results/{sample}/rna/seurat_transfer_rna/umap_kramann.pdf"
+        umap_kramann_coarse = "results/{sample}/rna/seurat_transfer_rna/umap_kramann_coarse.pdf",
+        umap_kramann_fine = "results/{sample}/rna/seurat_transfer_rna/umap_kramann_fine.pdf",
+        umap_kramann_fine_2 = "results/{sample}/rna/seurat_transfer_rna/umap_kramann_fine_2.pdf",
     params:
         seed = config["seurat_seed"],
     log:
