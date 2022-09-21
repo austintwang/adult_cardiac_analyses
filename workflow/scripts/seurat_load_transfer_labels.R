@@ -37,14 +37,18 @@ label_data <- do.call(cbind, tables)
 proj <- readRDS(file = input_paths[["project_integrated"]])
 proj_merged <- AddMetaData(proj, label_data)
 
-
 stallion <- c("1"="#D51F26","2"="#272E6A","3"="#208A42","4"="#89288F","5"="#F47D2B", "6"="#FEE500","7"="#8A9FD1","8"="#C06CAB","19"="#E6C2DC",
                "10"="#90D5E4", "11"="#89C75F","12"="#F37B7D","13"="#9983BD","14"="#D24B27","15"="#3BBCA8", "16"="#6E4B9E","17"="#0C727C", "18"="#7E1416","9"="#D8A767","20"="#3D3D3D")
 stallion <- unname(stallion)
 
-# plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_kramann", label = TRUE) + labs(title="Kramann labels")
-plt <- plot_fn(proj_merged, "cell_type_kramann", "umap", stallion) + labs(title="Kramann labels")
-ggsave(output_paths[["umap_kramann"]], plt, device = "pdf", width = 10, height = 7)
+plt <- plot_fn(proj_merged, "cell_type_kramann_coarse", "umap", stallion) + labs(title="Kramann coarse labels")
+ggsave(output_paths[["umap_kramann_coarse"]], plt, device = "pdf", width = 10, height = 7)
+
+plt <- plot_fn(proj_merged, "cell_type_kramann_fine", "umap", stallion) + labs(title="Kramann fine labels")
+ggsave(output_paths[["umap_kramann_fine"]], plt, device = "pdf", width = 10, height = 7)
+
+plt <- plot_fn(proj_merged, "cell_type_kramann_fine_2", "umap", stallion) + labs(title="Kramann fine labels (alt)")
+ggsave(output_paths[["umap_kramann_fine_2"]], plt, device = "pdf", width = 10, height = 7)
 
 plt <-  plot_fn(proj_merged, "cell_type_ellinor_coarse", "umap", stallion) + labs(title="Ellinor coarse labels")
 # plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_ellinor_coarse", label = TRUE) + labs(title="Ellinor coarse labels")
