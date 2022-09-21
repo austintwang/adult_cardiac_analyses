@@ -29,7 +29,7 @@ head(proj@meta.data) ####
 Project(proj) <- "Kramann"
 
 proj$cell_type_coarse <- proj$cell_type_original
-proj$cell_type_fine <- cell_type_coarse
+proj$cell_type_fine <- proj$cell_type_coarse
 # cell_type_fine <- proj@meta.data[, "cell_type_coarse", drop = FALSE]
 
 colnames(cell_type_fine)[1] <- "cell_type_fine"
