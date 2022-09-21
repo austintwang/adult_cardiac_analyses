@@ -27,7 +27,7 @@ anchors <- FindTransferAnchors(
   reference = kramann,
   query = proj,
   dims = 1:30, 
-  reference.reduction  = "harmony2",
+  reference.reduction  = "pca",
   reduction = "pcaproject"
 )
 # proj_tmp <- MapQuery(
