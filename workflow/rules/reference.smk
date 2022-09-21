@@ -64,8 +64,8 @@ rule seurat_build_reference_kramann:
     Build Kramann reference dataset
     """
     input:
-        h5seurat = "reference/teichmann/fetch/data.h5seurat",
-        subtypes = expand("reference/teichmann/fetch/{subtype}/data.rds", subtype = subtypes),
+        h5seurat = "reference/kramann/fetch/data.h5seurat",
+        subtypes = expand("reference/kramann/fetch/{subtype}/data.rds", subtype = subtypes),
         azimuth_library_dir = "resources/azimuth_lib",
         seuratdisk_library_dir = "resources/seuratdisk_lib"
     output:

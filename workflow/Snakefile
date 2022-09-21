@@ -338,7 +338,7 @@ rule download_kramann_subcluster_data:
     Download reference subcluster data
     """
     output:
-        "reference/teichmann/fetch/{subtype}/data.rds"
+        "reference/kramann/fetch/{subtype}/data.rds"
     params:
         url = lambda w: config["rna_ref_kramann"]["subtypes"][w.subtype]
     conda:
