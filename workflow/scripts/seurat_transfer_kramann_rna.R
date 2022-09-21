@@ -39,12 +39,21 @@ anchors <- FindTransferAnchors(
 # )
 predictions <- TransferData(
   anchorset = anchors,
-  refdata = kramann$cell_type
+  refdata = kramann$cell_type_coarse
 )
-proj$cell_type_kramann <- predictions$predicted.id
+proj$cell_type_kramann_coarse <- predictions$predicted.id
 
-plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_kramann", label = TRUE)
-ggsave(output_paths[["umap_kramann"]], plt, device = "pdf", width = 10, height = 7)
+predictions <- TransferData(
+  anchorset = anchors,
+  refdata = kramann$cell_type_fine
+)
+proj$cell_type_kramann_fine <- predictions$predicted.id
 
-label_data <- proj@meta.data[,"cell_type_kramann",drop=FALSE]
+plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_kramann_fine", label = TRUE)
+ggsave(output_paths[["umap_kramann_fine"]], plt, device = "pdf", width = 10, height = 7)
+
+plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_kramann_coarse", label = TRUE)
+ggsave(output_paths[["umap_kramann_coarse"]], plt, device = "pdf", width = 10, height = 7)
+
+label_data <- proj@meta.data[,c("cell_type_kramann_coarse", "cell_type_kramann_fine"),drop=FALSE]
 write.table(label_data, file= output_paths[["data_out"]], quote=FALSE, sep='\t', col.names = NA)

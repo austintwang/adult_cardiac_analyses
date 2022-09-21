@@ -31,7 +31,7 @@ head(proj@meta.data) ####
 # proj <- UpdateSeuratObject(proj)
 Project(proj) <- "Kramann"
 
-cell_type_fine <- proj@meta.data[, "cell_type_original", drop = FALSE]
+cell_type_fine <- proj@meta.data[, "cell_type", drop = FALSE]
 names(cell_type_fine)["cell_type_original"] <- "cell_type_fine"
 for (i in seq_along(params[["subtypes"]])) {
   sub_path <- input_paths[["subtypes"]][[i]]
@@ -42,9 +42,6 @@ for (i in seq_along(params[["subtypes"]])) {
   subtypes <- sub_proj@meta.data[shared, "annotation"]
   cell_type_fine[shared, "cell_type_fine"] <- subtypes
 }
-
-
-
 
 # ensembl <- useEnsembl(biomart = "genes", dataset = "hsapiens_gene_ensembl")
 # res <- getBM(
@@ -80,8 +77,8 @@ print(proj) ####
 head(proj@meta.data) ####
 
 # print(proj) ####
-proj$nCount_RNA <- proj[["nCounts_RNA"]]
-proj$nFeature_RNA <- proj[["nFeaturess_RNA"]]
+proj$nCount_RNA <- proj[["n_counts"]]
+proj$nFeature_RNA <- proj[["n_genes"]]
 
 proj[["percent.mt"]] <- PercentageFeatureSet(proj, pattern = "^MT-")
 
