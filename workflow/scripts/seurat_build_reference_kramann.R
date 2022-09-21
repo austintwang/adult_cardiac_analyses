@@ -43,6 +43,8 @@ for (i in seq_along(params[["subtypes"]])) {
   subtypes <- as.character(sub_proj@meta.data[shared, "annotation"])
   print(head(subtypes)) ####
   proj$cell_type_fine[shared] <- subtypes
+
+  rm(sub_proj)
 }
 
 # proj <- AddMetaData(proj, cell_type_fine)
