@@ -47,9 +47,6 @@ ggsave(output_paths[["umap_kramann_coarse"]], plt, device = "pdf", width = 10, h
 plt <- plot_fn(proj_merged, "cell_type_kramann_fine", "umap", stallion) + labs(title="Kramann fine labels")
 ggsave(output_paths[["umap_kramann_fine"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_fn(proj_merged, "cell_type_kramann_fine_2", "umap", stallion) + labs(title="Kramann fine labels (alt)")
-ggsave(output_paths[["umap_kramann_fine_2"]], plt, device = "pdf", width = 10, height = 7)
-
 plt <-  plot_fn(proj_merged, "cell_type_ellinor_coarse", "umap", stallion) + labs(title="Ellinor coarse labels")
 # plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_ellinor_coarse", label = TRUE) + labs(title="Ellinor coarse labels")
 ggsave(output_paths[["umap_ellinor_coarse"]], plt, device = "pdf", width = 10, height = 7)

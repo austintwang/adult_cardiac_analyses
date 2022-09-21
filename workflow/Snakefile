@@ -51,7 +51,7 @@ rule all:
     Generate all outputs (default)
     """
     input: 
-        # expand("results/{sample}/rna/seurat_transfer_rna/labels_kramann.tsv", sample=samples),
+        expand("results/{sample}/rna/seurat_transfer_rna/labels_kramann.tsv", sample=samples),
         expand("results/{sample}/rna/seurat_transfer_rna/labels_teichmann.tsv", sample=samples),
         expand("results/{sample}/rna/seurat_transfer_rna/labels_ellinor.tsv", sample=samples),
         expand("results/{sample}/rna/seurat_transfer_rna/labels_azimuth.tsv", sample=samples),
