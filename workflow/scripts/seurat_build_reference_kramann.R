@@ -70,7 +70,7 @@ for (i in seq_along(params[["subtypes"]])) {
 #     min.features = 200, 
 #     meta.data = metadata
 # )
-proj <- AddMetaData(cell_type_fine)
+proj <- AddMetaData(proj, cell_type_fine)
 proj$cell_type_coarse <- proj$cell_type
 proj$cell_type_fine_2 <- proj$cell_states
 proj$cell_type_fine_2[is.na(proj$cell_type_fine_2)] <- proj$cell_type_coarse[is.na(proj$cell_type_fine_2)]
