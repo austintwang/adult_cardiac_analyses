@@ -13,4 +13,7 @@ dependencies:
   - conda-forge::r-pheatmap=1.0.12
   - conda-forge::r-soupx=1.6.1
   - conda-forge::hdf5=1.12.2
+  - conda-forge::r-reticulate=1.26
+  - conda-forge::python=3.10.6
+  - conda-forge::scanpy=1.9.1
   - bioconda::r-harmony=0.1

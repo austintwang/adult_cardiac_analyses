@@ -16,12 +16,9 @@ input_paths <- snakemake@input
 output_paths <- snakemake@output
 log_paths <- snakemake@log
 
-library(SeuratData, lib.loc=input_paths[["azimuth_library_dir"]])
-library(SeuratDisk, lib.loc=input_paths[["seuratdisk_library_dir"]])
-
 set.seed(params[["seed"]])
 
-proj <- LoadH5Seurat(input_paths[["h5seurat"]])
+proj <- readRDS(input_paths[["project_in"]])
 
 print(head(rownames(proj))) ####
 head(proj@meta.data) ####

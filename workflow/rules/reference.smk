@@ -50,13 +50,13 @@ rule seurat_convert_kramann:
         azimuth_library_dir = "resources/azimuth_lib",
         seuratdisk_library_dir = "resources/seuratdisk_lib"
     output:
-        h5seurat = "reference/kramann/fetch/data.h5seurat"
+        project_out = "reference/kramann/fetch/data.rds"
     log:
         console = "logs/resources/seurat_convert_kramann/console.log"
     conda:
         "../envs/seurat.yaml"
     script:
-        "../scripts/seurat_convert_h5ad.R"
+        "../scripts/seurat_convert_h5ad_kramann.R"
 
 subtypes = config["rna_ref_kramann"]["subtypes"].keys()
 rule seurat_build_reference_kramann:
@@ -64,7 +64,7 @@ rule seurat_build_reference_kramann:
     Build Kramann reference dataset
     """
     input:
-        h5seurat = "reference/kramann/fetch/data.h5seurat",
+        project_in = "reference/kramann/fetch/data.rds",
         subtypes = expand("reference/kramann/fetch/{subtype}/data.rds", subtype = subtypes),
         azimuth_library_dir = "resources/azimuth_lib",
         seuratdisk_library_dir = "resources/seuratdisk_lib"
