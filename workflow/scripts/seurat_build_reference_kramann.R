@@ -39,6 +39,7 @@ for (i in seq_along(params[["subtypes"]])) {
   sub_proj <- readRDS(sub_path)
   
   shared <- intersect(Cells(sub_proj), Cells(proj))
+  print(length(shared)) ####
   subtypes <- sub_proj@meta.data[shared, "annotation"]
   proj$cell_type_fine[shared] <- subtypes
 }
