@@ -19,6 +19,7 @@ set.seed(params[["seed"]])
 
 sc <- import("scanpy")
 adata <- sc$read_h5ad(input_paths[["h5ad"]])
+adata ####
 
 counts <- t(adata$layers["counts"])
 colnames(counts) <- adata$obs_names$to_list()
