@@ -32,7 +32,7 @@ head(proj@meta.data) ####
 Project(proj) <- "Kramann"
 
 cell_type_fine <- proj@meta.data[, "cell_type", drop = FALSE]
-names(cell_type_fine)["cell_type_original"] <- "cell_type_fine"
+names(cell_type_fine)["cell_type"] <- "cell_type_fine"
 for (i in seq_along(params[["subtypes"]])) {
   sub_path <- input_paths[["subtypes"]][[i]]
   sub_name <- params[["subtypes"]][[i]]
