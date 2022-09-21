@@ -71,7 +71,9 @@ for (i in seq_along(params[["subtypes"]])) {
 #     meta.data = metadata
 # )
 proj <- AddMetaData(cell_type_fine)
-proj$cell_type_coarse <- proj$cell_type_original
+proj$cell_type_coarse <- proj$cell_type
+proj$cell_type_fine_2 <- proj$cell_states
+proj$cell_type_fine_2[is.na(proj$cell_type_fine_2)] <- proj$cell_type_coarse[is.na(proj$cell_type_fine_2)]
 
 print(proj) ####
 head(proj@meta.data) ####
