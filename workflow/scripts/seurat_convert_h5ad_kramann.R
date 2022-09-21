@@ -27,7 +27,7 @@ adata ####
 counts <- t(adata$X)
 colnames(counts) <- adata$obs_names$to_list()
 rownames(counts) <- adata$var_names$to_list()
-counts <- Matrix::Matrix(as.matrix(counts), sparse = TRUE)
+# counts <- Matrix::Matrix(as.matrix(counts), sparse = TRUE)
 
 proj <- CreateSeuratObject(counts)
 proj <- AddMetaData(proj, adata$obs)
