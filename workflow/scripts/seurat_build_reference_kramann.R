@@ -29,7 +29,8 @@ head(proj@meta.data) ####
 Project(proj) <- "Kramann"
 
 proj$cell_type_coarse <- proj$cell_type_original
-cell_type_fine <- proj@meta.data[, "cell_type", drop = FALSE]
+proj$cell_type_fine <- cell_type_coarse
+# cell_type_fine <- proj@meta.data[, "cell_type_coarse", drop = FALSE]
 
 colnames(cell_type_fine)[1] <- "cell_type_fine"
 for (i in seq_along(params[["subtypes"]])) {
@@ -39,10 +40,10 @@ for (i in seq_along(params[["subtypes"]])) {
   
   shared <- intersect(Cells(sub_proj), Cells(proj))
   subtypes <- sub_proj@meta.data[shared, "annotation"]
-  cell_type_fine[shared, "cell_type_fine"] <- subtypes
+  proj$cell_type_fine[shared] <- subtypes
 }
 
-proj <- AddMetaData(proj, cell_type_fine)
+# proj <- AddMetaData(proj, cell_type_fine)
 
 # ensembl <- useEnsembl(biomart = "genes", dataset = "hsapiens_gene_ensembl")
 # res <- getBM(
