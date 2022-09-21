@@ -49,8 +49,17 @@ predictions <- TransferData(
 )
 proj$cell_type_kramann_fine <- predictions$predicted.id
 
+predictions <- TransferData(
+  anchorset = anchors,
+  refdata = kramann$cell_type_fine_2
+)
+proj$cell_type_kramann_fine_2 <- predictions$predicted.id
+
 plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_kramann_fine", label = TRUE)
 ggsave(output_paths[["umap_kramann_fine"]], plt, device = "pdf", width = 10, height = 7)
+
+plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_kramann_fine_2", label = TRUE)
+ggsave(output_paths[["umap_kramann_fine_2"]], plt, device = "pdf", width = 10, height = 7)
 
 plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_kramann_coarse", label = TRUE)
 ggsave(output_paths[["umap_kramann_coarse"]], plt, device = "pdf", width = 10, height = 7)
