@@ -72,7 +72,8 @@ rule seurat_build_reference_kramann:
         project_out = "reference/kramann/seurat_build_reference/proj.rds",
         qc_violin = "reference/kramann/seurat_build_reference/qc_violin.pdf",
         qc_scatter = "reference/kramann/seurat_build_reference/qc_scatter.pdf",
-        umap = "reference/kramann/seurat_build_reference/umap.pdf"
+        umap_coarse = "reference/kramann/seurat_build_reference/umap_coarse.pdf",
+        umap_fine = "reference/kramann/seurat_build_reference/umap_fine.pdf"
     params:
         seed = config["seurat_seed"],
         subtypes = subtypes

@@ -28,7 +28,9 @@ head(proj@meta.data) ####
 # proj <- UpdateSeuratObject(proj)
 Project(proj) <- "Kramann"
 
+proj$cell_type_coarse <- proj$cell_type_original
 cell_type_fine <- proj@meta.data[, "cell_type", drop = FALSE]
+
 colnames(cell_type_fine)[1] <- "cell_type_fine"
 for (i in seq_along(params[["subtypes"]])) {
   sub_path <- input_paths[["subtypes"]][[i]]
@@ -39,6 +41,8 @@ for (i in seq_along(params[["subtypes"]])) {
   subtypes <- sub_proj@meta.data[shared, "annotation"]
   cell_type_fine[shared, "cell_type_fine"] <- subtypes
 }
+
+proj <- AddMetaData(proj, cell_type_fine)
 
 # ensembl <- useEnsembl(biomart = "genes", dataset = "hsapiens_gene_ensembl")
 # res <- getBM(
@@ -67,10 +71,9 @@ for (i in seq_along(params[["subtypes"]])) {
 #     min.features = 200, 
 #     meta.data = metadata
 # )
-proj <- AddMetaData(proj, cell_type_fine)
-proj$cell_type_coarse <- proj$cell_type
-proj$cell_type_fine_2 <- proj$cell_states
-proj$cell_type_fine_2[is.na(proj$cell_type_fine_2)] <- proj$cell_type_coarse[is.na(proj$cell_type_fine_2)]
+
+# proj$cell_type_fine_2 <- proj$cell_states
+# proj$cell_type_fine_2[is.na(proj$cell_type_fine_2)] <- proj$cell_type_coarse[is.na(proj$cell_type_fine_2)]
 
 print(proj) ####
 head(proj@meta.data) ####
@@ -97,21 +100,30 @@ proj <- ScaleData(proj)
 
 proj <- RunPCA(proj, features = VariableFeatures(object = proj))
 
-proj <- RunHarmony(proj, "sample")
+proj <- FindNeighbors(proj, dims = 1:30)
 
-proj[['harmony2']] <- CreateDimReducObject(
-  embeddings = proj[['harmony']]@cell.embeddings,
-  key = "harmony2_",
-  loadings = proj[['pca']]@feature.loadings, 
-  assay = "RNA"
-)
+proj <- RunUMAP(proj, dims = 1:30, return.model = TRUE)
 
-proj <- FindNeighbors(proj, dims = 1:30, reduction = "harmony")
+plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_coarse")
+ggsave(output_paths[["umap_coarse"]], plt, device = "pdf", width = 10, height = 7)
+plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type_fine")
+ggsave(output_paths[["umap_fine"]], plt, device = "pdf", width = 10, height = 7)
 
-proj <- RunUMAP(proj, dims = 1:30, return.model = TRUE, reduction = "harmony")
+# proj <- RunHarmony(proj, "sample")
 
-plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type")
-ggsave(output_paths[["umap"]], plt, device = "pdf", width = 10, height = 7)
+# proj[['harmony2']] <- CreateDimReducObject(
+#   embeddings = proj[['harmony']]@cell.embeddings,
+#   key = "harmony2_",
+#   loadings = proj[['pca']]@feature.loadings, 
+#   assay = "RNA"
+# )
+
+# proj <- FindNeighbors(proj, dims = 1:30, reduction = "harmony")
+
+# proj <- RunUMAP(proj, dims = 1:30, return.model = TRUE, reduction = "harmony")
+
+# plt <- DimPlot(proj, reduction = "umap", group.by = "cell_type")
+# ggsave(output_paths[["umap"]], plt, device = "pdf", width = 10, height = 7)
 
 saveRDS(proj, file = output_paths[["project_out"]])
 
