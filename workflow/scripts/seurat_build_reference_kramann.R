@@ -42,7 +42,8 @@ for (i in seq_along(params[["subtypes"]])) {
   print(length(shared)) ####
   subtypes <- as.character(sub_proj@meta.data[shared, "annotation"])
   print(head(subtypes)) ####
-  proj$cell_type_fine[shared] <- subtypes
+  proj$cell_type_fine[match(shared, Cells(proj))] <- subtypes
+  print(head(proj$cell_type_fine)) ####
 
   rm(sub_proj)
 }
