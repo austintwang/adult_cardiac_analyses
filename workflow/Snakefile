@@ -51,7 +51,7 @@ rule all:
     Generate all outputs (default)
     """
     input: 
-        expand("results/{sample}/rna/seurat_transfer_rna/labels_kramann.tsv", sample=samples),
+        # expand("results/{sample}/rna/seurat_transfer_rna/labels_kramann.tsv", sample=samples),
         expand("results/{sample}/rna/seurat_transfer_rna/labels_teichmann.tsv", sample=samples),
         expand("results/{sample}/rna/seurat_transfer_rna/labels_ellinor.tsv", sample=samples),
         expand("results/{sample}/rna/seurat_transfer_rna/labels_azimuth.tsv", sample=samples),
@@ -61,6 +61,7 @@ rule all:
         expand("results_merged/{group}/rna/seurat_load_transfer_labels/reference_plots.pdf", group=groups.keys()),
         "qc_all/seurat_doublet_umaps.pdf",
         "qc_all/seurat_soupx_umaps.pdf",
+        "reference/kramann/seurat_build_reference/proj.rds",
 
         # "results_merged/atac/archr_init",
         # "results_merged/atac/archr_label",
@@ -321,12 +322,25 @@ rule move_expression_raw:
 
 rule download_kramann_data:
     """
-    Download reference metadata
+    Download reference data
     """
     output:
-        "reference/kramann/fetch/seurat.rds"
+        "reference/kramann/fetch/data.h5ad"
     params:
-        url = config["rna_ref_kramann_data"]
+        url = config["rna_ref_kramann"]["unified"]
+    conda:
+        "envs/fetch.yaml"
+    shell:
+        "curl --no-progress-meter -L -f '{params.url}' > {output}"
+
+rule download_kramann_subcluster_data:
+    """
+    Download reference subcluster data
+    """
+    output:
+        "reference/teichmann/fetch/{subtype}/data.rds"
+    params:
+        url = lambda w: config["rna_ref_kramann"]["subtypes"][w]
     conda:
         "envs/fetch.yaml"
     shell:

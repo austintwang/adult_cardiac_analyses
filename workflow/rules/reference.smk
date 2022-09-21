@@ -39,21 +39,43 @@ rule seurat_convert_teichmann:
     conda:
         "../envs/seurat.yaml"
     script:
-        "../scripts/seurat_convert_teichmann.R"
+        "../scripts/seurat_convert_h5ad.R"
 
+rule seurat_convert_kramann:
+    """
+    Convert Kramann dataset to Seurat
+    """
+    input:
+        h5ad = "reference/kramann/fetch/data.h5ad",
+        azimuth_library_dir = "resources/azimuth_lib",
+        seuratdisk_library_dir = "resources/seuratdisk_lib"
+    output:
+        h5seurat = "reference/kramann/fetch/data.h5seurat"
+    log:
+        console = "logs/resources/seurat_convert_kramann/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_convert_h5ad.R"
+
+subtypes = config["rna_ref_kramann"]["subtypes"].keys()
 rule seurat_build_reference_kramann:
     """
     Build Kramann reference dataset
     """
     input:
-        seurat_object = "reference/kramann/fetch/seurat.rds",
+        h5seurat = "reference/teichmann/fetch/data.h5seurat",
+        subtypes = expand("reference/teichmann/fetch/{subtype}/data.rds", subtype = subtypes),
+        azimuth_library_dir = "resources/azimuth_lib",
+        seuratdisk_library_dir = "resources/seuratdisk_lib"
     output:
         project_out = "reference/kramann/seurat_build_reference/proj.rds",
         qc_violin = "reference/kramann/seurat_build_reference/qc_violin.pdf",
         qc_scatter = "reference/kramann/seurat_build_reference/qc_scatter.pdf",
         umap = "reference/kramann/seurat_build_reference/umap.pdf"
     params:
-        seed = config["seurat_seed"]
+        seed = config["seurat_seed"],
+        subtypes = subtypes
     log:
         console = "logs/reference/kramann/seurat_build_reference/seurat_build_rna/console.log"
     conda:

@@ -30,7 +30,21 @@ seurat_seed: 2398756
 seurat_min_count: 1000
 seurat_max_pct_mito: 5
 
-rna_ref_kramann_data: http://mitra.stanford.edu/kundaje/atwang/encode_scatac_manual/cardiac_refs/kramann/local.rds
+# rna_ref_kramann_data: http://mitra.stanford.edu/kundaje/atwang/encode_scatac_manual/cardiac_refs/kramann/local.rds
+rna_ref_kramann:
+  unified: https://zenodo.org/record/6578047/files/snRNA-seq-submission.h5ad?download=1
+  subtypes:
+    Cardiomyocyte: https://zenodo.org/record/7098004/files/Cardiomyocyte_snRNA_snATAC.Rds?download=1
+    Endothelial: https://zenodo.org/record/7098004/files/Endothelial_snRNA_snATAC.Rds?download=1
+    Lymphoid: https://zenodo.org/record/7098004/files/Lymphoid_snRNA_snATAC.Rds?download=1
+    Myeloid: https://zenodo.org/record/7098004/files/Myeloid_snRNA_snATAC.Rds?download=1
+    Neuronal: https://zenodo.org/record/7098004/files/Neuronal_snRNA_snATAC.Rds?download=1
+    Pericyte: https://zenodo.org/record/7098004/files/Pericyte_snRNA_snATAC.Rds?download=1
+    vSMCs: https://zenodo.org/record/7098004/files/vSMCs_snRNA_snATAC.Rds?download=1 
+
+# cell_type_original
+# annotation
+  
 
 rna_ref_ellinor:
   mat: http://mitra.stanford.edu/kundaje/atwang/encode_scatac_manual/cardiac_refs/ellinor/SCP1303/expression/614a0209771a5b0d7f03370f/DCM_HCM_Expression_Matrix_V1.mtx.gz
