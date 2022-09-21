@@ -8,7 +8,7 @@ library(dplyr)
 library(Seurat)
 library(patchwork)
 library(ggplot2)
-library(biomaRt)
+# library(biomaRt)
 library(harmony)
 
 params <- snakemake@params
@@ -24,6 +24,8 @@ set.seed(params[["seed"]])
 proj <- LoadH5Seurat(input_paths[["h5seurat"]])
 
 print(head(rownames(proj))) ####
+head(proj@meta.data) ####
+
 # proj@assays$RNA@key <- "rna_"
 # # print(Key(proj)) ####
 # proj <- UpdateSeuratObject(proj)
@@ -44,33 +46,33 @@ for (i in seq_along(params[["subtypes"]])) {
 
 
 
-ensembl <- useEnsembl(biomart = "genes", dataset = "hsapiens_gene_ensembl")
-res <- getBM(
-    attributes=c("ensembl_gene_id","hgnc_symbol"), 
-    filters = 'ensembl_gene_id', 
-    values = rownames(proj),
-    mart = ensembl
-)
-# head(res) ####
-res <- res[res[["hgnc_symbol"]] != "",]
-# head(res) ####
-# rownames(res) <- res[["ensembl_gene_id"]]
-# head(rownames(proj)) ####
-feats <- res[match(rownames(proj), res[["ensembl_gene_id"]]), "hgnc_symbol"]
-# head(feats) ####
+# ensembl <- useEnsembl(biomart = "genes", dataset = "hsapiens_gene_ensembl")
+# res <- getBM(
+#     attributes=c("ensembl_gene_id","hgnc_symbol"), 
+#     filters = 'ensembl_gene_id', 
+#     values = rownames(proj),
+#     mart = ensembl
+# )
+# # head(res) ####
+# res <- res[res[["hgnc_symbol"]] != "",]
+# # head(res) ####
+# # rownames(res) <- res[["ensembl_gene_id"]]
+# # head(rownames(proj)) ####
+# feats <- res[match(rownames(proj), res[["ensembl_gene_id"]]), "hgnc_symbol"]
+# # head(feats) ####
 
-counts <- GetAssayData(proj, assay = "RNA", slot = "counts")
-rownames(counts) <- feats
-rownames(counts)[is.na(rownames(counts))] <- rownames(proj)[is.na(rownames(counts))]
-metadata <- proj@meta.data
+# counts <- GetAssayData(proj, assay = "RNA", slot = "counts")
+# rownames(counts) <- feats
+# rownames(counts)[is.na(rownames(counts))] <- rownames(proj)[is.na(rownames(counts))]
+# metadata <- proj@meta.data
 
-proj <- CreateSeuratObject(
-    counts = counts, 
-    project = "kramann", 
-    min.cells = 3, 
-    min.features = 200, 
-    meta.data = metadata
-)
+# proj <- CreateSeuratObject(
+#     counts = counts, 
+#     project = "kramann", 
+#     min.cells = 3, 
+#     min.features = 200, 
+#     meta.data = metadata
+# )
 proj <- AddMetaData(cell_type_fine)
 proj$cell_type_coarse <- proj$cell_type_original
 
