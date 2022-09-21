@@ -22,6 +22,7 @@ adata <- sc$read_h5ad(input_paths[["h5ad"]])
 adata ####
 
 # counts <- t(adata$layers["counts"])
+typeof(adata$X) ####
 counts <- t(adata$X)
 colnames(counts) <- adata$obs_names$to_list()
 rownames(counts) <- adata$var_names$to_list()
