@@ -32,7 +32,7 @@ proj$cell_type_coarse <- proj$cell_type_original
 proj$cell_type_fine <- proj$cell_type_coarse
 # cell_type_fine <- proj@meta.data[, "cell_type_coarse", drop = FALSE]
 
-colnames(cell_type_fine)[1] <- "cell_type_fine"
+# colnames(cell_type_fine)[1] <- "cell_type_fine"
 for (i in seq_along(params[["subtypes"]])) {
   sub_path <- input_paths[["subtypes"]][[i]]
   sub_name <- params[["subtypes"]][[i]]
