@@ -28,7 +28,7 @@ head(proj@meta.data) ####
 # proj <- UpdateSeuratObject(proj)
 Project(proj) <- "Kramann"
 
-proj$cell_type_coarse <- proj$cell_type_original
+proj$cell_type_coarse <- as.character(proj$cell_type_original)
 proj$cell_type_fine <- proj$cell_type_coarse
 # cell_type_fine <- proj@meta.data[, "cell_type_coarse", drop = FALSE]
 
@@ -42,8 +42,8 @@ for (i in seq_along(params[["subtypes"]])) {
   print(length(shared)) ####
   subtypes <- as.character(sub_proj@meta.data[shared, "annotation"])
   print(head(subtypes)) ####
-  proj$cell_type_fine[match(shared, Cells(proj))] <- subtypes
-  print(head(proj$cell_type_fine)) ####
+  proj$cell_type_fine[shared] <- subtypes
+  # print(head(proj$cell_type_fine)) ####
 
   rm(sub_proj)
 }
