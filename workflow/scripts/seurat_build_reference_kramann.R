@@ -41,6 +41,7 @@ for (i in seq_along(params[["subtypes"]])) {
   shared <- intersect(Cells(sub_proj), Cells(proj))
   print(length(shared)) ####
   subtypes <- sub_proj@meta.data[shared, "annotation"]
+  print(head(subtypes)) ####
   proj$cell_type_fine[shared] <- subtypes
 }
 
