@@ -32,10 +32,6 @@ plot_cm <- function(clusters, ref_labels) {
   cM <- confusionMatrix(clusters, ref_labels)
   cM <- as.matrix(cM)
   cM <- cbind(cM, Unknown = 0.01)
-  labelOld <- rownames(cM)
-  labelNew <- colnames(cM)[apply(cM, 1, which.max)]
-  proj$labels_named <- plyr::mapvalues(x = proj$seurat_clusters, from = labelOld, to = labelNew)
-
   plt <- pheatmap::pheatmap(
       mat = cM / rowSums(cM), 
       border_color = "black"
