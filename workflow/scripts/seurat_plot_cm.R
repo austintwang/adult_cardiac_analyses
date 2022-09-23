@@ -31,7 +31,7 @@ confusionMatrix <- function(
 plot_cm <- function(clusters, ref_labels) {
   proj <- readRDS(file = input_paths[["project_in"]])
 
-  cM <- confusionMatrix(proj$seurat_clusters, proj$cell_type_ref)
+  cM <- confusionMatrix(clusters, ref_labels)
   cM <- as.matrix(cM)
   cM <- cbind(cM, Unknown = 0.01)
   labelOld <- rownames(cM)
