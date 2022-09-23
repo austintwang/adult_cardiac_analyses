@@ -235,15 +235,14 @@ rule seurat_cluster_rna:
     Seurat RNA clustering
     """
     input:
-        project_in = "results_merged/rna/seurat_integrate_rna/proj.rds",
-        # project_ref = "reference/seurat_build_reference/proj.rds"
+        project_in = "results_merged/{group}/rna/seurat_load_transfer_labels/proj.rds",
     output:
-        project_out = "results_merged/rna/seurat_cluster_rna/proj.rds",
-        umap = "results_merged/rna/seurat_cluster_rna/umap_clusters.pdf",
+        project_out = "results_merged/{group}/rna/seurat_cluster_rna/proj.rds",
+        umap = "results_merged/{group}/rna/seurat_cluster_rna/umap_clusters.pdf",
     params:
         seed = config["seurat_seed"],
     log:
-        console = "logs/merged/rna/seurat_cluster_rna/console.log"
+        console = "logs/merged/{group}/rna/seurat_cluster_rna/console.log"
     conda:
         "../envs/seurat.yaml"
     script:
