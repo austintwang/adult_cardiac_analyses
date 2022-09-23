@@ -59,6 +59,7 @@ rule all:
         expand("results_merged/{group}/rna/seurat_integrate_rna/integration_plots.pdf", group=groups.keys()),
         expand("results_merged/{group}/rna/seurat_cluster_rna/proj.rds", group=groups.keys()),
         expand("results_merged/{group}/rna/seurat_load_transfer_labels/reference_plots.pdf", group=groups.keys()),
+        expand("results_merged/{group}/rna/seurat_plot_cm/mats.pdf", group=groups.keys()),
         "qc_all/seurat_doublet_umaps.pdf",
         "qc_all/seurat_soupx_umaps.pdf",
         # "results_merged/atac/archr_init",

@@ -248,6 +248,50 @@ rule seurat_cluster_rna:
     script:
         "../scripts/seurat_cluster_rna.R"
 
+rule seurat_plot_cm:
+    """
+    Plot confusion matrices for clustering
+    """
+    input:
+        project_in = "results_merged/{group}/rna/seurat_cluster_rna/proj.rds",
+    output:
+        mat_kramann_coarse = "results_merged/{group}/rna/seurat_plot_cm/mat_kramann_coarse.pdf",
+        mat_kramann_fine = "results_merged/{group}/rna/seurat_plot_cm/mat_kramann_fine.pdf",
+        mat_ellinor_coarse = "results_merged/{group}/rna/seurat_plot_cm/mat_ellinor_coarse.pdf",
+        mat_ellinor_fine = "results_merged/{group}/rna/seurat_plot_cm/mat_ellinor_fine.pdf",
+        mat_teichmann_coarse = "results_merged/{group}/rna/seurat_plot_cm/mat_teichmann_coarse.pdf",
+        mat_teichmann_fine = "results_merged/{group}/rna/seurat_plot_cm/mat_teichmann_fine.pdf",
+        mat_azimuth_coarse = "results_merged/{group}/rna/seurat_plot_cm/mat_azimuth_coarse.pdf",
+        mat_azimuth_fine = "results_merged/{group}/rna/seurat_plot_cm/mat_azimuth_fine.pdf",
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/merged/{group}/rna/seurat_plot_cm/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_plot_cm.R"
+
+rule seurat_merge_cm_plots:
+    """
+    Merge confusion matrix plot pdf's
+    """
+    input:
+        "results_merged/{group}/rna/seurat_plot_cm/mat_kramann_coarse.pdf",
+        "results_merged/{group}/rna/seurat_plot_cm/mat_kramann_fine.pdf",
+        "results_merged/{group}/rna/seurat_plot_cm/mat_ellinor_coarse.pdf",
+        "results_merged/{group}/rna/seurat_plot_cm/mat_ellinor_fine.pdf",
+        "results_merged/{group}/rna/seurat_plot_cm/mat_teichmann_coarse.pdf",
+        "results_merged/{group}/rna/seurat_plot_cm/mat_teichmann_fine.pdf",
+        "results_merged/{group}/rna/seurat_plot_cm/mat_azimuth_coarse.pdf",
+        "results_merged/{group}/rna/seurat_plot_cm/mat_azimuth_fine.pdf",
+    output:
+        "results_merged/{group}/rna/seurat_plot_cm/mats.pdf"
+    conda:
+        "../envs/fetch.yaml"
+    shell:
+        "pdfunite {input} {output}; "
+
 rule seurat_name_rna:
     """
     Seurat RNA cluster naming
