@@ -28,13 +28,14 @@ confusionMatrix <- function(
   m
 }
 
-plot_cm <- function(clusters, ref_labels) {
+plot_cm <- function(clusters, ref_labels, title) {
   cM <- confusionMatrix(clusters, ref_labels)
   cM <- as.matrix(cM)
   cM <- cbind(cM, Unknown = 0.01)
   plt <- pheatmap::pheatmap(
       mat = cM / rowSums(cM), 
-      border_color = "black"
+      border_color = "black",
+      main = title
   )
   plt
 }
@@ -48,27 +49,27 @@ set.seed(params[["seed"]])
 
 proj <- readRDS(file = input_paths[["project_in"]])
 
-plt <- plot_cm(proj$seurat_clusters, proj$cell_type_kramann_coarse) + labs(title="Kramann coarse labels")
+plt <- plot_cm(proj$seurat_clusters, proj$cell_type_kramann_coarse, "Kramann coarse labels")
 ggsave(output_paths[["mat_kramann_coarse"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_cm(proj$seurat_clusters, proj$cell_type_kramann_fine) + labs(title="Kramann fine labels")
+plt <- plot_cm(proj$seurat_clusters, proj$cell_type_kramann_fine, "Kramann fine labels")
 ggsave(output_paths[["mat_kramann_fine"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_cm(proj$seurat_clusters, proj$cell_type_ellinor_coarse) + labs(title="Ellinor coarse labels")
+plt <- plot_cm(proj$seurat_clusters, proj$cell_type_ellinor_coarse, "Ellinor coarse labels")
 ggsave(output_paths[["mat_ellinor_coarse"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_cm(proj$seurat_clusters, proj$cell_type_ellinor_fine) + labs(title="Ellinor fine labels")
+plt <- plot_cm(proj$seurat_clusters, proj$cell_type_ellinor_fine, "Ellinor fine labels")
 ggsave(output_paths[["mat_ellinor_fine"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_cm(proj$seurat_clusters, proj$cell_type_teichmann_coarse) + labs(title="Teichmann coarse labels")
+plt <- plot_cm(proj$seurat_clusters, proj$cell_type_teichmann_coarse, "Teichmann coarse labels")
 ggsave(output_paths[["mat_teichmann_coarse"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_cm(proj$seurat_clusters, proj$cell_type_teichmann_fine) + labs(title="Teichmann fine labels")
+plt <- plot_cm(proj$seurat_clusters, proj$cell_type_teichmann_fine, "Teichmann fine labels")
 ggsave(output_paths[["mat_teichmann_fine"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_cm(proj$seurat_clusters, proj$cell_type_azimuth_coarse) + labs(title="Azimuth coarse labels")
+plt <- plot_cm(proj$seurat_clusters, proj$cell_type_azimuth_coarse, "Azimuth coarse labels")
 ggsave(output_paths[["mat_azimuth_coarse"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_cm(proj$seurat_clusters, proj$cell_type_azimuth_fine) + labs(title="Azimuth fine labels")
+plt <- plot_cm(proj$seurat_clusters, proj$cell_type_azimuth_fine, "Azimuth fine labels")
 ggsave(output_paths[["mat_azimuth_fine"]], plt, device = "pdf", width = 10, height = 7)
 
