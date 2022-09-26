@@ -21,6 +21,7 @@ projs <- lapply(input_paths[["projects_in"]], readRDS)
 lapply(projs, print) ####
 
 group_metadata <- function(proj, group) {
+    print(group) ####
     data <- strsplit(group, split = "-")
     print(data) ####
     print(length(Cells(proj))) ####
