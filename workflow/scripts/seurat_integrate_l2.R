@@ -17,8 +17,10 @@ log_paths = snakemake@log
 
 set.seed(params[["seed"]])
 
+print(params[["groups"]]) ####
+
 projs <- lapply(input_paths[["projects_in"]], readRDS)
-lapply(projs, print) ####
+# lapply(projs, print) ####
 
 group_metadata <- function(proj, group) {
     print(group) ####
