@@ -21,22 +21,22 @@ projs <- lapply(input_paths[["projects_in"]], readRDS)
 lapply(projs, print) ####
 
 group_metadata <- function(proj, group) {
-    print(group) ####
+    # print(group) ####
     data <- strsplit(group, split = "-")
-    print(data) ####
-    print(length(Cells(proj))) ####
+    # print(data) ####
+    # print(length(Cells(proj))) ####
     proj <- AddMetaData(
         object = proj,
         metadata = rep(group, length(Cells(proj))),
         col.name = 'group'
     )
-    print(proj) ####
+    # print(proj) ####
     proj <- AddMetaData(
         object = proj,
         metadata = rep(data[[1]], length(Cells(proj))),
         col.name = 'region'
     )
-    print(proj) ####
+    # print(proj) ####
     proj <- AddMetaData(
         object = proj,
         metadata = rep(data[[2]], length(Cells(proj))),
@@ -45,7 +45,7 @@ group_metadata <- function(proj, group) {
     proj
 }
 
-projs <- mapply(group_metadata, projs, params[["groups"]])
+projs <- mapply(group_metadata, projs, params[["groups"]], SIMPLIFY = FALSE, USE.NAMES = FALSE)
 
 proj_merged <- merge(projs[[1]], projs[-1], project = "merged_l2")
 
