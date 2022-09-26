@@ -22,16 +22,19 @@ lapply(projs, print) ####
 
 group_metadata <- function(proj, group) {
     data <- strsplit(group, split = "-")
+    print(data) ####
     proj <- AddMetaData(
         object = proj,
         metadata = rep(group, length(Cells(proj))),
         col.name = 'group'
     )
+    print(proj) ####
     proj <- AddMetaData(
         object = proj,
         metadata = rep(data[[1]], length(Cells(proj))),
         col.name = 'region'
     )
+    print(proj) ####
     proj <- AddMetaData(
         object = proj,
         metadata = rep(data[[2]], length(Cells(proj))),
