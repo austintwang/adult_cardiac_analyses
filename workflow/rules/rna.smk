@@ -292,6 +292,50 @@ rule seurat_merge_cm_plots:
     shell:
         "pdfunite {input} {output}; "
 
+rule seurat_integrate_l2:
+    """
+    Integrate all RNA samples using Harmony
+    """
+    input:
+        projects_in = lambda w: [f"results_merged/{i}/rna/seurat_cluster_rna/proj.rds" for i in group_names]
+    output:
+        project_out = "results_merged/all/rna/seurat_integrate_l2/proj.rds",
+        umap_dataset_pre_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_dataset_pre_harmony.pdf",
+        umap_mixing_pre_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_mixing_pre_harmony.pdf",
+        umap_dataset_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_dataset_harmony.pdf",
+        umap_mixing_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_mixing_harmony.pdf",
+        umap_group_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_group_harmony.pdf",
+        umap_region_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_region_harmony.pdf",
+        umap_status_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_status_harmony.pdf",
+    params:
+        seed = config["seurat_seed"],
+        groups = group_names
+    log:
+        console = "logs/merged/all/rna/seurat_integrate_l2/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_integrate_l2.R"
+
+rule seurat_merge_integration_plots_l2:
+    """
+    Merge integration QC pdf's
+    """
+    input:
+        "results_merged/all/rna/seurat_integrate_l2/umap_dataset_pre_harmony.pdf",
+        "results_merged/all/rna/seurat_integrate_l2/umap_mixing_pre_harmony.pdf",
+        "results_merged/all/rna/seurat_integrate_l2/umap_dataset_harmony.pdf",
+        "results_merged/all/rna/seurat_integrate_l2/umap_mixing_harmony.pdf",
+        "results_merged/all/rna/seurat_integrate_l2/umap_group_harmony.pdf",
+        "results_merged/all/rna/seurat_integrate_l2/umap_region_harmony.pdf",
+        "results_merged/all/rna/seurat_integrate_l2/umap_status_harmony.pdf",
+    output:
+        "results_merged/all/rna/seurat_integrate_l2/integration_plots.pdf"
+    conda:
+        "../envs/fetch.yaml"
+    shell:
+        "pdfunite {input} {output}; "
+
 rule seurat_name_rna:
     """
     Seurat RNA cluster naming
