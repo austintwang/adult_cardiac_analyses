@@ -19,10 +19,7 @@ set.seed(params[["seed"]])
 
 print(params[["groups"]]) ####
 
-projs <- lapply(input_paths[["projects_in"]], readRDS)
-# lapply(projs, print) ####
-
-group_metadata <- function(proj, group) {
+group_metadata <- function(group) {
     group <- group[[1]]
     print(group) ####
     data <- strsplit(group, split = "-")
@@ -32,17 +29,17 @@ group_metadata <- function(proj, group) {
     region <- rep(data[[1]], length(Cells(proj)))
     status <- rep(data[[2]], length(Cells(proj)))
     md <- data.frame(group, region, status, row.names = Cells(proj), stringsAsFactors = FALSE)
-    print(head(md)) ####
-    proj <- AddMetaData(
-        object = proj,
-        metadata = md,
-    )
-    proj
+    md
 }
+group_mds <- lapply(params[["groups"]], group_metadata)
+group_md <- do.call(rbind, group_mds)
+head(group_md)
 
-projs <- mapply(group_metadata, projs, params[["groups"]], SIMPLIFY = FALSE, USE.NAMES = FALSE)
+projs <- lapply(input_paths[["projects_in"]], readRDS)
+# lapply(projs, print) ####
 
 proj_merged <- merge(projs[[1]], projs[-1], project = "merged_l2")
+proj_merged <- AddMetaData(proj_merged, group_md)
 
 proj_merged <- NormalizeData(proj_merged, normalization.method = "LogNormalize", scale.factor = 10000)
 proj_merged <- FindVariableFeatures(proj_merged, selection.method = "vst", nfeatures = 2000)
