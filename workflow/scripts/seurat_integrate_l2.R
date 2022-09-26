@@ -30,7 +30,7 @@ group_metadata <- function(proj, group) {
     group <- rep(group, length(Cells(proj)))
     region <- rep(data[[1]], length(Cells(proj)))
     status <- rep(data[[2]], length(Cells(proj)))
-    md <- data.frame(group, region, status, row.names = Cells(proj))
+    md <- data.frame(group, region, status, row.names = Cells(proj), stringsAsFactors = FALSE)
     print(head(md)) ####
     proj <- AddMetaData(
         object = proj,
