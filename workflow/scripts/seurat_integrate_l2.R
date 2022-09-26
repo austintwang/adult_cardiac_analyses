@@ -22,7 +22,7 @@ print(params[["groups"]]) ####
 group_metadata <- function(group) {
     group <- group[[1]]
     print(group) ####
-    data <- strsplit(group, split = "-")
+    data <- unlist(strsplit(group, split = "-"))
     print(data) ####
     # print(length(Cells(proj))) ####
     group <- rep(group, length(Cells(proj)))
