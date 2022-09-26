@@ -19,24 +19,26 @@ set.seed(params[["seed"]])
 
 print(params[["groups"]]) ####
 
-group_metadata <- function(group) {
+projs <- lapply(input_paths[["projects_in"]], readRDS)
+
+group_metadata <- function(group, proj) {
     group <- group[[1]]
     print(group) ####
     data <- unlist(strsplit(group, split = "-"))
     print(data) ####
     # print(length(Cells(proj))) ####
-    group <- rep(group, length(Cells(proj)))
-    region <- rep(data[[1]], length(Cells(proj)))
-    status <- rep(data[[2]], length(Cells(proj)))
+    ncells <- length(Cells(proj))
+    group <- rep(group, ncells)
+    region <- rep(data[[1]], ncells)
+    status <- rep(data[[2]], ncells)
     md <- data.frame(group, region, status, row.names = Cells(proj), stringsAsFactors = FALSE)
     print(head(md)) ####
     md
 }
-group_mds <- lapply(params[["groups"]], group_metadata)
+group_mds <- mapply(group_metadata, params[["groups"]], projs, SIMPLIFY = FALSE, USE.NAMES = FALSE)
 group_md <- do.call(rbind, group_mds)
 head(group_md)
 
-projs <- lapply(input_paths[["projects_in"]], readRDS)
 # lapply(projs, print) ####
 
 proj_merged <- merge(projs[[1]], projs[-1], project = "merged_l2")
