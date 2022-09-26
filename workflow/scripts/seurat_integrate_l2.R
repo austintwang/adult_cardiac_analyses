@@ -27,22 +27,13 @@ group_metadata <- function(proj, group) {
     data <- strsplit(group, split = "-")
     print(data) ####
     # print(length(Cells(proj))) ####
+    group <- rep(group, length(Cells(proj)))
+    region <- rep(data[[1]], length(Cells(proj)))
+    status <- rep(data[[2]], length(Cells(proj)))
+    md <- data.frame(group, region, status, row.names = Cells(proj))
     proj <- AddMetaData(
         object = proj,
-        metadata = rep(group, length(Cells(proj))),
-        col.name = 'group'
-    )
-    # print(proj) ####
-    proj <- AddMetaData(
-        object = proj,
-        metadata = rep(data[[1]], length(Cells(proj))),
-        col.name = 'region'
-    )
-    # print(proj) ####
-    proj <- AddMetaData(
-        object = proj,
-        metadata = rep(data[[2]], length(Cells(proj))),
-        col.name = 'status'
+        metadata = md,
     )
     proj
 }
