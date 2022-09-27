@@ -4,7 +4,7 @@ rule seurat_name_1:
     Seurat first-round RNA cluster naming
     """
     input:
-        project_in = "results_merged/all/rna/seurat_integrate_l2/proj.rds"
+        project_in = "results_merged/all/rna/seurat_cluster_rna/proj.rds"
     output:
         project_out = "results_merged/all/rna/seurat_name_1/proj.rds",
         umap = "results_merged/all/rna/seurat_name_1/umap.pdf"
