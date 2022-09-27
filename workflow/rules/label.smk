@@ -27,9 +27,9 @@ rule seurat_subcluster:
     output:
         project_out = "results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/proj.rds",
         umap = "results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/umap_clusters.pdf",
-        umap_kramann_coarse = "results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/umap_kramann_fine.pdf",
-        umap_ellinor_coarse = "results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/umap_ellinor_fine.pdf",
-        umap_teichmann_coarse = "results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/umap_teichmann_fine.pdf",
+        umap_kramann_fine = "results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/umap_kramann_fine.pdf",
+        umap_ellinor_fine = "results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/umap_ellinor_fine.pdf",
+        umap_teichmann_fine = "results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/umap_teichmann_fine.pdf",
     params:
         seed = config["seurat_seed"],
     log:
@@ -44,10 +44,10 @@ rule seurat_merge_label_plots_subcluster:
     Merge reference projection plot pdf's
     """
     input:
-        umap = "results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/umap_clusters.pdf",
-        umap_kramann_coarse = "results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/umap_kramann_fine.pdf",
-        umap_ellinor_coarse = "results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/umap_ellinor_fine.pdf",
-        umap_teichmann_coarse = "results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/umap_teichmann_fine.pdf",
+        "results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/umap_clusters.pdf",
+        "results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/umap_kramann_fine.pdf",
+        "results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/umap_ellinor_fine.pdf",
+        "results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/umap_teichmann_fine.pdf",
     output:
         "results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/label_plots.pdf"
     conda:
