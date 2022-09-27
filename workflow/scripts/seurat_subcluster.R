@@ -40,8 +40,8 @@ proj <- FindClusters(object = proj)
 plt <- plot_fn(proj, "seurat_clusters", "umap", stallion) + labs(title="Seurat clustering")
 ggsave(output_paths[["umap"]], plt, device = "pdf")
 
-plt <- plot_fn(proj, "cell_type_kramann_coarse", "umap", stallion) + labs(title="Kramann coarse labels")
-ggsave(output_paths[["umap_kramann_coarse"]], plt, device = "pdf", width = 10, height = 7)
+plt <- plot_fn(proj, "cell_type_kramann_fine", "umap", stallion) + labs(title="Kramann fine labels")
+ggsave(output_paths[["umap_kramann_fine"]], plt, device = "pdf", width = 10, height = 7)
 
 plt <- plot_fn(proj, "cell_type_ellinor_fine", "umap", stallion) + labs(title="Ellinor fine labels")
 ggsave(output_paths[["umap_ellinor_fine"]], plt, device = "pdf", width = 10, height = 7)
