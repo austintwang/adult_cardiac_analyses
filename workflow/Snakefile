@@ -47,10 +47,19 @@ include:
     "rules/rna.smk"
 include:
     "rules/reference.smk"
+include:
+    "rules/label.smk"
 
 rule all:
     """
     Generate all outputs (default)
+    """
+    input: 
+        "results_merged/all/rna/seurat_name_1/umap.pdf"
+
+rule pre_name:
+    """
+    Generate all outputs prior to cluster naming
     """
     input: 
         expand("results/{sample}/rna/seurat_transfer_rna/labels_kramann.tsv", sample=samples),
