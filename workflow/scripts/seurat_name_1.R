@@ -32,6 +32,7 @@ head(clustdata) ####
 
 proj <- readRDS(file = input_paths[["project_in"]])
 
+head(proj$seurat_clusters) ####
 proj_index <- match(proj$seurat_clusters, rownames(clustdata))
 head(proj_index) ####
 clusts <- clustdata[proj_index, 1]
