@@ -33,8 +33,8 @@ proj <- subset(proj, subset = cell_types_1 == wildcards[["cluster"]])
 
 print(proj) ####
 
-proj_merged <- FindNeighbors(proj_merged, dims = 1:30, reduction = "harmony")
-proj_merged <- RunUMAP(proj_merged, dims = 1:30, reduction = "harmony")
+proj <- FindNeighbors(proj, dims = 1:30, reduction = "harmony")
+proj <- RunUMAP(proj, dims = 1:30, reduction = "harmony")
 proj <- FindClusters(object = proj) 
 
 plt <- plot_fn(proj, "seurat_clusters", "umap", stallion) + labs(title="Seurat clustering")
