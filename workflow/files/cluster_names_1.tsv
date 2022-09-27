@@ -17,7 +17,7 @@
 16	Inter-EC-PC
 17	Inter-CM-Macro
 18	SMC
-19	Neuro
+19	Neuro-general
 20	EC-Ven
 21	Inter-EC-Macro
 22	CM-general
@@ -26,7 +26,7 @@
 25	CM-vent-1
 26	Inter-Macro-PC
 27	Inter-CM-Lympho
-28	Mast
+28	Mast-general
 29	Adipo
 30	Cycling
 31	CM-atr-1
