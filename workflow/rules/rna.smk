@@ -336,6 +336,53 @@ rule seurat_merge_integration_plots_l2:
     shell:
         "pdfunite {input} {output}; "
 
+rule seurat_cluster_l2:
+    """
+    Seurat RNA clustering
+    """
+    input:
+        project_in = "results_merged/all/rna/seurat_integrate_l2/proj.rds"
+    output:
+        project_out = "results_merged/all/rna/seurat_cluster_rna/proj.rds",
+        umap = "results_merged/all/rna/seurat_cluster_rna/umap_clusters.pdf",
+        umap_kramann_coarse = "results_merged/all/rna/seurat_cluster_rna/umap_kramann_coarse.pdf",
+        umap_kramann_fine = "results_merged/all/rna/seurat_cluster_rna/umap_kramann_fine.pdf",
+        umap_ellinor_coarse = "results_merged/all/rna/seurat_cluster_rna/umap_ellinor_coarse.pdf",
+        umap_ellinor_fine = "results_merged/all/rna/seurat_cluster_rna/umap_ellinor_fine.pdf",
+        umap_teichmann_coarse = "results_merged/all/rna/seurat_cluster_rna/umap_teichmann_coarse.pdf",
+        umap_teichmann_fine = "results_merged/all/rna/seurat_cluster_rna/umap_teichmann_fine.pdf",
+        umap_azimuth_coarse = "results_merged/all/rna/seurat_cluster_rna/umap_azimuth_coarse.pdf",
+        umap_azimuth_fine = "results_merged/all/rna/seurat_cluster_rna/umap_azimuth_fine.pdf",
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/merged/all/rna/seurat_cluster_rna/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_cluster_l2.R"
+
+rule seurat_merge_label_plots_l2:
+    """
+    Merge reference projection plot pdf's
+    """
+    input:
+        "results_merged/all/rna/seurat_cluster_rna/umap_clusters.pdf",
+        "results_merged/all/rna/seurat_cluster_rna/umap_kramann_coarse.pdf",
+        "results_merged/all/rna/seurat_cluster_rna/umap_kramann_fine.pdf",
+        "results_merged/all/rna/seurat_cluster_rna/umap_ellinor_coarse.pdf",
+        "results_merged/all/rna/seurat_cluster_rna/umap_ellinor_fine.pdf",
+        "results_merged/all/rna/seurat_cluster_rna/umap_teichmann_coarse.pdf",
+        "results_merged/all/rna/seurat_cluster_rna/umap_teichmann_fine.pdf",
+        "results_merged/all/rna/seurat_cluster_rna/umap_azimuth_coarse.pdf",
+        "results_merged/all/rna/seurat_cluster_rna/umap_azimuth_fine.pdf",
+    output:
+        "results_merged/all/rna/seurat_cluster_rna/label_plots.pdf"
+    conda:
+        "../envs/fetch.yaml"
+    shell:
+        "pdfunite {input} {output}; "
+
 rule seurat_name_rna:
     """
     Seurat RNA cluster naming
