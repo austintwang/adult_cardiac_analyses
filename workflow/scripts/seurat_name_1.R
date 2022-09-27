@@ -33,7 +33,10 @@ head(clustdata) ####
 proj <- readRDS(file = input_paths[["project_in"]])
 
 proj_index <- match(proj$seurat_clusters, rownames(clustdata))
-proj$cell_types_1 <- clustdata[proj_index, 1]
+head(proj_index) ####
+clusts <- clustdata[proj_index, 1]
+head(clusts) ####
+proj$cell_types_1 <- clusts
 
 plt <- plot_fn(proj, "cell_types_1", "umap", stallion) + labs(title="Cell Types (Round 1)")
 ggsave(output_paths[["umap"]], plt, device = "pdf", width = 10, height = 7)
