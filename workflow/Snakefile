@@ -29,7 +29,7 @@ with open("config/samples.tsv") as sample_file:
 group_names = list(groups.keys())
 
 subcluster_jobs = []
-with open(workflow.source_path("/files/cluster_names_1.tsv")) as f:
+with open(workflow.source_path("/files/subcluster_jobs.tsv")) as f:
     for line in f:
         subcluster_jobs.append(line.rstrip("\n"))
 
