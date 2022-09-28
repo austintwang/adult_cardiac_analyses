@@ -23,7 +23,7 @@ stallion <- unname(stallion)
 
 plot_fn <- function(object, group, reduction, colors) {
     group_data <- as.data.frame(table(object@meta.data[[group]]))
-    cats <- data[order(group_data$Freq, decreasing = TRUE), 1]
+    cats <- group_data[order(group_data$Freq, decreasing = TRUE), 1]
 
     # cats <- sort(unique(object@meta.data[[group]]))
     colors_out <- rep_len(colors, length(cats))
