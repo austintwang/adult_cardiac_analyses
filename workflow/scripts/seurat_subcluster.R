@@ -22,7 +22,10 @@ stallion <- c("1"="#D51F26","2"="#272E6A","3"="#208A42","4"="#89288F","5"="#F47D
 stallion <- unname(stallion)
 
 plot_fn <- function(object, group, reduction, colors) {
-    cats <- sort(unique(object@meta.data[[group]]))
+    group_data <- as.data.frame(table(object@meta.data[[group]]))
+    cats <- data[order(group_data$Freq, decreasing = TRUE), 1]
+
+    # cats <- sort(unique(object@meta.data[[group]]))
     colors_out <- rep_len(colors, length(cats))
     names(colors_out) <- cats
     DimPlot(object, reduction = reduction, group.by = group, label = TRUE, cols = colors_out, pt.size=0.2)
