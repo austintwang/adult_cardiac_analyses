@@ -25,7 +25,7 @@ plot_fn <- function(object, group, reduction, colors) {
     cats <- sort(unique(object@meta.data[[group]]))
     colors_out <- rep_len(colors, length(cats))
     names(colors_out) <- cats
-    DimPlot(object, reduction = reduction, group.by = group, label = TRUE, cols = colors_out, pt.size=0.1)
+    DimPlot(object, reduction = reduction, group.by = group, label = TRUE, cols = colors_out, pt.size=0.2)
 }
 
 proj <- readRDS(file = input_paths[["project_in"]])
