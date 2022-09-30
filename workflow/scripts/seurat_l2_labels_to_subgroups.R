@@ -21,7 +21,7 @@ plot_fn <- function(object, group, reduction, colors) {
     cats <- sort(unique(object@meta.data[[group]]))
     colors_out <- rep_len(colors, length(cats))
     names(colors_out) <- cats
-    DimPlot(proj_merged, reduction = reduction, group.by = group, label = TRUE, cols = colors_out, pt.size=0.1)
+    DimPlot(proj_merged, reduction = reduction, group.by = group, label = TRUE, cols = colors_out, pt.size=0.1, label.size=2)
 }
 
 proj_l2 <- readRDS(file = input_paths[["project_integrated"]])
@@ -34,7 +34,7 @@ stallion <- c("1"="#D51F26","2"="#272E6A","3"="#208A42","4"="#89288F","5"="#F47D
 stallion <- unname(stallion)
 
 plt <- plot_fn(proj_merged, "cell_types_2", "umap", stallion) + labs(title="Cell Types (Round 2)")
-ggsave(output_paths[["umap"]], plt, device = "pdf", width = 11, height = 7)
+ggsave(output_paths[["umap"]], plt, device = "pdf", width = 13, height = 7)
 
 saveRDS(proj_merged, file = output_paths[["project_out"]])
 
