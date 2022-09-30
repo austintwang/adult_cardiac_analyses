@@ -31,7 +31,7 @@ plot_fn <- function(object, group, reduction, colors) {
 
 tables <- lapply(input_paths[["projects_subcluster"]], read_fn)
 head(tables[[1]])
-label_data <- do.call(cbind, tables)
+label_data <- do.call(rbind, tables)
 head(label_data) ####
 
 proj <- readRDS(file = input_paths[["project_integrated"]])
