@@ -37,6 +37,7 @@ proj <- readRDS(file = input_paths[["project_integrated"]])
 
 label_data <- proj@meta.data[, "cell_types_1", drop = FALSE]
 label_data[rownames(sub_data),] <- sub_data
+colnames(label_data) <- "cell_types_2"
 head(label_data) ####
 
 proj_merged <- AddMetaData(proj, label_data)
