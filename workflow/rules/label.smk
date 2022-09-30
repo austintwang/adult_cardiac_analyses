@@ -79,7 +79,7 @@ rule seurat_load_subclusters:
     Add subclusters to integrated analyses
     """
     input:
-        project_integrated = "results_merged/all/rna/seurat_integrate_l2/proj.rds",
+        project_integrated = "results_merged/all/rna/seurat_name_1/proj.rds",
         projects_subcluster = expand("results_merged/all/rna_subcluster/{cluster}/seurat_name_2/proj.rds", cluster=subcluster_jobs),
     output:
         project_out = "results_merged/all/rna/seurat_load_subclusters/proj.rds",
