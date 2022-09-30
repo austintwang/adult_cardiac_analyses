@@ -102,7 +102,7 @@ rule seurat_l2_labels_to_subgroups:
         project_subgroup = "results_merged/{group}/rna/seurat_cluster_rna/proj.rds"
     output:
         project_out = "results_merged/{group}/rna/seurat_l2_labels_to_subgroups/proj.rds",
-        umap = "results_merged/{group}/rna/seurat_l2_labels_to_subgroups/umap_clusters.pdf",
+        umap = "results_merged/{group}/rna/seurat_l2_labels_to_subgroups/umap.pdf",
     params:
         seed = config["seurat_seed"],
     log:
