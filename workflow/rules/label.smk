@@ -83,7 +83,7 @@ rule seurat_load_subclusters:
         projects_subcluster = expand("results_merged/all/rna_subcluster/{cluster}/seurat_name_2/proj.rds", cluster=subcluster_jobs),
     output:
         project_out = "results_merged/all/rna/seurat_load_subclusters/proj.rds",
-        umap = "results_merged/all/rna/seurat_load_subclusters/umap_kramann_coarse.pdf",
+        umap = "results_merged/all/rna/seurat_load_subclusters/umap.pdf",
     params:
         seed = config["seurat_seed"],
     log:
@@ -92,3 +92,22 @@ rule seurat_load_subclusters:
         "../envs/seurat.yaml"
     script:
         "../scripts/seurat_load_subclusters.R"
+
+rule seurat_l2_labels_to_subgroups:
+    """
+    Visualize integrated clustering in subgroups
+    """
+    input:
+        project_integrated = "results_merged/all/rna/seurat_load_subclusters/proj.rds",
+        project_subgroup = "results_merged/{group}/rna/seurat_cluster_rna/proj.rds"
+    output:
+        project_out = "results_merged/{group}/rna/seurat_l2_labels_to_subgroups/proj.rds",
+        umap = "results_merged/{group}/rna/seurat_l2_labels_to_subgroups/umap_clusters.pdf",
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/merged/{group}/rna/seurat_l2_labels_to_subgroups/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_l2_labels_to_subgroups.R"
