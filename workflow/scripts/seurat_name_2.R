@@ -30,7 +30,7 @@ plot_fn <- function(object, group, reduction, colors) {
 
 clustdata <- read.table(file = params[["label_data"]], sep = '\t', header = FALSE, comment.char = "")
 head(clustdata) ####
-clustdata <- clustdata[clustdata[[1]] == wildcards[["cluster"]]]
+clustdata <- clustdata[clustdata[[1]] == wildcards[["cluster"]],]
 head(clustdata) ####
 
 proj <- readRDS(file = input_paths[["project_in"]])
