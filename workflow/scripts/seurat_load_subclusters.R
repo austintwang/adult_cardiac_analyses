@@ -31,10 +31,14 @@ plot_fn <- function(object, group, reduction, colors) {
 
 tables <- lapply(input_paths[["projects_subcluster"]], read_fn)
 head(tables[[1]])
-label_data <- do.call(rbind, tables)
-head(label_data) ####
+sub_data <- do.call(rbind, tables)
 
 proj <- readRDS(file = input_paths[["project_integrated"]])
+
+label_data <- proj@meta.data[, "cell_types_1", drop = FALSE]
+label_data[rownames(sub_data),] <- sub_data
+head(label_data) ####
+
 proj_merged <- AddMetaData(proj, label_data)
 
 stallion <- c("1"="#D51F26","2"="#272E6A","3"="#208A42","4"="#89288F","5"="#F47D2B", "6"="#FEE500","7"="#8A9FD1","8"="#C06CAB","19"="#E6C2DC",
