@@ -60,15 +60,16 @@ rule all:
     Generate all outputs (default)
     """
     input: 
-        expand("results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/proj.rds", cluster=subcluster_jobs),
-        expand("results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/label_plots.pdf", cluster=subcluster_jobs)
+        "results_merged/all/rna/seurat_load_subclusters/proj.rds",
 
 rule name_1:
     """
-    Generate all outputs up to first-round cluster naming
+    Generate outputs dependent on first-round cluster naming
     """
     input: 
-        "results_merged/all/rna/seurat_name_1/umap.pdf"
+        "results_merged/all/rna/seurat_name_1/umap.pdf",
+        expand("results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/proj.rds", cluster=subcluster_jobs),
+        expand("results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/label_plots.pdf", cluster=subcluster_jobs)
 
 rule pre_name:
     """
