@@ -221,7 +221,7 @@ rule seurat_integrate_transfers:
     input:
         tables = lambda w: [f"results/{i}/rna/seurat_transfer_rna/labels_{w.reference}.tsv" for i in groups[w.group]]
     output:
-        data_out = "results_merged/{group}/rna/seurat_integrate_transfers/{reference}.tsv"
+        data_out = "results_group/{group}/rna/seurat_integrate_transfers/{reference}.tsv"
     params:
         seed = config["seurat_seed"],
         samples = lambda w: groups[w.group]
