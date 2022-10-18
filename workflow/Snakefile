@@ -14,6 +14,8 @@ with open("config/samples.tsv") as sample_file:
     series_ind = h.index("Series")
     region_ind = h.index("Region")
     status_ind = h.index("Status")
+    sex_ind = h.index("Sex")
+
     samples = []
     for line in sample_file:
         if line.startswith("#"):
@@ -22,16 +24,17 @@ with open("config/samples.tsv") as sample_file:
         series = entries[series_ind]
         region = entries[region_ind]
         status = entries[status_ind]
+        sex = entries[sex_ind]
 
         samples.append(series)
-        groups.setdefault(f"{region}-{status}", []).append(series)
+        groups.setdefault(f"{region}-{status}-{sex}", []).append(series)
 
 group_names = list(groups.keys())
 
-subcluster_jobs = []
-with open(workflow.source_path("files/subcluster_jobs.txt")) as f:
-    for line in f:
-        subcluster_jobs.append(line.rstrip("\n"))
+# subcluster_jobs = []
+# with open(workflow.source_path("files/subcluster_jobs.txt")) as f:
+#     for line in f:
+#         subcluster_jobs.append(line.rstrip("\n"))
 
 # with open("config/rna_cluster_names.txt") as f:
 #     rna_cluster_names = []
@@ -51,28 +54,31 @@ include:
 include:
     "rules/rna.smk"
 include:
-    "rules/reference.smk"
+    "rules/rna_group.smk"
+# include:
+#     "rules/reference.smk"
 include:
     "rules/label.smk"
 
+# rule all:
+#     """
+#     Generate all outputs (default)
+#     """
+#     input: 
+#         "results_merged/all/rna/seurat_load_subclusters/proj.rds",
+#         expand("results_merged/{group}/rna/seurat_l2_labels_to_subgroups/proj.rds", group=groups.keys()),
+
+# rule name_1:
+#     """
+#     Generate outputs dependent on first-round cluster naming
+#     """
+#     input: 
+#         "results_merged/all/rna/seurat_name_1/umap.pdf",
+#         expand("results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/proj.rds", cluster=subcluster_jobs),
+#         expand("results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/label_plots.pdf", cluster=subcluster_jobs)
+
+# rule pre_name:
 rule all:
-    """
-    Generate all outputs (default)
-    """
-    input: 
-        "results_merged/all/rna/seurat_load_subclusters/proj.rds",
-        expand("results_merged/{group}/rna/seurat_l2_labels_to_subgroups/proj.rds", group=groups.keys()),
-
-rule name_1:
-    """
-    Generate outputs dependent on first-round cluster naming
-    """
-    input: 
-        "results_merged/all/rna/seurat_name_1/umap.pdf",
-        expand("results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/proj.rds", cluster=subcluster_jobs),
-        expand("results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/label_plots.pdf", cluster=subcluster_jobs)
-
-rule pre_name:
     """
     Generate all outputs prior to cluster naming
     """
@@ -81,15 +87,12 @@ rule pre_name:
         expand("results/{sample}/rna/seurat_transfer_rna/labels_teichmann.tsv", sample=samples),
         expand("results/{sample}/rna/seurat_transfer_rna/labels_ellinor.tsv", sample=samples),
         expand("results/{sample}/rna/seurat_transfer_rna/labels_azimuth.tsv", sample=samples),
-        expand("results_merged/{group}/rna/seurat_integrate_rna/proj.rds", group=groups.keys()),
-        expand("results_merged/{group}/rna/seurat_integrate_rna/integration_plots.pdf", group=groups.keys()),
-        expand("results_merged/{group}/rna/seurat_cluster_rna/proj.rds", group=groups.keys()),
-        expand("results_merged/{group}/rna/seurat_load_transfer_labels/reference_plots.pdf", group=groups.keys()),
-        expand("results_merged/{group}/rna/seurat_plot_cm/mats.pdf", group=groups.keys()),
-        "qc_all/seurat_doublet_umaps.pdf",
-        "qc_all/seurat_soupx_umaps.pdf",
-        "results_merged/all/rna/seurat_cluster_rna/proj.rds",
-        "results_merged/all/rna/seurat_cluster_rna/label_plots.pdf",
+        expand("results_groups/{group}/rna/seurat_integrate_rna/proj.rds", group=groups.keys()),
+        expand("results_groups/{group}/rna/seurat_integrate_rna/integration_plots.pdf", group=groups.keys()),
+        expand("results_groups/{group}/rna/seurat_cluster_rna/proj.rds", group=groups.keys()),
+        expand("results_groups/{group}/rna/seurat_load_transfer_labels/reference_plots.pdf", group=groups.keys()),
+        expand("results_groups/{group}/rna/seurat_plot_cm/mats.pdf", group=groups.keys()),
+
         # "results_merged/atac/archr_init",
         # "results_merged/atac/archr_label",
         # "export/atac/embeddings/harmony.tsv.gz",

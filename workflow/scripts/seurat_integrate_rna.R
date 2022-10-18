@@ -21,6 +21,7 @@ projs <- lapply(input_paths[["projects_in"]], readRDS)
 lapply(projs, print) ####
 
 proj_merged <- merge(projs[[1]], projs[-1], project = "merged_rna", add.cell.ids = unlist(params[["samples"]]))
+DefaultAssay(object = proj_merged) <- "RNA_train"
 
 proj_merged <- NormalizeData(proj_merged, normalization.method = "LogNormalize", scale.factor = 10000)
 proj_merged <- FindVariableFeatures(proj_merged, selection.method = "vst", nfeatures = 2000)
@@ -44,7 +45,7 @@ ggsave(output_paths[["umap_dataset_pre_harmony"]], plt, device = "pdf", width = 
 plt <- FeaturePlot(proj_merged, reduction = "umap", features = "mixing_pca") + labs(title="Pre-Harmony batch mixing metric")
 ggsave(output_paths[["umap_mixing_pre_harmony"]], plt, device = "pdf", width = 10, height = 7)
 
-proj_merged <- RunHarmony(proj_merged, "dataset")
+proj_merged <- RunHarmony(proj_merged, "dataset", assay.use = "RNA_train")
 
 proj_merged <- FindNeighbors(proj_merged, dims = 1:30, reduction = "harmony")
 proj_merged <- RunUMAP(proj_merged, dims = 1:30, reduction = "harmony")

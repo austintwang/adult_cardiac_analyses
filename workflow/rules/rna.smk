@@ -119,269 +119,327 @@ rule seurat_merge_doublet_plots:
     shell:
         "pdfunite {input} {output}"
 
-rule seurat_integrate_rna:
+rule seurat_doublets_no_soupx:
     """
-    Integrate RNA samples using Harmony
+    Filter doublets (no ambient RNA removal)
     """
     input:
-        projects_in = lambda w: [f"results/{i}/rna/seurat_doublets_rna/proj_filtered.rds" for i in groups[w.group]]
+        project_in = "results/{sample}/rna/seurat_build_rna/proj.rds",
+        doubletfinder_library_dir = "resources/doubletfinder_lib"
     output:
-        project_out = "results_merged/{group}/rna/seurat_integrate_rna/proj.rds",
-        umap_dataset_pre_harmony = "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_pre_harmony.pdf",
-        umap_mixing_pre_harmony = "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_pre_harmony.pdf",
-        umap_dataset_harmony = "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_harmony.pdf",
-        umap_mixing_harmony = "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_harmony.pdf",
+        project_out_all = "results/{sample}/rna/seurat_doublets_no_soupx/proj_all.rds",
+        project_out_filtered = "results/{sample}/rna/seurat_doublets_no_soupx/proj_filtered.rds",
+        metadata = "results/{sample}/rna/seurat_doublets_no_soupx/metadata.tsv",
+        umap = "results/{sample}/rna/seurat_doublets_no_soupx/umap.pdf",
+        umap_filtered = "results/{sample}/rna/seurat_doublets_no_soupx/umap_filtered.pdf"
     params:
         seed = config["seurat_seed"],
-        samples = lambda w: groups[w.group],
+        doublet_rate = config["doublet_formation_rate"],
+        amulet_fdr = config["amulet_fdr"]
     log:
-        console = "logs/merged/{group}/rna/seurat_integrate_rna/console.log"
+        console = "logs/{sample}/rna/seurat_doublets_no_soupx/console.log"
+    threads:
+        config["max_threads_per_rule"]
     conda:
         "../envs/seurat.yaml"
     script:
-        "../scripts/seurat_integrate_rna.R"
+        "../scripts/seurat_doublets_rna.R"
 
-rule seurat_integrate_qc_extras:
+rule seurat_merge_doublet_plots_2:
     """
-    Additional integration QC plots
+    Merge doublet plot pdf's (no ambient RNA removal)
     """
     input:
-        project_in = "results_merged/{group}/rna/seurat_integrate_rna/proj.rds"
+        expand("results/{sample}/rna/seurat_doublets_no_soupx/umap.pdf", sample=samples)
     output:
-        umap_counts = "results_merged/{group}/rna/seurat_integrate_rna/umap_counts.pdf",
-        umap_doubletfinder = "results_merged/{group}/rna/seurat_integrate_rna/umap_doubletfinder.pdf",
-        umap_amulet = "results_merged/{group}/rna/seurat_integrate_rna/umap_amulet.pdf"
-    params:
-        seed = config["seurat_seed"],
-        samples = lambda w: groups[w.group],
-    log:
-        console = "logs/merged/{group}/rna/seurat_integrate_rna_extras/console.log"
-    conda:
-        "../envs/seurat.yaml"
-    script:
-        "../scripts/seurat_integration_qc.R"
-
-rule seurat_merge_integration_plots:
-    """
-    Merge integration QC pdf's
-    """
-    input:
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_pre_harmony.pdf",
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_harmony.pdf",
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_pre_harmony.pdf",
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_harmony.pdf",
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_counts.pdf",
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_doubletfinder.pdf",
-        "results_merged/{group}/rna/seurat_integrate_rna/umap_amulet.pdf"
-    output:
-        "results_merged/{group}/rna/seurat_integrate_rna/integration_plots.pdf"
+        "qc_all/seurat_doublet_no_soupx_umaps.pdf"
     conda:
         "../envs/fetch.yaml"
     shell:
-        "pdfunite {input} {output}; "
+        "pdfunite {input} {output}"
 
-rule seurat_load_transfer_labels:
+rule seurat_countsplit:
     """
-    Add labels to integrated analyses
+    Create train and test pseudoreplicates
     """
     input:
-        project_integrated = "results_merged/{group}/rna/seurat_integrate_rna/proj.rds",
-        tables = expand(
-            "results_merged/{group}/rna/seurat_integrate_transfers/{reference}.tsv", 
-            reference = ["kramann", "ellinor", "teichmann", "azimuth"], 
-            allow_missing=True
-        )
+        project_in = "results/{sample}/rna/seurat_doublets_no_soupx/proj_filtered.rds"
     output:
-        project_out = "results_merged/{group}/rna/seurat_load_transfer_labels/proj.rds",
-        umap_kramann_coarse = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_coarse.pdf",
-        umap_kramann_fine = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_fine.pdf",
-        umap_ellinor_coarse = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_coarse.pdf",
-        umap_ellinor_fine = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_fine.pdf",
-        umap_teichmann_coarse = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_coarse.pdf",
-        umap_teichmann_fine = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_fine.pdf",
-        umap_azimuth_coarse = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_azimuth_coarse.pdf",
-        umap_azimuth_fine = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_azimuth_fine.pdf",
+        project_out = "results/{sample}/rna/seurat_countsplit/proj.rds",
+        umap = "results/{sample}/rna/seurat_countsplit/umap.pdf",
     params:
         seed = config["seurat_seed"],
+        split_frac = config["pseudorep_split_frac"]
     log:
-        console = "logs/merged/{group}/rna/seurat_load_transfer_labels/console.log"
+        console = "logs/{sample}/rna/seurat_countsplit/console.log"
     conda:
         "../envs/seurat.yaml"
     script:
-        "../scripts/seurat_load_transfer_labels.R"
+        "../scripts/seurat_countsplit.R"
 
-rule seurat_merge_reference_label_plots:
-    """
-    Merge reference projection plot pdf's
-    """
-    input:
-        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_coarse.pdf",
-        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_fine.pdf",
-        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_coarse.pdf",
-        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_fine.pdf",
-        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_coarse.pdf",
-        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_fine.pdf",
-        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_azimuth_coarse.pdf",
-        "results_merged/{group}/rna/seurat_load_transfer_labels/umap_azimuth_fine.pdf",
-    output:
-        "results_merged/{group}/rna/seurat_load_transfer_labels/reference_plots.pdf"
-    conda:
-        "../envs/fetch.yaml"
-    shell:
-        "pdfunite {input} {output}; "
+# rule seurat_integrate_rna:
+#     """
+#     Integrate RNA samples using Harmony
+#     """
+#     input:
+#         projects_in = lambda w: [f"results/{i}/rna/seurat_doublets_rna/proj_filtered.rds" for i in groups[w.group]]
+#     output:
+#         project_out = "results_merged/{group}/rna/seurat_integrate_rna/proj.rds",
+#         umap_dataset_pre_harmony = "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_pre_harmony.pdf",
+#         umap_mixing_pre_harmony = "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_pre_harmony.pdf",
+#         umap_dataset_harmony = "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_harmony.pdf",
+#         umap_mixing_harmony = "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_harmony.pdf",
+#     params:
+#         seed = config["seurat_seed"],
+#         samples = lambda w: groups[w.group],
+#     log:
+#         console = "logs/merged/{group}/rna/seurat_integrate_rna/console.log"
+#     conda:
+#         "../envs/seurat.yaml"
+#     script:
+#         "../scripts/seurat_integrate_rna.R"
 
-rule seurat_cluster_rna:
-    """
-    Seurat RNA clustering
-    """
-    input:
-        project_in = "results_merged/{group}/rna/seurat_load_transfer_labels/proj.rds",
-    output:
-        project_out = "results_merged/{group}/rna/seurat_cluster_rna/proj.rds",
-        umap = "results_merged/{group}/rna/seurat_cluster_rna/umap_clusters.pdf",
-    params:
-        seed = config["seurat_seed"],
-    log:
-        console = "logs/merged/{group}/rna/seurat_cluster_rna/console.log"
-    conda:
-        "../envs/seurat.yaml"
-    script:
-        "../scripts/seurat_cluster_rna.R"
+# rule seurat_integrate_qc_extras:
+#     """
+#     Additional integration QC plots
+#     """
+#     input:
+#         project_in = "results_merged/{group}/rna/seurat_integrate_rna/proj.rds"
+#     output:
+#         umap_counts = "results_merged/{group}/rna/seurat_integrate_rna/umap_counts.pdf",
+#         umap_doubletfinder = "results_merged/{group}/rna/seurat_integrate_rna/umap_doubletfinder.pdf",
+#         umap_amulet = "results_merged/{group}/rna/seurat_integrate_rna/umap_amulet.pdf"
+#     params:
+#         seed = config["seurat_seed"],
+#         samples = lambda w: groups[w.group],
+#     log:
+#         console = "logs/merged/{group}/rna/seurat_integrate_rna_extras/console.log"
+#     conda:
+#         "../envs/seurat.yaml"
+#     script:
+#         "../scripts/seurat_integration_qc.R"
 
-rule seurat_plot_cm:
-    """
-    Plot confusion matrices for clustering
-    """
-    input:
-        project_in = "results_merged/{group}/rna/seurat_cluster_rna/proj.rds",
-    output:
-        mat_kramann_coarse = "results_merged/{group}/rna/seurat_plot_cm/mat_kramann_coarse.pdf",
-        mat_kramann_fine = "results_merged/{group}/rna/seurat_plot_cm/mat_kramann_fine.pdf",
-        mat_ellinor_coarse = "results_merged/{group}/rna/seurat_plot_cm/mat_ellinor_coarse.pdf",
-        mat_ellinor_fine = "results_merged/{group}/rna/seurat_plot_cm/mat_ellinor_fine.pdf",
-        mat_teichmann_coarse = "results_merged/{group}/rna/seurat_plot_cm/mat_teichmann_coarse.pdf",
-        mat_teichmann_fine = "results_merged/{group}/rna/seurat_plot_cm/mat_teichmann_fine.pdf",
-        mat_azimuth_coarse = "results_merged/{group}/rna/seurat_plot_cm/mat_azimuth_coarse.pdf",
-        mat_azimuth_fine = "results_merged/{group}/rna/seurat_plot_cm/mat_azimuth_fine.pdf",
-    params:
-        seed = config["seurat_seed"],
-    log:
-        console = "logs/merged/{group}/rna/seurat_plot_cm/console.log"
-    conda:
-        "../envs/seurat.yaml"
-    script:
-        "../scripts/seurat_plot_cm.R"
+# rule seurat_merge_integration_plots:
+#     """
+#     Merge integration QC pdf's
+#     """
+#     input:
+#         "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_pre_harmony.pdf",
+#         "results_merged/{group}/rna/seurat_integrate_rna/umap_dataset_harmony.pdf",
+#         "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_pre_harmony.pdf",
+#         "results_merged/{group}/rna/seurat_integrate_rna/umap_mixing_harmony.pdf",
+#         "results_merged/{group}/rna/seurat_integrate_rna/umap_counts.pdf",
+#         "results_merged/{group}/rna/seurat_integrate_rna/umap_doubletfinder.pdf",
+#         "results_merged/{group}/rna/seurat_integrate_rna/umap_amulet.pdf"
+#     output:
+#         "results_merged/{group}/rna/seurat_integrate_rna/integration_plots.pdf"
+#     conda:
+#         "../envs/fetch.yaml"
+#     shell:
+#         "pdfunite {input} {output}; "
 
-rule seurat_merge_cm_plots:
-    """
-    Merge confusion matrix plot pdf's
-    """
-    input:
-        "results_merged/{group}/rna/seurat_plot_cm/mat_kramann_coarse.pdf",
-        "results_merged/{group}/rna/seurat_plot_cm/mat_kramann_fine.pdf",
-        "results_merged/{group}/rna/seurat_plot_cm/mat_ellinor_coarse.pdf",
-        "results_merged/{group}/rna/seurat_plot_cm/mat_ellinor_fine.pdf",
-        "results_merged/{group}/rna/seurat_plot_cm/mat_teichmann_coarse.pdf",
-        "results_merged/{group}/rna/seurat_plot_cm/mat_teichmann_fine.pdf",
-        "results_merged/{group}/rna/seurat_plot_cm/mat_azimuth_coarse.pdf",
-        "results_merged/{group}/rna/seurat_plot_cm/mat_azimuth_fine.pdf",
-    output:
-        "results_merged/{group}/rna/seurat_plot_cm/mats.pdf"
-    conda:
-        "../envs/fetch.yaml"
-    shell:
-        "pdfunite {input} {output}; "
+# rule seurat_load_transfer_labels:
+#     """
+#     Add labels to integrated analyses
+#     """
+#     input:
+#         project_integrated = "results_merged/{group}/rna/seurat_integrate_rna/proj.rds",
+#         tables = expand(
+#             "results_merged/{group}/rna/seurat_integrate_transfers/{reference}.tsv", 
+#             reference = ["kramann", "ellinor", "teichmann", "azimuth"], 
+#             allow_missing=True
+#         )
+#     output:
+#         project_out = "results_merged/{group}/rna/seurat_load_transfer_labels/proj.rds",
+#         umap_kramann_coarse = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_coarse.pdf",
+#         umap_kramann_fine = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_fine.pdf",
+#         umap_ellinor_coarse = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_coarse.pdf",
+#         umap_ellinor_fine = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_fine.pdf",
+#         umap_teichmann_coarse = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_coarse.pdf",
+#         umap_teichmann_fine = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_fine.pdf",
+#         umap_azimuth_coarse = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_azimuth_coarse.pdf",
+#         umap_azimuth_fine = "results_merged/{group}/rna/seurat_load_transfer_labels/umap_azimuth_fine.pdf",
+#     params:
+#         seed = config["seurat_seed"],
+#     log:
+#         console = "logs/merged/{group}/rna/seurat_load_transfer_labels/console.log"
+#     conda:
+#         "../envs/seurat.yaml"
+#     script:
+#         "../scripts/seurat_load_transfer_labels.R"
 
-rule seurat_integrate_l2:
-    """
-    Integrate all RNA samples using Harmony
-    """
-    input:
-        projects_in = lambda w: [f"results_merged/{i}/rna/seurat_cluster_rna/proj.rds" for i in group_names]
-    output:
-        project_out = "results_merged/all/rna/seurat_integrate_l2/proj.rds",
-        umap_dataset_pre_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_dataset_pre_harmony.pdf",
-        umap_mixing_pre_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_mixing_pre_harmony.pdf",
-        umap_dataset_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_dataset_harmony.pdf",
-        umap_mixing_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_mixing_harmony.pdf",
-        umap_group_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_group_harmony.pdf",
-        umap_region_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_region_harmony.pdf",
-        umap_status_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_status_harmony.pdf",
-    params:
-        seed = config["seurat_seed"],
-        groups = group_names
-    log:
-        console = "logs/merged/all/rna/seurat_integrate_l2/console.log"
-    conda:
-        "../envs/seurat.yaml"
-    script:
-        "../scripts/seurat_integrate_l2.R"
+# rule seurat_merge_reference_label_plots:
+#     """
+#     Merge reference projection plot pdf's
+#     """
+#     input:
+#         "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_coarse.pdf",
+#         "results_merged/{group}/rna/seurat_load_transfer_labels/umap_kramann_fine.pdf",
+#         "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_coarse.pdf",
+#         "results_merged/{group}/rna/seurat_load_transfer_labels/umap_ellinor_fine.pdf",
+#         "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_coarse.pdf",
+#         "results_merged/{group}/rna/seurat_load_transfer_labels/umap_teichmann_fine.pdf",
+#         "results_merged/{group}/rna/seurat_load_transfer_labels/umap_azimuth_coarse.pdf",
+#         "results_merged/{group}/rna/seurat_load_transfer_labels/umap_azimuth_fine.pdf",
+#     output:
+#         "results_merged/{group}/rna/seurat_load_transfer_labels/reference_plots.pdf"
+#     conda:
+#         "../envs/fetch.yaml"
+#     shell:
+#         "pdfunite {input} {output}; "
 
-rule seurat_merge_integration_plots_l2:
-    """
-    Merge integration QC pdf's
-    """
-    input:
-        "results_merged/all/rna/seurat_integrate_l2/umap_dataset_pre_harmony.pdf",
-        "results_merged/all/rna/seurat_integrate_l2/umap_mixing_pre_harmony.pdf",
-        "results_merged/all/rna/seurat_integrate_l2/umap_dataset_harmony.pdf",
-        "results_merged/all/rna/seurat_integrate_l2/umap_mixing_harmony.pdf",
-        "results_merged/all/rna/seurat_integrate_l2/umap_group_harmony.pdf",
-        "results_merged/all/rna/seurat_integrate_l2/umap_region_harmony.pdf",
-        "results_merged/all/rna/seurat_integrate_l2/umap_status_harmony.pdf",
-    output:
-        "results_merged/all/rna/seurat_integrate_l2/integration_plots.pdf"
-    conda:
-        "../envs/fetch.yaml"
-    shell:
-        "pdfunite {input} {output}; "
+# rule seurat_cluster_rna:
+#     """
+#     Seurat RNA clustering
+#     """
+#     input:
+#         project_in = "results_merged/{group}/rna/seurat_load_transfer_labels/proj.rds",
+#     output:
+#         project_out = "results_merged/{group}/rna/seurat_cluster_rna/proj.rds",
+#         umap = "results_merged/{group}/rna/seurat_cluster_rna/umap_clusters.pdf",
+#     params:
+#         seed = config["seurat_seed"],
+#     log:
+#         console = "logs/merged/{group}/rna/seurat_cluster_rna/console.log"
+#     conda:
+#         "../envs/seurat.yaml"
+#     script:
+#         "../scripts/seurat_cluster_rna.R"
 
-rule seurat_cluster_l2:
-    """
-    Seurat RNA clustering
-    """
-    input:
-        project_in = "results_merged/all/rna/seurat_integrate_l2/proj.rds"
-    output:
-        project_out = "results_merged/all/rna/seurat_cluster_rna/proj.rds",
-        umap = "results_merged/all/rna/seurat_cluster_rna/umap_clusters.pdf",
-        umap_kramann_coarse = "results_merged/all/rna/seurat_cluster_rna/umap_kramann_coarse.pdf",
-        umap_kramann_fine = "results_merged/all/rna/seurat_cluster_rna/umap_kramann_fine.pdf",
-        umap_ellinor_coarse = "results_merged/all/rna/seurat_cluster_rna/umap_ellinor_coarse.pdf",
-        umap_ellinor_fine = "results_merged/all/rna/seurat_cluster_rna/umap_ellinor_fine.pdf",
-        umap_teichmann_coarse = "results_merged/all/rna/seurat_cluster_rna/umap_teichmann_coarse.pdf",
-        umap_teichmann_fine = "results_merged/all/rna/seurat_cluster_rna/umap_teichmann_fine.pdf",
-        umap_azimuth_coarse = "results_merged/all/rna/seurat_cluster_rna/umap_azimuth_coarse.pdf",
-        umap_azimuth_fine = "results_merged/all/rna/seurat_cluster_rna/umap_azimuth_fine.pdf",
-    params:
-        seed = config["seurat_seed"],
-    log:
-        console = "logs/merged/all/rna/seurat_cluster_rna/console.log"
-    conda:
-        "../envs/seurat.yaml"
-    script:
-        "../scripts/seurat_cluster_l2.R"
+# rule seurat_plot_cm:
+#     """
+#     Plot confusion matrices for clustering
+#     """
+#     input:
+#         project_in = "results_merged/{group}/rna/seurat_cluster_rna/proj.rds",
+#     output:
+#         mat_kramann_coarse = "results_merged/{group}/rna/seurat_plot_cm/mat_kramann_coarse.pdf",
+#         mat_kramann_fine = "results_merged/{group}/rna/seurat_plot_cm/mat_kramann_fine.pdf",
+#         mat_ellinor_coarse = "results_merged/{group}/rna/seurat_plot_cm/mat_ellinor_coarse.pdf",
+#         mat_ellinor_fine = "results_merged/{group}/rna/seurat_plot_cm/mat_ellinor_fine.pdf",
+#         mat_teichmann_coarse = "results_merged/{group}/rna/seurat_plot_cm/mat_teichmann_coarse.pdf",
+#         mat_teichmann_fine = "results_merged/{group}/rna/seurat_plot_cm/mat_teichmann_fine.pdf",
+#         mat_azimuth_coarse = "results_merged/{group}/rna/seurat_plot_cm/mat_azimuth_coarse.pdf",
+#         mat_azimuth_fine = "results_merged/{group}/rna/seurat_plot_cm/mat_azimuth_fine.pdf",
+#     params:
+#         seed = config["seurat_seed"],
+#     log:
+#         console = "logs/merged/{group}/rna/seurat_plot_cm/console.log"
+#     conda:
+#         "../envs/seurat.yaml"
+#     script:
+#         "../scripts/seurat_plot_cm.R"
 
-rule seurat_merge_label_plots_l2:
-    """
-    Merge reference projection plot pdf's
-    """
-    input:
-        "results_merged/all/rna/seurat_cluster_rna/umap_clusters.pdf",
-        "results_merged/all/rna/seurat_cluster_rna/umap_kramann_coarse.pdf",
-        "results_merged/all/rna/seurat_cluster_rna/umap_kramann_fine.pdf",
-        "results_merged/all/rna/seurat_cluster_rna/umap_ellinor_coarse.pdf",
-        "results_merged/all/rna/seurat_cluster_rna/umap_ellinor_fine.pdf",
-        "results_merged/all/rna/seurat_cluster_rna/umap_teichmann_coarse.pdf",
-        "results_merged/all/rna/seurat_cluster_rna/umap_teichmann_fine.pdf",
-        "results_merged/all/rna/seurat_cluster_rna/umap_azimuth_coarse.pdf",
-        "results_merged/all/rna/seurat_cluster_rna/umap_azimuth_fine.pdf",
-    output:
-        "results_merged/all/rna/seurat_cluster_rna/label_plots.pdf"
-    conda:
-        "../envs/fetch.yaml"
-    shell:
-        "pdfunite {input} {output}; "
+# rule seurat_merge_cm_plots:
+#     """
+#     Merge confusion matrix plot pdf's
+#     """
+#     input:
+#         "results_merged/{group}/rna/seurat_plot_cm/mat_kramann_coarse.pdf",
+#         "results_merged/{group}/rna/seurat_plot_cm/mat_kramann_fine.pdf",
+#         "results_merged/{group}/rna/seurat_plot_cm/mat_ellinor_coarse.pdf",
+#         "results_merged/{group}/rna/seurat_plot_cm/mat_ellinor_fine.pdf",
+#         "results_merged/{group}/rna/seurat_plot_cm/mat_teichmann_coarse.pdf",
+#         "results_merged/{group}/rna/seurat_plot_cm/mat_teichmann_fine.pdf",
+#         "results_merged/{group}/rna/seurat_plot_cm/mat_azimuth_coarse.pdf",
+#         "results_merged/{group}/rna/seurat_plot_cm/mat_azimuth_fine.pdf",
+#     output:
+#         "results_merged/{group}/rna/seurat_plot_cm/mats.pdf"
+#     conda:
+#         "../envs/fetch.yaml"
+#     shell:
+#         "pdfunite {input} {output}; "
+
+# rule seurat_integrate_l2:
+#     """
+#     Integrate all RNA samples using Harmony
+#     """
+#     input:
+#         projects_in = lambda w: [f"results_merged/{i}/rna/seurat_cluster_rna/proj.rds" for i in group_names]
+#     output:
+#         project_out = "results_merged/all/rna/seurat_integrate_l2/proj.rds",
+#         umap_dataset_pre_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_dataset_pre_harmony.pdf",
+#         umap_mixing_pre_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_mixing_pre_harmony.pdf",
+#         umap_dataset_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_dataset_harmony.pdf",
+#         umap_mixing_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_mixing_harmony.pdf",
+#         umap_group_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_group_harmony.pdf",
+#         umap_region_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_region_harmony.pdf",
+#         umap_status_harmony = "results_merged/all/rna/seurat_integrate_l2/umap_status_harmony.pdf",
+#     params:
+#         seed = config["seurat_seed"],
+#         groups = group_names
+#     log:
+#         console = "logs/merged/all/rna/seurat_integrate_l2/console.log"
+#     conda:
+#         "../envs/seurat.yaml"
+#     script:
+#         "../scripts/seurat_integrate_l2.R"
+
+# rule seurat_merge_integration_plots_l2:
+#     """
+#     Merge integration QC pdf's
+#     """
+#     input:
+#         "results_merged/all/rna/seurat_integrate_l2/umap_dataset_pre_harmony.pdf",
+#         "results_merged/all/rna/seurat_integrate_l2/umap_mixing_pre_harmony.pdf",
+#         "results_merged/all/rna/seurat_integrate_l2/umap_dataset_harmony.pdf",
+#         "results_merged/all/rna/seurat_integrate_l2/umap_mixing_harmony.pdf",
+#         "results_merged/all/rna/seurat_integrate_l2/umap_group_harmony.pdf",
+#         "results_merged/all/rna/seurat_integrate_l2/umap_region_harmony.pdf",
+#         "results_merged/all/rna/seurat_integrate_l2/umap_status_harmony.pdf",
+#     output:
+#         "results_merged/all/rna/seurat_integrate_l2/integration_plots.pdf"
+#     conda:
+#         "../envs/fetch.yaml"
+#     shell:
+#         "pdfunite {input} {output}; "
+
+# rule seurat_cluster_l2:
+#     """
+#     Seurat RNA clustering
+#     """
+#     input:
+#         project_in = "results_merged/all/rna/seurat_integrate_l2/proj.rds"
+#     output:
+#         project_out = "results_merged/all/rna/seurat_cluster_rna/proj.rds",
+#         umap = "results_merged/all/rna/seurat_cluster_rna/umap_clusters.pdf",
+#         umap_kramann_coarse = "results_merged/all/rna/seurat_cluster_rna/umap_kramann_coarse.pdf",
+#         umap_kramann_fine = "results_merged/all/rna/seurat_cluster_rna/umap_kramann_fine.pdf",
+#         umap_ellinor_coarse = "results_merged/all/rna/seurat_cluster_rna/umap_ellinor_coarse.pdf",
+#         umap_ellinor_fine = "results_merged/all/rna/seurat_cluster_rna/umap_ellinor_fine.pdf",
+#         umap_teichmann_coarse = "results_merged/all/rna/seurat_cluster_rna/umap_teichmann_coarse.pdf",
+#         umap_teichmann_fine = "results_merged/all/rna/seurat_cluster_rna/umap_teichmann_fine.pdf",
+#         umap_azimuth_coarse = "results_merged/all/rna/seurat_cluster_rna/umap_azimuth_coarse.pdf",
+#         umap_azimuth_fine = "results_merged/all/rna/seurat_cluster_rna/umap_azimuth_fine.pdf",
+#     params:
+#         seed = config["seurat_seed"],
+#     log:
+#         console = "logs/merged/all/rna/seurat_cluster_rna/console.log"
+#     conda:
+#         "../envs/seurat.yaml"
+#     script:
+#         "../scripts/seurat_cluster_l2.R"
+
+# rule seurat_merge_label_plots_l2:
+#     """
+#     Merge reference projection plot pdf's
+#     """
+#     input:
+#         "results_merged/all/rna/seurat_cluster_rna/umap_clusters.pdf",
+#         "results_merged/all/rna/seurat_cluster_rna/umap_kramann_coarse.pdf",
+#         "results_merged/all/rna/seurat_cluster_rna/umap_kramann_fine.pdf",
+#         "results_merged/all/rna/seurat_cluster_rna/umap_ellinor_coarse.pdf",
+#         "results_merged/all/rna/seurat_cluster_rna/umap_ellinor_fine.pdf",
+#         "results_merged/all/rna/seurat_cluster_rna/umap_teichmann_coarse.pdf",
+#         "results_merged/all/rna/seurat_cluster_rna/umap_teichmann_fine.pdf",
+#         "results_merged/all/rna/seurat_cluster_rna/umap_azimuth_coarse.pdf",
+#         "results_merged/all/rna/seurat_cluster_rna/umap_azimuth_fine.pdf",
+#     output:
+#         "results_merged/all/rna/seurat_cluster_rna/label_plots.pdf"
+#     conda:
+#         "../envs/fetch.yaml"
+#     shell:
+#         "pdfunite {input} {output}; "
 
 rule seurat_write_embeddings:
     """

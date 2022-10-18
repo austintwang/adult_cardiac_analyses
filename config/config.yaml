@@ -30,6 +30,8 @@ seurat_seed: 2398756
 seurat_min_count: 1000
 seurat_max_pct_mito: 5
 
+pseudorep_split_frac: 0.5
+
 # rna_ref_kramann_data: http://mitra.stanford.edu/kundaje/atwang/encode_scatac_manual/cardiac_refs/kramann/local.rds
 rna_ref_kramann:
   unified: https://zenodo.org/record/6578047/files/snRNA-seq-submission.h5ad?download=1

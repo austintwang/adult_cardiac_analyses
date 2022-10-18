@@ -1,60 +1,60 @@
-Series	Region	Status
-ENCSR889JIE	lv	nonischemic
-ENCSR196JUO	lv	nonischemic
-ENCSR716XVF	lv	nonischemic
-ENCSR487MGY	lv	nonischemic
-ENCSR305JVN	lv	nonischemic
-ENCSR038TKH	lv	nonischemic
-ENCSR323AMA	lv	nonischemic
-ENCSR196LCO	lv	nonischemic
-ENCSR891TJB	lv	nonischemic
-ENCSR056LAM	lv	ischemic
-ENCSR535LSU	lv	ischemic
-ENCSR418BIA	lv	ischemic
-ENCSR725MMM	lv	ischemic
-ENCSR861PPJ	lv	ischemic
-ENCSR882CKY	lv	ischemic
-ENCSR060VMC	lv	ischemic
-ENCSR549BXX	lv	ischemic
-ENCSR100UGC	lv	healthy
-ENCSR703OZJ	lv	healthy
-ENCSR870POU	lv	healthy
-ENCSR000ULP	lv	healthy
-ENCSR938QYK	lv	healthy
-ENCSR966RKP	lv	healthy
-ENCSR239BIN	lv	healthy
-ENCSR623PHF	lv	healthy
-ENCSR707XPP	lv	healthy
-ENCSR529JMP	lv	healthy
-ENCSR243CWX	lv	healthy
-ENCSR730AXV	lv	healthy
-ENCSR954THM	lv	healthy
-ENCSR983ILQ	lv	healthy
-ENCSR673CAA	lv	healthy
-ENCSR188XNY	lv	healthy
-ENCSR523NMC	lv	healthy
-ENCSR629CZM	lv	ischemic
-ENCSR793XGJ	lv	ischemic
-ENCSR304NKV	lv	ischemic
-ENCSR613LBN	la	healthy
-ENCSR923FKN	la	healthy
-ENCSR351CSQ	la	healthy
-ENCSR218RZE	ra	healthy
-ENCSR002WBD	ra	healthy
-ENCSR488VFJ	ra	healthy
-ENCSR793DNM	lv	healthy
-ENCSR568QKW	lv	healthy
-ENCSR245BNT	lv	healthy
-ENCSR508WRP	lv	healthy
-ENCSR956ZER	lv	ischemic
-ENCSR265ZRW	lv	nonischemic
-ENCSR822CXI	lv	nonischemic
-ENCSR573DJW	lv	nonischemic
-ENCSR300BCB	lv	ischemic
-ENCSR768WQT	lv	nonischemic
-ENCSR511RDV	rv	healthy
-ENCSR534YJW	rv	healthy
-ENCSR079UEO	rv	healthy
-ENCSR987VTJ	lv	healthy
-ENCSR320RLS	rv	healthy
-ENCSR201BHG	rv	healthy
+Series	Region	Status	Sex
+ENCSR889JIE	lv	nonischemic	f
+ENCSR196JUO	lv	nonischemic	m
+ENCSR716XVF	lv	nonischemic	f
+ENCSR487MGY	lv	nonischemic	f
+ENCSR305JVN	lv	nonischemic	m
+ENCSR038TKH	lv	nonischemic	m
+ENCSR323AMA	lv	nonischemic	m
+ENCSR196LCO	lv	nonischemic	m
+ENCSR891TJB	lv	nonischemic	f
+ENCSR056LAM	lv	ischemic	m
+ENCSR535LSU	lv	ischemic	f
+ENCSR418BIA	lv	ischemic	m
+ENCSR725MMM	lv	ischemic	m
+ENCSR861PPJ	lv	ischemic	m
+ENCSR882CKY	lv	ischemic	m
+ENCSR060VMC	lv	ischemic	f
+ENCSR549BXX	lv	ischemic	m
+ENCSR100UGC	lv	healthy	m
+ENCSR703OZJ	lv	healthy	f
+ENCSR870POU	lv	healthy	m
+ENCSR000ULP	lv	healthy	m
+ENCSR938QYK	lv	healthy	m
+ENCSR966RKP	lv	healthy	m
+ENCSR239BIN	lv	healthy	m
+ENCSR623PHF	lv	healthy	m
+ENCSR707XPP	lv	healthy	m
+ENCSR529JMP	lv	healthy	m
+ENCSR243CWX	lv	healthy	m
+ENCSR730AXV	lv	healthy	f
+ENCSR954THM	lv	healthy	m
+ENCSR983ILQ	lv	healthy	f
+ENCSR673CAA	lv	healthy	f
+ENCSR188XNY	lv	healthy	m
+ENCSR523NMC	lv	healthy	f
+ENCSR629CZM	lv	ischemic	m
+ENCSR793XGJ	lv	ischemic	m
+ENCSR304NKV	lv	ischemic	m
+ENCSR613LBN	la	healthy	m
+ENCSR923FKN	la	healthy	m
+ENCSR351CSQ	la	healthy	f
+ENCSR218RZE	ra	healthy	m
+ENCSR002WBD	ra	healthy	f
+ENCSR488VFJ	ra	healthy	f
+ENCSR793DNM	lv	healthy	f
+ENCSR568QKW	lv	healthy	f
+ENCSR245BNT	lv	healthy	f
+ENCSR508WRP	lv	healthy	f
+ENCSR956ZER	lv	ischemic	m
+ENCSR265ZRW	lv	nonischemic	m
+ENCSR822CXI	lv	nonischemic	m
+ENCSR573DJW	lv	nonischemic	m
+ENCSR300BCB	lv	ischemic	m
+ENCSR768WQT	lv	nonischemic	m
+ENCSR511RDV	rv	healthy	f
+ENCSR534YJW	rv	healthy	f
+ENCSR079UEO	rv	healthy	f
+ENCSR987VTJ	lv	healthy	m
+ENCSR320RLS	rv	healthy	m
+ENCSR201BHG	rv	healthy	m
