@@ -5,7 +5,7 @@ rule seurat_integrate_rna:
     Integrate RNA samples using Harmony
     """
     input:
-        projects_in = lambda w: [f"results/{i}/rna/seurat_doublets_rna/proj_filtered.rds" for i in groups[w.group]]
+        projects_in = lambda w: [f"results/{sample}/rna/seurat_countsplit/proj.rds" for sample in groups[w.group]]
     output:
         project_out = "results_groups/{group}/rna/seurat_integrate_rna/proj.rds",
         umap_dataset_pre_harmony = "results_groups/{group}/rna/seurat_integrate_rna/umap_dataset_pre_harmony.pdf",
