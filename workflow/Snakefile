@@ -54,11 +54,11 @@ include:
 include:
     "rules/rna.smk"
 include:
+    "rules/reference.smk"
+include:
     "rules/rna_group.smk"
 # include:
-#     "rules/reference.smk"
-include:
-    "rules/label.smk"
+#     "rules/label.smk"
 
 # rule all:
 #     """
