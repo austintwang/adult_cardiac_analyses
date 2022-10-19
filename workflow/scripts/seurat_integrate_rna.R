@@ -24,7 +24,7 @@ if (length(projs) > 1) {
   proj_merged <- merge(projs[[1]], projs[-1], project = "merged_rna", add.cell.ids = unlist(params[["samples"]]))
 } else {
   proj_merged <- projs[[1]]
-  RenameCells(proj_merged, add.cell.id = params[["samples"]][[1]], for.merge = TRUE)
+  proj_merged <- RenameCells(proj_merged, add.cell.id = params[["samples"]][[1]], for.merge = TRUE)
 }
 DefaultAssay(object = proj_merged) <- "RNA_train"
 
