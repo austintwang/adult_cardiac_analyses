@@ -37,12 +37,16 @@ proj_merged <- RunPCA(proj_merged, features = VariableFeatures(object = proj_mer
 proj_merged <- FindNeighbors(proj_merged, dims = 1:30, reduction = "pca")
 proj_merged <- RunUMAP(proj_merged, dims = 1:30, reduction = "pca")
 
-proj_merged$mixing_pca <- MixingMetric(
-  proj_merged,
-  "dataset",
-  reduction = "pca",
-  dims = 1:30
-)
+if (length(projs) > 1) {
+  proj_merged$mixing_pca <- MixingMetric(
+    proj_merged,
+    "dataset",
+    reduction = "pca",
+    dims = 1:30
+  )
+} else {
+  AddMetaData(proj_merged, rep(0, length(Cells(proj_merged))), col.name = "mixing_pca")
+}
 
 plt <- DimPlot(proj_merged, reduction = "umap", group.by = "dataset") + labs(title="Pre-Harmony datasets")
 ggsave(output_paths[["umap_dataset_pre_harmony"]], plt, device = "pdf", width = 10, height = 7)
@@ -55,12 +59,16 @@ proj_merged <- RunHarmony(proj_merged, "dataset", assay.use = "RNA_train")
 proj_merged <- FindNeighbors(proj_merged, dims = 1:30, reduction = "harmony")
 proj_merged <- RunUMAP(proj_merged, dims = 1:30, reduction = "harmony")
 
-proj_merged$mixing_harmony <- MixingMetric(
-  proj_merged,
-  "dataset",
-  reduction = "harmony",
-  dims = 1:30
-)
+if (length(projs) > 1) {
+  proj_merged$mixing_harmony <- MixingMetric(
+    proj_merged,
+    "dataset",
+    reduction = "harmony",
+    dims = 1:30
+  )
+} else {
+  AddMetaData(proj_merged, rep(0, length(Cells(proj_merged))), col.name = "mixing_harmony")
+}
 
 plt <- DimPlot(proj_merged, reduction = "umap", group.by = "dataset") + labs(title="Post-Harmony datasets")
 ggsave(output_paths[["umap_dataset_harmony"]], plt, device = "pdf", width = 10, height = 7)
