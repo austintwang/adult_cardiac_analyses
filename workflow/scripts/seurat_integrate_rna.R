@@ -45,7 +45,7 @@ if (length(projs) > 1) {
     dims = 1:30
   )
 } else {
-  AddMetaData(proj_merged, rep(0, length(Cells(proj_merged))), col.name = "mixing_pca")
+  proj_merged <- AddMetaData(proj_merged, rep(0, length(Cells(proj_merged))), col.name = "mixing_pca")
 }
 
 plt <- DimPlot(proj_merged, reduction = "umap", group.by = "dataset") + labs(title="Pre-Harmony datasets")
@@ -67,7 +67,7 @@ if (length(projs) > 1) {
     dims = 1:30
   )
 } else {
-  AddMetaData(proj_merged, rep(0, length(Cells(proj_merged))), col.name = "mixing_harmony")
+  proj_merged <- AddMetaData(proj_merged, rep(0, length(Cells(proj_merged))), col.name = "mixing_harmony")
 }
 
 plt <- DimPlot(proj_merged, reduction = "umap", group.by = "dataset") + labs(title="Post-Harmony datasets")
