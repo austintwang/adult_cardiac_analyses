@@ -20,7 +20,12 @@ set.seed(params[["seed"]])
 projs <- lapply(input_paths[["projects_in"]], readRDS)
 lapply(projs, print) ####
 
-proj_merged <- merge(projs[[1]], projs[-1], project = "merged_rna", add.cell.ids = unlist(params[["samples"]]))
+if (length(projs) > 1) {
+  proj_merged <- merge(projs[[1]], projs[-1], project = "merged_rna", add.cell.ids = unlist(params[["samples"]]))
+} else {
+  proj_merged <- projs[[1]]
+  RenameCells(proj_merged, add.cell.id = params[["samples"]][[1]], for.merge = TRUE)
+}
 DefaultAssay(object = proj_merged) <- "RNA_train"
 
 proj_merged <- NormalizeData(proj_merged, normalization.method = "LogNormalize", scale.factor = 10000)
