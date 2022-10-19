@@ -23,7 +23,7 @@ plt <- FeaturePlot(proj, reduction = "umap", features = "log_counts") + labs(tit
 ggsave(output_paths[["umap_counts"]], plt, device = "pdf", width = 10, height = 7)
 
 doubletfinder_cols <- grep("pANN", names(proj@meta.data), value = TRUE)
-d <- proj@meta.data[,doubletfinder_cols]
+d <- proj@meta.data[, doubletfinder_cols, drop = FALSE ]
 d[is.na(d)] <- 0
 d$sum <- rowSums(d)
 proj$pANN <- d$sum
