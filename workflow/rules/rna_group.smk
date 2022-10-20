@@ -22,6 +22,23 @@ rule seurat_integrate_rna:
     script:
         "../scripts/seurat_integrate_rna.R"
 
+rule seurat_write_integration_metadata:
+    """
+    Write integration metadata
+    """
+    input:
+        project_in = "results_groups/{group}/rna/seurat_integrate_rna/proj.rds"
+    output:
+        metadata = "results_groups/{group}/rna/seurat_integrate_rna/metadata.tsv"
+    params:
+        seed = config["seurat_seed"]
+    log:
+        console = "logs/merged/{group}/rna/seurat_integrate_rna/console_metadata.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_write_metadata.R"
+
 rule seurat_integrate_qc_extras:
     """
     Additional integration QC plots
@@ -130,6 +147,23 @@ rule seurat_cluster_rna:
     script:
         "../scripts/seurat_cluster_rna.R"
 
+rule seurat_write_cluster_metadata:
+    """
+    Seurat RNA clustering
+    """
+    input:
+        project_in = "results_groups/{group}/rna/seurat_cluster_rna/proj.rds"
+    output:
+        metadata = "results_groups/{group}/rna/seurat_cluster_rna/metadata.tsv"
+    params:
+        seed = config["seurat_seed"]
+    log:
+        console = "logs/merged/{group}/rna/seurat_cluster_rna/console_metadata.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_write_metadata.R"
+
 rule seurat_plot_cm:
     """
     Plot confusion matrices for clustering
@@ -173,3 +207,4 @@ rule seurat_merge_cm_plots:
         "../envs/fetch.yaml"
     shell:
         "pdfunite {input} {output}; "
+
