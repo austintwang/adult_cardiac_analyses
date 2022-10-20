@@ -122,6 +122,7 @@ rule seurat_cluster_rna:
         umap = "results_groups/{group}/rna/seurat_cluster_rna/umap_clusters.pdf",
     params:
         seed = config["seurat_seed"],
+        resolution = config["rna_cluster_resolution"]
     log:
         console = "logs/merged/{group}/rna/seurat_cluster_rna/console.log"
     conda:

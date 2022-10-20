@@ -30,7 +30,7 @@ plot_fn <- function(object, group, reduction, colors) {
 proj <- readRDS(file = input_paths[["project_in"]])
 print(proj) ####
 
-proj <- FindClusters(object = proj) 
+proj <- FindClusters(object = proj, resolution = params[["resolution"]]) 
 
 plt <- plot_fn(proj, "seurat_clusters", "umap", stallion) + labs(title="Seurat clustering")
 ggsave(output_paths[["umap"]], plt, device = "pdf")
