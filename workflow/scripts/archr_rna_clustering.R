@@ -78,6 +78,16 @@ proj <- addClusters(
     logFile = log_paths[["cluster_atac"]]
 )
 
+# Plot ATAC clusters
+p1 <- plotEmbedding(
+    ArchRProj = proj, 
+    colorBy = "cellColData", 
+    name = "Clusters_ATAC", 
+    embedding = "UMAP_Harmony",
+    logFile = log_paths[["umap_plot"]]
+)
+
+plotPDF(p1, name = "umap_atac_clusters.pdf", ArchRProj = proj, addDOC = FALSE, width = 5, height = 5)
 
 cM <- confusionMatrix(proj$Clusters_ATAC, proj$seurat_clusters)
 cM <- as.matrix(cM)
