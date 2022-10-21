@@ -69,6 +69,7 @@ rule archr_rna_clustering:
         console = "logs/merged/{group}/atac/archr_rna_clustering/console.log",
         move = "logs/merged/{group}/atac/archr_rna_clustering/move.log",
         umap_plot = "logs/merged/{group}/atac/archr_rna_clustering/umap_plot.log",
+        cluster_atac = "logs/merged/{group}/atac/archr_rna_clustering/cluster_atac.log",
         save = "logs/merged/{group}/atac/archr_rna_clustering/save.log"
     threads:
         max_threads

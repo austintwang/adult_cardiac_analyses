@@ -68,6 +68,17 @@ p1 <- plotEmbedding(
 
 plotPDF(p1, name = "umap_seurat_clusters.pdf", ArchRProj = proj, addDOC = FALSE, width = 5, height = 5)
 
+# Cluster cells by ATAC LSI values
+proj <- addClusters(
+    input = proj,
+    reducedDims = "LSI_ATAC",
+    method = "Seurat",
+    name = "Clusters_ATAC",
+    resolution = 0.8,
+    logFile = log_paths[["cluster_atac"]]
+)
+
+
 cM <- confusionMatrix(proj$Clusters_ATAC, proj$seurat_clusters)
 cM <- as.matrix(cM)
 print(cM) ####
