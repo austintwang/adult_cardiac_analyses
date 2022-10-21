@@ -153,7 +153,8 @@ proj <- addHarmony(
     groupBy = "Sample",
     max.iter.harmony = 30,
     theta = 4,
-    lambda = 0.5
+    lambda = 0.5,
+    epsilon.harmony = -Inf
 )
 
 # Calculate UMAP coordinates from Harmony-adjusted values
