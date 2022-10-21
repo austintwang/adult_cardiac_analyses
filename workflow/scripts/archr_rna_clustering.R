@@ -46,7 +46,7 @@ proj <- saveArchRProject(
 ##########
 seurat_data <- read.table(file = input_paths[["seurat_data"]], sep = '\t', header = TRUE)
 bc_names <- paste0(seurat_data[["dataset"]], "#", seurat_data[["barcode_atac"]])
-clusters <- seurat_data[["seurat_clusters"]]
+clusters <- as.character(seurat_data[["seurat_clusters"]])
 
 
 proj <- addCellColData(
