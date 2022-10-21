@@ -53,3 +53,26 @@ rule archr_embed:
         "../envs/archr.yaml"
     script:
         "../scripts/archr_embed.R"
+
+rule archr_rna_clustering:
+    """
+    ArchR visualize RNA clustering in ATAC
+    """
+    input:
+        project_in = "results_groups/{group}/atac/archr_embed",
+        seurat_data = "results_groups/{group}/rna/seurat_cluster_rna/metadata.tsv"
+    output:
+        project_out = directory("results_groups/{group}/atac/archr_rna_clustering")
+    params:
+        seed = config["archr_seed"]
+    log:
+        console = "logs/merged/{group}/atac/archr_rna_clustering/console.log",
+        move = "logs/merged/{group}/atac/archr_rna_clustering/move.log",
+        umap_plot = "logs/merged/{group}/atac/archr_rna_clustering/umap_plot.log",
+        save = "logs/merged/{group}/atac/archr_rna_clustering/save.log"
+    threads:
+        max_threads
+    conda:
+        "../envs/archr.yaml"
+    script:
+        "../scripts/archr_rna_clustering.R"
