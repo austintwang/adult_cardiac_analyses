@@ -151,7 +151,7 @@ proj <- addHarmony(
     reducedDims = "LSI_ATAC",
     name = "Harmony_ATAC",
     groupBy = "Sample",
-    verbose = FALSE
+    max.iter.harmony = 30,
 )
 
 # Calculate UMAP coordinates from Harmony-adjusted values
