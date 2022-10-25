@@ -208,3 +208,22 @@ rule seurat_merge_cm_plots:
     shell:
         "pdfunite {input} {output}; "
 
+rule seurat_add_batch_data:
+    """
+    Add experimental batch data
+    """
+    input:
+        project_in = "results_groups/{group}/rna/seurat_cluster_rna/proj.rds",
+    output:
+        project_out = "results_groups/{group}/rna/seurat_add_batch_data/proj.rds",
+        umap = "results_groups/{group}/rna/seurat_add_batch_data/umap_batch.pdf",
+    params:
+        seed = config["seurat_seed"],
+        samples = lambda w: groups[w.group],
+        batches = lambda w: [batch_data[i] for i in groups[w.group]]
+    log:
+        console = "logs/merged/{group}/rna/seurat_add_batch_data/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_add_batch_data.R"

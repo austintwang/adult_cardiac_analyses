@@ -9,12 +9,14 @@ configfile:
 
 samples = []
 groups = {}
+batch_data = {}
 with open("config/samples.tsv") as sample_file:
     h = sample_file.readline().rstrip('\n').split('\t')
     series_ind = h.index("Series")
     region_ind = h.index("Region")
     status_ind = h.index("Status")
     sex_ind = h.index("Sex")
+    batch_ind = h.index("Batch")
 
     samples = []
     for line in sample_file:
@@ -25,9 +27,13 @@ with open("config/samples.tsv") as sample_file:
         region = entries[region_ind]
         status = entries[status_ind]
         sex = entries[sex_ind]
+        batch = entries[batch]
+        if batch == "":
+            batch = None
 
         samples.append(series)
         groups.setdefault(f"{region}-{status}-{sex}", []).append(series)
+        batch_data[series] = batch
 
 group_names = list(groups.keys())
 
@@ -96,6 +102,7 @@ rule all:
         expand("results_groups/{group}/rna/seurat_plot_cm/mats.pdf", group=groups.keys()),
         expand("results_groups/{group}/atac/archr_embed", group=groups.keys()),
         expand("results_groups/{group}/atac/archr_rna_clustering", group=groups.keys()),
+        expand("results_groups/{group}/rna/seurat_add_batch_data/proj.rds", group=groups.keys()),
         # "results_merged/atac/archr_init",
         # "results_merged/atac/archr_label",
         # "export/atac/embeddings/harmony.tsv.gz",
