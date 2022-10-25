@@ -217,6 +217,7 @@ rule seurat_add_batch_data:
     output:
         project_out = "results_groups/{group}/rna/seurat_add_batch_data/proj.rds",
         umap = "results_groups/{group}/rna/seurat_add_batch_data/umap_batch.pdf",
+        metadata = "results_groups/{group}/rna/seurat_add_batch_data/metadata.tsv"
     params:
         seed = config["seurat_seed"],
         samples = lambda w: groups[w.group],
@@ -227,3 +228,18 @@ rule seurat_add_batch_data:
         "../envs/seurat.yaml"
     script:
         "../scripts/seurat_add_batch_data.R"
+
+rule count_bc_multiplexing:
+    """
+    Calculate barcode multiplexing stats
+    """
+    input:
+        data = expand("results_groups/{group}/rna/seurat_add_batch_data/metadata.tsv", group=groups.keys())
+    output:
+        data = "qc_global/count_bc_multiplexing/counts.tsv"
+    log:
+        console = "logs/qc_global/count_bc_multiplexing/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/count_bc_multiplexing.R"

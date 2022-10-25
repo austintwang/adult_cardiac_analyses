@@ -45,4 +45,6 @@ proj$batch <- batch_data
 plt <- plot_fn(proj, "batch", "umap", stallion) + labs(title="Experimental Batch")
 ggsave(output_paths[["umap"]], plt, device = "pdf")
 
+write.table(proj@meta.data, file=output_paths[["metadata"]], quote=FALSE, sep='\t', col.names = NA)
+
 saveRDS(proj, file = output_paths[["project_out"]])
