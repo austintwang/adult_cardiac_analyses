@@ -27,7 +27,7 @@ with open("config/samples.tsv") as sample_file:
         region = entries[region_ind]
         status = entries[status_ind]
         sex = entries[sex_ind]
-        batch = entries[batch]
+        batch = entries[batch_ind]
         if batch == "":
             batch = None
 
