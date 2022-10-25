@@ -34,7 +34,9 @@ inds <- match(data_all[["barcode_rna"]], bc_counts[["a"]])
 counts <- bc_counts[inds, "Freq", drop = FALSE]
 rownames(counts) <- rownames(data_all)
 
-write.table(proj@meta.data, file=output_paths[["data"]], quote=FALSE, sep='\t', col.names = NA)
+head(counts) ####
+
+write.table(counts, file=output_paths[["data"]], quote=FALSE, sep='\t', col.names = NA)
 
 sink(type = "message")
 sink()
