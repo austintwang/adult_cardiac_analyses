@@ -18,7 +18,8 @@ log_paths = snakemake@log
 set.seed(params[["seed"]])
 
 read_fn <- function(path) {
-    read.table(file = path, sep = '\t', header = TRUE)
+    t <- read.table(file = path, sep = '\t', header = TRUE)
+    t[, "barcode_rna", drop = FALSE]
 }
 
 tables <- lapply(input_paths[["data"]], read_fn)
