@@ -27,24 +27,18 @@ plot_fn <- function(object, group, reduction, colors) {
     DimPlot(object, reduction = reduction, group.by = group, label = TRUE, cols = colors_out, pt.size=0.1)
 }
 
-datasets <- unlist(params[["samples"]])
-head(datasets) ####
-batches <- unlist(params[["batches"]])
-head(batches) ####
+t <- read.table(file = input_paths[["data"]], sep = '\t', header = TRUE, row.names = 1)
 
 proj <- readRDS(file = input_paths[["project_in"]])
-print(proj) ####
 
 batch_inds <- match(proj@meta.data[["dataset"]], datasets)
 head(batch_inds) ####
 batch_data <- batches[batch_inds]
 head(batch_data) ####
 
-proj$batch <- batch_data
+proj$bc_counts <- batch_data[Cells(proj)]
 
-plt <- plot_fn(proj, "batch", "umap", stallion) + labs(title="Experimental Batch")
+plt <- plot_fn(proj, "bc_counts", "umap", stallion) + labs(title="Barcode counts")
 ggsave(output_paths[["umap"]], plt, device = "pdf")
-
-write.table(proj@meta.data, file=output_paths[["metadata"]], quote=FALSE, sep='\t', col.names = NA)
 
 saveRDS(proj, file = output_paths[["project_out"]])
