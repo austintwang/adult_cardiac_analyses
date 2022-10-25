@@ -29,7 +29,7 @@ with open("config/samples.tsv") as sample_file:
         sex = entries[sex_ind]
         batch = entries[batch_ind]
         if batch == "":
-            batch = None
+            batch = "Other"
 
         samples.append(series)
         groups.setdefault(f"{region}-{status}-{sex}", []).append(series)
