@@ -35,6 +35,7 @@ print(proj) ####
 
 batch_inds <- match(proj@meta.data[["dataset"]], datasets)
 batch_data <- batches[batch_inds]
+head(batch_data) ####
 
 proj$batch <- batch_data
 
