@@ -31,12 +31,7 @@ t <- read.table(file = input_paths[["data"]], sep = '\t', header = TRUE, row.nam
 
 proj <- readRDS(file = input_paths[["project_in"]])
 
-batch_inds <- match(proj@meta.data[["dataset"]], datasets)
-head(batch_inds) ####
-batch_data <- batches[batch_inds]
-head(batch_data) ####
-
-proj$bc_counts <- batch_data[Cells(proj)]
+proj$bc_counts <- t[Cells(proj), "Freq"]
 
 plt <- plot_fn(proj, "bc_counts", "umap", stallion) + labs(title="Barcode counts")
 ggsave(output_paths[["umap"]], plt, device = "pdf")
