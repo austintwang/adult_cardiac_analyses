@@ -28,12 +28,15 @@ plot_fn <- function(object, group, reduction, colors) {
 }
 
 datasets <- unlist(params[["samples"]])
+head(datasets) ####
 batches <- unlist(params[["batches"]])
+head(batches) ####
 
 proj <- readRDS(file = input_paths[["project_in"]])
 print(proj) ####
 
 batch_inds <- match(proj@meta.data[["dataset"]], datasets)
+head(batch_inds) ####
 batch_data <- batches[batch_inds]
 head(batch_data) ####
 
