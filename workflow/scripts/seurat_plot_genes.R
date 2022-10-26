@@ -17,7 +17,7 @@ log_paths = snakemake@log
 set.seed(params[["seed"]])
 
 genes <- read.table(file = params[["genes"]], sep = '\t', header = TRUE, comment.char = "")
-
+head(genes) ####
 proj <- readRDS(file = input_paths[["project_in"]])
 
 for (index in seq_len(length(genes))) { 
