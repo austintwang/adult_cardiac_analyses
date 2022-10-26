@@ -20,10 +20,10 @@ set.seed(params[["seed"]])
 # head(genes) ####
 proj <- readRDS(file = input_paths[["project_in"]])
 
-markers <- FindAllMarkers(pbmc, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
-markers %>%
-    group_by(cluster) %>%
-    slice_max(n = 2, order_by = avg_log2FC)
+markers <- FindAllMarkers(proj, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
+# markers %>%
+#     group_by(cluster) %>%
+#     slice_max(n = 2, order_by = avg_log2FC)
 markers %>%
     group_by(cluster) %>%
     top_n(n = 10, wt = avg_log2FC) -> top10
