@@ -5,13 +5,29 @@ TNNT2	CM: contractile force-generating sarcomere proteins
 RYR2	CM: calcium-mediated processes
 PLN	CM: calcium-mediated processes
 SLC8A1	CM: calcium-mediated processes
-MYH7	vCM: sarcomere proteins
-MYL2	vCM: sarcomere proteins
-IRX3	vCM: transcription factors
-IRX5	vCM: transcription factors
-IRX6	vCM: transcription factors
-MASP1	vCM: transcription factors
-HEY2	vCM: transcription factors
-PRDM16	vCM: mutated in left ventricular non-compaction cardiomyopathy
-PCDH7	vCM: calcium-dependent strong adhesive molecule
-SMYD2	vCM: lysine methyltransferase that promotes sarcomere formation and stabilization
+PECAM1	EC
+CDH5	EC
+VWF	EC
+ABCC9	PC
+KCNJ8	PC
+MYH11	SMC
+MSLN	Meso
+BNC1	Meso
+DCN	FB
+GSN	FB
+PDGFRA	FB
+NRXN1	Neuro
+NRXN3	Neuro
+KCNMB4	Neuro
+GPAM	Adipo
+FASN	Adipo
+ADIPOQ	Adipo
+CD45	Immune
+CD11b	Myeloid
+CD68	MP
+LYVE1	MP: LYVE1+
+DOCK4	MP: DOCK4+
+CD3	T-cell
+CD56	NK
+CD19	B-cell
+CD14	Monocyte

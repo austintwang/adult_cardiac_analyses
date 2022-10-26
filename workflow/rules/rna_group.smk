@@ -270,7 +270,8 @@ rule seurat_plot_genes:
     input:
         project_in = "results_groups/{group}/rna/seurat_add_batch_data/proj.rds"
     output:
-        umaps = directory("results_groups/{group}/rna/seurat_plot_genes/umaps")
+        umaps = directory("results_groups/{group}/rna/seurat_plot_genes/umaps"),
+        dotplot = "results_groups/{group}/rna/seurat_plot_genes/dotplot.pdf"
     params:
         seed = config["seurat_seed"],
         genes = workflow.source_path("../files/plot_genes.tsv")
