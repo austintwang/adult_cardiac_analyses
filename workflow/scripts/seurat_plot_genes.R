@@ -20,7 +20,8 @@ genes <- read.table(file = params[["genes"]], sep = '\t', header = TRUE, comment
 head(genes) ####
 proj <- readRDS(file = input_paths[["project_in"]])
 
-for (index in seq_len(length(genes))) { 
+dir.create(output_paths[["umaps"]])
+for (index in seq_len(nrows(genes))) { 
     gene <- genes[index, "Name"]
     desc <- genes[index, "Description"]
     tryCatch(
