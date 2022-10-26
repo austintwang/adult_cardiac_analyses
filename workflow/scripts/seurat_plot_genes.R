@@ -20,7 +20,7 @@ genes <- read.table(file = params[["genes"]], sep = '\t', header = TRUE, comment
 
 proj <- readRDS(file = input_paths[["project_in"]])
 
-for (index in seq_len(genes)) { 
+for (index in seq_len(length(genes))) { 
     gene <- genes[index, "Gene"]
     desc <- genes[index, "Description"]
     plt <- FeaturePlot(proj, features = gene, reduction = "umap") + labs(title=paste0(gene, ": ", desc))
