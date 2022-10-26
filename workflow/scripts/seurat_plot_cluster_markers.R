@@ -47,4 +47,4 @@ for (index in seq_len(length(genes))) {
 } 
 
 plt <- DotPlot(proj, features = genes) + RotatedAxis()
-ggsave(output_paths[["dotplot"]], plt, device = "pdf", width = 11, height = 7)
+ggsave(output_paths[["dotplot"]], plt, device = "pdf", width = 30, height = 7)
