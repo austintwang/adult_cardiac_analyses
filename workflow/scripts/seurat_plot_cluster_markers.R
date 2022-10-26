@@ -32,12 +32,11 @@ genes <- top10$gene
 head(genes) ####
 
 dir.create(output_paths[["umaps"]])
-for (index in seq_len(nrow(genes))) { 
-    gene <- genes[index, "Name"]
-    desc <- genes[index, "Description"]
+for (index in seq_len(length(genes))) { 
+    gene <- genes[[index]]
     tryCatch(
         expr = {
-            plt <- FeaturePlot(proj, features = gene, reduction = "umap") + labs(title=paste0(gene, ": ", desc))
+            plt <- FeaturePlot(proj, features = gene, reduction = "umap") + labs(title=gene)
             ggsave(file.path(output_paths[["umaps"]], paste0(gene, ".pdf")), plt, device = "pdf", width = 8, height = 7)
         },
         error = function(e){
