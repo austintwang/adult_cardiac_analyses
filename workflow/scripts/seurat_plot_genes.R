@@ -23,6 +23,14 @@ proj <- readRDS(file = input_paths[["project_in"]])
 for (index in seq_len(length(genes))) { 
     gene <- genes[index, "Gene"]
     desc <- genes[index, "Description"]
-    plt <- FeaturePlot(proj, features = gene, reduction = "umap") + labs(title=paste0(gene, ": ", desc))
-    ggsave(file.path(output_paths[["umaps"]], paste0(gene, ".pdf")), plt, device = "pdf", width = 8, height = 7)
+    tryCatch(
+        expr = {
+            plt <- FeaturePlot(proj, features = gene, reduction = "umap") + labs(title=paste0(gene, ": ", desc))
+            ggsave(file.path(output_paths[["umaps"]], paste0(gene, ".pdf")), plt, device = "pdf", width = 8, height = 7)
+        },
+        error = function(e){
+            message(gene)
+            print(e)
+        }
+    )
 } 
