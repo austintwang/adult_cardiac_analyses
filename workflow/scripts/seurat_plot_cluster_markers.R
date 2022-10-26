@@ -26,7 +26,7 @@ markers <- FindAllMarkers(proj, only.pos = TRUE, min.pct = 0.25, logfc.threshold
 #     slice_max(n = 2, order_by = avg_log2FC)
 markers %>%
     group_by(cluster) %>%
-    top_n(n = 10, wt = avg_log2FC) -> top10
+    top_n(n = 5, wt = avg_log2FC) -> top10
 
 genes <- unique(top10$gene)
 head(genes) ####
