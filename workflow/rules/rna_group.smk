@@ -281,3 +281,21 @@ rule seurat_plot_genes:
         "../envs/seurat.yaml"
     script:
         "../scripts/seurat_plot_genes.R"
+
+rule seurat_plot_cluster_markers:
+    """
+    Plot clustering markers
+    """
+    input:
+        project_in = "results_groups/{group}/rna/seurat_add_batch_data/proj.rds"
+    output:
+        umaps = directory("results_groups/{group}/rna/seurat_plot_cluster_markers/umaps"),
+        dotplot = "results_groups/{group}/rna/seurat_plot_cluster_markers/dotplot.pdf"
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/merged/{group}/rna/seurat_plot_cluster_markers/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_plot_cluster_markers.R"
