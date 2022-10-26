@@ -36,5 +36,5 @@ for (index in seq_len(nrow(genes))) {
     )
 } 
 
-plt <- DotPlot(proj, features = genes[["Name"]])
-ggsave(output_paths[["dotplot"]], plt, device = "pdf", width = 8, height = 7)
+plt <- DotPlot(proj, features = genes[["Name"]]) + RotatedAxis()
+ggsave(output_paths[["dotplot"]], plt, device = "pdf", width = 11, height = 7)
