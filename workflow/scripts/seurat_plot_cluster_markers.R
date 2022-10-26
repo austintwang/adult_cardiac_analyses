@@ -29,6 +29,7 @@ markers %>%
     top_n(n = 10, wt = avg_log2FC) -> top10
 
 genes <- top10$gene
+head(genes) ####
 
 dir.create(output_paths[["umaps"]])
 for (index in seq_len(nrow(genes))) { 
