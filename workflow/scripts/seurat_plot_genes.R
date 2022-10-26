@@ -21,7 +21,7 @@ head(genes) ####
 proj <- readRDS(file = input_paths[["project_in"]])
 
 dir.create(output_paths[["umaps"]])
-for (index in seq_len(nrows(genes))) { 
+for (index in seq_len(nrow(genes))) { 
     gene <- genes[index, "Name"]
     desc <- genes[index, "Description"]
     tryCatch(
