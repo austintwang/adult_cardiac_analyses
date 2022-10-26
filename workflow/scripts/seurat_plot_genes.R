@@ -21,7 +21,7 @@ head(genes) ####
 proj <- readRDS(file = input_paths[["project_in"]])
 
 for (index in seq_len(length(genes))) { 
-    gene <- genes[index, "Gene"]
+    gene <- genes[index, "Name"]
     desc <- genes[index, "Description"]
     tryCatch(
         expr = {
