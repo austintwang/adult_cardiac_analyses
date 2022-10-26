@@ -29,7 +29,7 @@ for (index in seq_len(length(genes))) {
             ggsave(file.path(output_paths[["umaps"]], paste0(gene, ".pdf")), plt, device = "pdf", width = 8, height = 7)
         },
         error = function(e){
-            message(gene)
+            print(gene)
             print(e)
         }
     )
