@@ -77,3 +77,21 @@ rule archr_rna_clustering:
         "../envs/archr.yaml"
     script:
         "../scripts/archr_rna_clustering.R"
+
+rule atac_plot_genes:
+    """
+    Plot external markers
+    """
+    input:
+        project_in = "results_groups/{group}/atac/archr_rna_clustering"
+    output:
+        umaps = directory("results_groups/{group}/atac/atac_plot_genes/umaps"),
+    params:
+        seed = config["seurat_seed"],
+        genes = workflow.source_path("../files/plot_genes_atac.tsv")
+    log:
+        console = "logs/merged/{group}/atac/atac_plot_genes/console.log"
+    conda:
+        "../envs/archr.yaml"
+    script:
+        "../scripts/archr_plot_genes.R"
