@@ -52,7 +52,7 @@ for (index in seq_len(nrow(genes))) {
                 quantCut = c(0.01, 0.95),
                 imputeWeights = NULL
             )
-            plt <- p[[gene]] + labs(title=paste0(gene, ": ", desc))
+            plt <- p + labs(title=paste0(gene, ": ", desc))
             ggsave(file.path(output_paths[["umaps"]], paste0(gene, ".pdf")), plt, device = "pdf", width = 5, height = 5)
         },
         error = function(e){
