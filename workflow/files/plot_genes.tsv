@@ -23,8 +23,10 @@ GPAM	Adipo
 FASN	Adipo
 ADIPOQ	Adipo
 CD45	Immune
-CD11B	Myeloid
-ITGAM	Myeloid
+CD11B	Immune
+ITGAM	Immune
+CD52	Immune
+CD33	Myeloid
 CD68	MP
 LYVE1	MP: LYVE1+
 DOCK4	MP: DOCK4+
