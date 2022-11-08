@@ -37,6 +37,8 @@ rownames(mat_scbasset) <- cellnames
 mat_cellspace <- as.matrix(readMM(input_paths[["cellspace"]]))
 rownames(mat_cellspace) <- cellnames
 
+head(mat_cellspace) ####
+
 proj <- readRDS(file = input_paths[["project_in"]])
 
 proj[["scbasset"]] <- CreateDimReducObject(embeddings = mat_scbasset, key = "SCB_")
