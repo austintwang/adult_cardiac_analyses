@@ -107,6 +107,7 @@ rule all:
         expand("results_groups/{group}/rna/seurat_plot_genes/dotplot.pdf", group=groups.keys()),    
         expand("results_groups/{group}/rna/seurat_plot_cluster_markers/dotplot.pdf", group=groups.keys()), 
         expand("results_groups/{group}/atac/archr_plot_genes/umaps", group=groups.keys()),
+        expand("results_groups/{group}/rna/seurat_add_seq_emb/proj.rds", group=groups.keys()),
                            
         # "results_merged/atac/archr_init",
         # "results_merged/atac/archr_label",

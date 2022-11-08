@@ -66,3 +66,5 @@ azimuth_ref: http://seurat.nygenome.org/src/contrib/heartref.SeuratData_1.0.0.ta
 doublet_formation_rate: 0.06
 
 gtf: https://www.encodeproject.org/files/ENCFF159KBI/@@download/ENCFF159KBI.gtf.gz
+
+seq_emb_dir: /mnt/lab_data3/salil512/adult_heart/post_analysis/embeddings
