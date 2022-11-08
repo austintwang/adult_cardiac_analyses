@@ -51,7 +51,7 @@ head(mat_cellspace) ####
 a <- CreateDimReducObject(embeddings = mat_scbasset, key = "SCB_", assay = "RNA_train")
 print(a) ####
 proj[["scbasset"]] <- a
-b <- CreateDimReducObject(embeddings = mat_cellspace, key = "CSP_", , assay = "RNA_train")
+b <- CreateDimReducObject(embeddings = mat_cellspace, key = "CSP_", assay = "RNA_train")
 proj[["cellspace"]] <- b
 
 proj <- RunHarmony(proj, "dataset", assay.use = "RNA_train", reduction = "scbasset", reduction.save = "scbasset_harmony")
