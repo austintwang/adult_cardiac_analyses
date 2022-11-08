@@ -41,6 +41,12 @@ head(mat_cellspace) ####
 
 proj <- readRDS(file = input_paths[["project_in"]])
 
+idx <- cellnames %in% Cells(proj)
+mat_scbasset <- mat_scbasset[idx]
+mat_cellspace <- mat_cellspace[idx]
+
+head(mat_cellspace) ####
+
 proj[["scbasset"]] <- CreateDimReducObject(embeddings = mat_scbasset, key = "SCB_")
 proj[["cellspace"]] <- CreateDimReducObject(embeddings = mat_scbasset, key = "CSP_")
 
