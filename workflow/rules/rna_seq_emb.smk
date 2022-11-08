@@ -8,13 +8,13 @@ def get_seq_emb_scbasset(w):
     region, status, sex = w.group.split("-")
     region = region.upper()
     sex = sex.upper()
-    return os.path.join(config["seq_emb_dir"], f"{status}_{region}_{sex}_scBasset_preharmony.mtx")
+    return os.path.join(config["seq_emb_dir"], f"{status}_{region}_{sex}_embeddings_scBasset_preharmony.mtx")
 
 def get_seq_emb_cellspace(w):
     region, status, sex = w.group.split("-")
     region = region.upper()
     sex = sex.upper()
-    return os.path.join(config["seq_emb_dir"], f"{status}_{region}_{sex}_CellSpace_preharmony.mtx")
+    return os.path.join(config["seq_emb_dir"], f"{status}_{region}_{sex}_embeddings_CellSpace_preharmony.mtx")
 
 
 rule seurat_add_seq_emb:
