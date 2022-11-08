@@ -66,9 +66,9 @@ writeMM(Matrix(scbasset_int_data, sparse = TRUE), output_paths[["scbasset_harmon
 writeLines(rownames(scbasset_int_data), con = output_paths[["scbasset_harmony_rows"]])
 writeLines(colnames(scbasset_int_data), con = output_paths[["scbasset_harmony_cols"]])
 
-writeMM(Matrix(cellspace_int_data, sparse = TRUE), output_paths[["scbasset_harmony_mat"]])
-writeLines(rownames(cellspace_int_data), con = output_paths[["scbasset_harmony_rows"]])
-writeLines(colnames(cellspace_int_data), con = output_paths[["scbasset_harmony_cols"]])
+writeMM(Matrix(cellspace_int_data, sparse = TRUE), output_paths[["cellspace_harmony_mat"]])
+writeLines(rownames(cellspace_int_data), con = output_paths[["cellspace_harmony_rows"]])
+writeLines(colnames(cellspace_int_data), con = output_paths[["cellspace_harmony_cols"]])
 
 # plt <- plot_fn(proj, "bc_counts", "umap", stallion) + labs(title="Barcode counts")
 # ggsave(output_paths[["umap"]], plt, device = "pdf")
