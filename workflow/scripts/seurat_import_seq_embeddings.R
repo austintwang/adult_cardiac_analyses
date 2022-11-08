@@ -42,8 +42,9 @@ head(mat_cellspace) ####
 proj <- readRDS(file = input_paths[["project_in"]])
 
 idx <- cellnames %in% Cells(proj)
-mat_scbasset <- mat_scbasset[idx]
-mat_cellspace <- mat_cellspace[idx]
+head(idx) ####
+mat_scbasset <- mat_scbasset[idx,,drop=FALSE]
+mat_cellspace <- mat_cellspace[idx,,drop=FALSE]
 
 head(mat_cellspace) ####
 
