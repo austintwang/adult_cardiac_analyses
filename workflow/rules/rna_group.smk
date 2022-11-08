@@ -47,6 +47,10 @@ rule seurat_integrate_qc_extras:
         project_in = "results_groups/{group}/rna/seurat_integrate_rna/proj.rds"
     output:
         umap_counts = "results_groups/{group}/rna/seurat_integrate_rna/umap_counts.pdf",
+        umap_frag = "results_groups/{group}/rna/seurat_integrate_rna/umap_frag.pdf",
+        umap_ratio = "results_groups/{group}/rna/seurat_integrate_rna/umap_ratio.pdf",
+        umap_mito = "results_groups/{group}/rna/seurat_integrate_rna/umap_mito.pdf",
+        umap_tss = "results_groups/{group}/rna/seurat_integrate_rna/umap_tss.pdf",
         umap_doubletfinder = "results_groups/{group}/rna/seurat_integrate_rna/umap_doubletfinder.pdf",
         umap_amulet = "results_groups/{group}/rna/seurat_integrate_rna/umap_amulet.pdf"
     params:
@@ -69,6 +73,10 @@ rule seurat_merge_integration_plots:
         "results_groups/{group}/rna/seurat_integrate_rna/umap_mixing_pre_harmony.pdf",
         "results_groups/{group}/rna/seurat_integrate_rna/umap_mixing_harmony.pdf",
         "results_groups/{group}/rna/seurat_integrate_rna/umap_counts.pdf",
+        "results_groups/{group}/rna/seurat_integrate_rna/umap_frag.pdf",
+        "results_groups/{group}/rna/seurat_integrate_rna/umap_ratio.pdf",
+        "results_groups/{group}/rna/seurat_integrate_rna/umap_mito.pdf",
+        "results_groups/{group}/rna/seurat_integrate_rna/umap_tss.pdf",
         "results_groups/{group}/rna/seurat_integrate_rna/umap_doubletfinder.pdf",
         "results_groups/{group}/rna/seurat_integrate_rna/umap_amulet.pdf"
     output:
