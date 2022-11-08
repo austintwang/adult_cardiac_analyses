@@ -29,8 +29,6 @@ set.seed(params[["seed"]])
 #     DimPlot(object, reduction = reduction, group.by = group, label = TRUE, cols = colors_out, pt.size=0.1)
 # }
 
-t <- read.table(file = input_paths[["data"]], sep = '\t', header = TRUE, row.names = 1)
-
 cellnames <- unlist(readLines(input_paths[["cells"]]))
 
 mat_scbasset <- readMM(input_paths[["scbasset"]])
