@@ -31,10 +31,10 @@ set.seed(params[["seed"]])
 
 cellnames <- unlist(readLines(input_paths[["cells"]]))
 
-mat_scbasset <- readMM(input_paths[["scbasset"]])
+mat_scbasset <- Matrix::readMM(input_paths[["scbasset"]])
 rownames(mat_scbasset) <- cellnames
 
-mat_cellspace <- readMM(input_paths[["cellspace"]])
+mat_cellspace <- Matrix::readMM(input_paths[["cellspace"]])
 rownames(mat_cellspace) <- cellnames
 
 proj <- readRDS(file = input_paths[["project_in"]])
