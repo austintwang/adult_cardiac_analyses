@@ -57,5 +57,22 @@ proj$amulet_nlp <- -log10(proj$amulet_pval)
 plt <- FeaturePlot(proj, reduction = "umap", features = "amulet_nlp") + labs(title="Post-Harmony Amulet -log10 p-Value")
 ggsave(output_paths[["umap_amulet"]], plt, device = "pdf", width = 10, height = 7)
 
+cm_nuc_genes <- c("RBM20", "TECRL", "MLIP", "CHRM2", "TRDN", "PALLD", "SGCD", "CMYA5", "MYOM2", "TBX5", "ESRRG",
+"LINC02248", "KCNJ3", "TACC2", "CORIN", "DPY19L2", "WNK2", "MITF", "OBSCN", "FHOD3", "MYLK3",
+"DAPK2", "NEXN")
+proj$cm_nuc_logcounts <- log10(colSums(GetAssayData(object = proj, slot = 'counts')[cm_nuc_genes, , drop = FALSE]) + 1)
+plt <- FeaturePlot(proj, reduction = "umap", features = "cm_nuc_logcounts") + labs(title="Post-Harmony Nuclear CM Marker log count")
+ggsave(output_paths[["umap_cm_nuc"]], plt, device = "pdf", width = 10, height = 7)
+
+cm_cyto_genes <- c("TTN", "RYR2", "PAM", "TNNT2",
+"RABGAP1L", "PDLIM5", "MYL7", "MYH6")
+proj$cm_cyto_logcounts <- log10(colSums(GetAssayData(object = proj, slot = 'counts')[cm_cyto_genes, , drop = FALSE]) + 1)
+plt <- FeaturePlot(proj, reduction = "umap", features = "cm_cyto_logcounts") + labs(title="Post-Harmony Cytoplasmic CM Marker log count")
+ggsave(output_paths[["umap_cm_cyto"]], plt, device = "pdf", width = 10, height = 7)
+
+proj$cm_ratio <- proj$cm_cyto_logcounts - proj$cm_nuc_logcounts
+plt <- FeaturePlot(proj, reduction = "umap", features = "cm_ratio") + labs(title="Post-Harmony Cytoplasmic-Nuclear CM Marker log ratio")
+ggsave(output_paths[["umap_cm_ratio"]], plt, device = "pdf", width = 10, height = 7)
+
 sink(type = "message")
 sink()

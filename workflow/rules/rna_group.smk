@@ -55,6 +55,9 @@ rule seurat_integrate_qc_extras:
         umap_amulet = "results_groups/{group}/rna/seurat_integrate_rna/umap_amulet.pdf",
         umap_frag_tss = "results_groups/{group}/rna/seurat_integrate_rna/umap_frag_tss.pdf",
         umap_score = "results_groups/{group}/rna/seurat_integrate_rna/umap_score.pdf",
+        umap_cm_nuc = "results_groups/{group}/rna/seurat_integrate_rna/umap_cm_nuc.pdf",
+        umap_cm_cyto = "results_groups/{group}/rna/seurat_integrate_rna/umap_cm_cyto.pdf",
+        umap_cm_ratio = "results_groups/{group}/rna/seurat_integrate_rna/umap_cm_ratio.pdf",
     params:
         seed = config["seurat_seed"],
         samples = lambda w: groups[w.group],
@@ -83,6 +86,9 @@ rule seurat_merge_integration_plots:
         "results_groups/{group}/rna/seurat_integrate_rna/umap_amulet.pdf",
         "results_groups/{group}/rna/seurat_integrate_rna/umap_frag_tss.pdf",
         "results_groups/{group}/rna/seurat_integrate_rna/umap_score.pdf",
+        "results_groups/{group}/rna/seurat_integrate_rna/umap_cm_nuc.pdf",
+        "results_groups/{group}/rna/seurat_integrate_rna/umap_cm_cyto.pdf",
+        "results_groups/{group}/rna/seurat_integrate_rna/umap_cm_ratio.pdf",
     output:
         "results_groups/{group}/rna/seurat_integrate_rna/integration_plots.pdf"
     conda:
