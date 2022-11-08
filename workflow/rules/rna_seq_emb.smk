@@ -28,12 +28,12 @@ rule seurat_add_seq_emb:
         cellspace = get_seq_emb_cellspace
     output:
         project_out = "results_groups/{group}/rna/seurat_add_seq_emb/proj.rds",
-        scbasset_harmony_mat = "results_groups/{group}/rna/seurat_add_seq_emb/scbasset_harmony_mat.mtx",
-        scbasset_harmony_rows = "results_groups/{group}/rna/seurat_add_seq_emb/scbasset_harmony_rows.txt",
-        scbasset_harmony_cols = "results_groups/{group}/rna/seurat_add_seq_emb/scbasset_harmony_cols.txt",
-        cellspace_harmony_mat = "results_groups/{group}/rna/seurat_add_seq_emb/cellspace_harmony_mat.mtx",
-        cellspace_harmony_rows = "results_groups/{group}/rna/seurat_add_seq_emb/cellspace_harmony_rows.txt",
-        cellspace_harmony_cols = "results_groups/{group}/rna/seurat_add_seq_emb/cellspace_harmony_cols.txt"
+        scbasset_harmony_mat = "emb_export/{group}/scbasset_harmony_mat.mtx",
+        scbasset_harmony_rows = "emb_export/{group}/scbasset_harmony_rows.txt",
+        scbasset_harmony_cols = "emb_export/{group}/scbasset_harmony_cols.txt",
+        cellspace_harmony_mat = "emb_export/{group}/cellspace_harmony_mat.mtx",
+        cellspace_harmony_rows = "emb_export/{group}/cellspace_harmony_rows.txt",
+        cellspace_harmony_cols = "emb_export/{group}/cellspace_harmony_cols.txt"
     params:
         seed = config["seurat_seed"],
     log:
