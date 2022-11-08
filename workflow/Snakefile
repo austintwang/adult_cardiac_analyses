@@ -109,7 +109,7 @@ rule all:
         expand("results_groups/{group}/rna/seurat_plot_genes/dotplot.pdf", group=groups.keys()),    
         expand("results_groups/{group}/rna/seurat_plot_cluster_markers/dotplot.pdf", group=groups.keys()), 
         expand("results_groups/{group}/atac/archr_plot_genes/umaps", group=groups.keys()),
-        expand("results_groups/{group}/rna/seurat_add_seq_emb/proj.rds", group=groups.keys()),
+        # expand("results_groups/{group}/rna/seurat_add_seq_emb/proj.rds", group=groups.keys()),
                            
         # "results_merged/atac/archr_init",
         # "results_merged/atac/archr_label",
@@ -128,6 +128,13 @@ rule all:
         # "export/rna/metadata.tsv.gz",
         # "export/rna/figures.tar.gz",
         # "export/rna/datasets.txt"
+
+rule harmonize_seq_emb:
+    """
+    Harmonize sequence embeddingså
+    """
+    output:
+        expand("results_groups/{group}/rna/seurat_add_seq_emb/proj.rds", group=groups.keys()),
 
 rule download_gtf:
     """
