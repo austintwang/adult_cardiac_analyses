@@ -48,6 +48,8 @@ mat_cellspace <- mat_cellspace[idx,,drop=FALSE]
 
 head(mat_cellspace) ####
 
+proj <- subset(proj, subset = CellName %in% cellnames )
+
 a <- CreateDimReducObject(embeddings = mat_scbasset, key = "SCB_", assay = "RNA_train")
 print(a) ####
 proj[["scbasset"]] <- a
