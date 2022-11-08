@@ -62,11 +62,11 @@ proj <- RunHarmony(proj, "dataset", assay.use = "RNA_train", reduction = "cellsp
 scbasset_int_data <- Embeddings(proj, reduction = "scbasset_harmony")
 cellspace_int_data <- Embeddings(proj, reduction = "cellspace_harmony")
 
-writeMM(scbasset_int_data, output_paths[["scbasset_harmony_mat"]])
+writeMM(Matrix(scbasset_int_data, sparse = TRUE), output_paths[["scbasset_harmony_mat"]])
 writeLines(rownames(scbasset_int_data), con = output_paths[["scbasset_harmony_rows"]])
 writeLines(colnames(scbasset_int_data), con = output_paths[["scbasset_harmony_cols"]])
 
-writeMM(cellspace_int_data, output_paths[["scbasset_cellspace_mat"]])
+writeMM(Matrix(cellspace_int_data, sparse = TRUE), output_paths[["scbasset_cellspace_mat"]])
 writeLines(rownames(cellspace_int_data), con = output_paths[["scbasset_cellspace_rows"]])
 writeLines(colnames(cellspace_int_data), con = output_paths[["scbasset_cellspace_cols"]])
 
