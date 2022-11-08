@@ -36,6 +36,14 @@ ggsave(output_paths[["umap_mito"]], plt, device = "pdf", width = 10, height = 7)
 plt <- FeaturePlot(proj, reduction = "umap", features = "tss_enr") + labs(title="Post-Harmony ATAC TSS Enrichment")
 ggsave(output_paths[["umap_tss"]], plt, device = "pdf", width = 10, height = 7)
 
+proj$log_frag_tss <- proj$log_frags + log10(proj$tss_enr)
+plt <- FeaturePlot(proj, reduction = "umap", features = "log_frag_tss") + labs(title="Post-Harmony Total TSS Fragment Score")
+ggsave(output_paths[["umap_frag_tss"]], plt, device = "pdf", width = 10, height = 7)
+
+proj$tss_score <- proj$log_counts - proj$log_frag_tss
+plt <- FeaturePlot(proj, reduction = "umap", features = "tss_score") + labs(title="Post-Harmony RNA-ATAC TSS Score")
+ggsave(output_paths[["umap_score"]], plt, device = "pdf", width = 10, height = 7)
+
 doubletfinder_cols <- grep("pANN", names(proj@meta.data), value = TRUE)
 d <- proj@meta.data[, doubletfinder_cols, drop = FALSE ]
 d[is.na(d)] <- 0
