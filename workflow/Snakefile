@@ -64,6 +64,8 @@ include:
 include:
     "rules/rna_group.smk"
 include:
+    "rules/rna_seq_emb.smk"
+include:
     "rules/atac_group.smk"
 # include:
 #     "rules/label.smk"
