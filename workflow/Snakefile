@@ -133,7 +133,7 @@ rule harmonize_seq_emb:
     """
     Harmonize sequence embeddingså
     """
-    output:
+    input:
         expand("results_groups/{group}/rna/seurat_add_seq_emb/proj.rds", group=groups.keys()),
 
 rule download_gtf:
