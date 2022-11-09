@@ -62,14 +62,14 @@ cm_nuc_genes <- c("RBM20", "TECRL", "MLIP", "CHRM2", "TRDN", "PALLD", "SGCD", "C
 "DAPK2", "NEXN")
 # proj$cm_nuc_logcounts <- log10(colSums(GetAssayData(object = proj, slot = 'counts')[cm_nuc_genes, , drop = FALSE]) + 1)
 proj$cm_nuc_pct <- PercentageFeatureSet(proj, features = cm_nuc_genes)
-plt <- FeaturePlot(proj, reduction = "umap", features = "cm_nuc_logcounts") + labs(title="Post-Harmony Nuclear CM Marker read percent")
+plt <- FeaturePlot(proj, reduction = "umap", features = "cm_nuc_pct") + labs(title="Post-Harmony Nuclear CM Marker read percent")
 ggsave(output_paths[["umap_cm_nuc"]], plt, device = "pdf", width = 10, height = 7)
 
 cm_cyto_genes <- c("TTN", "RYR2", "PAM", "TNNT2",
 "RABGAP1L", "PDLIM5", "MYL7", "MYH6")
 # proj$cm_cyto_logcounts <- log10(colSums(GetAssayData(object = proj, slot = 'counts')[cm_cyto_genes, , drop = FALSE]) + 1)
 proj$cm_cyto_pct <- PercentageFeatureSet(proj, features = cm_cyto_genes)
-plt <- FeaturePlot(proj, reduction = "umap", features = "cm_cyto_logcounts") + labs(title="Post-Harmony Cytoplasmic CM Marker read percent")
+plt <- FeaturePlot(proj, reduction = "umap", features = "cm_cyto_pct") + labs(title="Post-Harmony Cytoplasmic CM Marker read percent")
 ggsave(output_paths[["umap_cm_cyto"]], plt, device = "pdf", width = 10, height = 7)
 
 proj$cm_ratio <- log10(proj$cm_cyto_pct) - log10(proj$cm_nuc_pct)
