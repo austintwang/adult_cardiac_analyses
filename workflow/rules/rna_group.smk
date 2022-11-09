@@ -58,6 +58,8 @@ rule seurat_integrate_qc_extras:
         umap_cm_nuc = "results_groups/{group}/rna/seurat_integrate_rna/umap_cm_nuc.pdf",
         umap_cm_cyto = "results_groups/{group}/rna/seurat_integrate_rna/umap_cm_cyto.pdf",
         umap_cm_ratio = "results_groups/{group}/rna/seurat_integrate_rna/umap_cm_ratio.pdf",
+        scatter_tss_cm_cyto = "results_groups/{group}/rna/seurat_integrate_rna/scatter_tss_cm_cyto.pdf",
+        scatter_tss_cm_nuc = "results_groups/{group}/rna/seurat_integrate_rna/scatter_tss_cm_nuc.pdf",
     params:
         seed = config["seurat_seed"],
         samples = lambda w: groups[w.group],

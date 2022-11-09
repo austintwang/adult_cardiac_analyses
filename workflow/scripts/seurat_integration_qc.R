@@ -76,5 +76,12 @@ proj$cm_ratio <- log10(proj$cm_cyto_pct) - log10(proj$cm_nuc_pct)
 plt <- FeaturePlot(proj, reduction = "umap", features = "cm_ratio") + labs(title="Post-Harmony Cytoplasmic-Nuclear CM Marker log ratio")
 ggsave(output_paths[["umap_cm_ratio"]], plt, device = "pdf", width = 10, height = 7)
 
+plt <- FeatureScatter(object = pbmc_small, feature1 = 'tss_enr', feature2 = 'cm_cyto_pct')
+ggsave(output_paths[["scatter_tss_cm_cyto"]], plt, device = "pdf")
+
+plt <- FeatureScatter(object = pbmc_small, feature1 = 'tss_enr', feature2 = 'cm_nuc_pct')
+ggsave(output_paths[["scatter_tss_cm_nuc"]], plt, device = "pdf")
+
+
 sink(type = "message")
 sink()
