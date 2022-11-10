@@ -39,14 +39,20 @@ optimal.pk <- as.numeric(levels(optimal.pk))[optimal.pk]
 annotations <- proj@meta.data$seurat_clusters
 homotypic.prop <- modelHomotypic(annotations) 
 nExp.poi <- round(params[["doublet_rate"]] * nrow(proj@meta.data)) 
-nExp.poi.adj <- round(nExp.poi * (1 - homotypic.prop))
+# nExp.poi.adj <- round(nExp.poi * (1 - homotypic.prop))
 
 # run DoubletFinder
+# proj <- doubletFinder_v3(
+#     seu = proj, 
+#     PCs = 1:30, 
+#     pK = optimal.pk,
+#     nExp = nExp.poi.adj
+# )
 proj <- doubletFinder_v3(
     seu = proj, 
     PCs = 1:30, 
     pK = optimal.pk,
-    nExp = nExp.poi.adj
+    nExp = nExp.poi
 )
 print(head(proj@meta.data)) ####
 doublets_col <- grep("DF.classifications", names(proj@meta.data), value = TRUE)
