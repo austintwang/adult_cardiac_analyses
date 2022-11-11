@@ -57,7 +57,7 @@ sc <- SoupChannel(expression_matrix_raw, expression_matrix)
 sc ####
 sc <- setClusters(sc, clusters)
 sc ####
-sc <- autoEstCont(sc)
+sc <- autoEstCont(sc, forceAccept = TRUE)
 sc ####
 # s <- split(colnames(sc$toc),clusters[colnames(sc$toc)]) ####
 # print(s) ####
