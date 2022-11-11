@@ -106,8 +106,8 @@ rule all:
         # expand("results_groups/{group}/atac/archr_rna_clustering", group=groups.keys()),
         # expand("results_groups/{group}/rna/seurat_add_batch_data/proj.rds", group=groups.keys()),
         # expand("results_groups/{group}/rna/seurat_add_multiplexing_data/proj.rds", group=groups.keys()),
-        # expand("results_groups/{group}/rna/seurat_plot_genes/dotplot.pdf", group=groups.keys()),    
-        # expand("results_groups/{group}/rna/seurat_plot_cluster_markers/dotplot.pdf", group=groups.keys()), 
+        expand("results_groups/{group}/rna/seurat_plot_genes/dotplot.pdf", group=groups.keys()),    
+        expand("results_groups/{group}/rna/seurat_plot_cluster_markers/dotplot.pdf", group=groups.keys()), 
         # expand("results_groups/{group}/atac/archr_plot_genes/umaps", group=groups.keys()),
                            
         # "results_merged/atac/archr_init",
