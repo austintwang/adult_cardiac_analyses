@@ -310,7 +310,8 @@ rule seurat_plot_cluster_markers:
         project_in = "results_groups/{group}/rna/seurat_add_batch_data/proj.rds"
     output:
         umaps = directory("results_groups/{group}/rna/seurat_plot_cluster_markers/umaps"),
-        dotplot = "results_groups/{group}/rna/seurat_plot_cluster_markers/dotplot.pdf"
+        dotplot = "results_groups/{group}/rna/seurat_plot_cluster_markers/dotplot.pdf",
+        markers = "results_groups/{group}/rna/seurat_plot_cluster_markers/markers.tsv"
     params:
         seed = config["seurat_seed"],
     log:

@@ -1,0 +1,36 @@
+Name	Description
+TTN	CM: contractile force-generating sarcomere proteins 
+MYBPC3	CM: contractile force-generating sarcomere proteins 
+TNNT2	CM: contractile force-generating sarcomere proteins 
+RYR2	CM: calcium-mediated processes
+PLN	CM: calcium-mediated processes
+SLC8A1	CM: calcium-mediated processes
+PECAM1	EC
+CDH5	EC
+VWF	EC
+ABCC9	PC
+KCNJ8	PC
+MYH11	SMC
+MSLN	Meso
+BNC1	Meso
+DCN	FB
+GSN	FB
+PDGFRA	FB
+NRXN1	Neuro
+NRXN3	Neuro
+KCNMB4	Neuro
+GPAM	Adipo
+FASN	Adipo
+ADIPOQ	Adipo
+CD45	Immune
+CD11B	Immune
+ITGAM	Immune
+CD52	Immune
+CD33	Myeloid
+CD68	MP
+LYVE1	MP: LYVE1+
+DOCK4	MP: DOCK4+
+CD3	T-cell
+CD56	NK
+CD19	B-cell
+CD14	Monocyte

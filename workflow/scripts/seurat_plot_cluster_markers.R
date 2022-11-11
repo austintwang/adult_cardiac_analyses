@@ -21,6 +21,7 @@ set.seed(params[["seed"]])
 proj <- readRDS(file = input_paths[["project_in"]])
 
 markers <- FindAllMarkers(proj, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
+write.table(markers, file=output_paths[["markers"]], quote=FALSE, sep='\t', col.names = NA)
 # markers %>%
 #     group_by(cluster) %>%
 #     slice_max(n = 2, order_by = avg_log2FC)
