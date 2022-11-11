@@ -119,12 +119,41 @@ rule seurat_merge_doublet_plots:
     shell:
         "pdfunite {input} {output}"
 
+rule seurat_build_rna_strict:
+    """
+    Build Seurat project (stringent cutoffs)
+    """
+    input:
+        mat = "results/{sample}/fetch/matrix.mtx",
+        features = "results/{sample}/fetch/features.tsv",
+        cells = "results/{sample}/fetch/barcodes.tsv",
+        metadata = "results/{sample}/atac/atac_qc.tsv"
+    output:
+        project_out = "results/{sample}/rna/seurat_build_rna_strict/proj.rds",
+        metadata = "results/{sample}/rna/seurat_build_rna_strict/metadata.tsv",
+        metadata_filtered = "results/{sample}/rna/seurat_build_rna_strict/metadata_filtered.tsv",
+        qc_violin = "results/{sample}/rna/seurat_build_rna_strict/qc_violin.pdf",
+        qc_scatter = "results/{sample}/rna/seurat_build_rna_strict/qc_scatter.pdf",
+    params:
+        sample_name = lambda w: w.sample,
+        seed = config["seurat_seed"],
+        min_frags = config["archr_min_frags"],
+        min_tss_enr = config["archr_min_tss_enr"],
+        min_count_rna = config["seurat_min_count"],
+        max_pct_mito_rna = config["seurat_max_pct_mito"]
+    log:
+        console = "logs/{sample}/rna/seurat_build_rna_strict/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_build.R"
+
 rule seurat_doublets_no_soupx:
     """
     Filter doublets (no ambient RNA removal)
     """
     input:
-        project_in = "results/{sample}/rna/seurat_build_rna/proj.rds",
+        project_in = "results/{sample}/rna/seurat_build_rna_strict/proj.rds",
         doubletfinder_library_dir = "resources/doubletfinder_lib"
     output:
         project_out_all = "results/{sample}/rna/seurat_doublets_no_soupx/proj_all.rds",
