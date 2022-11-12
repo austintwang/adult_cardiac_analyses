@@ -91,6 +91,15 @@ build_archr_project <- function(params, input_paths, output_paths, threads, log_
         geneAnnotation = gene_annotation,
         genomeAnnotation = genome_annotation,
     )
+    # Calculate doublet scores
+    proj <- addDoubletScores(
+        input = proj,
+        k = 10, 
+        knnMethod = "UMAP", 
+        LSIMethod = 1,
+        outDir = output_paths[["qc_dir"]],
+        logFile = log_paths[["doublets"]],
+    )
     proj <- subsetCells(ArchRProj = proj, cellNames = bc_names)
 
     saveArchRProject(
