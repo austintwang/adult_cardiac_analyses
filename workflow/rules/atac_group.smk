@@ -23,6 +23,7 @@ rule archr_build_group:
     log:
         console = "logs/merged/{group}/atac/archr_build/console.log",
         arrow_create = "logs/merged/{group}/atac/archr_build/arrow_create.log",
+        doublets = "logs/merged/{group}/atac/archr_build/doublets.log",
         save = "logs/merged/{group}/atac/archr_build/save.log"
     threads:
         max_threads
