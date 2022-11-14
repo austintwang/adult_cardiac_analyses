@@ -96,3 +96,28 @@ rule archr_plot_genes:
         "../envs/archr.yaml"
     script:
         "../scripts/archr_plot_genes.R"
+
+rule archr_rna_labeling:
+    """
+    ArchR visualize RNA labeling in ATAC
+    """
+    input:
+        project_in = "results_groups/{group}/atac/archr_rna_clustering",
+        seurat_data = "results_groups/{group}/rna/seurat_label_rna/metadata.tsv"
+    output:
+        project_out = directory("results_groups/{group}/atac/archr_rna_labeling")
+    params:
+        seed = config["archr_seed"]
+    log:
+        console = "logs/merged/{group}/atac/archr_rna_labeling/console.log",
+        move = "logs/merged/{group}/atac/archr_rna_labeling/move.log",
+        umap_plot = "logs/merged/{group}/atac/archr_rna_labeling/umap_plot.log",
+        cluster_atac = "logs/merged/{group}/atac/archr_rna_labeling/cluster_atac.log",
+        doublets = "logs/merged/{group}/atac/archr_rna_labeling/doublets.log",
+        save = "logs/merged/{group}/atac/archr_rna_labeling/save.log"
+    threads:
+        max_threads
+    conda:
+        "../envs/archr.yaml"
+    script:
+        "../scripts/archr_rna_labeling.R"
