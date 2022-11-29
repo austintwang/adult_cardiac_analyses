@@ -67,16 +67,15 @@ include:
     "rules/rna_seq_emb.smk"
 include:
     "rules/atac_group.smk"
-# include:
-#     "rules/label.smk"
+include:
+    "rules/rna_name_group.smk"
 
-# rule all:
-#     """
-#     Generate all outputs (default)
-#     """
-#     input: 
-#         "results_merged/all/rna/seurat_load_subclusters/proj.rds",
-#         expand("results_merged/{group}/rna/seurat_l2_labels_to_subgroups/proj.rds", group=groups.keys()),
+rule all:
+    """
+    Generate all outputs (default)
+    """
+    input: 
+        expand("results_merged/{group}/rna/seurat_name_group/proj.rds", group=groups.keys()),
 
 # rule name_1:
 #     """
@@ -87,8 +86,8 @@ include:
 #         expand("results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/proj.rds", cluster=subcluster_jobs),
 #         expand("results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/label_plots.pdf", cluster=subcluster_jobs)
 
-# rule pre_name:
-rule all:
+rule pre_name:
+# rule all:
     """
     Generate all outputs prior to cluster naming
     """

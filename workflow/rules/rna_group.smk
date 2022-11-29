@@ -320,22 +320,3 @@ rule seurat_plot_cluster_markers:
         "../envs/seurat.yaml"
     script:
         "../scripts/seurat_plot_cluster_markers.R"
-
-rule seurat_label_subgroup:
-    """
-    Seurat RNA cluster labeling
-    """
-    input:
-        project_in = "results_groups/{group}/rna/seurat_add_batch_data/proj.rds"
-    output:
-        project_out = "results_merged/all/rna/seurat_label/proj.rds",
-        umap = "results_merged/all/rna/seurat_label/umap.pdf"
-    params:
-        seed = config["seurat_seed"],
-        label_data = workflow.source_path("../files/cluster_names_subgroup.tsv")
-    log:
-        console = "logs/merged/all/rna/seurat_label/console.log"
-    conda:
-        "../envs/seurat.yaml"
-    script:
-        "../scripts/seurat_label_subgroup.R"
