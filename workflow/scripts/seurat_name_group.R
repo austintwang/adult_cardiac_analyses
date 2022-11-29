@@ -39,8 +39,8 @@ proj <- readRDS(file = input_paths[["project_in"]])
 head(proj$seurat_clusters) ####
 proj_index <- match(proj$seurat_clusters, rownames(clustdata))
 head(proj_index) ####
-clusts_split <- clustdata[proj_index, 2]
-clusts_merged <- clustdata[proj_index, 3]
+clusts_split <- clustdata[proj_index, 3]
+clusts_merged <- clustdata[proj_index, 4]
 head(clusts_split) ####
 proj$cell_types_split <- clusts_split
 proj$cell_types_merged <- clusts_merged
