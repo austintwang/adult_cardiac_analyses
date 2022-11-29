@@ -30,7 +30,7 @@ plot_fn <- function(object, group, reduction, colors) {
 
 clustdata_all <- read.table(file = params[["label_data"]], sep = '\t', header = FALSE, comment.char = "")
 group_rows <- clustdata_all[[1]] == wildcards[["group"]]
-clustdata <- clustdata[group_rows, , drop = FALSE]
+clustdata <- clustdata_all[group_rows, , drop = FALSE]
 rownames(clustdata) <- clustdata[[2]]
 head(clustdata) ####
 
