@@ -1,4 +1,4 @@
-rule seurat_name_1:
+rule seurat_name_group:
     """
     Seurat first-round RNA cluster naming
     """
