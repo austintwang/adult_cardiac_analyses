@@ -75,7 +75,7 @@ rule all:
     Generate all outputs (default)
     """
     input: 
-        expand("results_merged/{group}/rna/seurat_name_group/proj.rds", group=groups.keys()),
+        expand("results_groups/{group}/rna/seurat_name_group/proj.rds", group=groups.keys()),
 
 # rule name_1:
 #     """
