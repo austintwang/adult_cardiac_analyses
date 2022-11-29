@@ -6,7 +6,7 @@ rule seurat_name_group:
         project_in =  "results_groups/{group}/rna/seurat_add_batch_data/proj.rds"
     output:
         project_out = "results_groups/{group}/rna/seurat_name_group/proj.rds",
-        umap_full = "results_groups/all/{group}/seurat_name_group/umap_full.pdf",
+        umap_full = "results_groups/{group}/rna/seurat_name_group/umap_full.pdf",
         umap_merged = "results_groups/{group}/rna/seurat_name_group/umap_merged.pdf"
     params:
         seed = config["seurat_seed"],
