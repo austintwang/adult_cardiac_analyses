@@ -18,16 +18,16 @@ log_paths = snakemake@log
 
 set.seed(params[["seed"]])
 
-# stallion <- c("1"="#D51F26","2"="#272E6A","3"="#208A42","4"="#89288F","5"="#F47D2B", "6"="#FEE500","7"="#8A9FD1","8"="#C06CAB","19"="#E6C2DC",
-#                "10"="#90D5E4", "11"="#89C75F","12"="#F37B7D","13"="#9983BD","14"="#D24B27","15"="#3BBCA8", "16"="#6E4B9E","17"="#0C727C", "18"="#7E1416","9"="#D8A767","20"="#3D3D3D")
-# stallion <- unname(stallion)
+stallion <- c("1"="#D51F26","2"="#272E6A","3"="#208A42","4"="#89288F","5"="#F47D2B", "6"="#FEE500","7"="#8A9FD1","8"="#C06CAB","19"="#E6C2DC",
+               "10"="#90D5E4", "11"="#89C75F","12"="#F37B7D","13"="#9983BD","14"="#D24B27","15"="#3BBCA8", "16"="#6E4B9E","17"="#0C727C", "18"="#7E1416","9"="#D8A767","20"="#3D3D3D")
+stallion <- unname(stallion)
 
-# plot_fn <- function(object, group, reduction, colors) {
-#     cats <- sort(unique(object@meta.data[[group]]))
-#     colors_out <- rep_len(colors, length(cats))
-#     names(colors_out) <- cats
-#     DimPlot(object, reduction = reduction, group.by = group, label = TRUE, cols = colors_out, pt.size=0.1)
-# }
+plot_fn <- function(object, group, reduction, colors) {
+    cats <- sort(unique(object@meta.data[[group]]))
+    colors_out <- rep_len(colors, length(cats))
+    names(colors_out) <- cats
+    DimPlot(object, reduction = reduction, group.by = group, label = TRUE, cols = colors_out, pt.size=0.1)
+}
 
 cellnames <- unlist(readLines(input_paths[["cells"]]))
 
@@ -61,6 +61,18 @@ proj <- RunHarmony(proj, "dataset", assay.use = "RNA_train", reduction = "cellsp
 
 scbasset_int_data <- Embeddings(proj, reduction = "scbasset_harmony")
 cellspace_int_data <- Embeddings(proj, reduction = "cellspace_harmony")
+
+proj <- FindNeighbors(proj, dims = 1:30, reduction = "scbasset_harmony", graph.name = "nn_scbasset")
+proj <- RunUMAP(proj, dims = 1:30, reduction = "scbasset_harmony", nn.name = "nn_scbasset", reduction.name = "umap_scbasset")
+
+proj <- FindNeighbors(proj, dims = 1:30, reduction = "cellspace_harmony", graph.name = "nn_cellspace")
+proj <- RunUMAP(proj, dims = 1:30, reduction = "cellspace_harmony", nn.name = "nn_cellspace", reduction.name = "umap_cellspace")
+
+plt <- plot_fn(proj, "cell_types_split", "umap_cellspace", stallion) + labs(title="Cell Types (CellSpace)")
+ggsave(output_paths[["umap_cellspace"]], plt, device = "pdf", width = 10, height = 7)
+
+plt <- plot_fn(proj, "cell_types_split", "umap_scbasset", stallion) + labs(title="Cell Types (scBasset)")
+ggsave(output_paths[["umap_scbasset"]], plt, device = "pdf", width = 10, height = 7)
 
 writeMM(Matrix(scbasset_int_data, sparse = TRUE), output_paths[["scbasset_harmony_mat"]])
 writeLines(rownames(scbasset_int_data), con = output_paths[["scbasset_harmony_rows"]])
