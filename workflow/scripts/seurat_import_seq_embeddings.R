@@ -74,6 +74,9 @@ ggsave(output_paths[["umap_cellspace"]], plt, device = "pdf", width = 10, height
 plt <- plot_fn(proj, "cell_types_split", "umap_scbasset", stallion) + labs(title="Cell Types (scBasset)")
 ggsave(output_paths[["umap_scbasset"]], plt, device = "pdf", width = 10, height = 7)
 
+proj@meta.data$seq_emb_bc <- paste0(proj@meta.data$dataset, "_", proj@meta.data$bc_atac)
+write.table(proj@meta.data, file=output_paths[["metadata"]], quote=FALSE, sep='\t', col.names = NA)
+
 writeMM(Matrix(scbasset_int_data, sparse = TRUE), output_paths[["scbasset_harmony_mat"]])
 writeLines(rownames(scbasset_int_data), con = output_paths[["scbasset_harmony_rows"]])
 writeLines(colnames(scbasset_int_data), con = output_paths[["scbasset_harmony_cols"]])
