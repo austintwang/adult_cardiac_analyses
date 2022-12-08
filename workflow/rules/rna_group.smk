@@ -44,17 +44,18 @@ rule seurat_integrate_qc_extras:
     Additional integration QC plots
     """
     input:
-        project_in = "results_groups/{group}/rna/seurat_integrate_rna/proj.rds"
+        project_in = "results_groups/{group}/rna/seurat_integrate_rna/proj.rds",
+        atac_qc_extended = lambda w: [f"results/{sample}/atac/atac_qc_extended.tsv.gz" for sample in groups[w.group]]
     output:
         umap_counts = "results_groups/{group}/rna/seurat_integrate_rna/umap_counts.pdf",
         umap_frag = "results_groups/{group}/rna/seurat_integrate_rna/umap_frag.pdf",
-        umap_ratio = "results_groups/{group}/rna/seurat_integrate_rna/umap_ratio.pdf",
+        # umap_ratio = "results_groups/{group}/rna/seurat_integrate_rna/umap_ratio.pdf",
         umap_mito = "results_groups/{group}/rna/seurat_integrate_rna/umap_mito.pdf",
         umap_tss = "results_groups/{group}/rna/seurat_integrate_rna/umap_tss.pdf",
         umap_doubletfinder = "results_groups/{group}/rna/seurat_integrate_rna/umap_doubletfinder.pdf",
         umap_amulet = "results_groups/{group}/rna/seurat_integrate_rna/umap_amulet.pdf",
-        umap_frag_tss = "results_groups/{group}/rna/seurat_integrate_rna/umap_frag_tss.pdf",
-        umap_score = "results_groups/{group}/rna/seurat_integrate_rna/umap_score.pdf",
+        umap_overlap_count = "results_groups/{group}/rna/seurat_integrate_rna/umap_overlap_count.pdf",
+        umap_overlap_frac = "results_groups/{group}/rna/seurat_integrate_rna/umap_overlap_frac.pdf",
         umap_cm_nuc = "results_groups/{group}/rna/seurat_integrate_rna/umap_cm_nuc.pdf",
         umap_cm_cyto = "results_groups/{group}/rna/seurat_integrate_rna/umap_cm_cyto.pdf",
         umap_cm_ratio = "results_groups/{group}/rna/seurat_integrate_rna/umap_cm_ratio.pdf",
@@ -81,13 +82,13 @@ rule seurat_merge_integration_plots:
         "results_groups/{group}/rna/seurat_integrate_rna/umap_mixing_harmony.pdf",
         "results_groups/{group}/rna/seurat_integrate_rna/umap_counts.pdf",
         "results_groups/{group}/rna/seurat_integrate_rna/umap_frag.pdf",
-        "results_groups/{group}/rna/seurat_integrate_rna/umap_ratio.pdf",
+        # "results_groups/{group}/rna/seurat_integrate_rna/umap_ratio.pdf",
         "results_groups/{group}/rna/seurat_integrate_rna/umap_mito.pdf",
         "results_groups/{group}/rna/seurat_integrate_rna/umap_tss.pdf",
         "results_groups/{group}/rna/seurat_integrate_rna/umap_doubletfinder.pdf",
         "results_groups/{group}/rna/seurat_integrate_rna/umap_amulet.pdf",
-        "results_groups/{group}/rna/seurat_integrate_rna/umap_frag_tss.pdf",
-        "results_groups/{group}/rna/seurat_integrate_rna/umap_score.pdf",
+        "results_groups/{group}/rna/seurat_integrate_rna/umap_overlap_count.pdf",
+        "results_groups/{group}/rna/seurat_integrate_rna/umap_overlap_frac.pdf",
         "results_groups/{group}/rna/seurat_integrate_rna/umap_cm_nuc.pdf",
         "results_groups/{group}/rna/seurat_integrate_rna/umap_cm_cyto.pdf",
         "results_groups/{group}/rna/seurat_integrate_rna/umap_cm_ratio.pdf",

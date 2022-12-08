@@ -15,7 +15,17 @@ log_paths = snakemake@log
 
 set.seed(params[["seed"]])
 
+metadata_read <- function(table_path) {
+    metadata <- read.table(file = table_path, sep = '\t', header = TRUE)
+    rownames(metadata) <- metadata$cell_id_seurat
+    metadata[, "num_overlaps", drop = FALSE]
+}
+
+tables <- lapply(input_paths[["atac_qc_extended"]], metadata_read)
+overlap_data <- do.call("rbind", tables) 
+
 proj <- readRDS(file = input_paths[["project_in"]])
+proj <- AddMetaData(proj, overlap_data)
 head(proj@meta.data) ####
 
 proj$log_counts <- log10(proj$nCount_RNA)
@@ -26,9 +36,9 @@ proj$log_frags <- log10(proj$frag_count)
 plt <- FeaturePlot(proj, reduction = "umap", features = "log_frags") + labs(title="Post-Harmony log10 Fragment Count")
 ggsave(output_paths[["umap_frag"]], plt, device = "pdf", width = 10, height = 7)
 
-proj$log_ratio <- proj$log_counts - proj$log_frags
-plt <- FeaturePlot(proj, reduction = "umap", features = "log_ratio") + labs(title="Post-Harmony log10 RNA-ATAC Signal Ratio")
-ggsave(output_paths[["umap_ratio"]], plt, device = "pdf", width = 10, height = 7)
+# proj$log_ratio <- proj$log_counts - proj$log_frags
+# plt <- FeaturePlot(proj, reduction = "umap", features = "log_ratio") + labs(title="Post-Harmony log10 RNA-ATAC Signal Ratio")
+# ggsave(output_paths[["umap_ratio"]], plt, device = "pdf", width = 10, height = 7)
 
 plt <- FeaturePlot(proj, reduction = "umap", features = "percent.mt") + labs(title="Post-Harmony RNA Mito Frac")
 ggsave(output_paths[["umap_mito"]], plt, device = "pdf", width = 10, height = 7)
@@ -36,13 +46,13 @@ ggsave(output_paths[["umap_mito"]], plt, device = "pdf", width = 10, height = 7)
 plt <- FeaturePlot(proj, reduction = "umap", features = "tss_enr") + labs(title="Post-Harmony ATAC TSS Enrichment")
 ggsave(output_paths[["umap_tss"]], plt, device = "pdf", width = 10, height = 7)
 
-proj$log_frag_tss <- proj$log_frags + log10(proj$tss_enr)
-plt <- FeaturePlot(proj, reduction = "umap", features = "log_frag_tss") + labs(title="Post-Harmony Total TSS Fragment Score")
-ggsave(output_paths[["umap_frag_tss"]], plt, device = "pdf", width = 10, height = 7)
+# proj$log_frag_tss <- proj$log_frags + log10(proj$tss_enr)
+# plt <- FeaturePlot(proj, reduction = "umap", features = "log_frag_tss") + labs(title="Post-Harmony Total TSS Fragment Score")
+# ggsave(output_paths[["umap_frag_tss"]], plt, device = "pdf", width = 10, height = 7)
 
-proj$tss_score <- proj$log_counts - proj$log_frag_tss
-plt <- FeaturePlot(proj, reduction = "umap", features = "tss_score") + labs(title="Post-Harmony RNA-ATAC TSS Score")
-ggsave(output_paths[["umap_score"]], plt, device = "pdf", width = 10, height = 7)
+# proj$tss_score <- proj$log_counts - proj$log_frag_tss
+# plt <- FeaturePlot(proj, reduction = "umap", features = "tss_score") + labs(title="Post-Harmony RNA-ATAC TSS Score")
+# ggsave(output_paths[["umap_score"]], plt, device = "pdf", width = 10, height = 7)
 
 doubletfinder_cols <- grep("pANN", names(proj@meta.data), value = TRUE)
 d <- proj@meta.data[, doubletfinder_cols, drop = FALSE ]
@@ -56,6 +66,13 @@ ggsave(output_paths[["umap_doubletfinder"]], plt, device = "pdf", width = 10, he
 proj$amulet_nlp <- -log10(proj$amulet_pval)
 plt <- FeaturePlot(proj, reduction = "umap", features = "amulet_nlp") + labs(title="Post-Harmony Amulet -log10 p-Value")
 ggsave(output_paths[["umap_amulet"]], plt, device = "pdf", width = 10, height = 7)
+
+plt <- FeaturePlot(proj, reduction = "umap", features = "num_overlaps") + labs(title="Post-Harmony AMULET overlap count")
+ggsave(output_paths[["umap_overlap_count"]], plt, device = "pdf", width = 10, height = 7)
+
+proj$frac_overlap <- proj$num_overlaps / proj$frag_count
+plt <- FeaturePlot(proj, reduction = "umap", features = "frac_overlap") + labs(title="Post-Harmony AMULET overlap fraction")
+ggsave(output_paths[["umap_overlap_frac"]], plt, device = "pdf", width = 10, height = 7)
 
 cm_nuc_genes <- c("RBM20", "TECRL", "MLIP", "CHRM2", "TRDN", "PALLD", "SGCD", "CMYA5", "MYOM2", "TBX5", "ESRRG",
 "LINC02248", "KCNJ3", "TACC2", "CORIN", "DPY19L2", "WNK2", "MITF", "OBSCN", "FHOD3", "MYLK3",

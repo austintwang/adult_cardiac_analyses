@@ -134,3 +134,23 @@ rule write_atac_qc:
         "../envs/fetch.yaml"
     script:
         "../scripts/write_atac_qc.py"
+
+rule write_atac_qc_extended:
+    """
+    Write ATAC QC data
+    """
+    input:
+        metadata = "results/{sample}/atac/archr_qc_parsed",
+        final_data = "results/{sample}/atac/archr_metadata.tsv",
+        amulet = "results/{sample}/atac/amulet",
+        bc_atac = "resources/whitelist_atac.txt",
+        bc_rna = "resources/whitelist_rna.txt",
+        barcodes = "results/{sample}/atac/amulet_barcode_data.csv"
+    output:
+        "results/{sample}/atac/atac_qc_extended.tsv.gz"
+    params:
+        sample_name = lambda w: w.sample,
+    conda:
+        "../envs/fetch.yaml"
+    script:
+        "../scripts/write_atac_qc_extended.py"
