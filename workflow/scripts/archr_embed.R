@@ -179,23 +179,23 @@ p <- plotEmbedding(
 )
 plotPDF(p, name = "umap_harmony_datasets.pdf", ArchRProj = proj, addDOC = FALSE, width = 5, height = 5)
 
-p <- plotEmbedding(
-    ArchRProj = proj, 
-    colorBy = "cellColData", 
-    name = "DoubletScore", 
-    embedding = "UMAP_Harmony",
-    logFile = log_paths[["umap_plot"]]
-)
-plotPDF(p, name = "umap_doublet_scores.pdf", ArchRProj = proj, addDOC = FALSE, width = 5, height = 5)
+# p <- plotEmbedding(
+#     ArchRProj = proj, 
+#     colorBy = "cellColData", 
+#     name = "DoubletScore", 
+#     embedding = "UMAP_Harmony",
+#     logFile = log_paths[["umap_plot"]]
+# )
+# plotPDF(p, name = "umap_doublet_scores.pdf", ArchRProj = proj, addDOC = FALSE, width = 5, height = 5)
 
-p <- plotEmbedding(
-    ArchRProj = proj, 
-    colorBy = "cellColData", 
-    name = "DoubletEnrichment", 
-    embedding = "UMAP_Harmony",
-    logFile = log_paths[["umap_plot"]]
-)
-plotPDF(p, name = "umap_doublet_enr.pdf", ArchRProj = proj, addDOC = FALSE, width = 5, height = 5)
+# p <- plotEmbedding(
+#     ArchRProj = proj, 
+#     colorBy = "cellColData", 
+#     name = "DoubletEnrichment", 
+#     embedding = "UMAP_Harmony",
+#     logFile = log_paths[["umap_plot"]]
+# )
+# plotPDF(p, name = "umap_doublet_enr.pdf", ArchRProj = proj, addDOC = FALSE, width = 5, height = 5)
 
 saveArchRProject(
     ArchRProj = proj,
