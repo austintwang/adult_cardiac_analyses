@@ -185,12 +185,32 @@ rule seurat_write_cluster_metadata:
     script:
         "../scripts/seurat_write_metadata.R"
 
+rule seurat_embed_test:
+    """
+    Seurat test set embeddings
+    """
+    input:
+        project_in = "results_groups/{group}/rna/seurat_cluster_rna/proj.rds",
+    output:
+        project_out = "results_groups/{group}/rna/seurat_embed_test/proj.rds",
+        umap = "results_groups/{group}/rna/seurat_embed_test/umap_test.pdf",
+        sil_train = "results_groups/{group}/rna/seurat_embed_test/sil_train.pdf",
+        sil_test = "results_groups/{group}/rna/seurat_embed_test/sil_test.pdf",
+    params:
+        seed = config["seurat_seed"]
+    log:
+        console = "logs/merged/{group}/rna/seurat_embed_test/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_embed_test.R"
+
 rule seurat_plot_cm:
     """
     Plot confusion matrices for clustering
     """
     input:
-        project_in = "results_groups/{group}/rna/seurat_cluster_rna/proj.rds",
+        project_in = "results_groups/{group}/rna/seurat_embed_test/proj.rds",
     output:
         mat_kramann_coarse = "results_groups/{group}/rna/seurat_plot_cm/mat_kramann_coarse.pdf",
         mat_kramann_fine = "results_groups/{group}/rna/seurat_plot_cm/mat_kramann_fine.pdf",
