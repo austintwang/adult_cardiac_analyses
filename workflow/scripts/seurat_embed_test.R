@@ -60,7 +60,7 @@ pdf(output_paths[["sil_test"]])
 plot(sil)
 dev.off()
 
-dist.matrix <- dist(x = Embeddings(object = proj[["harmony_train"]])[, dims])
+dist.matrix <- dist(x = Embeddings(object = proj[["harmony"]])[, dims])
 clusters <- proj$seurat_clusters
 sil <- silhouette(x = as.numeric(x = as.factor(x = clusters)), dist = dist.matrix)
 pdf(output_paths[["sil_train"]])
