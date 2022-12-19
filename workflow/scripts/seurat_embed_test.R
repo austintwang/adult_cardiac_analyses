@@ -32,21 +32,21 @@ plot_fn <- function(object, group, reduction, colors) {
 proj <- readRDS(file = input_paths[["project_in"]])
 print(proj) ####
 
-DefaultAssay(object = proj_merged) <- "RNA_test"
+DefaultAssay(object = proj) <- "RNA_test"
 
-proj_merged <- NormalizeData(proj_merged, normalization.method = "LogNormalize", scale.factor = 10000)
-proj_merged <- FindVariableFeatures(proj_merged, selection.method = "vst", nfeatures = 2000)
-proj_merged <- ScaleData(proj_merged)
+proj <- NormalizeData(proj, normalization.method = "LogNormalize", scale.factor = 10000)
+proj <- FindVariableFeatures(proj, selection.method = "vst", nfeatures = 2000)
+proj <- ScaleData(proj)
 
-proj_merged <- RunPCA(proj_merged, features = VariableFeatures(object = proj_merged), reduction.name = "pca_test")
+proj <- RunPCA(proj, features = VariableFeatures(object = proj), reduction.name = "pca_test")
 
-proj_merged <- FindNeighbors(proj_merged, dims = 1:30, reduction = "pca_test")
-proj_merged <- RunUMAP(proj_merged, dims = 1:30, reduction = "pca_test")
+proj <- FindNeighbors(proj, dims = 1:30, reduction = "pca_test")
+proj <- RunUMAP(proj, dims = 1:30, reduction = "pca_test")
 
-proj_merged <- RunHarmony(proj_merged, "dataset", assay.use = "RNA_test", reduction.save = "harmony_test")
+proj <- RunHarmony(proj, "dataset", assay.use = "RNA_test", reduction.save = "harmony_test")
 
-proj_merged <- FindNeighbors(proj_merged, dims = 1:30, reduction = "harmony_test", graph.name = "nn_test")
-proj_merged <- RunUMAP(proj_merged, dims = 1:30, reduction = "harmony_test", nn.name = "nn_test", reduction.name = "umap_test")
+proj <- FindNeighbors(proj, dims = 1:30, reduction = "harmony_test", graph.name = "nn_test")
+proj <- RunUMAP(proj, dims = 1:30, reduction = "harmony_test", nn.name = "nn_test", reduction.name = "umap_test")
 
 plt <- plot_fn(proj, "seurat_clusters", "umap_test", stallion) + labs(title="Seurat clustering (test split)")
 ggsave(output_paths[["umap"]], plt, device = "pdf")
@@ -67,6 +67,6 @@ pdf(output_paths[["sil_train"]])
 plot(sil)
 dev.off()
 
-DefaultAssay(object = proj_merged) <- "RNA_train"
+DefaultAssay(object = proj) <- "RNA_train"
 
 saveRDS(proj, file = output_paths[["project_out"]])
