@@ -53,14 +53,14 @@ ggsave(output_paths[["umap"]], plt, device = "pdf")
 
 dims <- 1:30
 
-dist.matrix <- dist(x = Embeddings(object = dataset[["harmony_test"]])[, dims])
+dist.matrix <- dist(x = Embeddings(object = proj[["harmony_test"]])[, dims])
 clusters <- proj$seurat_clusters
 sil <- silhouette(x = as.numeric(x = as.factor(x = clusters)), dist = dist.matrix)
 pdf(output_paths[["sil_test"]])
 plot(sil)
 dev.off()
 
-dist.matrix <- dist(x = Embeddings(object = dataset[["harmony_train"]])[, dims])
+dist.matrix <- dist(x = Embeddings(object = proj[["harmony_train"]])[, dims])
 clusters <- proj$seurat_clusters
 sil <- silhouette(x = as.numeric(x = as.factor(x = clusters)), dist = dist.matrix)
 pdf(output_paths[["sil_train"]])
