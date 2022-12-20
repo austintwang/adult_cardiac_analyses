@@ -52,16 +52,21 @@ plt <- plot_fn(proj, "seurat_clusters", "umap_test", stallion) + labs(title="Seu
 ggsave(output_paths[["umap"]], plt, device = "pdf")
 
 dims <- 1:30
+if (length(Cells(proj)) > 6000) {
+    subsampled <- proj[, sample(colnames(pbmc), size = 6000, replace = TRUE)]
+} else {
+    subsampled <- proj
+}
 
-dist.matrix <- dist(x = Embeddings(object = proj[["harmony_test"]])[, dims])
-clusters <- proj$seurat_clusters
+dist.matrix <- dist(x = Embeddings(object = subsampled[["harmony_test"]])[, dims])
+clusters <- subsampled$seurat_clusters
 sil <- silhouette(x = as.numeric(x = as.factor(x = clusters)), dist = dist.matrix)
 pdf(output_paths[["sil_test"]])
 plot(sil)
 dev.off()
 
-dist.matrix <- dist(x = Embeddings(object = proj[["harmony"]])[, dims])
-clusters <- proj$seurat_clusters
+dist.matrix <- dist(x = Embeddings(object = subsampled[["harmony"]])[, dims])
+clusters <- subsampled$seurat_clusters
 sil <- silhouette(x = as.numeric(x = as.factor(x = clusters)), dist = dist.matrix)
 pdf(output_paths[["sil_train"]])
 plot(sil)
