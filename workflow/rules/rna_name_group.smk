@@ -6,8 +6,7 @@ rule seurat_name_group_1:
         project_in =  "results_groups/{group}/rna/seurat_add_batch_data/proj.rds"
     output:
         project_out = "results_groups/{group}/rna/seurat_name_group_1/proj.rds",
-        umap_full = "results_groups/{group}/rna/seurat_name_group_1/umap_full.pdf",
-        umap_merged = "results_groups/{group}/rna/seurat_name_group_1/umap_merged.pdf"
+        umap = "results_groups/{group}/rna/seurat_name_group_1/umap.pdf",
     params:
         seed = config["seurat_seed"],
         label_data = workflow.source_path("../files/cluster_names_group_1.txt")
