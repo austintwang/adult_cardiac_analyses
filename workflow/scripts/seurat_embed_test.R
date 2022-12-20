@@ -43,7 +43,7 @@ proj <- RunPCA(proj, features = VariableFeatures(object = proj), reduction.name 
 proj <- FindNeighbors(proj, dims = 1:30, reduction = "pca_test")
 proj <- RunUMAP(proj, dims = 1:30, reduction = "pca_test")
 
-proj <- RunHarmony(proj, "dataset", assay.use = "RNA_test", reduction.save = "harmony_test")
+proj <- RunHarmony(proj, "dataset", reduction = "pca_test", assay.use = "RNA_test", reduction.save = "harmony_test")
 
 proj <- FindNeighbors(proj, dims = 1:30, reduction = "harmony_test", graph.name = "nn_test")
 proj <- RunUMAP(proj, dims = 1:30, reduction = "harmony_test", nn.name = "nn_test", reduction.name = "umap_test")
