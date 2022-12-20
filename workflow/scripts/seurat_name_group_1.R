@@ -50,9 +50,6 @@ proj <- ScaleData(proj)
 
 proj <- RunPCA(proj, features = VariableFeatures(object = proj))
 
-proj <- FindNeighbors(proj, dims = 1:30, reduction = "pca")
-proj <- RunUMAP(proj, dims = 1:30, reduction = "pca")
-
 proj <- FindNeighbors(proj, dims = 1:30, reduction = "harmony")
 proj <- RunUMAP(proj, dims = 1:30, reduction = "harmony")
 
@@ -63,9 +60,6 @@ proj <- FindVariableFeatures(proj, selection.method = "vst", nfeatures = 2000)
 proj <- ScaleData(proj)
 
 proj <- RunPCA(proj, features = VariableFeatures(object = proj), reduction.name = "pca_test")
-
-proj <- FindNeighbors(proj, dims = 1:30, reduction = "pca_test")
-proj <- RunUMAP(proj, dims = 1:30, reduction = "pca_test")
 
 proj <- RunHarmony(proj, "dataset", reduction = "pca_test", assay.use = "RNA_test", reduction.save = "harmony_test")
 
