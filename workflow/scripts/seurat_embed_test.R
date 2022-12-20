@@ -53,7 +53,7 @@ ggsave(output_paths[["umap"]], plt, device = "pdf")
 
 dims <- 1:30
 if (length(Cells(proj)) > 6000) {
-    subsampled <- proj[, sample(colnames(pbmc), size = 6000, replace = TRUE)]
+    subsampled <- proj[, sample(colnames(proj), size = 6000, replace = TRUE)]
 } else {
     subsampled <- proj
 }
