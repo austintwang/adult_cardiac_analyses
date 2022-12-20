@@ -8,6 +8,7 @@ library(dplyr)
 library(Seurat)
 library(patchwork)
 library(ggplot2)
+library(harmony)
 
 params = snakemake@params 
 wildcards = snakemake@wildcards 
