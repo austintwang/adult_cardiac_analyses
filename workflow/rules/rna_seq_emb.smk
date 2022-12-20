@@ -22,7 +22,7 @@ rule seurat_add_seq_emb:
     Add ATAC sequence embeddings from Salil and harmonize
     """
     input:
-        project_in = "results_groups/{group}/rna/seurat_name_group/proj.rds",
+        project_in = "results_groups/{group}/rna/seurat_name_group_1/proj.rds",
         cells = get_seq_emb_cells,
         scbasset = get_seq_emb_scbasset,
         cellspace = get_seq_emb_cellspace
