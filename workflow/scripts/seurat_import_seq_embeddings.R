@@ -68,10 +68,10 @@ proj <- RunUMAP(proj, dims = 1:30, reduction = "scbasset_harmony", nn.name = "nn
 proj <- FindNeighbors(proj, dims = 1:30, reduction = "cellspace_harmony", graph.name = "nn_cellspace")
 proj <- RunUMAP(proj, dims = 1:30, reduction = "cellspace_harmony", nn.name = "nn_cellspace", reduction.name = "umap_cellspace")
 
-plt <- plot_fn(proj, "cell_types_l1", "umap_cellspace", stallion) + labs(title="Cell Types (CellSpace)")
+plt <- plot_fn(proj, "cell_types_1", "umap_cellspace", stallion) + labs(title="Cell Types (CellSpace)")
 ggsave(output_paths[["umap_cellspace"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_fn(proj, "cell_types_l1", "umap_scbasset", stallion) + labs(title="Cell Types (scBasset)")
+plt <- plot_fn(proj, "cell_types_1", "umap_scbasset", stallion) + labs(title="Cell Types (scBasset)")
 ggsave(output_paths[["umap_scbasset"]], plt, device = "pdf", width = 10, height = 7)
 
 proj@meta.data$seq_emb_bc <- paste0(proj@meta.data$dataset, "_", proj@meta.data$barcode_atac)
