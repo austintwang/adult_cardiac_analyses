@@ -32,7 +32,7 @@ head(genes) ####
 proj <- readRDS(file = input_paths[["project_in"]])
 DefaultAssay(object = proj) <- "RNA_test"
 
-plt <- plot_fn(proj, "cell_types_1", "umap", stallion) + labs(title="Cell Types (Level-1), Test Set")
+plt <- plot_fn(proj, "cell_types_1", "umap_test", stallion) + labs(title="Cell Types (Level-1), Test Set")
 ggsave(output_paths[["umap_clusters"]], plt, device = "pdf", width = 10, height = 7)
 
 dir.create(output_paths[["umaps"]])
