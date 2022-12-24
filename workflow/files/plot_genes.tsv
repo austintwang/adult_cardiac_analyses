@@ -1,198 +1,38 @@
 Name	Description
-RYR2	ApexCM
-SORBS2	ApexCM
-MYOM1	ApexCM
-ACTN2	ApexCM
-MALAT1	Nuclear
-RBM20	CM Nuclear
-TECRL	CM Nuclear
-MLIP	CM Nuclear
-CHRM2	CM Nuclear
-TRDN	CM Nuclear
-PALLD	CM Nuclear
-SGCD	CM Nuclear
-CMYA5	CM Nuclear
-MYOM2	CM Nuclear
-TBX5	CM Nuclear
-ESRRG	CM Nuclear
-LINC02248	CM Nuclear
-KCNJ3	CM Nuclear
-TACC2	CM Nuclear
-CORIN	CM Nuclear
-DPY19L2	CM Nuclear
-WNK2	CM Nuclear
-MITF	CM Nuclear
-OBSCN	CM Nuclear
-FHOD3	CM Nuclear
-MYLK3	CM Nuclear
-DAPK2	CM Nuclear
-NEXN	CM Nuclear
-TTN	CM Cytoplasmic
-RYR2	CM Cytoplasmic
-PAM	CM Cytoplasmic
-TNNT2	CM Cytoplasmic
-RABGAP1L	CM Cytoplasmic
-PDLIM5	CM Cytoplasmic
-MYL7	CM Cytoplasmic
-MYH6	CM Cytoplasmic
-VWF	Vascular endothelial cells
-ERG	Vascular endothelial cells
-ANO2	Vascular endothelial cells
-PTPRB	Vascular endothelial cells
-EGFL7	Vascular endothelial cells
-PREX2	Vascular endothelial cells
-ADGRL4	Vascular endothelial cells
-FLT1	Vascular endothelial cells
-CYYR1	Vascular endothelial cells
-GRB10	Vascular endothelial cells
-PPP1R16B	Vascular endothelial cells
-DOCK9	Vascular endothelial cells
-SHANK3	Vascular endothelial cells
-PECAM1	Vascular endothelial cells
-PLEKHG1	Vascular endothelial cells
-EMCN	Vascular endothelial cells
-RGS5	Pericytes
-DACH1	Pericytes
-GUCY1A1	Pericytes
-ABCC9	Pericytes
-BGN	Pericytes
-NOTCH3	Pericytes
-PDGFRB	Pericytes
-FRMD3	Pericytes
-RNF152	Pericytes
-CCDC102B	Pericytes
-NGF	Pericytes
-MYH11	Smooth muscle cells
-KCNAB1	Smooth muscle cells
-NTRK3	Smooth muscle cells
-CHRM3	Smooth muscle cells
-ACTA2	Smooth muscle cells
-RGS6	Smooth muscle cells
-DGKG	Smooth muscle cells
-ITGA8	Smooth muscle cells
-TBX2	Smooth muscle cells
-LMOD1	Smooth muscle cells
-SDK1	Smooth muscle cells
-GPC6	Smooth muscle cells
-ANTXR1	Smooth muscle cells
-FLNA	Smooth muscle cells
-CLMN	Smooth muscle cells
-ATP10A	Smooth muscle cells
-MCAM	Smooth muscle cells
-TAGLN	Smooth muscle cells
-CCDC3	Smooth muscle cells
-PLIN4	Adipocytes
-PLIN1	Adipocytes
-PDE3B	Adipocytes
-GPAM	Adipocytes
-PTPRS	Adipocytes
-PPARG	Adipocytes
-MLXIPL	Adipocytes
-MGST1	Adipocytes
-AQP7	Adipocytes
-SLC19A3	Adipocytes
-FABP4	Adipocytes
-TPRG1	Adipocytes
-DIRC3	Adipocytes
-LPL	Adipocytes
-PNPLA2	Adipocytes
-LIPE	Adipocytes
-ADH1B	Adipocytes
-ADIPOQ	Adipocytes
-PRKAR2B	Adipocytes
-CIDEA	Adipocytes
-LINC00278	Adipocytes
-PFKFB3	Adipocytes
-LINC02237	Adipocytes
-LIPEAS1	Adipocytes
-SVEP1	Adipocytes
-XKR4	Schwann Cells 
-AC016766.1	Schwann Cells 
-SLC35F1	Schwann Cells 
-ZNF536	Schwann Cells 
-NCAM2	Schwann Cells 
-GPM6B	Schwann Cells 
-KIRREL3	Schwann Cells 
-SORCS1	Schwann Cells 
-ST6GALNAC5	Schwann Cells 
-PRKCA	Schwann Cells 
-GINS3	Schwann Cells 
-PMP22	Schwann Cells 
-ALDH1A1	Schwann Cells 
-IL1RAPL2	Schwann Cells 
-DOCK5	Schwann Cells 
-NKAIN3	Schwann Cells 
-COL28A1	Schwann Cells 
-RALGPS2	Schwann Cells 
-PKN2-AS1	Schwann Cells 
-KLHL29	Schwann Cells 
-PTPRZ1	Schwann Cells 
-CSMD1	Neurons
-SYT1	Neurons
-KCNIP4	Neurons
-CNTNAP2	Neurons
-DLGAP1	Neurons
-PTPRD	Neurons
-LRRTM4	Neurons
-ATRNL1	Neurons
-LRP1B	Neurons
-CTNND2	Neurons
-KCNQ5	Neurons
-NRG3	Neurons
-SNTG1	Neurons
-GRIA2	Neurons
-RIMS2	Neurons
-CSMD3	Neurons
-XIST	Neurons
-KAZN	Neurons
-DPP10	Neurons
-HS6ST3	Neurons
-OPCML	Neurons
-PCDH7	Endocardial endothelial cells
-PCDH15	Endocardial endothelial cells
-LINC02147	Endocardial endothelial cells
-LINC02388	Endocardial endothelial cells
-MYRIP	Endocardial endothelial cells
-GMDS	Endocardial endothelial cells
-ADAMTSL1	Endocardial endothelial cells
-LEPR	Endocardial endothelial cells
-CALCRL	Endocardial endothelial cells
-CGNL1	Endocardial endothelial cells
-HMCN1	Endocardial endothelial cells
-NPR3	Endocardial endothelial cells
-POSTN	Endocardial endothelial cells
-DCN	Fibroblasts
-ABCA8	Fibroblasts
-ABCA6	Fibroblasts
-ABCA10	Fibroblasts
-FBLN1	Fibroblasts
-COL15A1	Fibroblasts
-FBN1	Fibroblasts
-C7	Fibroblasts
-SKAP1	Lymphocytes
-RIPOR2	Lymphocytes
-CD247	Lymphocytes
-IKZF1	Lymphocytes
-BCL11B	Lymphocytes
-SLFN12L	Lymphocytes
-ITGAL	Lymphocytes
-SAMD3	Lymphocytes
-CARD11	Lymphocytes
-CDC42SE2	Lymphocytes
-CCND3	Lymphocytes
-C3	Epicardial mesothelial cells
-SULF1	Epicardial mesothelial cells
-AP000561.1	Epicardial mesothelial cells
-PRG4	Epicardial mesothelial cells
-GPM6A	Epicardial mesothelial cells
-CDON	Epicardial mesothelial cells
-DPP6	Epicardial mesothelial cells
-CCDC80	Epicardial mesothelial cells
-EZR	Epicardial mesothelial cells
-FOS	Epicardial mesothelial cells
-BNC1	Epicardial mesothelial cells
-AC245041.2	Epicardial mesothelial cells
-PRKD1	Epicardial mesothelial cells
-CYSTM1	Epicardial mesothelial cells
-TLL1	Epicardial mesothelial cells
-WT1	Epicardial mesothelial cells
+TTN	cardiomyocyte
+MYH7	cardiomyocyte
+MYL2	cardiomyocyte
+FHL2	cardiomyocyte
+PDGFRA	fibroblast
+GSN	fibroblast
+DCN	fibroblast
+CD14	macrophage
+C1QA	macrophage
+CD68	macrophage
+FOLR2	macrophage
+PECAM1	endothelial_cell
+VWF	endothelial_cell
+CDH5	endothelial_cell
+MYH11	smooth_muscle_cell
+TAGLN	smooth_muscle_cell
+ACTA2	smooth_muscle_cell
+RGS5	pericyte
+ABCC9	pericyte
+KCNJ8	pericyte
+CD34	telocyte
+VIM	telocyte
+CD11b	dendritic_cell
+CD11c	dendritic_cell
+CD103	dendritic_cell
+CD205	dendritic_cell
+GPAM	adipocyte
+LEP	adipocyte
+FASN	adipocyte
+CRT	mesothelial
+AE1	mesothelial
+AE3	mesothelial
+MSLN	mesothelial
+WT1	mesothelial
+BNC1	mesothelial
+SOX10	schwann_cell
+S100	schwann_cell

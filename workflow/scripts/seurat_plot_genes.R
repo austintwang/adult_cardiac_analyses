@@ -19,6 +19,10 @@ set.seed(params[["seed"]])
 genes <- read.table(file = params[["genes"]], sep = '\t', header = TRUE, comment.char = "")
 head(genes) ####
 proj <- readRDS(file = input_paths[["project_in"]])
+DefaultAssay(object = proj) <- "RNA_test"
+
+plt <- plot_fn(proj, "cell_types_1", "umap", stallion) + labs(title="Cell Types (Level-1), Test Set")
+ggsave(output_paths[["umap_clusters"]], plt, device = "pdf", width = 10, height = 7)
 
 dir.create(output_paths[["umaps"]])
 for (index in seq_len(nrow(genes))) { 
@@ -26,7 +30,7 @@ for (index in seq_len(nrow(genes))) {
     desc <- genes[index, "Description"]
     tryCatch(
         expr = {
-            plt <- FeaturePlot(proj, features = gene, reduction = "umap") + labs(title=paste0(gene, ": ", desc))
+            plt <- FeaturePlot(proj, features = gene, reduction = "umap_test") + labs(title=paste0(gene, ": ", desc))
             ggsave(file.path(output_paths[["umaps"]], paste0(gene, ".pdf")), plt, device = "pdf", width = 8, height = 7)
         },
         error = function(e){
