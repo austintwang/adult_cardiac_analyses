@@ -205,7 +205,7 @@ lv-nonischemic-f	34	endothelial_cell
 lv-nonischemic-f	35	mesothelial_cell
 lv-nonischemic-f	36	cardiomyocyte
 la-healthy-f	0	fibroblast
-la-healthy-f	1	endocardial
+la-healthy-f	1	endothelial_cell
 la-healthy-f	2	cardiomyocyte
 la-healthy-f	3	pericyte
 la-healthy-f	4	macrophage
@@ -230,7 +230,7 @@ la-healthy-f	22	mesothelial_cell
 la-healthy-m	0	cardiomyocyte
 la-healthy-m	1	macrophage
 la-healthy-m	2	fibroblast
-la-healthy-m	3	pericyte
+la-healthy-m	3	cardiomyocyte
 la-healthy-m	4	fibroblast
 la-healthy-m	5	fibroblast
 la-healthy-m	6	endothelial_cell
