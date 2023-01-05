@@ -32,7 +32,6 @@ plot_fn <- function(object, group, reduction, colors) {
 }
 
 proj <- readRDS(file = input_paths[["project_in"]])
-proj <- subset(proj, subset = cell_types_1 == wildcards[["cluster"]])
 
 print(proj) ####
 
