@@ -18,7 +18,13 @@ log_paths = snakemake@log
 
 set.seed(params[["seed"]])
 
-projs <- lapply(input_paths[["projects_in"]], readRDS)
+load_proj <- function(path) {
+    proj <- readRDS(path)
+    proj <- subset(x = proj, subset = cell_types_1 == wildcards[["label"]])
+    proj
+}
+
+projs <- lapply(input_paths[["projects_in"]], load_proj)
 lapply(projs, print) ####
 
 group_metadata <- function(group, proj) {
@@ -46,7 +52,6 @@ if (length(projs) > 1) {
 #   proj <- RenameCells(proj, add.cell.id = params[["samples"]][[1]], for.merge = TRUE)
 }
 proj <- AddMetaData(proj, group_md)
-proj <- subset(x = proj, subset = cell_types_1 == wildcards[["label"]])
 DefaultAssay(object = proj) <- "RNA_train"
 
 proj <- NormalizeData(proj, normalization.method = "LogNormalize", scale.factor = 10000)
