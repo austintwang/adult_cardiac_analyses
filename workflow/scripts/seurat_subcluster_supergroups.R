@@ -43,13 +43,32 @@ proj <- FindClusters(object = proj)
 plt <- plot_fn(proj, "seurat_clusters", "umap", stallion) + labs(title="Seurat clustering")
 ggsave(output_paths[["umap"]], plt, device = "pdf")
 
-plt <- plot_fn(proj, "cell_type_kramann_fine", "umap", stallion) + labs(title="Kramann fine labels")
+plt <- plot_fn(proj_merged, "cell_type_kramann_coarse", "umap", stallion) + labs(title="Kramann coarse labels")
+ggsave(output_paths[["umap_kramann_coarse"]], plt, device = "pdf", width = 10, height = 7)
+
+plt <- plot_fn(proj_merged, "cell_type_kramann_fine", "umap", stallion) + labs(title="Kramann fine labels")
 ggsave(output_paths[["umap_kramann_fine"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_fn(proj, "cell_type_ellinor_fine", "umap", stallion) + labs(title="Ellinor fine labels")
+plt <-  plot_fn(proj_merged, "cell_type_ellinor_coarse", "umap", stallion) + labs(title="Ellinor coarse labels")
+# plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_ellinor_coarse", label = TRUE) + labs(title="Ellinor coarse labels")
+ggsave(output_paths[["umap_ellinor_coarse"]], plt, device = "pdf", width = 10, height = 7)
+
+plt <- plot_fn(proj_merged, "cell_type_ellinor_fine", "umap", stallion) + labs(title="Ellinor fine labels")
+# plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_ellinor_fine", label = TRUE) + labs(title="Ellinor fine labels")
 ggsave(output_paths[["umap_ellinor_fine"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_fn(proj, "cell_type_teichmann_fine", "umap", stallion) + labs(title="Teichmann fine labels")
+plt <- plot_fn(proj_merged, "cell_type_teichmann_coarse", "umap", stallion) + labs(title="Teichmann coarse labels")
+# plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_teichmann_coarse", label = TRUE) + labs(title="Teichmann coarse labels")
+ggsave(output_paths[["umap_teichmann_coarse"]], plt, device = "pdf", width = 10, height = 7)
+
+plt <- plot_fn(proj_merged, "cell_type_teichmann_fine", "umap", stallion) + labs(title="Teichmann fine labels")
+# plt <- DimPlot(proj_merged, reduction = "umap", group.by = "cell_type_teichmann_fine", label = TRUE) + labs(title="Teichmann fine labels")
 ggsave(output_paths[["umap_teichmann_fine"]], plt, device = "pdf", width = 10, height = 7)
+
+plt <- plot_fn(proj_merged, "cell_type_azimuth_coarse", "umap", stallion) + labs(title="Azimuth coarse labels")
+ggsave(output_paths[["umap_azimuth_coarse"]], plt, device = "pdf", width = 10, height = 7)
+
+plt <- plot_fn(proj_merged, "cell_type_azimuth_fine", "umap", stallion) + labs(title="Azimuth fine labels")
+ggsave(output_paths[["umap_azimuth_fine"]], plt, device = "pdf", width = 10, height = 7)
 
 saveRDS(proj, file = output_paths[["project_out"]])
