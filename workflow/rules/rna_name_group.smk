@@ -68,6 +68,7 @@ rule seurat_subcluster_supergroup:
     output:
         project_out = "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/proj.rds",
         umap = "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_clusters.pdf",
+        umap_test = "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_clusters_test.pdf",
         umap_kramann_coarse = "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_kramann_coarse.pdf",
         umap_kramann_fine = "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_kramann_fine.pdf",
         umap_ellinor_coarse = "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_ellinor_coarse.pdf",
