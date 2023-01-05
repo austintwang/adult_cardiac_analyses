@@ -42,7 +42,7 @@ proj <- FindClusters(object = proj)
 plt <- plot_fn(proj, "seurat_clusters", "umap", stallion) + labs(title="Seurat subclustering, Train set")
 ggsave(output_paths[["umap"]], plt, device = "pdf")
 
-plt <- plot_fn(proj, "cell_types_1", "umap_test", stallion) + labs(title="Seurat subclustering, Test Set")
+plt <- plot_fn(proj, "seurat_clusters", "umap_test", stallion) + labs(title="Seurat subclustering, Test Set")
 ggsave(output_paths[["umap_test"]], plt, device = "pdf", width = 10, height = 7)
 
 plt <- plot_fn(proj, "cell_type_kramann_coarse", "umap", stallion) + labs(title="Kramann coarse labels")
