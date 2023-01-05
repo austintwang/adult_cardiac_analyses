@@ -21,6 +21,11 @@ set.seed(params[["seed"]])
 load_proj <- function(path) {
     proj <- readRDS(path)
     proj <- subset(x = proj, subset = cell_types_1 == wildcards[["label"]])
+    if (length(WhichCells(proj, expression = cell_types_1 == wildcards[["label"]])) == 0) {
+        proj <- subset(x = proj, subset = cell_types_1 == wildcards[["label"]])
+    } else {
+        proj <- subset(x = proj, downsample = 1)
+    }
     proj
 }
 
@@ -52,6 +57,7 @@ if (length(projs) > 1) {
 #   proj <- RenameCells(proj, add.cell.id = params[["samples"]][[1]], for.merge = TRUE)
 }
 proj <- AddMetaData(proj, group_md)
+proj <- subset(x = proj, subset = cell_types_1 == wildcards[["label"]])
 DefaultAssay(object = proj) <- "RNA_train"
 
 proj <- NormalizeData(proj, normalization.method = "LogNormalize", scale.factor = 10000)
