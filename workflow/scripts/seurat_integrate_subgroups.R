@@ -40,7 +40,7 @@ group_md <- do.call(rbind, group_mds)
 head(group_md)
 
 if (length(projs) > 1) {
-  proj <- merge(projs[[1]], projs[-1], project = "merged_rna_subcluster", add.cell.ids = "")
+  proj <- merge(projs[[1]], projs[-1], project = "merged_rna_subcluster")
 } else {
   proj <- projs[[1]]
 #   proj <- RenameCells(proj, add.cell.id = params[["samples"]][[1]], for.merge = TRUE)
