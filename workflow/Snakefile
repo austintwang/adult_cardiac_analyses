@@ -7,9 +7,15 @@ min_version("6.6.1")
 configfile: 
     "config/config.yaml"
 
+superregion_map = {}
+for s, v in config["superregions"].items():
+    for r in v:
+        superregion_map[r] = s
+
 samples = []
 groups = {}
 batch_data = {}
+supergroups = {}
 with open("config/samples.tsv") as sample_file:
     h = sample_file.readline().rstrip('\n').split('\t')
     series_ind = h.index("Series")
@@ -31,11 +37,17 @@ with open("config/samples.tsv") as sample_file:
         if batch == "":
             batch = "Other"
 
+        group_name = f"{region}-{status}-{sex}"
         samples.append(series)
-        groups.setdefault(f"{region}-{status}-{sex}", []).append(series)
+        groups.setdefault(group_name, []).append(series)
         batch_data[series] = batch
 
+        supergroup_name = superregion_map[region]
+        supergroups.setdefault(supergroup_name, []).append(group_name)
+
 group_names = list(groups.keys())
+supergroup_names = list(supergroups.keys())
+
 
 # subcluster_jobs = []
 # with open(workflow.source_path("files/subcluster_jobs.txt")) as f:
@@ -77,8 +89,9 @@ rule all:
     input: 
         expand("results_groups/{group}/rna/seurat_name_group_1/proj.rds", group=groups.keys()),
         expand("results_groups/{group}/rna/seurat_add_seq_emb/proj.rds", group=groups.keys()),
-        expand("results_groups/{group}/rna/seurat_plot_genes/dotplot.pdf", group=groups.keys()),    
-
+        expand("results_groups/{group}/rna/seurat_plot_genes/dotplot.pdf", group=groups.keys()),
+        expand("results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/proj.rds", supergroup=supergroup_names, label=config["l1_labels"]),
+        expand("results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/proj.rds", supergroup=supergroup_names, label=config["l1_labels"]),
 
 # rule name_1:
 #     """
