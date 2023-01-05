@@ -74,7 +74,7 @@ lv-nonischemic-m	6	cardiomyocyte
 lv-nonischemic-m	7	pericyte
 lv-nonischemic-m	8	cardiomyocyte
 lv-nonischemic-m	9	macrophage
-lv-nonischemic-m	10	cardiomyocyte
+lv-nonischemic-m	10	macrophage
 lv-nonischemic-m	11	lymphocyte
 lv-nonischemic-m	12	*
 lv-nonischemic-m	13	*
