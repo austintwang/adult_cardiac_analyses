@@ -43,7 +43,9 @@ with open("config/samples.tsv") as sample_file:
         batch_data[series] = batch
 
         supergroup_name = superregion_map[region]
-        supergroups.setdefault(supergroup_name, []).append(group_name)
+        supergroups.setdefault(supergroup_name, set()).add(group_name)
+
+supergroups = {k, list(v) for k, v in supergroups.items()}
 
 group_names = list(groups.keys())
 supergroup_names = list(supergroups.keys())

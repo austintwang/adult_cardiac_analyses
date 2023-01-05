@@ -51,7 +51,7 @@ rule seurat_integrate_subgroups:
         umap_mixing_harmony = "results_subcluster/{supergroup}/{label}/rna/seurat_integrate_subgroups/umap_mixing_harmony.pdf",
     params:
         seed = config["seurat_seed"],
-        samples = lambda w: supergroups[w.supergroup]
+        groups = lambda w: supergroups[w.supergroup]
     log:
         console = "logs/subcluster/{supergroup}/{label}/rna/seurat_integrate_subgroups/console.log"
     conda:
