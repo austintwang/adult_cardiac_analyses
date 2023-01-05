@@ -45,7 +45,7 @@ with open("config/samples.tsv") as sample_file:
         supergroup_name = superregion_map[region]
         supergroups.setdefault(supergroup_name, set()).add(group_name)
 
-supergroups = {k, list(v) for k, v in supergroups.items()}
+supergroups = {k: list(v) for k, v in supergroups.items()}
 
 group_names = list(groups.keys())
 supergroup_names = list(supergroups.keys())
