@@ -20,12 +20,20 @@ set.seed(params[["seed"]])
 
 load_proj <- function(path) {
     proj <- readRDS(path)
-    proj <- subset(x = proj, subset = cell_types_1 == wildcards[["label"]])
-    if (length(WhichCells(proj, expression = cell_types_1 == wildcards[["label"]])) > 0) {
-        proj <- subset(x = proj, subset = cell_types_1 == wildcards[["label"]])
-    } else {
-        proj <- subset(x = proj, downsample = 1)
-    }
+    # proj <- subset(x = proj, subset = cell_types_1 == wildcards[["label"]])
+    # if (length(WhichCells(proj, expression = cell_types_1 == wildcards[["label"]])) > 0) {
+    #     proj <- subset(x = proj, subset = cell_types_1 == wildcards[["label"]])
+    # } else {
+    #     proj <- subset(x = proj, downsample = 1)
+    # }
+    proj <- tryCatch(
+        expr = subset(x = proj, subset = cell_types_1 == wildcards[["label"]]),
+        error = function(e) {
+            print(path)
+            print(e)
+            subset(x = proj, downsample = 1)
+        }
+    )
     proj
 }
 
