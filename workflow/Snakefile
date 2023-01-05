@@ -91,7 +91,7 @@ rule all:
         expand("results_groups/{group}/rna/seurat_add_seq_emb/proj.rds", group=groups.keys()),
         expand("results_groups/{group}/rna/seurat_plot_genes/dotplot.pdf", group=groups.keys()),
         expand("results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/proj.rds", supergroup=supergroup_names, label=config["l1_labels"]),
-        expand("results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/proj.rds", supergroup=supergroup_names, label=config["l1_labels"]),
+        expand("results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/label_plots.pdf", supergroup=supergroup_names, label=config["l1_labels"]),
 
 # rule name_1:
 #     """
