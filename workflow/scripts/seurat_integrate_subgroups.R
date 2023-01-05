@@ -78,12 +78,30 @@ proj <- FindNeighbors(proj, dims = 1:30, reduction = "pca")
 proj <- RunUMAP(proj, dims = 1:30, reduction = "pca")
 
 if (length(projs) > 1) {
-  proj$mixing_pca <- MixingMetric(
-    proj,
-    "dataset",
-    reduction = "pca",
-    dims = 1:30
-  )
+#   proj$mixing_pca <- MixingMetric(
+#     proj,
+#     "dataset",
+#     reduction = "pca",
+#     dims = 1:30
+#   )
+    proj$mixing_pca <- tryCatch(
+        expr = MixingMetric(
+            proj,
+            "dataset",
+            reduction = "pca",
+            dims = 1:30
+        ),
+        error = function(e) {
+            print(e)
+            MixingMetric(
+                proj,
+                "dataset",
+                reduction = "pca",
+                dims = 1:30,
+                max.k = 30
+            )
+        }
+    )
 } else {
   proj <- AddMetaData(proj, rep(0, length(Cells(proj))), col.name = "mixing_pca")
 }
@@ -115,12 +133,30 @@ proj <- RunUMAP(proj, dims = 1:30, reduction = "harmony_test", nn.name = "nn_tes
 DefaultAssay(object = proj) <- "RNA_train"
 
 if (length(projs) > 1) {
-  proj$mixing_harmony <- MixingMetric(
-    proj,
-    "dataset",
-    reduction = "harmony",
-    dims = 1:30
-  )
+#   proj$mixing_harmony <- MixingMetric(
+#     proj,
+#     "dataset",
+#     reduction = "harmony",
+#     dims = 1:30
+#   )
+  proj$mixing_harmony <- tryCatch(
+        expr = MixingMetric(
+            proj,
+            "dataset",
+            reduction = "harmony",
+            dims = 1:30
+        ),
+        error = function(e) {
+            print(e)
+            MixingMetric(
+                proj,
+                "dataset",
+                reduction = "harmony",
+                dims = 1:30,
+                max.k = 30
+            )
+        }
+    )
 } else {
   proj <- AddMetaData(proj, rep(0, length(Cells(proj))), col.name = "mixing_harmony")
 }
