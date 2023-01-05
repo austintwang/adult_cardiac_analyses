@@ -3,7 +3,7 @@ lv-healthy-m	1	cardiomyocyte
 lv-healthy-m	2	cardiomyocyte
 lv-healthy-m	3	fibroblast
 lv-healthy-m	4	macrophage
-lv-healthy-m	5	smooth_muscle_cell
+lv-healthy-m	5	pericyte
 lv-healthy-m	6	cardiomyocyte
 lv-healthy-m	7	endothelial_cell
 lv-healthy-m	8	fibroblast
@@ -26,7 +26,7 @@ lv-healthy-m	24	endocardial
 lv-healthy-m	25	mast_cell
 lv-healthy-m	26	*
 lv-healthy-m	27	*
-lv-healthy-m	28	pericyte
+lv-healthy-m	28	smooth_muscle_cell
 lv-healthy-m	29	*
 lv-healthy-m	30	macrophage
 lv-healthy-m	31	*
