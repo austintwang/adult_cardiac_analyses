@@ -106,21 +106,3 @@ rule seurat_merge_label_plots_subcluster_supergroup:
     shell:
         "pdfunite {input} {output}; "
 
-rule seurat_plot_subcluster_markers:
-    """
-    Plot subclustering markers
-    """
-    input:
-        project_in = "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/proj.rds"
-    output:
-        umaps = directory("results_subcluster/{supergroup}/{label}/rna/seurat_plot_subcluster_markers/umaps"),
-        dotplot = "results_subcluster/{supergroup}/{label}/rna/seurat_plot_subcluster_markers/dotplot.pdf",
-        markers = "results_subcluster/{supergroup}/{label}/rna/seurat_plot_subcluster_markers/markers.tsv"
-    params:
-        seed = config["seurat_seed"],
-    log:
-        console = "logs/subcluster/{supergroup}/{label}/rna/seurat_plot_subcluster_markers/console.log"
-    conda:
-        "../envs/seurat.yaml"
-    script:
-        "../scripts/seurat_plot_subcluster_markers.R"
