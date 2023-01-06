@@ -26,30 +26,41 @@ write.table(markers, file=output_paths[["markers"]], quote=FALSE, sep='\t', col.
 # markers %>%
 #     group_by(cluster) %>%
 #     slice_max(n = 2, order_by = avg_log2FC)
-markers %>%
-    group_by(cluster) %>%
-    top_n(n = 5, wt = avg_log2FC) -> top10
 
-genes <- unique(top10$gene)
-head(genes) ####
+if (length(markers) == 0) {
+    dir.create(output_paths[["umaps"]])
+    pdf(output_paths[["dotplot"]])
+    # plot(x=c(1,2,4,2,5))
+    dev.off()
+    pdf(output_paths[["heatmap"]])
+    # plot(x=c(1,2,4,2,5))
+    dev.off()
+} else {
+    markers %>%
+        group_by(cluster) %>%
+        top_n(n = 5, wt = avg_log2FC) -> top10
 
-dir.create(output_paths[["umaps"]])
-for (index in seq_len(length(genes))) { 
-    gene <- genes[[index]]
-    tryCatch(
-        expr = {
-            plt <- FeaturePlot(proj, features = gene, reduction = "umap_test") + labs(title=gene)
-            ggsave(file.path(output_paths[["umaps"]], paste0(gene, ".pdf")), plt, device = "pdf", width = 8, height = 7)
-        },
-        error = function(e){
-            print(gene)
-            print(e)
-        }
-    )
-} 
+    genes <- unique(top10$gene)
+    head(genes) ####
 
-plt <- DotPlot(proj, features = genes) + RotatedAxis()
-ggsave(output_paths[["dotplot"]], plt, device = "pdf", width = 30, height = 7)
+    dir.create(output_paths[["umaps"]])
+    for (index in seq_len(length(genes))) { 
+        gene <- genes[[index]]
+        tryCatch(
+            expr = {
+                plt <- FeaturePlot(proj, features = gene, reduction = "umap_test") + labs(title=gene)
+                ggsave(file.path(output_paths[["umaps"]], paste0(gene, ".pdf")), plt, device = "pdf", width = 8, height = 7)
+            },
+            error = function(e){
+                print(gene)
+                print(e)
+            }
+        )
+    } 
 
-plt <- DoHeatmap(subset(proj, downsample = 100), features = genes, size = 3)
-ggsave(output_paths[["heatmap"]], plt, device = "pdf", width = 10, height = 50, limitsize = FALSE)
+    plt <- DotPlot(proj, features = genes) + RotatedAxis()
+    ggsave(output_paths[["dotplot"]], plt, device = "pdf", width = 30, height = 7)
+
+    plt <- DoHeatmap(subset(proj, downsample = 100), features = genes, size = 3)
+    ggsave(output_paths[["heatmap"]], plt, device = "pdf", width = 10, height = 10, limitsize = FALSE)
+}
