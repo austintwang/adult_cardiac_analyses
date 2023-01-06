@@ -5,8 +5,7 @@ rule seurat_subcluster_cleanup:
     input:
         project_in = "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/proj.rds"
     output:
-        project_out = "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_cleanup/proj.rds",
-        umap = "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_cleanup/umap.pdf",
+        project_out = "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_cleanup/proj.rds"
     params:
         seed = config["seurat_seed"],
         label_data = workflow.source_path("../files/subcluster_cleanup.tsv")
