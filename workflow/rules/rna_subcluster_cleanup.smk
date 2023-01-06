@@ -17,7 +17,7 @@ rule seurat_subcluster_cleanup:
     script:
         "../scripts/seurat_subcluster_cleanup.R"
 
-rule seurat_subcluster_supergroup:
+rule seurat_subcluster_2:
     """
     Seurat RNA subclustering
     """
