@@ -83,10 +83,22 @@ include:
     "rules/atac_group.smk"
 include:
     "rules/rna_name_group.smk"
+include:
+    "rules/rna_subcluster_cleanup.smk"
 
 rule all:
     """
     Generate all outputs (default)
+    """
+    input: 
+        expand("results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_2/proj.rds", supergroup=supergroup_names, label=config["l1_labels"]),
+        expand("results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_2/label_plots.pdf", supergroup=supergroup_names, label=config["l1_labels"]),
+        expand("results_subcluster/{supergroup}/{label}/rna/seurat_plot_subcluster_markers/dotplot.pdf", supergroup=supergroup_names, label=config["l1_labels"]),
+
+
+rule name_1:
+    """
+    Generate outputs dependent on first-level cluster naming
     """
     input: 
         expand("results_groups/{group}/rna/seurat_name_group_1/proj.rds", group=groups.keys()),
@@ -94,17 +106,6 @@ rule all:
         expand("results_groups/{group}/rna/seurat_plot_genes/dotplot.pdf", group=groups.keys()),
         expand("results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/proj.rds", supergroup=supergroup_names, label=config["l1_labels"]),
         expand("results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/label_plots.pdf", supergroup=supergroup_names, label=config["l1_labels"]),
-        # expand("results_subcluster/{supergroup}/{label}/rna/seurat_plot_subcluster_markers/dotplot.pdf", supergroup=supergroup_names, label=config["l1_labels"]),
-
-
-# rule name_1:
-#     """
-#     Generate outputs dependent on first-round cluster naming
-#     """
-#     input: 
-#         "results_merged/all/rna/seurat_name_1/umap.pdf",
-#         expand("results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/proj.rds", cluster=subcluster_jobs),
-#         expand("results_merged/all/rna_subcluster/{cluster}/seurat_subcluster/label_plots.pdf", cluster=subcluster_jobs)
 
 rule pre_name:
 # rule all:
