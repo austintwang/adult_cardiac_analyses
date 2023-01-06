@@ -41,7 +41,7 @@ rule seurat_subcluster_2:
     conda:
         "../envs/seurat.yaml"
     script:
-        "../scripts/seurat_subcluster_supergroup.R"
+        "../scripts/seurat_subcluster_2.R"
 
 rule seurat_merge_label_plots_subcluster_2:
     """
@@ -72,6 +72,7 @@ rule seurat_plot_subcluster_markers:
     output:
         umaps = directory("results_subcluster/{supergroup}/{label}/rna/seurat_plot_subcluster_markers/umaps"),
         dotplot = "results_subcluster/{supergroup}/{label}/rna/seurat_plot_subcluster_markers/dotplot.pdf",
+        heatmap = "results_subcluster/{supergroup}/{label}/rna/seurat_plot_subcluster_markers/heatmap.pdf",
         markers = "results_subcluster/{supergroup}/{label}/rna/seurat_plot_subcluster_markers/markers.tsv"
     params:
         seed = config["seurat_seed"],
