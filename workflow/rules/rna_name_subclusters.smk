@@ -3,7 +3,7 @@ rule seurat_name_subclusters:
     Seurat first-round RNA cluster naming
     """
     input:
-        project_in = "results_subcluster/{supergroup}/{label}/rna/seurat_name_subclusters/proj.rds"
+        project_in = "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_2/proj.rds"
     output:
         project_out = "results_subcluster/{supergroup}/{label}/rna/seurat_name_subclusters/proj.rds",
         umap = "results_subcluster/{supergroup}/{label}/rna/seurat_name_subclusters/umap.pdf"
