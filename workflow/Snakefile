@@ -91,6 +91,13 @@ rule all:
     Generate all outputs (default)
     """
     input: 
+        expand("results_subcluster/{supergroup}/{label}/rna/seurat_name_subclusters/proj.rds", supergroup=supergroup_names, label=config["l1_labels"]),
+
+rule subcluster_processing:
+    """
+    Subcluster processing
+    """
+    input: 
         expand("results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_2/proj.rds", supergroup=supergroup_names, label=config["l1_labels"]),
         expand("results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_2/label_plots.pdf", supergroup=supergroup_names, label=config["l1_labels"]),
         expand("results_subcluster/{supergroup}/{label}/rna/seurat_plot_subcluster_markers/dotplot.pdf", supergroup=supergroup_names, label=config["l1_labels"]),
