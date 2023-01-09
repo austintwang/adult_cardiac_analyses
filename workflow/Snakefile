@@ -85,6 +85,8 @@ include:
     "rules/rna_name_group.smk"
 include:
     "rules/rna_subcluster_cleanup.smk"
+include:
+    "rules/rna_name_subclusters.smk"
 
 rule all:
     """
