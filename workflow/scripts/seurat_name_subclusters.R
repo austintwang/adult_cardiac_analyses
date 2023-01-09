@@ -44,7 +44,7 @@ clusts_2 <- clustdata[proj_index, 5]
 proj$cell_types_l1 <- clusts_1
 proj$cell_types_l2 <- clusts_2
 
-proj <- subset(proj, subset = subcluster_filter == "p")
+proj <- subset(proj, subset = cell_types_l1 == "*", invert = TRUE)
 
 proj <- NormalizeData(proj, normalization.method = "LogNormalize", scale.factor = 10000)
 proj <- FindVariableFeatures(proj, selection.method = "vst", nfeatures = 2000)
