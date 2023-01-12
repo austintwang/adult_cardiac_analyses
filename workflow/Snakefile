@@ -46,6 +46,10 @@ with open("config/samples.tsv") as sample_file:
         supergroups.setdefault(supergroup_name, set()).add(group_name)
 
 supergroups = {k: list(v) for k, v in supergroups.items()}
+group_to_supergroup = {}
+for k, v in supergroups.items():
+    for g in v:
+        group_to_supergroup[g] = k
 
 group_names = list(groups.keys())
 supergroup_names = list(supergroups.keys())
@@ -94,6 +98,7 @@ rule all:
     """
     input: 
         expand("results_subcluster/{supergroup}/{label}/rna/seurat_name_subclusters/proj.rds", supergroup=supergroup_names, label=config["l1_labels"]),
+        expand("results_groups/{group}/rna/seurat_subclusters_to_groups/proj.rds", group=group_names),
 
 rule subcluster_processing:
     """

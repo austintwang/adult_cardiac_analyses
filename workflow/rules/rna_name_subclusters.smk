@@ -16,3 +16,23 @@ rule seurat_name_subclusters:
         "../envs/seurat.yaml"
     script:
         "../scripts/seurat_name_subclusters.R"
+
+rule seurat_subclusters_to_groups:
+    """
+    Add subclusters to integrated analyses
+    """
+    input:
+        project_integrated = "results_groups/{group}/rna/seurat_name_group_1/proj.rds",
+        projects_subcluster = lambda w: [f"results_subcluster/{group_to_supergroup(w.group)}/{label}/rna/seurat_name_subclusters/proj.rds" for label in config["l1_labels"]]
+    output:
+        project_out = "results_groups/{group}/rna/seurat_subclusters_to_groups/proj.rds",
+        umap_l1 = "results_groups/{group}/rna/seurat_subclusters_to_groups/umap_l1.pdf",
+        umap_l2 = "results_groups/{group}/rna/seurat_subclusters_to_groups/umap_l2.pdf"
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/merged/all/rna/seurat_load_subclusters/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_subclusters_to_groups.R"
