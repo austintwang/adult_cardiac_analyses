@@ -81,7 +81,7 @@ atrial	endocardial	3	*	*
 atrial	endocardial	4	*	*
 atrial	endothelial_cell	0	endothelial_cell	endothelial_cell-capillary-RGS5-
 atrial	endothelial_cell	1	endothelial_cell	endothelial_cell-venous
-atrial	endothelial_cell	2	endocardial	endocardial-PCDH7+
+atrial	endothelial_cell	2	endothelial_cell	endothelial_cell-PCDH7+
 atrial	endothelial_cell	3	endothelial_cell	endothelial_cell-capillary-RGS5+
 atrial	endothelial_cell	4	endothelial_cell	endothelial_cell-arterial-NKAIN2-
 atrial	endothelial_cell	5	endothelial_cell	endothelial_cell-arterial-NKAIN2+

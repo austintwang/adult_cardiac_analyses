@@ -55,11 +55,11 @@ stallion <- c("1"="#D51F26","2"="#272E6A","3"="#208A42","4"="#89288F","5"="#F47D
                "10"="#90D5E4", "11"="#89C75F","12"="#F37B7D","13"="#9983BD","14"="#D24B27","15"="#3BBCA8", "16"="#6E4B9E","17"="#0C727C", "18"="#7E1416","9"="#D8A767","20"="#3D3D3D")
 stallion <- unname(stallion)
 
-plt <- plot_fn(proj, "cell_types_l1", "umap", stallion) + labs(title="Cell Types (Round 2)")
+plt <- plot_fn(proj, "cell_types_l1", "umap", stallion) + labs(title="Cell Types (Level-1)")
 ggsave(output_paths[["umap_l1"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_fn(proj, "cell_types_l2", "umap", stallion) + labs(title="Cell Types (Round 2)")
-ggsave(output_paths[["umap_l2"]], plt, device = "pdf", width = 13, height = 7)
+plt <- plot_fn(proj, "cell_types_l2", "umap", stallion) + labs(title="Cell Types (Level-2)")
+ggsave(output_paths[["umap_l2"]], plt, device = "pdf", width = 14, height = 7)
 
 saveRDS(proj, file = output_paths[["project_out"]])
 
