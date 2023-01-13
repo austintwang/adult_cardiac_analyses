@@ -31,7 +31,7 @@ rule seurat_subclusters_to_groups:
     params:
         seed = config["seurat_seed"],
     log:
-        console = "logs/merged/all/rna/seurat_load_subclusters/console.log"
+        console =  "logs/merged/{group}/rna/seurat_subclusters_to_groups/console.log"
     conda:
         "../envs/seurat.yaml"
     script:
