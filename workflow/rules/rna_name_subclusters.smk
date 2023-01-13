@@ -23,7 +23,7 @@ rule seurat_subclusters_to_groups:
     """
     input:
         project_integrated = "results_groups/{group}/rna/seurat_name_group_1/proj.rds",
-        projects_subcluster = lambda w: [f"results_subcluster/{group_to_supergroup(w.group)}/{label}/rna/seurat_name_subclusters/proj.rds" for label in config["l1_labels"]]
+        projects_subcluster = lambda w: [f"results_subcluster/{group_to_supergroup[w.group]}/{label}/rna/seurat_name_subclusters/proj.rds" for label in config["l1_labels"]]
     output:
         project_out = "results_groups/{group}/rna/seurat_subclusters_to_groups/proj.rds",
         umap_l1 = "results_groups/{group}/rna/seurat_subclusters_to_groups/umap_l1.pdf",
