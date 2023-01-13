@@ -19,8 +19,8 @@ set.seed(params[["seed"]])
 
 read_fn <- function(path) {
     sub_proj <- readRDS(file = path)
-    print(head(sub_proj@meta.data)) ####
-    sub_proj@meta.data[, c("cell_types_l1, cell_types_l2"), drop = FALSE]
+    # print(head(sub_proj@meta.data)) ####
+    sub_proj@meta.data[, c("cell_types_l1", "cell_types_l2"), drop = FALSE]
 }
 
 plot_fn <- function(object, group, reduction, colors) {
