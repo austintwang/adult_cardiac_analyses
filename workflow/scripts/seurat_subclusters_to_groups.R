@@ -34,16 +34,21 @@ head(tables[[1]])
 sub_data <- do.call(rbind, tables)
 
 proj <- readRDS(file = input_paths[["project_integrated"]])
-proj <- subset(proj, cells = rownames((sub_data)))
+# proj <- subset(proj, cells = rownames((sub_data)))
 
-proj <- AddMetaData(proj, sub_data)
+# proj <- AddMetaData(proj, sub_data)
 
 # label_data <- proj@meta.data[, "cell_types_1", drop = FALSE]
 # label_data[rownames(sub_data),] <- sub_data
 # colnames(label_data) <- "cell_types_2"
 # head(label_data) ####
 
-# proj <- AddMetaData(proj, label_data)
+cells_intersect <- intersect(Cells(proj), rownames((sub_data)))
+proj <- subset(proj, cells = cells_intersect)
+label_data <- sub_data[cells_intersect, , drop = FALSE]
+
+# proj <- subset(proj, cells = rownames((label_data)))
+proj <- AddMetaData(proj, label_data)
 
 stallion <- c("1"="#D51F26","2"="#272E6A","3"="#208A42","4"="#89288F","5"="#F47D2B", "6"="#FEE500","7"="#8A9FD1","8"="#C06CAB","19"="#E6C2DC",
                "10"="#90D5E4", "11"="#89C75F","12"="#F37B7D","13"="#9983BD","14"="#D24B27","15"="#3BBCA8", "16"="#6E4B9E","17"="#0C727C", "18"="#7E1416","9"="#D8A767","20"="#3D3D3D")
