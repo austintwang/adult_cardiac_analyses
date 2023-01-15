@@ -67,7 +67,7 @@ rule seurat_named_cluster_markers:
         umaps = directory("results_groups/{group}/rna/seurat_named_cluster_markers/umaps"),
         dotplot = "results_groups/{group}/rna/seurat_named_cluster_markers/dotplot.pdf",
         heatmap = "results_groups/{group}/rna/seurat_named_cluster_markers/heatmap.pdf",
-        markers = "rresults_groups/{group}/rna/seurat_named_cluster_markers/markers.tsv"
+        markers = "results_groups/{group}/rna/seurat_named_cluster_markers/markers.tsv"
     params:
         seed = config["seurat_seed"],
     log:
