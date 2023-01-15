@@ -17,6 +17,26 @@ rule seurat_name_subclusters:
     script:
         "../scripts/seurat_name_subclusters.R"
 
+rule seurat_named_subcluster_markers:
+    """
+    Call subcluster markers
+    """
+    input:
+        project_in = "results_subcluster/{supergroup}/{label}/rna/seurat_name_subclusters/proj.rds"
+    output:
+        umaps = directory("results_subcluster/{supergroup}/{label}/rna/seurat_named_subcluster_markers/umaps"),
+        dotplot = "results_subcluster/{supergroup}/{label}/rna/seurat_named_subcluster_markers/dotplot.pdf",
+        heatmap = "results_subcluster/{supergroup}/{label}/rna/seurat_named_subcluster_markers/heatmap.pdf",
+        markers = "results_subcluster/{supergroup}/{label}/rna/seurat_named_subcluster_markers/markers.tsv"
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/subcluster/{supergroup}/{label}/rna/seurat_named_subcluster_markers/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_named_subcluster_markers.R"
+
 rule seurat_subclusters_to_groups:
     """
     Add subclusters to integrated analyses
@@ -36,3 +56,23 @@ rule seurat_subclusters_to_groups:
         "../envs/seurat.yaml"
     script:
         "../scripts/seurat_subclusters_to_groups.R"
+
+rule seurat_named_cluster_markers:
+    """
+    Call subcluster markers
+    """
+    input:
+        project_in = "results_groups/{group}/rna/seurat_subclusters_to_groups/proj.rds"
+    output:
+        umaps = directory("results_groups/{group}/rna/seurat_named_cluster_markers/umaps"),
+        dotplot = "results_groups/{group}/rna/seurat_named_cluster_markers/dotplot.pdf",
+        heatmap = "results_groups/{group}/rna/seurat_named_cluster_markers/heatmap.pdf",
+        markers = "rresults_groups/{group}/rna/seurat_named_cluster_markers/markers.tsv"
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/merged/{group}/rna/seurat_named_cluster_markers/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_named_cluster_markers.R"
