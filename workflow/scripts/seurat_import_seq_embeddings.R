@@ -61,6 +61,7 @@ proj <- RunHarmony(proj, "dataset", assay.use = "RNA_train", reduction = "cellsp
 
 scbasset_int_data <- Embeddings(proj, reduction = "scbasset_harmony")
 cellspace_int_data <- Embeddings(proj, reduction = "cellspace_harmony")
+rna_data <- Embeddings(proj, reduction = "harmony_test")
 
 proj <- FindNeighbors(proj, dims = 1:30, reduction = "scbasset_harmony", graph.name = "nn_scbasset")
 proj <- RunUMAP(proj, dims = 1:30, reduction = "scbasset_harmony", nn.name = "nn_scbasset", reduction.name = "umap_scbasset")
@@ -76,6 +77,10 @@ ggsave(output_paths[["umap_scbasset"]], plt, device = "pdf", width = 10, height 
 
 proj@meta.data$seq_emb_bc <- paste0(proj@meta.data$dataset, "_", proj@meta.data$barcode_atac)
 write.table(proj@meta.data, file=output_paths[["metadata"]], quote=FALSE, sep='\t', col.names = NA)
+
+writeMM(Matrix(rna_data, sparse = TRUE), output_paths[["rna_test_harmony_mat"]])
+writeLines(rownames(rna_data), con = output_paths[["rna_test_harmony_rows"]])
+writeLines(colnames(rna_data), con = output_paths[["rna_test_harmony_cols"]])
 
 writeMM(Matrix(scbasset_int_data, sparse = TRUE), output_paths[["scbasset_harmony_mat"]])
 writeLines(rownames(scbasset_int_data), con = output_paths[["scbasset_harmony_rows"]])
