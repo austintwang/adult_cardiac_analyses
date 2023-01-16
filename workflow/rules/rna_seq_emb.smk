@@ -37,8 +37,10 @@ rule seurat_add_seq_emb:
         cellspace_harmony_mat = "results_groups/{group}/rna/seurat_add_seq_emb/cellspace_harmony_mat.mtx",
         cellspace_harmony_rows = "results_groups/{group}/rna/seurat_add_seq_emb/cellspace_harmony_rows.txt",
         cellspace_harmony_cols = "results_groups/{group}/rna/seurat_add_seq_emb/cellspace_harmony_cols.txt",
-        umap_scbasset = "results_groups/{group}/rna/seurat_add_seq_emb/umap_scbasset.pdf",
-        umap_cellspace = "results_groups/{group}/rna/seurat_add_seq_emb/umap_cellspace.pdf",
+        umap_scbasset_l1 = "results_groups/{group}/rna/seurat_add_seq_emb/umap_scbasset_l1.pdf",
+        umap_cellspace_l1 = "results_groups/{group}/rna/seurat_add_seq_emb/umap_cellspace_l1.pdf",
+        umap_scbasset_l2 = "results_groups/{group}/rna/seurat_add_seq_emb/umap_scbasset_l2.pdf",
+        umap_cellspace_l2 = "results_groups/{group}/rna/seurat_add_seq_emb/umap_cellspace_l2.pdf",
         metadata = "results_groups/{group}/rna/seurat_add_seq_emb/metadata.tsv"
     params:
         seed = config["seurat_seed"],
