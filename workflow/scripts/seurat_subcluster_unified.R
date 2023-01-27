@@ -46,7 +46,7 @@ plt <- plot_fn(proj, "seurat_clusters", "umap_test", stallion) + labs(title="Seu
 ggsave(output_paths[["umap_test"]], plt, device = "pdf", width = 10, height = 7)
 
 plt <- plot_fn(proj, "cell_types_l2", "umap_test", stallion) + labs(title="Level-2 Cell Types (Non-Unified)")
-ggsave(output_paths[["umap_labels_supergroup"]], plt, device = "pdf", width = 10, height = 7)
+ggsave(output_paths[["umap_supergroup"]], plt, device = "pdf", width = 10, height = 7)
 
 plt <- plot_fn(proj, "cell_type_kramann_coarse", "umap", stallion) + labs(title="Kramann coarse labels")
 ggsave(output_paths[["umap_kramann_coarse"]], plt, device = "pdf", width = 10, height = 7)
