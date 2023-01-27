@@ -128,6 +128,25 @@ rule seurat_integrate_subgroups_unified:
     script:
         "../scripts/seurat_integrate_subgroups_unified.R"
 
+rule seurat_integrate_subgroups_qc_extras:
+    """
+    Integrate RNA samples using Harmony
+    """
+    input:
+        project_in = "results_subcluster_unified/{label}/rna/seurat_integrate_subgroups_unified/proj.rds"
+    output:
+        umap_group_harmony = "results_subcluster_unified/{label}/rna/seurat_integrate_subgroups_unified/umap_group_harmony.pdf",
+        umap_region_harmony = "results_subcluster_unified/{label}/rna/seurat_integrate_subgroups_unified/umap_region_harmony.pdf",
+        umap_status_harmony = "results_subcluster_unified/{label}/rna/seurat_integrate_subgroups_unified/umap_status_harmony.pdf",
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/subcluster_unified/{label}/rna/seurat_integrate_subgroups_qc_extras/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_integrate_subgroups_qc_extras.R"
+
 rule seurat_subcluster_unified:
     """
     Seurat RNA subclustering

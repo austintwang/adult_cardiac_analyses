@@ -21,7 +21,9 @@ set.seed(params[["seed"]])
 proj <- readRDS(file = input_paths[["project_in"]])
 DefaultAssay(object = proj) <- "RNA_test"
 
-markers <- FindAllMarkers(proj, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25, return.thresh = 0.05)
+# markers <- FindAllMarkers(proj, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25, return.thresh = 0.05)
+markers <- FindAllMarkers(proj, min.pct = 0.25, logfc.threshold = 0.25, return.thresh = 0.05)
+
 write.table(markers, file=output_paths[["markers"]], quote=FALSE, sep='\t', col.names = NA)
 # markers %>%
 #     group_by(cluster) %>%

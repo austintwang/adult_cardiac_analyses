@@ -1,239 +1,171 @@
-ventricular	adipocyte	0	p
-ventricular	adipocyte	1	f
-ventricular	adipocyte	2	f
-ventricular	adipocyte	3	f
-ventricular	adipocyte	4	f
-ventricular	adipocyte	5	f
-ventricular	adipocyte	6	f
-ventricular	adipocyte	7	f
-ventricular	adipocyte	8	f
-ventricular	cardiomyocyte	0	p
-ventricular	cardiomyocyte	1	p
-ventricular	cardiomyocyte	2	p
-ventricular	cardiomyocyte	3	p
-ventricular	cardiomyocyte	4	p
-ventricular	cardiomyocyte	5	p
-ventricular	cardiomyocyte	6	p
-ventricular	cardiomyocyte	7	p
-ventricular	cardiomyocyte	8	f
-ventricular	cardiomyocyte	9	f
-ventricular	cardiomyocyte	10	p
-ventricular	endocardial	0	f
-ventricular	endocardial	1	p
-ventricular	endocardial	2	p
-ventricular	endocardial	3	f
-ventricular	endocardial	4	f
-ventricular	endocardial	5	f
-ventricular	endocardial	6	f
-ventricular	endocardial	7	f
-ventricular	endocardial	8	f
-ventricular	endocardial	9	f
-ventricular	endocardial	10	p
-ventricular	endocardial	11	f
-ventricular	endocardial	12	f
-ventricular	endocardial	13	f
-ventricular	endocardial	14	f
-ventricular	endocardial	15	f
-ventricular	endothelial_cell	0	p
-ventricular	endothelial_cell	1	p
-ventricular	endothelial_cell	2	p
-ventricular	endothelial_cell	3	f
-ventricular	endothelial_cell	4	p
-ventricular	endothelial_cell	5	f
-ventricular	endothelial_cell	6	p
-ventricular	endothelial_cell	7	f
-ventricular	endothelial_cell	8	p
-ventricular	endothelial_cell	9	f
-ventricular	endothelial_cell	10	p
-ventricular	endothelial_cell	11	p
-ventricular	endothelial_cell	12	f
-ventricular	endothelial_cell	13	p
-ventricular	endothelial_cell	14	f
-ventricular	endothelial_cell	15	f
-ventricular	fibroblast	0	p
-ventricular	fibroblast	1	p
-ventricular	fibroblast	2	p
-ventricular	fibroblast	3	p
-ventricular	fibroblast	4	p
-ventricular	fibroblast	5	p
-ventricular	fibroblast	6	p
-ventricular	fibroblast	7	p
-ventricular	fibroblast	8	f
-ventricular	fibroblast	9	f
-ventricular	fibroblast	10	f
-ventricular	fibroblast	11	f
-ventricular	fibroblast	12	f
-ventricular	lymphocyte	0	p
-ventricular	lymphocyte	1	f
-ventricular	lymphocyte	2	f
-ventricular	lymphocyte	3	f
-ventricular	lymphocyte	4	f
-ventricular	lymphocyte	5	f
-ventricular	lymphocyte	6	p
-ventricular	lymphocyte	7	f
-ventricular	lymphocyte	8	f
-ventricular	lymphocyte	9	f
-ventricular	lymphocyte	10	f
-ventricular	lymphocyte	11	p
-ventricular	lymphocyte	12	f
-ventricular	lymphocyte	13	f
-ventricular	lymphocyte	14	f
-ventricular	lymphocyte	15	p
-ventricular	lymphocyte	16	p
-ventricular	lymphocyte	17	p
-ventricular	macrophage	0	p
-ventricular	macrophage	1	f
-ventricular	macrophage	2	p
-ventricular	macrophage	3	p
-ventricular	macrophage	4	p
-ventricular	macrophage	5	f
-ventricular	macrophage	6	f
-ventricular	macrophage	7	f
-ventricular	macrophage	8	f
-ventricular	macrophage	9	p
-ventricular	macrophage	10	f
-ventricular	macrophage	11	p
-ventricular	macrophage	12	p
-ventricular	macrophage	13	f
-ventricular	macrophage	14	p
-ventricular	macrophage	15	f
-ventricular	macrophage	16	f
-ventricular	mast_cell	0	p
-ventricular	mast_cell	1	f
-ventricular	mast_cell	2	f
-ventricular	mast_cell	3	f
-ventricular	mast_cell	4	f
-ventricular	mast_cell	5	f
-ventricular	mast_cell	6	f
-ventricular	mast_cell	7	f
-ventricular	mesothelial_cell	0	p
-ventricular	mesothelial_cell	1	p
-ventricular	mesothelial_cell	2	f
-ventricular	mesothelial_cell	3	f
-ventricular	mesothelial_cell	4	f
-ventricular	mesothelial_cell	5	f
-ventricular	mesothelial_cell	6	f
-ventricular	mesothelial_cell	7	f
-ventricular	mesothelial_cell	8	f
-ventricular	mesothelial_cell	9	p
-ventricular	mesothelial_cell	10	f
-ventricular	neuronal	0	p
-ventricular	neuronal	1	f
-ventricular	neuronal	2	f
-ventricular	neuronal	3	f
-ventricular	neuronal	4	f
-ventricular	neuronal	5	f
-ventricular	neuronal	6	f
-ventricular	neuronal	7	f
-ventricular	neuronal	8	f
-ventricular	neuronal	9	f
-ventricular	neuronal	10	f
-ventricular	neuronal	11	f
-ventricular	pericyte	0	p
-ventricular	pericyte	1	f
-ventricular	pericyte	2	p
-ventricular	pericyte	3	f
-ventricular	pericyte	4	p
-ventricular	pericyte	5	f
-ventricular	pericyte	6	f
-ventricular	pericyte	7	f
-ventricular	pericyte	8	p
-ventricular	pericyte	9	f
-ventricular	pericyte	10	f
-ventricular	pericyte	11	f
-ventricular	pericyte	12	p
-ventricular	pericyte	13	p
-ventricular	pericyte	14	p
-ventricular	smooth_muscle_cell	0	p
-ventricular	smooth_muscle_cell	1	p
-ventricular	smooth_muscle_cell	2	f
-ventricular	smooth_muscle_cell	3	p
-ventricular	smooth_muscle_cell	4	p
-ventricular	smooth_muscle_cell	5	f
-ventricular	smooth_muscle_cell	6	f
-ventricular	smooth_muscle_cell	7	p
-ventricular	smooth_muscle_cell	8	f
-ventricular	smooth_muscle_cell	9	f
-ventricular	smooth_muscle_cell	10	f
-ventricular	smooth_muscle_cell	11	f
-ventricular	smooth_muscle_cell	12	p
-ventricular	smooth_muscle_cell	13	p
-atrial	adipocyte	0	p
-atrial	adipocyte	1	p
-atrial	adipocyte	2	p
-atrial	adipocyte	3	p
-atrial	cardiomyocyte	0	p
-atrial	cardiomyocyte	1	p
-atrial	cardiomyocyte	2	p
-atrial	cardiomyocyte	3	p
-atrial	cardiomyocyte	4	p
-atrial	cardiomyocyte	5	p
-atrial	cardiomyocyte	6	p
-atrial	cardiomyocyte	7	p
-atrial	cardiomyocyte	8	f
-atrial	cardiomyocyte	9	f
-atrial	cardiomyocyte	10	f
-atrial	endocardial	0	p
-atrial	endocardial	1	p
-atrial	endocardial	2	p
-atrial	endocardial	3	p
-atrial	endocardial	4	f
-atrial	endocardial	5	p
-atrial	endothelial_cell	0	p
-atrial	endothelial_cell	1	p
-atrial	endothelial_cell	2	p
-atrial	endothelial_cell	3	f
-atrial	endothelial_cell	4	p
-atrial	endothelial_cell	5	p
-atrial	endothelial_cell	6	p
-atrial	endothelial_cell	7	p
-atrial	endothelial_cell	8	f
-atrial	endothelial_cell	9	p
-atrial	fibroblast	0	p
-atrial	fibroblast	1	p
-atrial	fibroblast	2	p
-atrial	fibroblast	3	p
-atrial	fibroblast	4	p
-atrial	fibroblast	5	p
-atrial	fibroblast	6	p
-atrial	fibroblast	7	f
-atrial	fibroblast	8	f
-atrial	fibroblast	9	f
-atrial	lymphocyte	0	p
-atrial	lymphocyte	1	f
-atrial	lymphocyte	2	p
-atrial	lymphocyte	3	f
-atrial	lymphocyte	4	p
-atrial	macrophage	0	p
-atrial	macrophage	1	p
-atrial	macrophage	2	p
-atrial	macrophage	3	p
-atrial	macrophage	4	f
-atrial	macrophage	5	f
-atrial	macrophage	6	p
-atrial	macrophage	7	p
-atrial	macrophage	8	f
-atrial	macrophage	9	f
-atrial	mast_cell	0	p
-atrial	mast_cell	1	p
-atrial	mesothelial_cell	0	f
-atrial	mesothelial_cell	1	p
-atrial	mesothelial_cell	2	p
-atrial	mesothelial_cell	3	p
-atrial	mesothelial_cell	4	p
-atrial	mesothelial_cell	5	p
-atrial	mesothelial_cell	6	f
-atrial	mesothelial_cell	7	p
-atrial	mesothelial_cell	8	p
-atrial	neuronal	0	p
-atrial	neuronal	1	p
-atrial	neuronal	2	p
-atrial	neuronal	3	p
-atrial	pericyte	0	p
-atrial	pericyte	1	p
-atrial	pericyte	2	p
-atrial	pericyte	3	p
-atrial	pericyte	4	p
-atrial	smooth_muscle_cell	0	p
-atrial	smooth_muscle_cell	1	p
-atrial	smooth_muscle_cell	2	p
+adipocyte	0	p
+adipocyte	1	f
+adipocyte	2	f
+adipocyte	3	f
+adipocyte	4	f
+adipocyte	5	f
+adipocyte	6	f
+adipocyte	7	f
+adipocyte	8	f
+adipocyte	9	f
+adipocyte	10	f
+adipocyte	11	f
+cardiomyocyte	0	p
+cardiomyocyte	1	p
+cardiomyocyte	2	p
+cardiomyocyte	3	p
+cardiomyocyte	4	p
+cardiomyocyte	5	p
+cardiomyocyte	6	p
+cardiomyocyte	7	p
+cardiomyocyte	8	f
+cardiomyocyte	9	f
+cardiomyocyte	10	p
+cardiomyocyte	11	p
+cardiomyocyte	12	p
+endocardial	0	p
+endocardial	1	p
+endocardial	2	f
+endocardial	3	f
+endocardial	4	f
+endocardial	5	f
+endocardial	6	f
+endocardial	7	f
+endocardial	8	f
+endocardial	9	f
+endocardial	10	f
+endocardial	11	f
+endocardial	12	p
+endocardial	13	p
+endocardial	14	f
+endocardial	15	f
+endothelial_cell	0	p
+endothelial_cell	1	p
+endothelial_cell	2	p
+endothelial_cell	3	f
+endothelial_cell	4	f
+endothelial_cell	5	p
+endothelial_cell	6	f
+endothelial_cell	7	p
+endothelial_cell	8	f
+endothelial_cell	9	p
+endothelial_cell	10	p
+endothelial_cell	11	f
+endothelial_cell	12	p
+endothelial_cell	13	f
+endothelial_cell	14	p
+endothelial_cell	15	p
+endothelial_cell	16	p
+fibroblast	0	p
+fibroblast	1	p
+fibroblast	2	p
+fibroblast	3	p
+fibroblast	4	f
+fibroblast	5	f
+fibroblast	6	f
+fibroblast	7	f
+fibroblast	8	f
+fibroblast	9	f
+fibroblast	10	f
+fibroblast	11	f
+lymphocyte	0	p
+lymphocyte	1	f
+lymphocyte	2	f
+lymphocyte	3	f
+lymphocyte	4	f
+lymphocyte	5	f
+lymphocyte	6	p
+lymphocyte	7	f
+lymphocyte	8	f
+lymphocyte	9	f
+lymphocyte	10	f
+lymphocyte	11	p
+lymphocyte	12	p
+lymphocyte	13	f
+lymphocyte	14	f
+lymphocyte	15	p
+lymphocyte	16	f
+lymphocyte	17	f
+lymphocyte	18	f
+macrophage	0	p
+macrophage	1	f
+macrophage	2	f
+macrophage	3	p
+macrophage	4	p
+macrophage	5	f
+macrophage	6	f
+macrophage	7	f
+macrophage	8	p
+macrophage	9	p
+macrophage	10	f
+macrophage	11	f
+macrophage	12	f
+macrophage	13	p
+macrophage	14	p
+macrophage	15	p
+macrophage	16	f
+macrophage	17	p
+mast_cell	0	p
+mast_cell	1	f
+mast_cell	2	f
+mast_cell	3	f
+mast_cell	4	f
+mast_cell	5	f
+mast_cell	6	f
+mast_cell	7	f
+mesothelial_cell	0	p
+mesothelial_cell	1	p
+mesothelial_cell	2	f
+mesothelial_cell	3	f
+mesothelial_cell	4	f
+mesothelial_cell	5	p
+mesothelial_cell	6	p
+mesothelial_cell	7	f
+mesothelial_cell	8	f
+mesothelial_cell	9	f
+mesothelial_cell	10	f
+mesothelial_cell	11	f
+neuronal	0	p
+neuronal	1	p
+neuronal	2	p
+neuronal	3	f
+neuronal	4	f
+neuronal	5	p
+neuronal	6	f
+neuronal	7	f
+neuronal	8	f
+neuronal	9	f
+neuronal	10	f
+neuronal	11	f
+neuronal	12	f
+neuronal	13	f
+pericyte	0	p
+pericyte	1	f
+pericyte	2	f
+pericyte	3	p
+pericyte	4	f
+pericyte	5	f
+pericyte	6	f
+pericyte	7	f
+pericyte	8	f
+pericyte	9	p
+pericyte	10	p
+pericyte	11	f
+pericyte	12	p
+pericyte	13	p
+pericyte	14	p
+smooth_muscle_cell	0	p
+smooth_muscle_cell	1	f
+smooth_muscle_cell	2	p
+smooth_muscle_cell	3	f
+smooth_muscle_cell	4	f
+smooth_muscle_cell	5	p
+smooth_muscle_cell	6	p
+smooth_muscle_cell	7	p
+smooth_muscle_cell	8	f
+smooth_muscle_cell	9	p
+smooth_muscle_cell	10	f
+smooth_muscle_cell	11	p
+smooth_muscle_cell	12	f
+smooth_muscle_cell	13	f
+smooth_muscle_cell	14	f
