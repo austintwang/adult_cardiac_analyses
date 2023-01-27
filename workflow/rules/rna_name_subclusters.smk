@@ -76,3 +76,74 @@ rule seurat_named_cluster_markers:
         "../envs/seurat.yaml"
     script:
         "../scripts/seurat_named_cluster_markers.R"
+
+
+rule seurat_integrate_supergroups:
+    """
+    Integrate RNA samples using Harmony
+    """
+    input:
+        projects_in = expand("results_subcluster/{supergroup}/{label}/rna/seurat_name_subclusters/proj.rds", supergroup=supergroup_names, allow_missing=True)
+    output:
+        project_out = "results_subcluster_unified/{label}/rna/seurat_integrate_supergroups/proj.rds",
+        umap_dataset_pre_harmony = "results_subcluster_unified/{label}/rna/seurat_integrate_supergroups/umap_dataset_pre_harmony.pdf",
+        umap_mixing_pre_harmony = "results_subcluster_unified/{label}/rna/seurat_integrate_supergroups/umap_mixing_pre_harmony.pdf",
+        umap_dataset_harmony = "results_subcluster_unified/{label}/rna/seurat_integrate_supergroups/umap_dataset_harmony.pdf",
+        umap_mixing_harmony = "results_subcluster_unified/{label}/rna/seurat_integrate_supergroups/umap_mixing_harmony.pdf",
+    params:
+        seed = config["seurat_seed"],
+        groups = lambda w: supergroups[w.supergroup]
+    log:
+        console = "logs/subcluster_unified/{label}/rna/seurat_integrate_supergroups/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_integrate_supergroups.R"
+
+rule seurat_subcluster_unified:
+    """
+    Seurat RNA subclustering
+    """
+    input:
+        project_in = "results_subcluster_unified/{label}/rna/seurat_integrate_supergroups/proj.rds"
+    output:
+        project_out = "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/proj.rds",
+        umap = "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_clusters.pdf",
+        umap_test = "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_clusters_test.pdf",
+        umap_supergroup = "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_labels_supergroup.pdf",
+        umap_kramann_coarse = "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_kramann_coarse.pdf",
+        umap_kramann_fine = "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_kramann_fine.pdf",
+        umap_ellinor_coarse = "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_ellinor_coarse.pdf",
+        umap_ellinor_fine = "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_ellinor_fine.pdf",
+        umap_teichmann_coarse = "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_teichmann_coarse.pdf",
+        umap_teichmann_fine = "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_teichmann_fine.pdf",
+        umap_azimuth_coarse = "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_azimuth_coarse.pdf",
+        umap_azimuth_fine = "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_azimuth_fine.pdf",
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/subcluster_unified/{label}/rna/seurat_subcluster_unified/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_subcluster_unified.R"
+
+rule seurat_merge_label_plots_subcluster_unified:
+    """
+    Merge reference projection plot pdf's
+    """
+    input:
+        "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_kramann_coarse.pdf",
+        "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_kramann_fine.pdf",
+        "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_ellinor_coarse.pdf",
+        "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_ellinor_fine.pdf",
+        "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_teichmann_coarse.pdf",
+        "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_teichmann_fine.pdf",
+        "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_azimuth_coarse.pdf",
+        "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_azimuth_fine.pdf",
+    output:
+        "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/label_plots.pdf"
+    conda:
+        "../envs/fetch.yaml"
+    shell:
+        "pdfunite {input} {output}; "

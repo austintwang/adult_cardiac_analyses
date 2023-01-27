@@ -102,6 +102,8 @@ rule all:
         expand("results_groups/{group}/rna/seurat_subclusters_to_groups/proj.rds", group=group_names),
         expand("results_groups/{group}/rna/seurat_named_cluster_markers/markers.tsv", group=group_names),
         expand("results_groups/{group}/rna/seurat_add_seq_emb/proj.rds", group=group_names),
+        expand("results_subcluster_unified/{label}/rna/seurat_subcluster_unified/proj.rds", label=config["l1_labels"]),
+        expand("results_subcluster_unified/{label}/rna/seurat_subcluster_unified/label_plots.pdf", label=config["l1_labels"]),
 
 rule subcluster_processing:
     """
