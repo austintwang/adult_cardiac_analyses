@@ -35,11 +35,11 @@ proj <- readRDS(file = input_paths[["project_in"]])
 
 print(proj) ####
 
-plt <- FeaturePlot(proj, reduction = "umap", features = "group") + labs(title="Post-Harmony covariate groups")
+plt <- DimPlot(proj, reduction = "umap", group.by = "group") + labs(title="Post-Harmony covariate groups")
 ggsave(output_paths[["umap_group_harmony"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- FeaturePlot(proj, reduction = "umap", features = "region") + labs(title="Post-Harmony heart regions")
+plt <- DimPlot(proj, reduction = "umap", group.by = "region") + labs(title="Post-Harmony heart regions")
 ggsave(output_paths[["umap_region_harmony"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- FeaturePlot(proj, reduction = "umap", features = "status") + labs(title="Post-Harmony health status")
+plt <- DimPlot(proj, reduction = "umap", group.by = "status") + labs(title="Post-Harmony health status")
 ggsave(output_paths[["umap_status_harmony"]], plt, device = "pdf", width = 10, height = 7)
