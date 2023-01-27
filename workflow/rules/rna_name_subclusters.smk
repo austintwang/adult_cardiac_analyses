@@ -92,7 +92,6 @@ rule seurat_integrate_supergroups:
         umap_mixing_harmony = "results_subcluster_unified/{label}/rna/seurat_integrate_supergroups/umap_mixing_harmony.pdf",
     params:
         seed = config["seurat_seed"],
-        groups = lambda w: supergroups[w.supergroup]
     log:
         console = "logs/subcluster_unified/{label}/rna/seurat_integrate_supergroups/console.log"
     conda:
