@@ -133,7 +133,7 @@ rule seurat_subcluster_unified:
     Seurat RNA subclustering
     """
     input:
-        project_in = "results_subcluster_unified/{label}/rna/seurat_integrate_supergroups/proj.rds"
+        project_in = "results_subcluster_unified/{label}/rna/seurat_integrate_subgroups_unified/proj.rds"
     output:
         project_out = "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/proj.rds",
         umap = "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_clusters.pdf",
