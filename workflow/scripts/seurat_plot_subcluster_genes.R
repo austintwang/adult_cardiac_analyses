@@ -50,7 +50,9 @@ for (index in seq_len(nrow(genes))) {
     )
 } 
 
-plt <- DotPlot(proj, features = genes[,2]) + RotatedAxis()
+gene_names <- sort(genes[,2])
+
+plt <- DotPlot(proj, features = gene_names) + RotatedAxis()
 ggsave(output_paths[["dotplot"]], plt, device = "pdf", width = 11, height = 7)
 
 # plt <- DoHeatmap(subset(proj, downsample = 100), features = genes[,2], size = 3, raster = FALSE)
@@ -59,7 +61,7 @@ ggsave(output_paths[["dotplot"]], plt, device = "pdf", width = 11, height = 7)
 proj <- ScaleData(object = proj, features = rownames(proj))
 tryCatch(
     expr = {
-        plt <- DoHeatmap(subset(proj, downsample = 100), features = genes[,2], size = 3, raster = FALSE)
+        plt <- DoHeatmap(subset(proj, downsample = 100), features = gene_names, size = 3, raster = FALSE)
         ggsave(output_paths[["heatmap"]], plt, device = "pdf", width = 10, height = 10, limitsize = FALSE)
     },
     error = function(e){
