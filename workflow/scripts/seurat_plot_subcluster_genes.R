@@ -13,6 +13,7 @@ params = snakemake@params
 input_paths = snakemake@input
 output_paths = snakemake@output
 log_paths = snakemake@log
+wildcards = snakemake@wildcards
 
 set.seed(params[["seed"]])
 
