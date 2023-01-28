@@ -49,17 +49,9 @@ for (index in seq_len(nrow(genes))) {
         }
     )
 } 
-tryCatch(
-    expr = {
-        plt <- DotPlot(proj, features = genes[["Name"]], group.by = "cell_types_1") + RotatedAxis()
-        ggsave(output_paths[["dotplot"]], plt, device = "pdf", width = 11, height = 7)
-    },
-    error = function(e) {
-        print(e)
-        plt <- DotPlot(proj, features = genes[["Name"]]) + RotatedAxis()
-        ggsave(output_paths[["dotplot"]], plt, device = "pdf", width = 11, height = 7)
-    }
-)
 
-plt <- DoHeatmap(subset(proj, downsample = 100), features = genes, size = 3)
+plt <- DotPlot(proj, features = genes[,2]) + RotatedAxis()
+ggsave(output_paths[["dotplot"]], plt, device = "pdf", width = 11, height = 7)
+
+plt <- DoHeatmap(subset(proj, downsample = 100), features = genes[,2], size = 3)
 ggsave(output_paths[["heatmap"]], plt, device = "pdf", width = 10, height = 5, limitsize = FALSE, raster = FALSE)
