@@ -56,6 +56,7 @@ ggsave(output_paths[["dotplot"]], plt, device = "pdf", width = 11, height = 7)
 # plt <- DoHeatmap(subset(proj, downsample = 100), features = genes[,2], size = 3, raster = FALSE)
 # ggsave(output_paths[["heatmap"]], plt, device = "pdf", width = 10, height = 5, limitsize = FALSE)
 
+proj <- ScaleData(object = proj, features = rownames(proj))
 tryCatch(
     expr = {
         plt <- DoHeatmap(subset(proj, downsample = 100), features = genes[,2], size = 3, raster = FALSE)
