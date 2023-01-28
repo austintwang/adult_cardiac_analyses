@@ -53,5 +53,5 @@ for (index in seq_len(nrow(genes))) {
 plt <- DotPlot(proj, features = genes[,2]) + RotatedAxis()
 ggsave(output_paths[["dotplot"]], plt, device = "pdf", width = 11, height = 7)
 
-plt <- DoHeatmap(subset(proj, downsample = 100), features = genes[,2], size = 3)
-ggsave(output_paths[["heatmap"]], plt, device = "pdf", width = 10, height = 5, limitsize = FALSE, raster = FALSE)
+plt <- DoHeatmap(subset(proj, downsample = 100), features = genes[,2], size = 3, raster = FALSE)
+ggsave(output_paths[["heatmap"]], plt, device = "pdf", width = 10, height = 5, limitsize = FALSE)
