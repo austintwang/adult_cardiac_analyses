@@ -63,6 +63,7 @@ if (length(markers) == 0) {
     plt <- DotPlot(proj, features = genes) + RotatedAxis()
     ggsave(output_paths[["dotplot"]], plt, device = "pdf", width = 30, height = 7)
 
+    proj <- ScaleData(object = proj, features = rownames(proj))
     plt <- DoHeatmap(subset(proj, downsample = 100), features = genes, size = 3)
     ggsave(output_paths[["heatmap"]], plt, device = "pdf", width = 10, height = 10, limitsize = FALSE)
 }
