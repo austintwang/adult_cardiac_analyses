@@ -86,6 +86,26 @@ rule seurat_plot_subcluster_markers:
     script:
         "../scripts/seurat_plot_subcluster_markers.R"
 
+rule seurat_plot_subcluster_genes:
+    """
+    Plot external markers
+    """
+    input:
+        project_in = "results_subcluster_unified/{label}/rna/seurat_subcluster_2/proj.rds"
+    output:
+        umaps = directory("results_subcluster_unified/{label}/rna/seurat_plot_subcluster_genes/umaps"),
+        dotplot = "results_subcluster_unified/{label}/rna/seurat_plot_subcluster_genes/dotplot.pdf",
+        heatmap = "results_subcluster_unified/{label}/rna/seurat_plot_subcluster_genes/heatmap.pdf",
+    params:
+        seed = config["seurat_seed"],
+        genes = workflow.source_path("../files/plot_genes_subcluster.tsv")
+    log:
+        console = "logs/subcluster_unified/{label}/rna/seurat_plot_genes/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_plot_subcluster_genes.R"
+
 
 # rule seurat_subcluster_cleanup:
 #     """

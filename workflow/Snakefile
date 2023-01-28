@@ -106,6 +106,7 @@ rule all:
         expand("results_subcluster_unified/{label}/rna/seurat_subcluster_2/proj.rds", label=config["l1_labels"]),
         expand("results_subcluster_unified/{label}/rna/seurat_subcluster_2/label_plots.pdf", label=config["l1_labels"]),
         expand("results_subcluster_unified/{label}/rna/seurat_plot_subcluster_markers/markers.tsv", label=config["l1_labels"]),
+        expand("results_subcluster_unified/{label}/rna/seurat_plot_subcluster_genes/dotplot.pdf", label=config["l1_labels"]),
 
 rule subcluster_processing:
     """
