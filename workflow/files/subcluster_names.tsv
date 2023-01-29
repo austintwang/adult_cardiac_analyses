@@ -34,5 +34,12 @@ lymphocyte	1	lymphocyte	lymphocyte-T
 lymphocyte	2	lymphocyte	lymphocyte-NK
 lymphocyte	3	lymphocyte	lymphocyte-T
 lymphocyte	4	lymphocyte	lymphocyte-plasma
-lymphocyte	3	lymphocyte	lymphocyte-cycling
-lymphocyte	g	lymphocyte	lymphocyte-B
+lymphocyte	5	lymphocyte	lymphocyte-cycling
+lymphocyte	6	lymphocyte	lymphocyte-B
+
+lymphocyte	0	macrophage	macrophage-[LYVE+,]
+lymphocyte	1	macrophage	macrophage-[LYVE-,TPRG1+]
+lymphocyte	2	macrophage	macrophage-[LYVE+,]
+
+lymphocyte	4	macrophage	macrophage-cycling
+lymphocyte	5	macrophage	macrophage-[LYVE+,]
