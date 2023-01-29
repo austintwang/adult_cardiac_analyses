@@ -210,8 +210,7 @@ macrophage	C1QA
 macrophage	CD163
 macrophage	COLEC12
 macrophage	MRC1
-macrophage	1-Mar
-macrophage	NRAMP1
+macrophage	MARCH1
 macrophage	SLC11A1
 macrophage	RBPJ
 macrophage	F13A1
@@ -223,8 +222,6 @@ macrophage	NFKB1
 macrophage	VCAN
 macrophage	FCGR3A
 macrophage	FCGR3B
-macrophage	LYVE
-macrophage	FOLR
 macrophage	SPP1
 macrophage	CD36
 macrophage	FGF13
@@ -232,7 +229,6 @@ macrophage	CCDC141
 macrophage	DAAM2
 macrophage	CD74
 macrophage	IGSF21
-macrophage	FGF13
 macrophage	TPRG1
 macrophage	GCH1
 mast_cell	TPSB2
