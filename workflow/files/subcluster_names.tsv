@@ -47,9 +47,9 @@ macrophage	7	*	*
 macrophage	8	*	*
 mast_cell	0	mast_cell	mast_cell
 mast_cell	1	mast_cell	mast_cell
-mast_cell	0	mesothelial_cell	mesothelial_cell-[PDE4D+,CBLB+]
-mast_cell	1	mesothelial_cell	mesothelial_cell-[PLA2G2A+,TIMP1+]
-mast_cell	2	mesothelial_cell	mesothelial_cell-[PLA2G2A+,TIMP1+]
+mesothelial_cell	0	mesothelial_cell	mesothelial_cell-[PDE4D+,CBLB+]
+mesothelial_cell	1	mesothelial_cell	mesothelial_cell-[PLA2G2A+,TIMP1+]
+mesothelial_cell	2	mesothelial_cell	mesothelial_cell-[PLA2G2A+,TIMP1+]
 neuronal	0	neuronal	neuronal-[LGI4+,PRKG1-]
 neuronal	1	neuronal	neuronal-[TTN+,PRKG1+]
 neuronal	2	neuronal	neuronal-[LPL+,PRKG1+]
