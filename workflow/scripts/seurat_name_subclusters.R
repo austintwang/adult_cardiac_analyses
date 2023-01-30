@@ -30,17 +30,17 @@ plot_fn <- function(object, group, reduction, colors) {
 }
 
 clustdata_all <- read.table(file = params[["label_data"]], sep = '\t', header = FALSE, comment.char = "")
-group_rows <- (clustdata_all[[1]] == wildcards[["supergroup"]]) & (clustdata_all[[2]] == wildcards[["label"]])
+group_rows <- clustdata_all[[1]] == wildcards[["label"]]
 clustdata <- clustdata_all[group_rows, , drop = FALSE]
-rownames(clustdata) <- clustdata[[3]]
+rownames(clustdata) <- clustdata[[2]]
 head(clustdata) ####
 
 proj <- readRDS(file = input_paths[["project_in"]])
 
 head(proj$seurat_clusters) ####
 proj_index <- match(proj$seurat_clusters, rownames(clustdata))
-clusts_1 <- clustdata[proj_index, 4]
-clusts_2 <- clustdata[proj_index, 5]
+clusts_1 <- clustdata[proj_index, 3]
+clusts_2 <- clustdata[proj_index, 4]
 proj$cell_types_l1 <- clusts_1
 proj$cell_types_l2 <- clusts_2
 
