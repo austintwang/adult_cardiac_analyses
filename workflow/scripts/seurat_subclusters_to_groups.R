@@ -59,7 +59,7 @@ plt <- plot_fn(proj, "cell_types_l1", "umap", stallion) + labs(title="Cell Types
 ggsave(output_paths[["umap_l1"]], plt, device = "pdf", width = 10, height = 7)
 
 plt <- plot_fn(proj, "cell_types_l2", "umap", stallion) + labs(title="Cell Types (Level-2)")
-ggsave(output_paths[["umap_l2"]], plt, device = "pdf", width = 14, height = 7)
+ggsave(output_paths[["umap_l2"]], plt, device = "pdf", width = 20, height = 7)
 
 saveRDS(proj, file = output_paths[["project_out"]])
 
