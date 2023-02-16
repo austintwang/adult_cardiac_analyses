@@ -86,25 +86,25 @@ rule seurat_plot_genes:
 #     script:
 #         "../scripts/seurat_subcluster_supergroup.R"
 
-rule seurat_merge_label_plots_subcluster_supergroup:
-    """
-    Merge reference projection plot pdf's
-    """
-    input:
-        "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_kramann_coarse.pdf",
-        "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_kramann_fine.pdf",
-        "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_ellinor_coarse.pdf",
-        "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_ellinor_fine.pdf",
-        "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_teichmann_coarse.pdf",
-        "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_teichmann_fine.pdf",
-        "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_azimuth_coarse.pdf",
-        "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_azimuth_fine.pdf",
-    output:
-        "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/label_plots.pdf"
-    conda:
-        "../envs/fetch.yaml"
-    shell:
-        "pdfunite {input} {output}; "
+# rule seurat_merge_label_plots_subcluster_supergroup:
+#     """
+#     Merge reference projection plot pdf's
+#     """
+#     input:
+#         "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_kramann_coarse.pdf",
+#         "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_kramann_fine.pdf",
+#         "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_ellinor_coarse.pdf",
+#         "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_ellinor_fine.pdf",
+#         "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_teichmann_coarse.pdf",
+#         "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_teichmann_fine.pdf",
+#         "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_azimuth_coarse.pdf",
+#         "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_azimuth_fine.pdf",
+#     output:
+#         "results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_supergroup/label_plots.pdf"
+#     conda:
+#         "../envs/fetch.yaml"
+#     shell:
+#         "pdfunite {input} {output}; "
 
 rule seurat_integrate_subgroups_unified:
     """

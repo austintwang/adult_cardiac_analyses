@@ -102,6 +102,11 @@ rule all:
         expand("results_groups/{group}/rna/seurat_subclusters_to_groups/proj.rds", group=group_names),
         expand("results_groups/{group}/rna/seurat_named_cluster_markers/markers.tsv", group=group_names),
         expand("results_groups/{group}/rna/seurat_add_seq_emb/proj.rds", group=group_names),
+        expand("results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/proj.rds", supergroup=supergroup_names, label=config["supergroup_labels"]),
+        expand("results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/label_plots.pdf", supergroup=supergroup_names, label=config["supergroup_labels"]),
+        expand("results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/label_plots.pdf", supergroup=supergroup_names, label=config["supergroup_labels"]),
+        expand("results_supergroups/{supergroup}/{label}/rna/seurat_plot_subcluster_markers_supergroup/markers.tsv", supergroup=supergroup_names, label=config["supergroup_labels"]),
+        expand("results_supergroups/{supergroup}/{label}/rna/seurat_plot_subcluster_genes_supergroup/heatmap.pdf", supergroup=supergroup_names, label=config["supergroup_labels"]),
 
 rule subcluster_processing:
     """

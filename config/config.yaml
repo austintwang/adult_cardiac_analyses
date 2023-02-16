@@ -92,3 +92,6 @@ l1_labels:
   - pericyte
   - smooth_muscle_cell
   - mast_cell
+
+supergroup_labels:
+  - cardiomyocyte

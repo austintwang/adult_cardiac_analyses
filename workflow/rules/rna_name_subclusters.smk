@@ -77,6 +77,114 @@ rule seurat_named_cluster_markers:
     script:
         "../scripts/seurat_named_cluster_markers.R"
 
+rule seurat_integrate_supergroup:
+    """
+    Integrate cardiomyocytes in region-specific way
+    """
+    input:
+        projects_in = lambda w: [f"results_groups/{group}/rna/seurat_subclusters_to_groups/proj.rds" for group in supergroups[w.supergroup]]
+    output:
+        project_out = "results_supergroups/{supergroup}/{label}/rna/seurat_integrate_supergroup/proj.rds",
+        umap_dataset_pre_harmony = "results_supergroups/{supergroup}/{label}/rna/seurat_integrate_supergroup/umap_dataset_pre_harmony.pdf",
+        umap_mixing_pre_harmony = "results_supergroups/{supergroup}/{label}/rna/seurat_integrate_supergroup/umap_mixing_pre_harmony.pdf",
+        umap_dataset_harmony = "results_supergroups/{supergroup}/{label}/rna/seurat_integrate_supergroup/umap_dataset_harmony.pdf",
+        umap_mixing_harmony = "results_supergroups/{supergroup}/{label}/rna/seurat_integrate_supergroup/umap_mixing_harmony.pdf",
+    params:
+        seed = config["seurat_seed"],
+        groups = lambda w: supergroups[w.supergroup]
+    log:
+        console = "logs/subcluster_supergroups/{supergroup}/{label}/rna/seurat_integrate_supergroup/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_integrate_subgroups.R"
+
+rule seurat_subcluster_supergroup:
+    """
+    Seurat RNA subclustering
+    """
+    input:
+        project_in = "results_supergroups/{supergroup}/{label}/rna/seurat_integrate_supergroup/proj.rds"
+    output:
+        project_out = "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/proj.rds",
+        umap = "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_clusters.pdf",
+        umap_test = "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_clusters_test.pdf",
+        umap_kramann_coarse = "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_kramann_coarse.pdf",
+        umap_kramann_fine = "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_kramann_fine.pdf",
+        umap_ellinor_coarse = "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_ellinor_coarse.pdf",
+        umap_ellinor_fine = "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_ellinor_fine.pdf",
+        umap_teichmann_coarse = "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_teichmann_coarse.pdf",
+        umap_teichmann_fine = "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_teichmann_fine.pdf",
+        umap_azimuth_coarse = "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_azimuth_coarse.pdf",
+        umap_azimuth_fine = "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_azimuth_fine.pdf",
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/subcluster_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_subcluster_supergroup.R"
+
+rule seurat_merge_label_plots_subcluster_supergroup:
+    """
+    Merge reference projection plot pdf's
+    """
+    input:
+        "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_kramann_coarse.pdf",
+        "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_kramann_fine.pdf",
+        "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_ellinor_coarse.pdf",
+        "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_ellinor_fine.pdf",
+        "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_teichmann_coarse.pdf",
+        "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_teichmann_fine.pdf",
+        "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_azimuth_coarse.pdf",
+        "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_azimuth_fine.pdf",
+    output:
+        "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/label_plots.pdf"
+    conda:
+        "../envs/fetch.yaml"
+    shell:
+        "pdfunite {input} {output}; "
+
+rule seurat_plot_subcluster_markers_supergroup:
+    """
+    Plot subclustering markers
+    """
+    input:
+        project_in = "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/proj.rds"
+    output:
+        umaps = directory("results_supergroups/{supergroup}/{label}/rna/seurat_plot_subcluster_markers_supergroup/umaps"),
+        dotplot = "results_supergroups/{supergroup}/{label}/rna/seurat_plot_subcluster_markers_supergroup/dotplot.pdf",
+        heatmap = "results_supergroups/{supergroup}/{supergroup}_unified/{label}/rna/seurat_plot_subcluster_markers_supergroup/heatmap.pdf",
+        markers = "results_supergroups/{supergroup}/{label}/rna/seurat_plot_subcluster_markers_supergroup/markers.tsv"
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/subcluster_supergroups/{supergroup}/{label}/rna/seurat_plot_subcluster_markers_supergroup/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_plot_subcluster_markers.R"
+
+rule seurat_plot_subcluster_genes_supergroup:
+    """
+    Plot external markers
+    """
+    input:
+        project_in ="results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/proj.rds"
+    output:
+        umaps = directory("results_supergroups/{supergroup}/{label}/rna/seurat_plot_subcluster_genes_supergroup/umaps"),
+        dotplot = "results_supergroups/{supergroup}/{label}/rna/seurat_plot_subcluster_genes_supergroup/dotplot.pdf",
+        heatmap = "results_supergroups/{supergroup}/{label}/rna/seurat_plot_subcluster_genes_supergroup/heatmap.pdf",
+    params:
+        seed = config["seurat_seed"],
+        genes = workflow.source_path("../files/plot_genes_subcluster.tsv")
+    log:
+        console = "logs/subcluster_supergroups/{supergroup}/{label}/rna/seurat_plot_genes/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_plot_subcluster_genes.R"
 
 # rule seurat_integrate_supergroups:
 #     """
