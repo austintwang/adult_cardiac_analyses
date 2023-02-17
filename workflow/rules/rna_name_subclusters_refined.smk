@@ -43,7 +43,7 @@ rule seurat_subclusters_supergroups_to_groups:
     """
     input:
         project_integrated = "results_groups/{group}/rna/seurat_subclusters_to_groups/proj.rds",
-        projects_subcluster = expand("results_subcluster_unified/{label}/rna/seurat_name_subclusters/proj.rds", label=config["l1_labels"])
+        projects_subcluster = expand("results_supergroups/{supergroup}/{label}/rna/seurat_name_subclusters_supergroup/proj.rds", supergroup=supergroup_names, label=config["supergroup_labels"])
     output:
         project_out = "results_groups/{group}/rna/seurat_subclusters_supergroups_to_groups/proj.rds",
         umap_l1 = "results_groups/{group}/rna/seurat_subclusters_supergroups_to_groups/umap_l1.pdf",

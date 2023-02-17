@@ -45,9 +45,9 @@ proj <- readRDS(file = input_paths[["project_integrated"]])
 # head(label_data) ####
 
 cells_intersect <- intersect(Cells(proj), rownames((sub_data)))
-cells_remain <- setdiff(Cells(proj), cells_intersect)
+# cells_remain <- setdiff(Cells(proj), cells_intersect)
 proj_subset <- subset(proj, cells = cells_intersect)
-proj_remain <- subset(proj, cells = cells_remain)
+proj_remain <- subset(proj, cells = cells_intersect, invert = TRUE)
 
 proj_subset <- subset(proj_subset, subset = cell_types_l1 == "*", invert = TRUE)
 
