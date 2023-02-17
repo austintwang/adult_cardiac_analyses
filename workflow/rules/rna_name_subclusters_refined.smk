@@ -55,7 +55,7 @@ rule seurat_subclusters_supergroups_to_groups:
     conda:
         "../envs/seurat.yaml"
     script:
-        "../scripts/seurat_subclusters_supregroup_to_groups.R"
+        "../scripts/seurat_subclusters_supergroup_to_groups.R"
 
 rule seurat_named_cluster_markers_refined:
     """
