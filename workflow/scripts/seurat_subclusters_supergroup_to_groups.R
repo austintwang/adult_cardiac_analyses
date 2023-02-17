@@ -39,22 +39,25 @@ proj <- readRDS(file = input_paths[["project_integrated"]])
 
 # proj <- AddMetaData(proj, sub_data)
 
-# label_data <- proj@meta.data[, "cell_types_1", drop = FALSE]
+cells_intersect <- intersect(Cells(proj), rownames((sub_data)))
+label_data <- proj@meta.data[, c("cell_types_l1", "cell_types_l2"), drop = FALSE]
+label_data[cells_intersect, , drop = FALSE] <- sub_data[cells_intersect, , drop = FALSE]
 # label_data[rownames(sub_data),] <- sub_data
 # colnames(label_data) <- "cell_types_2"
 # head(label_data) ####
 
-cells_intersect <- intersect(Cells(proj), rownames((sub_data)))
-# cells_remain <- setdiff(Cells(proj), cells_intersect)
-proj_subset <- subset(proj, cells = cells_intersect)
-proj_remain <- subset(proj, cells = cells_intersect, invert = TRUE)
+# cells_intersect <- intersect(Cells(proj), rownames((sub_data)))
+# # cells_remain <- setdiff(Cells(proj), cells_intersect)
+# proj_subset <- subset(proj, cells = cells_intersect)
+# proj_remain <- subset(proj, cells = cells_intersect, invert = TRUE)
 
-proj_subset <- subset(proj_subset, subset = cell_types_l1 == "*", invert = TRUE)
+# proj_subset <- subset(proj_subset, subset = cell_types_l1 == "*", invert = TRUE)
 
-label_data <- sub_data[cells_intersect, , drop = FALSE]
+# label_data <- sub_data[cells_intersect, , drop = FALSE]
 
 # proj <- subset(proj, cells = rownames((label_data)))
-proj_subset <- AddMetaData(proj_subset, label_data)
+proj <- AddMetaData(proj_subset, label_data)
+proj <- subset(proj, subset = cell_types_l1 == "*", invert = TRUE)
 
 proj <- merge(proj_subset, proj_remain)
 
