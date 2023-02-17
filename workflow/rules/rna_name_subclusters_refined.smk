@@ -11,7 +11,7 @@ rule seurat_name_subclusters_supergroup:
         seed = config["seurat_seed"],
         label_data = workflow.source_path("../files/supergroup_subcluster_names.tsv")
     log:
-        console = "logs/subcluster_supergroups/{supergroup}/rna/seurat_name_subclusters_supergroup/console.log"
+        console = "logs/subcluster_supergroups/{supergroup}/{label}/rna/seurat_name_subclusters_supergroup/console.log"
     conda:
         "../envs/seurat.yaml"
     script:
