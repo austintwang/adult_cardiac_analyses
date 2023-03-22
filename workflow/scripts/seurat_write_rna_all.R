@@ -46,6 +46,3 @@ writeLines(colnames(rna_harmony), con = output_paths[["rna_harmony_cols"]])
 writeMM(Matrix(rna_pca, sparse = TRUE), output_paths[["rna_pca_mat"]])
 writeLines(rownames(rna_pca), con = output_paths[["rna_pca_rows"]])
 writeLines(colnames(rna_pca), con = output_paths[["rna_pca_cols"]])
-
-
-saveRDS(proj, file = output_paths[["project_out"]])
