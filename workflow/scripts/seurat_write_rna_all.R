@@ -31,7 +31,7 @@ plot_fn <- function(object, group, reduction, colors) {
 
 proj <- readRDS(file = input_paths[["project_in"]])
 
-DefaultAssay(object = proj_merged) <- "RNA"
+DefaultAssay(object = proj) <- "RNA"
 
 rna_harmony <- Embeddings(proj, reduction = "harmony")
 rna_pca <- Embeddings(proj, reduction = "pca")
