@@ -30,31 +30,31 @@ set.seed(params[["seed"]])
 
 proj <- readRDS(file = input_paths[["project_in"]])
 
-DefaultAssay(object = proj_merged) <- "RNA"
+DefaultAssay(object = proj) <- "RNA"
 
-proj_merged <- NormalizeData(proj_merged, normalization.method = "LogNormalize", scale.factor = 10000)
-proj_merged <- FindVariableFeatures(proj_merged, selection.method = "vst", nfeatures = 2000)
-proj_merged <- ScaleData(proj_merged)
+proj <- NormalizeData(proj, normalization.method = "LogNormalize", scale.factor = 10000)
+proj <- FindVariableFeatures(proj, selection.method = "vst", nfeatures = 2000)
+proj <- ScaleData(proj)
 
-proj_merged <- RunPCA(proj_merged, features = VariableFeatures(object = proj_merged))
+proj <- RunPCA(proj, features = VariableFeatures(object = proj))
 
-proj_merged <- FindNeighbors(proj_merged, dims = 1:30, reduction = "pca")
-proj_merged <- RunUMAP(proj_merged, dims = 1:30, reduction = "pca")
+proj <- FindNeighbors(proj, dims = 1:30, reduction = "pca")
+proj <- RunUMAP(proj, dims = 1:30, reduction = "pca")
 
-proj_merged <- RunHarmony(proj_merged, "dataset", assay.use = "RNA")
+proj <- RunHarmony(proj, "dataset", assay.use = "RNA")
 
-proj_merged <- FindNeighbors(proj_merged, dims = 1:30, reduction = "harmony")
-proj_merged <- RunUMAP(proj_merged, dims = 1:30, reduction = "harmony")
+proj <- FindNeighbors(proj, dims = 1:30, reduction = "harmony")
+proj <- RunUMAP(proj, dims = 1:30, reduction = "harmony")
 
 
-plt <- plot_fn(proj_merged, "dataset", "umap", stallion) + labs(title="All counts embedding: datasets")
+plt <- plot_fn(proj, "dataset", "umap", stallion) + labs(title="All counts embedding: datasets")
 ggsave(output_paths[["umap_dataset"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_fn(proj_merged, "cell_types_l1", "umap", stallion) + labs(title="All counts embedding: Level-1 cell types")
+plt <- plot_fn(proj, "cell_types_l1", "umap", stallion) + labs(title="All counts embedding: Level-1 cell types")
 ggsave(output_paths[["umap_cell_types"]], plt, device = "pdf", width = 15, height = 7)
 
 
-saveRDS(proj_merged, file = output_paths[["project_out"]])
+saveRDS(proj, file = output_paths[["project_out"]])
 
 sink(type = "message")
 sink()
