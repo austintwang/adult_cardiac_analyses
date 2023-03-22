@@ -50,3 +50,26 @@ rule seurat_add_seq_emb:
         "../envs/seurat.yaml"
     script:
         "../scripts/seurat_import_seq_embeddings.R"
+
+rule seurat_write_rna_all:
+    """
+    Write RNA all counts embeddings
+    """
+    input:
+        project_in = "results_groups/{group}/rna/seurat_embed_all/proj.rds"
+    output:
+        rna_harmony_mat = "results_groups/{group}/rna/seurat_write_rna_all/rna_harmony_mat.mtx",
+        rna_harmony_rows = "results_groups/{group}/rna/seurat_write_rna_all/rna_harmony_rows.txt",
+        rna_harmony_cols = "results_groups/{group}/rna/seurat_write_rna_all/rna_harmony_cols.txt",
+        rna_pca_mat = "results_groups/{group}/rna/seurat_write_rna_all/rna_pca_mat.mtx",
+        rna_pca_rows = "results_groups/{group}/rna/seurat_write_rna_all/rna_pca_rows.txt",
+        rna_pca_cols = "results_groups/{group}/rna/seurat_write_rna_all/rna_pca_cols.txt",
+        metadata = "results_groups/{group}/rna/seurat_write_rna_all/metadata.tsv"
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/merged/{group}/rna/seurat_write_rna_all/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_write_rna_all.R"
