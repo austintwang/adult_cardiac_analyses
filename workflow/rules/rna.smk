@@ -470,38 +470,38 @@ rule seurat_countsplit:
 #     shell:
 #         "pdfunite {input} {output}; "
 
-rule seurat_write_embeddings:
-    """
-    Seurat save RNA embeddings
-    """
-    input:
-        project_in = "results_merged/rna/seurat_name_rna/proj.rds",
-    output:
-        emb_coords = "results_merged/rna/seurat_write_embeddings/emb_coords.tsv",
-        umap_coords = "results_merged/rna/seurat_write_embeddings/umap_coords.tsv",
-    params:
-        seed = config["seurat_seed"],
-    log:
-        console = "logs/merged/rna/seurat_write_embeddings/console.log"
-    conda:
-        "../envs/seurat.yaml"
-    script:
-        "../scripts/seurat_write_embeddings.R"
+# rule seurat_write_embeddings:
+#     """
+#     Seurat save RNA embeddings
+#     """
+#     input:
+#         project_in = "results_merged/rna/seurat_name_rna/proj.rds",
+#     output:
+#         emb_coords = "results_merged/rna/seurat_write_embeddings/emb_coords.tsv",
+#         umap_coords = "results_merged/rna/seurat_write_embeddings/umap_coords.tsv",
+#     params:
+#         seed = config["seurat_seed"],
+#     log:
+#         console = "logs/merged/rna/seurat_write_embeddings/console.log"
+#     conda:
+#         "../envs/seurat.yaml"
+#     script:
+#         "../scripts/seurat_write_embeddings.R"
 
-rule seurat_write_markers:
-    """
-    Seurat save RNA marker genes
-    """
-    input:
-        project_in = "results_merged/rna/seurat_name_rna/proj.rds",
-    output:
-        markers = directory("results_merged/rna/seurat_write_markers/markers"),
-    params:
-        seed = config["seurat_seed"],
-    log:
-        console = "logs/merged/rna/seurat_write_markers/console.log"
-    conda:
-        "../envs/seurat.yaml"
-    script:
-        "../scripts/seurat_write_markers.R"
+# rule seurat_write_markers:
+#     """
+#     Seurat save RNA marker genes
+#     """
+#     input:
+#         project_in = "results_merged/rna/seurat_name_rna/proj.rds",
+#     output:
+#         markers = directory("results_merged/rna/seurat_write_markers/markers"),
+#     params:
+#         seed = config["seurat_seed"],
+#     log:
+#         console = "logs/merged/rna/seurat_write_markers/console.log"
+#     conda:
+#         "../envs/seurat.yaml"
+#     script:
+#         "../scripts/seurat_write_markers.R"
 
