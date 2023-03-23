@@ -51,7 +51,7 @@ plt <- plot_fn(proj, "dataset", "umap", stallion) + labs(title="All counts embed
 ggsave(output_paths[["umap_dataset"]], plt, device = "pdf", width = 10, height = 7)
 
 plt <- plot_fn(proj, "cell_types_l1", "umap", stallion) + labs(title="All counts embedding: Level-1 cell types")
-ggsave(output_paths[["umap_cell_types"]], plt, device = "pdf", width = 15, height = 7)
+ggsave(output_paths[["umap_cell_types"]], plt, device = "pdf", width = 10, height = 7)
 
 
 saveRDS(proj, file = output_paths[["project_out"]])

@@ -14,15 +14,17 @@ log_paths = snakemake@log
 set.seed(params[["seed"]])
 
 proj <- readRDS(file = input_paths[["project_in"]])
-print(proj) ####
 
-umap_coords <- Embeddings(proj, reduction = "umap")
-head(umap_coords) ####
-write.table(umap_coords, file=output_paths[["umap_coords"]], quote=FALSE, sep='\t', col.names = NA)
+DefaultAssay(object = proj) <- "RNA"
 
-emb_coords <- Embeddings(proj, reduction = "harmony")
-head(emb_coords) ####
-write.table(emb_coords, file=output_paths[["emb_coords"]], quote=FALSE, sep='\t', col.names = NA)
+rna_pca <- Embeddings(proj, reduction = "pca")
+write.table(rna_pca, file=output_paths[["rna_pca"]], quote=FALSE, sep='\t', col.names = NA)
+
+rna_harmony <- Embeddings(proj, reduction = "harmony")
+write.table(rna_harmony, file=output_paths[["rna_harmony"]], quote=FALSE, sep='\t', col.names = NA)
+
+rna_umap <- Embeddings(proj, reduction = "umap")
+write.table(rna_harmony, file=output_paths[["rna_umap"]], quote=FALSE, sep='\t', col.names = NA)
 
 sink(type = "message")
 sink()

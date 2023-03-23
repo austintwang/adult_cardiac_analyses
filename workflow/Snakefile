@@ -219,6 +219,25 @@ def get_replicate(w):
     x = w.sample
     return x.split("-")[1]
 
+rule get_dataset_info:
+    """
+    Query ENCODE portal for dataset information
+    """
+    output:
+        "results/{sample}/fetch/dataset_info.json"
+    params:
+        series = get_series,
+        replicate = 1,
+        dcc_mode = config["dcc_mode"],
+        dcc_api_key = os.environ["DCC_API_KEY"], 
+        dcc_secret_key = os.environ["DCC_SECRET_KEY"]
+    log:
+        directory("logs/{sample}/get_dataset_info")
+    conda:
+        "envs/fetch.yaml"
+    script:
+        "scripts/get_dataset_info.py"
+
 
 rule query_fragments:
     """
