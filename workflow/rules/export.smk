@@ -32,7 +32,7 @@ rule export_l1_markers:
     Export level-1 cell type markers
     """
     input:
-        markers = "results_groups/{group}/rna/seurat_write_l1_markers/markers"",
+        markers = "results_groups/{group}/rna/seurat_write_l1_markers/markers",
         genes = lambda w: [f"results/{sample}/fetch/features.tsv" for sample in groups[w.group]]
     output:
         directory("export_l1/{group}/markers")
