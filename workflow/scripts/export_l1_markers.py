@@ -17,9 +17,17 @@ def build_gene_map(genes_paths):
     gene_map = {}
     for p in genes_paths:
         with open(p) as f:
+            counter = {}
             for line in f:
                 gene_id, gene_name = line.rstrip('\n').split('\t')[:2]
-                gene_map[gene_name] = gene_id
+                if gene_name in counter:
+                    counter[gene_name] += 1
+                    gene_name_unique = f"{gene_name}.{counter[gene_name]}"
+                else:
+                    counter[gene_name] = 0
+                    gene_name_unique = gene_name
+
+                gene_map[gene_name_unique] = gene_id
 
     return gene_map
 
