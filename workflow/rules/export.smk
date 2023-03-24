@@ -5,7 +5,8 @@ rule export_l1_metadata: #
     input:
         metadata_rna = lambda w: [f"results/{sample}/rna/seurat_build_rna_strict/metadata.tsv" for sample in groups[w.group]],
         metadata_atac = lambda w: [f"results/{sample}/atac/atac_qc_extended.tsv.gz" for sample in groups[w.group]],
-        final_data = "results_groups/{group}/rna/seurat_write_rna_all/metadata.tsv"
+        dataset_data = lambda w: [f"results/{sample}/fetch/dataset_info.json" for sample in groups[w.group]],
+        final_data = "results_groups/{group}/rna/seurat_write_rna_all/metadata.tsv",
     output:
         metadata = "export_l1/{group}/metadata.tsv.gz",
         datasets = "export_l1/{group}/datasets.txt"
