@@ -24,7 +24,7 @@ rna_harmony <- Embeddings(proj, reduction = "harmony")
 write.table(rna_harmony, file=output_paths[["rna_harmony"]], quote=FALSE, sep='\t', col.names = NA)
 
 rna_umap <- Embeddings(proj, reduction = "umap")
-write.table(rna_harmony, file=output_paths[["rna_umap"]], quote=FALSE, sep='\t', col.names = NA)
+write.table(rna_umap, file=output_paths[["rna_umap"]], quote=FALSE, sep='\t', col.names = NA)
 
 sink(type = "message")
 sink()
