@@ -121,7 +121,7 @@ def main(rna_metadata_paths, atac_metadata_paths, dataset_data_paths, final_data
     dataset_data = {}
     for i in dataset_data_paths:
         with open(i) as f:
-            entry = json.load(i)
+            entry = json.load(f)
         dataset_data |= entry
 
     with open(out_datasets_path, "w") as f:
