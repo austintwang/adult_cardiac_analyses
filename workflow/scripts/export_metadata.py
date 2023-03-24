@@ -157,7 +157,7 @@ dataset_data_paths = snakemake.input["dataset_data"]
 final_data_path = snakemake.input["final_data"]
 
 out_path = snakemake.output["metadata"]
-out_datasets_path = snakemake.output["metadata"]
+out_datasets_path = snakemake.output["datasets"]
 
 
 main(rna_metadata_paths, atac_metadata_paths, dataset_data_paths, final_data_path, out_path, out_datasets_path)
