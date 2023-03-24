@@ -120,9 +120,9 @@ rule seurat_write_embeddings:
     input:
         project_in = "results_groups/{group}/rna/seurat_embed_all/proj.rds"
     output:
-        rna_pca = "results_merged/{group}/rna/seurat_write_embeddings/rna_pca.tsv",
-        rna_harmony = "results_merged/{group}/rna/seurat_write_embeddings/rna_harmony.tsv",
-        rna_umap = "results_merged/{group}/rna/seurat_write_embeddings/rna_umap.tsv",
+        rna_pca = "results_groups/{group}/rna/seurat_write_embeddings/rna_pca.tsv",
+        rna_harmony = "results_groups/{group}/rna/seurat_write_embeddings/rna_harmony.tsv",
+        rna_umap = "results_groups/{group}/rna/seurat_write_embeddings/rna_umap.tsv",
     params:
         seed = config["seurat_seed"],
     log:

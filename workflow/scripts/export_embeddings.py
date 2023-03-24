@@ -1,6 +1,6 @@
 import gzip
 
-HEADER_PCA_HARMONY = """
+HEADER_RNA_PCA = """
 # Non-batch-corrected PCA cell embeddings
 # cell_id: Cell ID used in integrated analysis
 # harmony_1, harmony_2, … harmony_50: Columns of a 50-dimensional Harmony embedding vector
@@ -20,14 +20,14 @@ HEADER_RNA_UMAP = """
 
 def main(rna_pca_in_path, rna_harmony_in_path, rna_umap_in_path, rna_pca_out_path, rna_harmony_out_path, rna_umap_out_path):
     with open(rna_pca_in_path) as f, gzip.open(rna_pca_out_path, "wt") as fo:
-        fo.write(HEADER_PCA_HARMONY)
+        fo.write(HEADER_RNA_PCA)
         h = f.readline()
         fo.write("cell_id" + h)
         for line in f:
             fo.write(line)
 
     with open(rna_harmony_in_path) as f, gzip.open(rna_harmony_out_path, "wt") as fo:
-        fo.write(HEADER_PCA_HARMONY)
+        fo.write(HEADER_RNA_HARMONY)
         h = f.readline()
         fo.write("cell_id" + h)
         for line in f:

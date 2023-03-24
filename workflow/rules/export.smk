@@ -47,9 +47,9 @@ rule export_l1_embeddings: #
     Export cell embeddings
     """
     input:
-        rna_pca = "results_merged/{group}/rna/seurat_write_embeddings/rna_pca.tsv",
-        rna_harmony = "results_merged/{group}/rna/seurat_write_embeddings/rna_harmony.tsv",
-        rna_umap = "results_merged/{group}/rna/seurat_write_embeddings/rna_umap.tsv"
+        rna_pca = "results_groups/{group}/rna/seurat_write_embeddings/rna_pca.tsv",
+        rna_harmony = "results_groups/{group}/rna/seurat_write_embeddings/rna_harmony.tsv",
+        rna_umap = "results_groups/{group}/rna/seurat_write_embeddings/rna_umap.tsv"
     output:
         rna_pca = "export_l1/{group}/embeddings/rna_pca.tsv.gz",
         rna_harmony = "export_l1/{group}/embeddings/rna_harmony.tsv.gz",
