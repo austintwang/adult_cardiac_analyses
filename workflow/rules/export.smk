@@ -1,4 +1,4 @@
-rule export_metadata: #
+rule export_l1_metadata: #
     """
     Export metadata
     """
@@ -7,8 +7,8 @@ rule export_metadata: #
         metadata_atac = lambda w: [f"results/{sample}/atac/atac_qc_extended.tsv.gz" for sample in groups[w.group]],
         final_data = "results_groups/{group}/rna/seurat_write_rna_all/metadata.tsv"
     output:
-        metadata = "export/{group}/metadata.tsv.gz",
-        datasets = "export/{group}/datasets.txt"
+        metadata = "export_l1/{group}/metadata.tsv.gz",
+        datasets = "export_l1/{group}/datasets.txt"
     conda:
         "../envs/fetch.yaml"
     script:
@@ -21,7 +21,7 @@ rule export_l1_labels:
     input:
         "results_groups/{group}/rna/seurat_write_rna_all/metadata.tsv"
     output:
-        "export/rna/labels/cell_types.tsv.gz",
+        "export_l1/{group}/labels/cell_types_l1.tsv.gz",
     conda:
         "../envs/fetch.yaml"
     script:
@@ -35,13 +35,13 @@ rule export_l1_markers:
         markers = "results_groups/{group}/rna/seurat_write_l1_markers/markers"",
         genes = lambda w: [f"results/{sample}/fetch/features.tsv" for sample in groups[w.group]]
     output:
-        directory("export/{group}/markers")
+        directory("export_l1/{group}/markers")
     conda:
         "../envs/fetch.yaml"
     script:
         "../scripts/export_l1_markers.py"
 
-rule export_embeddings: #
+rule export_l1_embeddings: #
     """
     Export cell embeddings
     """
@@ -50,15 +50,15 @@ rule export_embeddings: #
         rna_harmony = "results_merged/{group}/rna/seurat_write_embeddings/rna_harmony.tsv",
         rna_umap = "results_merged/{group}/rna/seurat_write_embeddings/rna_umap.tsv"
     output:
-        rna_pca = "export/{group}/embeddings/rna_pca.tsv.gz",
-        rna_harmony = "export/{group}/embeddings/rna_harmony.tsv.gz",
-        rna_umap = "export/{group}/embeddings/rna_umap.tsv.gz"
+        rna_pca = "export_l1/{group}/embeddings/rna_pca.tsv.gz",
+        rna_harmony = "export_l1/{group}/embeddings/rna_harmony.tsv.gz",
+        rna_umap = "export_l1/{group}/embeddings/rna_umap.tsv.gz"
     conda:
         "../envs/fetch.yaml"
     script:
         "../scripts/export_rna_embeddings.py"
 
-rule export_figures: #
+rule export_l1_figures: #
     """
     Export figures
     """
@@ -67,7 +67,7 @@ rule export_figures: #
         rna_umap_samples = "results_groups/{group}/rna/seurat_embed_all/umap_dataset.pdf"
     output:
         scratch = directory("results_merged/rna/export_figures"),
-        tarball = "export/{group}/figures.tar.gz"
+        tarball = "export_l1/{group}/figures.tar.gz"
     params:
         readme = workflow.source_path("../resources/figures_readme.txt")
     conda:

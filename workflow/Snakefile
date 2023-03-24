@@ -107,6 +107,20 @@ rule all:
         expand("results_groups/{group}/rna/seurat_embed_all/proj.rds", group=group_names),
         expand("results_groups/{group}/rna/seurat_write_rna_all/metadata.tsv", group=group_names),
 
+rule export_l1:
+    """
+    Export level-1 cell type data
+    """
+    input: 
+        expand("export_l1/{group}/metadata.tsv.gz", group=group_names),
+        expand("export_l1/{group}/datasets.txt", group=group_names),
+        expand("export_l1/{group}/labels/cell_types_l1.tsv.gz", group=group_names),
+        expand("export_l1/{group}/markers", group=group_names),
+        expand("export_l1/{group}/embeddings/rna_pca.tsv.gz", group=group_names),
+        expand("export_l1/{group}/embeddings/rna_harmony.tsv.gz", group=group_names),
+        expand("export_l1/{group}/embeddings/rna_umap.tsv.gz", group=group_names),
+        expand("export_l1/{group}/figures.tar.gz", group=group_names),
+
 rule subcluster_naming:
     """
     Subcluster naming (pre-supergroup-refinement)
