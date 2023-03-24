@@ -25,7 +25,7 @@ rule export_l1_labels:
     conda:
         "../envs/fetch.yaml"
     script:
-        "../scripts/export_rna_labels.py"
+        "../scripts/export_l1_labels.py"
 
 rule export_l1_markers:
     """
@@ -56,7 +56,7 @@ rule export_l1_embeddings: #
     conda:
         "../envs/fetch.yaml"
     script:
-        "../scripts/export_rna_embeddings.py"
+        "../scripts/export_embeddings.py"
 
 rule export_l1_figures: #
     """
