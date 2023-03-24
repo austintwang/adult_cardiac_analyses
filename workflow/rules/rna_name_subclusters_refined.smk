@@ -82,7 +82,7 @@ rule seurat_write_l1_markers:
     Write level-1 cell type marker genes
     """
     input:
-        project_in = "results_groups/{group}/rna/seurat_write_l1_markers/proj.rds"
+        project_in = "results_groups/{group}/rna/seurat_subclusters_supergroups_to_groups/proj.rds"
     output:
         markers = directory("results_groups/{group}/rna/seurat_write_l1_markers/markers")
     params:
