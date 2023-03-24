@@ -66,7 +66,7 @@ rule export_l1_figures: #
         rna_umap_labels = "results_groups/{group}/rna/seurat_embed_all/umap_cell_types.pdf",
         rna_umap_samples = "results_groups/{group}/rna/seurat_embed_all/umap_dataset.pdf"
     output:
-        scratch = directory("results_merged/rna/export_figures"),
+        scratch = directory("results_groups/{group}/rna/export_figures"),
         tarball = "export_l1/{group}/figures.tar.gz"
     params:
         readme = workflow.source_path("../resources/figures_readme.txt")
