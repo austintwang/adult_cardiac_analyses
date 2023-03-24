@@ -83,8 +83,10 @@ def add_records_atac(metadata_path, dataset_data, records):
             barcode_atac = entries[barcode_atac_ind]
             cell_id = f"{dataset}_{barcode_rna}"
             
-            frag_count = int(entries[frag_ind])
-            tss_enr = float(entries[tss_ind])
+            if frag_count != "NA":
+                frag_count = int(entries[frag_ind])
+            if tss_enr != "NA":
+                tss_enr = float(entries[tss_ind])
 
             if cell_id in records:
                 records[cell_id].update({
