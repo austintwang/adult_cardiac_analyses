@@ -121,6 +121,9 @@ rule export_l1:
         expand("export_l1/{group}/embeddings/rna_pca.tsv.gz", group=group_names),
         expand("export_l1/{group}/embeddings/rna_harmony.tsv.gz", group=group_names),
         expand("export_l1/{group}/embeddings/rna_umap.tsv.gz", group=group_names),
+        expand("export_l1/{group}/embeddings/atac_lsi.tsv.gz", group=group_names),
+        expand("export_l1/{group}/embeddings/atac_harmony.tsv.gz", group=group_names),
+        expand("export_l1/{group}/embeddings/atac_umap.tsv.gz", group=group_names),
         expand("export_l1/{group}/figures.tar.gz", group=group_names),
 
 rule subcluster_naming:

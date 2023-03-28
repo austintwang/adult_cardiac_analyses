@@ -94,40 +94,40 @@ rule seurat_write_l1_markers:
     script:
         "../scripts/seurat_write_l1_markers.R"
 
-rule seurat_embed_all:
-    """
-    Build RNA embeddings with all data 
-    """
-    input:
-        project_in = "results_groups/{group}/rna/seurat_subclusters_supergroups_to_groups/proj.rds"
-    output:
-        project_out = "results_groups/{group}/rna/seurat_embed_all/proj.rds",
-        umap_dataset = "results_groups/{group}/rna/seurat_embed_all/umap_dataset.pdf",
-        umap_cell_types = "results_groups/{group}/rna/seurat_embed_all/umap_cell_types.pdf",
-    params:
-        seed = config["seurat_seed"],
-    log:
-        console = "logs/merged/{group}/rna/umap_cell_types/console.log"
-    conda:
-        "../envs/seurat.yaml"
-    script:
-        "../scripts/seurat_embed_all.R"
+# rule seurat_embed_all:
+#     """
+# #     Build RNA embeddings with all data 
+#     """
+#     input:
+#         project_in = "results_groups/{group}/rna/seurat_subclusters_supergroups_to_groups/proj.rds"
+#     output:
+#         project_out = "results_groups/{group}/rna/seurat_embed_all/proj.rds",
+#         umap_dataset = "results_groups/{group}/rna/seurat_embed_all/umap_dataset.pdf",
+#         umap_cell_types = "results_groups/{group}/rna/seurat_embed_all/umap_cell_types.pdf",
+#     params:
+#         seed = config["seurat_seed"],
+#     log:
+#         console = "logs/merged/{group}/rna/umap_cell_types/console.log"
+#     conda:
+#         "../envs/seurat.yaml"
+#     script:
+#         "../scripts/seurat_embed_all.R"
 
-rule seurat_write_embeddings:
-    """
-    Seurat save RNA embeddings
-    """
-    input:
-        project_in = "results_groups/{group}/rna/seurat_embed_all/proj.rds"
-    output:
-        rna_pca = "results_groups/{group}/rna/seurat_write_embeddings/rna_pca.tsv",
-        rna_harmony = "results_groups/{group}/rna/seurat_write_embeddings/rna_harmony.tsv",
-        rna_umap = "results_groups/{group}/rna/seurat_write_embeddings/rna_umap.tsv",
-    params:
-        seed = config["seurat_seed"],
-    log:
-        console = "logs/merged/{group}/rna/seurat_write_embeddings/console.log"
-    conda:
-        "../envs/seurat.yaml"
-    script:
-        "../scripts/seurat_write_embeddings.R"
+# rule seurat_write_embeddings:
+#     """
+#     Seurat save RNA embeddings
+#     """
+#     input:
+#         project_in = "results_groups/{group}/rna/seurat_embed_all/proj.rds"
+#     output:
+#         rna_pca = "results_groups/{group}/rna/seurat_write_embeddings/rna_pca.tsv",
+#         rna_harmony = "results_groups/{group}/rna/seurat_write_embeddings/rna_harmony.tsv",
+#         rna_umap = "results_groups/{group}/rna/seurat_write_embeddings/rna_umap.tsv",
+#     params:
+#         seed = config["seurat_seed"],
+#     log:
+#         console = "logs/merged/{group}/rna/seurat_write_embeddings/console.log"
+#     conda:
+#         "../envs/seurat.yaml"
+#     script:
+#         "../scripts/seurat_write_embeddings.R"

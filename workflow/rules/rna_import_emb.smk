@@ -73,3 +73,35 @@ rule seurat_write_rna_all:
         "../envs/seurat.yaml"
     script:
         "../scripts/seurat_write_rna_all.R"
+
+
+def get_atac_emb_cells(w):
+    region, status, sex = w.group.split("-")
+    region = region.upper()
+    sex = sex.upper()
+    return os.path.join(config["atac_emb_dir"], f"{status}_{region}_{sex}_rows.txt")
+
+def get_atac_emb(w):
+    region, status, sex = w.group.split("-")
+    region = region.upper()
+    sex = sex.upper()
+    return os.path.join(config["atac_emb_dir"], f"{status}_{region}_{sex}_preh_mat.mtx")
+
+rule seurat_import_atac_embeddings:
+    """
+    Add ATAC embeddings from Salil and harmonize
+    """
+    input:
+        project_in = "results_groups/{group}/rna/seurat_embed_all/proj.rds",
+        cells = get_atac_emb_cells,
+        atac = get_atac_emb
+    output:
+        project_out = "results_groups/{group}/rna/seurat_import_atac_embeddings/proj.rds",
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/merged/{group}/rna/seurat_import_atac_embeddings/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_import_atac_embeddings.R"
