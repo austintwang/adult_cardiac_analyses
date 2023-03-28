@@ -27,7 +27,7 @@ HEADER_ATAC_LSI = """
 HEADER_ATAC_HARMONY = """
 # Unified ATAC cell embeddings integrated using Harmony
 # cell_id: Cell ID used in integrated analysis
-# harmony_1, harmony_2, … harmony_98: Columns of a 98-dimensional Harmony embedding vector
+# atacharmony_1, atacharmony_2, … atacharmony_98: Columns of a 98-dimensional Harmony embedding vector
 """
 
 HEADER_ATAC_UMAP = """
