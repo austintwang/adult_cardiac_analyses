@@ -49,9 +49,9 @@ def main(rna_pca_in_path, rna_harmony_in_path, rna_umap_in_path, atac_lsi_in_pat
     export(rna_harmony_in_path, rna_harmony_out_path, HEADER_RNA_HARMONY)
     export(rna_umap_in_path, rna_umap_out_path, HEADER_RNA_UMAP)
 
-    export(atac_lsi_in_path, atac_lsi_out_path, HEADER_RNA_PCA)
-    export(atac_harmony_in_path, atac_harmony_out_path, HEADER_RNA_HARMONY)
-    export(atac_umap_in_path, atac_umap_out_path, HEADER_RNA_UMAP)
+    export(atac_lsi_in_path, atac_lsi_out_path, HEADER_ATAC_LSI)
+    export(atac_harmony_in_path, atac_harmony_out_path, HEADER_ATAC_HARMONY)
+    export(atac_umap_in_path, atac_umap_out_path, HEADER_ATAC_UMAP)
 
 rna_pca_in_path = snakemake.input["rna_pca"]
 rna_harmony_in_path = snakemake.input["rna_harmony"]
