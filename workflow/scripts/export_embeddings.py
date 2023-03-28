@@ -36,28 +36,22 @@ HEADER_ATAC_UMAP = """
 # UMAP_1, UMAP_2: UMAP x and y coordinates, respectively
 """
 
+def export(in_path, out_path, header):
+    with open(in_path) as f, gzip.open(out_path, "wt") as fo:
+        fo.write(header)
+        h = f.readline()
+        fo.write("cell_id" + h)
+        for line in f:
+            fo.write(line)
+
 def main(rna_pca_in_path, rna_harmony_in_path, rna_umap_in_path, atac_lsi_in_path, atac_harmony_in_path, atac_umap_in_path, rna_pca_out_path, rna_harmony_out_path, rna_umap_out_path, atac_lsi_out_path, atac_harmony_out_path, atac_umap_out_path):
-    with open(rna_pca_in_path) as f, gzip.open(rna_pca_out_path, "wt") as fo:
-        fo.write(HEADER_RNA_PCA)
-        h = f.readline()
-        fo.write("cell_id" + h)
-        for line in f:
-            fo.write(line)
+    export(rna_pca_in_path, rna_pca_out_path, HEADER_RNA_PCA)
+    export(rna_harmony_in_path, rna_harmony_out_path, HEADER_RNA_HARMONY)
+    export(rna_umap_in_path, rna_umap_out_path, HEADER_RNA_UMAP)
 
-    with open(rna_harmony_in_path) as f, gzip.open(rna_harmony_out_path, "wt") as fo:
-        fo.write(HEADER_RNA_HARMONY)
-        h = f.readline()
-        fo.write("cell_id" + h)
-        for line in f:
-            fo.write(line)
-
-
-    with open(rna_umap_in_path) as f, gzip.open(rna_umap_out_path, "wt") as fo:
-        fo.write(HEADER_RNA_UMAP)
-        h = f.readline()
-        fo.write("cell_id" + h)
-        for line in f:
-            fo.write(line)
+    export(atac_lsi_in_path, atac_lsi_out_path, HEADER_RNA_PCA)
+    export(atac_harmony_in_path, atac_harmony_out_path, HEADER_RNA_HARMONY)
+    export(atac_umap_in_path, atac_umap_out_path, HEADER_RNA_UMAP)
 
 rna_pca_in_path = snakemake.input["rna_pca"]
 rna_harmony_in_path = snakemake.input["rna_harmony"]
