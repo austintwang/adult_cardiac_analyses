@@ -44,7 +44,7 @@ proj <- subset(proj, cells = cellnames_subset)
 
 idx <- match(cellnames_atac, proj$cellnames_atac)
 mat_atac <- mat_atac[idx,,drop=FALSE]
-cellnames <- Cells(proj)[idx]
+cellnames <- cellnames_atac[idx]
 rownames(mat_atac) <- cellnames
 
 a <- CreateDimReducObject(embeddings = mat_atac, key = "LSI_", assay = "RNA")
@@ -52,7 +52,7 @@ print(a) ####
 proj[["atac"]] <- a
 
 
-proj <- RunHarmony(proj, "dataset", assay.use = "RNA_train", reduction = "atac", reduction.save = "atac_harmony")
+proj <- RunHarmony(proj, "dataset", assay.use = "RNA", reduction = "atac", reduction.save = "atac_harmony")
 
 proj <- FindNeighbors(proj, dims = 1:30, reduction = "atac_harmony", graph.name = "nn_atac")
 proj <- RunUMAP(proj, dims = 1:30, reduction = "atac_harmony", nn.name = "nn_atac", reduction.name = "umap_atac")

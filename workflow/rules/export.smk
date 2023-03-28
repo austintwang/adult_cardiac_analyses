@@ -70,10 +70,10 @@ rule export_l1_figures: #
     Export figures
     """
     input:
-        umap_rna_dataset = "results_groups/{group}/rna/seurat_embed_all/umap_rna_dataset.pdf",
-        umap_rna_cell_types = "results_groups/{group}/rna/seurat_embed_all/umap_rna_cell_types.pdf",
-        umap_atac_dataset = "results_groups/{group}/rna/seurat_embed_all/umap_atac_dataset.pdf",
-        umap_atac_cell_types = "results_groups/{group}/rna/seurat_embed_all/umap_atac_cell_types.pdf",
+        umap_rna_dataset = "results_groups/{group}/rna/seurat_write_embeddings/umap_rna_dataset.pdf",
+        umap_rna_cell_types = "results_groups/{group}/rna/seurat_write_embeddings/umap_rna_cell_types.pdf",
+        umap_atac_dataset = "results_groups/{group}/rna/seurat_write_embeddings/umap_atac_dataset.pdf",
+        umap_atac_cell_types = "results_groups/{group}/rna/seurat_write_embeddings/umap_atac_cell_types.pdf",
     output:
         scratch = directory("results_groups/{group}/rna/export_figures"),
         tarball = "export_l1/{group}/figures.tar.gz"

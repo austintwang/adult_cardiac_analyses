@@ -31,10 +31,10 @@ rule seurat_write_embeddings:
         atac_lsi = "results_groups/{group}/rna/seurat_write_embeddings/atac_lsi.tsv",
         atac_harmony = "results_groups/{group}/rna/seurat_write_embeddings/atac_harmony.tsv",
         atac_umap = "results_groups/{group}/rna/seurat_write_embeddings/atac_umap.tsv",
-        umap_rna_dataset = "results_groups/{group}/rna/seurat_embed_all/umap_rna_dataset.pdf",
-        umap_rna_cell_types = "results_groups/{group}/rna/seurat_embed_all/umap_rna_cell_types.pdf",
-        umap_atac_dataset = "results_groups/{group}/rna/seurat_embed_all/umap_atac_dataset.pdf",
-        umap_atac_cell_types = "results_groups/{group}/rna/seurat_embed_all/umap_atac_cell_types.pdf",
+        umap_rna_dataset = "results_groups/{group}/rna/seurat_write_embeddings/umap_rna_dataset.pdf",
+        umap_rna_cell_types = "results_groups/{group}/rna/seurat_write_embeddings/umap_rna_cell_types.pdf",
+        umap_atac_dataset = "results_groups/{group}/rna/seurat_write_embeddings/umap_atac_dataset.pdf",
+        umap_atac_cell_types = "results_groups/{group}/rna/seurat_write_embeddings/umap_atac_cell_types.pdf",
     params:
         seed = config["seurat_seed"],
     log:
