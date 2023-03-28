@@ -31,7 +31,7 @@ write.table(rna_umap, file=output_paths[["rna_umap"]], quote=FALSE, sep='\t', co
 atac_lsi <- Embeddings(proj, reduction = "atac")
 write.table(atac_lsi, file=output_paths[["atac_lsi"]], quote=FALSE, sep='\t', col.names = NA)
 
-atac_harmony <- Embeddings(proj, reduction = "harmony_atac")
+atac_harmony <- Embeddings(proj, reduction = "atac_harmony")
 write.table(atac_harmony, file=output_paths[["atac_harmony"]], quote=FALSE, sep='\t', col.names = NA)
 
 atac_umap <- Embeddings(proj, reduction = "umap_atac")
