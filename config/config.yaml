@@ -71,6 +71,8 @@ gtf: https://www.encodeproject.org/files/ENCFF159KBI/@@download/ENCFF159KBI.gtf.
 
 seq_emb_dir: /mnt/lab_data3/salil512/adult_heart/post_analysis/embeddings
 
+atac_emb_dir: /mnt/lab_data3/salil512/adult_heart/out_LVL1
+
 superregions:
   atrial:
     - la
