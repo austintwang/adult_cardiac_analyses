@@ -42,7 +42,7 @@ idx_atac <- proj$cellnames_atac %in% cellnames_atac
 cellnames_subset <- Cells(proj)[idx_atac]
 proj <- subset(proj, cells = cellnames_subset)
 
-idx <- match(cellnames_atac, proj$cellnames_atac)
+idx <- na.omit(match(cellnames_atac, proj$cellnames_atac))
 mat_atac <- mat_atac[idx,,drop=FALSE]
 cellnames <- cellnames_atac[idx]
 rownames(mat_atac) <- cellnames
