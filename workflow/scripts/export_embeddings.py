@@ -36,7 +36,7 @@ HEADER_ATAC_UMAP = """
 # UMAP_1, UMAP_2: UMAP x and y coordinates, respectively
 """
 
-def main(rna_pca_in_path, rna_harmony_in_path, rna_umap_in_path, rna_pca_out_path, rna_harmony_out_path, rna_umap_out_path):
+def main(rna_pca_in_path, rna_harmony_in_path, rna_umap_in_path, atac_lsi_in_path, atac_harmony_in_path, atac_umap_in_path, rna_pca_out_path, rna_harmony_out_path, rna_umap_out_path, atac_lsi_out_path, atac_harmony_out_path, atac_umap_out_path):
     with open(rna_pca_in_path) as f, gzip.open(rna_pca_out_path, "wt") as fo:
         fo.write(HEADER_RNA_PCA)
         h = f.readline()
