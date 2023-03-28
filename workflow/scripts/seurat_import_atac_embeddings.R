@@ -45,8 +45,7 @@ proj <- subset(proj, cells = cellnames_subset)
 idx <- match(cellnames_atac, proj$cellnames_atac)
 mat_atac <- mat_atac[idx,,drop=FALSE]
 cellnames <- Cells(proj)[idx]
-
-proj <- subset(proj, cells = cellnames)
+rownames(mat_atac) <- cellnames
 
 a <- CreateDimReducObject(embeddings = mat_atac, key = "LSI_", assay = "RNA")
 print(a) ####
