@@ -82,7 +82,7 @@ include:
 include:
     "rules/rna_group.smk"
 include:
-    "rules/rna_seq_emb.smk"
+    "rules/rna_import_emb.smk"
 include:
     "rules/atac_group.smk"
 include:
@@ -93,6 +93,8 @@ include:
     "rules/rna_name_subclusters.smk"
 include:
     "rules/rna_name_subclusters_refined.smk"
+include:
+    "rules/rna_l1_labeled.smk"
 include:
     "rules/export.smk"
 
