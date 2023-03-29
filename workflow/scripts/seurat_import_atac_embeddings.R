@@ -44,7 +44,7 @@ proj <- subset(proj, cells = cellnames_subset)
 
 idx <- cellnames_atac %in% proj$cellnames_atac
 mat_atac <- mat_atac[idx,,drop=FALSE]
-cellnames <- cellnames[idx]
+cellnames_atac <- cellnames_atac[idx]
 
 idx_final <- match(cellnames_atac, proj$cellnames_atac)
 # idx <- match(proj$cellnames_atac, cellnames_atac)
