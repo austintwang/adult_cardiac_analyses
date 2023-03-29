@@ -148,7 +148,7 @@ def main(rna_metadata_paths, atac_metadata_paths, dataset_data_paths, final_data
         f.write(COLUMNS)
 
         for cell_id, r in records.items():
-            line = f"{cell_id}\t{r['dataset_rna']}\t{r['barcode_rna']}\t{r['dataset_atac']}\t{r['barcode_atac']}\t{r['umi_count']}\{r['frag_count']}\t{r['frac_mito']}\t{r['frac_ribo']}\t{r['tss_enr']}\t{int(r['pass_filter'])}\n"
+            line = f"{cell_id}\t{r['dataset_rna']}\t{r['barcode_rna']}\t{r['dataset_atac']}\t{r['barcode_atac']}\t{r['umi_count']}\t{r['frag_count']}\t{r['frac_mito']}\t{r['frac_ribo']}\t{r['tss_enr']}\t{int(r['pass_filter'])}\n"
             f.write(line)
 
 rna_metadata_paths = snakemake.input["metadata_rna"]
