@@ -42,9 +42,14 @@ idx_atac <- proj$cellnames_atac %in% cellnames_atac
 cellnames_subset <- Cells(proj)[idx_atac]
 proj <- subset(proj, cells = cellnames_subset)
 
-idx <- match(proj$cellnames_atac, cellnames_atac)
+idx <- cellnames_atac %in% proj$cellnames_atac
 mat_atac <- mat_atac[idx,,drop=FALSE]
-cellnames <- Cells(proj)[idx]
+cellnames <- cellnames[idx]
+
+idx_final <- match(cellnames_atac, proj$cellnames_atac)
+# idx <- match(proj$cellnames_atac, cellnames_atac)
+# mat_atac <- mat_atac[idx,,drop=FALSE]
+cellnames <- Cells(proj)[idx_final]
 rownames(mat_atac) <- cellnames
 
 a <- CreateDimReducObject(embeddings = mat_atac, key = "LSI_", assay = "RNA")
