@@ -52,16 +52,16 @@ write.table(atac_harmony, file=output_paths[["atac_harmony"]], quote=FALSE, sep=
 atac_umap <- Embeddings(proj, reduction = "umap_atac")
 write.table(atac_umap, file=output_paths[["atac_umap"]], quote=FALSE, sep='\t', col.names = NA)
 
-plt <- plot_fn(proj, "dataset", "umap", stallion) + labs(title="All counts embedding: datasets")
+plt <- plot_fn(proj, "dataset", "umap", stallion) + labs(title="RNA embedding: datasets")
 ggsave(output_paths[["umap_rna_dataset"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_fn(proj, "cell_types_l1", "umap", stallion) + labs(title="All counts embedding: Level-1 cell types")
+plt <- plot_fn(proj, "cell_types_l1", "umap", stallion) + labs(title="RNA embedding: Level-1 cell types")
 ggsave(output_paths[["umap_rna_cell_types"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_fn(proj, "dataset", "umap_atac", stallion) + labs(title="All counts embedding: datasets")
+plt <- plot_fn(proj, "dataset", "umap_atac", stallion) + labs(title="ATAC embedding: datasets")
 ggsave(output_paths[["umap_atac_dataset"]], plt, device = "pdf", width = 10, height = 7)
 
-plt <- plot_fn(proj, "cell_types_l1", "umap_atac", stallion) + labs(title="All counts embedding: Level-1 cell types")
+plt <- plot_fn(proj, "cell_types_l1", "umap_atac", stallion) + labs(title="ATAC embedding: Level-1 cell types")
 ggsave(output_paths[["umap_atac_cell_types"]], plt, device = "pdf", width = 10, height = 7)
 
 sink(type = "message")
