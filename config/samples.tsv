@@ -1,10 +1,10 @@
 Series	Region	Status	Sex	Batch
 ENCSR889JIE	lv	nonischemic	f	A
-ENCSR196JUO	lv	nonischemic	m	A
+ENCSR196JUO	lv	inflammatory	m	A
 ENCSR716XVF	lv	nonischemic	f	C
 ENCSR487MGY	lv	nonischemic	f	C
 ENCSR305JVN	lv	nonischemic	m	B
-ENCSR038TKH	lv	nonischemic	m	B
+ENCSR038TKH	lv	inflammatory	m	B
 ENCSR323AMA	lv	nonischemic	m	D
 ENCSR196LCO	lv	nonischemic	m	D
 ENCSR891TJB	lv	nonischemic	f	B
@@ -58,3 +58,11 @@ ENCSR079UEO	rv	healthy	f
 ENCSR987VTJ	lv	healthy	m	
 ENCSR320RLS	rv	healthy	m	
 ENCSR201BHG	rv	healthy	m	
+ENCSR371YIY	lv	inflammatory	m	
+ENCSR884JZC	lv	inflammatory	m	
+ENCSR664QSO	lv	nonischemic	m	
+ENCSR316UWS	lv	inflammatory	m	
+ENCSR407GDZ	lv	inflammatory	m	
+ENCSR519BTE	lv	inflammatory	f	
+ENCSR488WYF	lv	inflammatory	m	
+ENCSR137EAT	lv	inflammatory	f	
