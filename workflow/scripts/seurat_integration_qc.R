@@ -89,7 +89,7 @@ proj$cm_cyto_pct <- PercentageFeatureSet(proj, features = cm_cyto_genes)
 plt <- FeaturePlot(proj, reduction = "umap", features = "cm_cyto_pct") + labs(title="Post-Harmony Cytoplasmic CM Marker read percent")
 ggsave(output_paths[["umap_cm_cyto"]], plt, device = "pdf", width = 10, height = 7)
 
-proj$cm_ratio <- log10(proj$cm_cyto_pct) - log10(proj$cm_nuc_pct)
+proj$cm_ratio <- log10(proj$cm_cyto_pct + 0.01) - log10(proj$cm_nuc_pct + 0.01)
 plt <- FeaturePlot(proj, reduction = "umap", features = "cm_ratio") + labs(title="Post-Harmony Cytoplasmic-Nuclear CM Marker log ratio")
 ggsave(output_paths[["umap_cm_ratio"]], plt, device = "pdf", width = 10, height = 7)
 
