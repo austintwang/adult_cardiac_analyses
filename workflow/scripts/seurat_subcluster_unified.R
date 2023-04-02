@@ -37,7 +37,7 @@ print(proj) ####
 
 proj <- FindNeighbors(proj, dims = 1:30, reduction = "harmony")
 proj <- RunUMAP(proj, dims = 1:30, reduction = "harmony")
-proj <- FindClusters(object = proj) 
+proj <- FindClusters(object = proj, resolution = params[["resolution"]]) 
 
 plt <- plot_fn(proj, "seurat_clusters", "umap", stallion) + labs(title="Seurat subclustering, Train set")
 ggsave(output_paths[["umap"]], plt, device = "pdf")
