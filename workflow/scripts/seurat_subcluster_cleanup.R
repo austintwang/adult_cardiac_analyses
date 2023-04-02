@@ -40,10 +40,16 @@ proj <- readRDS(file = input_paths[["project_in"]])
 
 head(proj$seurat_clusters) ####
 proj_index <- match(proj$seurat_clusters, rownames(clustdata))
-clusts <- clustdata[proj_index, 3]
-proj$subcluster_filter <- clusts
+clusts_1 <- clustdata[proj_index, 3]
+proj$cell_types_l1 <- clusts_1
 
-proj <- subset(proj, subset = subcluster_filter == "p")
+proj <- subset(proj, subset = cell_types_l1 == "*", invert = TRUE)
+
+# proj_index <- match(proj$seurat_clusters, rownames(clustdata))
+# clusts <- clustdata[proj_index, 3]
+# proj$subcluster_filter <- clusts
+
+# proj <- subset(proj, subset = subcluster_filter == "p")
 
 proj <- NormalizeData(proj, normalization.method = "LogNormalize", scale.factor = 10000)
 proj <- FindVariableFeatures(proj, selection.method = "vst", nfeatures = 2000)
