@@ -118,7 +118,9 @@ rule seurat_subcluster_supergroup:
         umap_azimuth_coarse = "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_azimuth_coarse.pdf",
         umap_azimuth_fine = "results_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/umap_azimuth_fine.pdf",
     params:
-        seed = config["seurat_seed"],    log:
+        seed = config["seurat_seed"],
+        resolution = params[["resolution"]]
+    log:
         console = "logs/subcluster_supergroups/{supergroup}/{label}/rna/seurat_subcluster_supergroup/console.log"
     conda:
         "../envs/seurat.yaml"
