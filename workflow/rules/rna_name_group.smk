@@ -166,7 +166,8 @@ rule seurat_subcluster_unified:
         umap_azimuth_coarse = "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_azimuth_coarse.pdf",
         umap_azimuth_fine = "results_subcluster_unified/{label}/rna/seurat_subcluster_unified/umap_azimuth_fine.pdf",
     params:
-        seed = config["seurat_seed"]
+        seed = config["seurat_seed"],
+        resolution = config["rna_cluster_resolution_cleanup"]
     log:
         console = "logs/subcluster_unified/{label}/rna/seurat_subcluster_unified/console.log"
     conda:
