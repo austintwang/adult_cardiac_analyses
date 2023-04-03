@@ -106,6 +106,25 @@ rule seurat_plot_subcluster_genes:
     script:
         "../scripts/seurat_plot_subcluster_genes.R"
 
+rule seurat_clusters_to_groups:
+    """
+    Add refined clusters to integrated analyses
+    """
+    input:
+        project_integrated = "results_groups/{group}/rna/seurat_name_group_1/proj.rds",
+        projects_subcluster = expand("results_subcluster_unified/{label}/rna/seurat_subcluster_2/proj.rds", label=config["l1_labels"])
+    output:
+        project_out = "results_groups/{group}/rna/seurat_clusters_to_groups/proj.rds",
+        umap_l1 = "results_groups/{group}/rna/seurat_clusters_to_groups/umap_l1.pdf",
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console =  "logs/merged/{group}/rna/seurat_clusters_to_groups/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/seurat_clusters_to_groups.R"
+
 
 # rule seurat_subcluster_cleanup:
 #     """

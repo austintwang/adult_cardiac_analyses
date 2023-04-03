@@ -143,9 +143,9 @@ rule subcluster_naming:
         expand("results_supergroups/{supergroup}/{label}/rna/seurat_plot_subcluster_markers_supergroup/markers.tsv", supergroup=supergroup_names, label=config["supergroup_labels"]),
         expand("results_supergroups/{supergroup}/{label}/rna/seurat_plot_subcluster_genes_supergroup/heatmap.pdf", supergroup=supergroup_names, label=config["supergroup_labels"]),
 
-rule subcluster_processing:
+rule l1_finalize:
     """
-    Subcluster processing
+    Finalize level-1 labels
     """
     input: 
         # expand("results_subcluster/{supergroup}/{label}/rna/seurat_subcluster_2/proj.rds", supergroup=supergroup_names, label=config["l1_labels"]),
@@ -156,7 +156,8 @@ rule subcluster_processing:
         expand("results_subcluster_unified/{label}/rna/seurat_subcluster_2/label_plots.pdf", label=config["l1_labels"]),
         expand("results_subcluster_unified/{label}/rna/seurat_plot_subcluster_markers/markers.tsv", label=config["l1_labels"]),
         expand("results_subcluster_unified/{label}/rna/seurat_plot_subcluster_genes/dotplot.pdf", label=config["l1_labels"]),
-
+        expand("results_groups/{group}/rna/seurat_clusters_to_groups/proj.rds", group=group_names),
+        expand("results_groups/{group}/rna/seurat_write_rna_all/metadata.tsv", group=group_names),
 
 rule name_1:
     """
