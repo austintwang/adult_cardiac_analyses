@@ -23,9 +23,16 @@ label_names <- unique(proj$cell_types_l1)
 print(label_names) ####
 
 for (i in label_names){
-    markers <- FindMarkers(proj, ident.1 = i, group.by = 'cell_types_l1')
-    out_path <- file.path(output_paths[["markers"]], paste0(gsub(" ", "_", i), ".tsv"))
-    write.table(markers, file=out_path, quote=FALSE, sep='\t', col.names = NA)
+    tryCatch(
+        {
+            markers <- FindMarkers(proj, ident.1 = i, group.by = 'cell_types_l1')
+            out_path <- file.path(output_paths[["markers"]], paste0(gsub(" ", "_", i), ".tsv"))
+            write.table(markers, file=out_path, quote=FALSE, sep='\t', col.names = NA)
+        },
+        error=function(error_message) {
+            message(error_message)
+        }
+    )
 }
 
 sink(type = "message")
