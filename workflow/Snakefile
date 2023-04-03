@@ -158,6 +158,7 @@ rule l1_finalize:
         expand("results_subcluster_unified/{label}/rna/seurat_plot_subcluster_genes/dotplot.pdf", label=config["l1_labels"]),
         expand("results_groups/{group}/rna/seurat_clusters_to_groups/proj.rds", group=group_names),
         expand("results_groups/{group}/rna/seurat_write_rna_all/metadata.tsv", group=group_names),
+        expand("results_groups/{group}/rna/seurat_write_l1_markers/markers", group=group_names),
 
 rule name_1:
     """
