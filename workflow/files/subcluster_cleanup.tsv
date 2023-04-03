@@ -157,6 +157,8 @@ mast_cell	3	*
 mast_cell	4	mast_cell
 mast_cell	5	*
 mast_cell	6	*
+mast_cell	7	*
+mast_cell	8	*
 mesothelial_cell	0	mesothelial_cell
 mesothelial_cell	1	mesothelial_cell
 mesothelial_cell	2	*
