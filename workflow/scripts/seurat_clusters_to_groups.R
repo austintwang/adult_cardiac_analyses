@@ -56,7 +56,7 @@ label_data <- sub_data[cells_intersect, , drop = FALSE]
 
 # label_data <- sub_data[cells_intersect, , drop = FALSE]
 
-# proj <- subset(proj, cells = rownames((label_data)))
+proj <- subset(proj, cells = rownames((label_data)))
 proj <- AddMetaData(proj, label_data)
 
 # proj <- merge(proj_subset, proj_remain)
