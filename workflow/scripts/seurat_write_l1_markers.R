@@ -20,6 +20,7 @@ proj <- readRDS(file = input_paths[["project_in"]])
 DefaultAssay(object = proj) <- "RNA_test"
 
 label_names <- unique(proj$cell_types_l1)
+print(label_names) ####
 
 for (i in label_names){
     markers <- FindMarkers(proj, ident.1 = i, group.by = 'cell_types_l1')
