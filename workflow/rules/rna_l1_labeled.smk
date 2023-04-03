@@ -3,7 +3,7 @@ rule seurat_embed_all:
     Build RNA embeddings with all data 
     """
     input:
-        project_in = "results_groups/{group}/rna/seurat_subclusters_supergroups_to_groups/proj.rds"
+        project_in = "results_groups/{group}/rna/seurat_clusters_to_groups/proj.rds"
     output:
         project_out = "results_groups/{group}/rna/seurat_embed_all/proj.rds",
         umap_dataset = "results_groups/{group}/rna/seurat_embed_all/umap_dataset.pdf",
