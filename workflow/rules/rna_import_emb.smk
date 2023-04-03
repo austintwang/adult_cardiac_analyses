@@ -56,8 +56,8 @@ rule seurat_write_rna_all:
     Write RNA all counts embeddings
     """
     input:
-        # project_in = "results_groups/{group}/rna/seurat_embed_all/proj.rds"
-        project_in = "results_groups/{group}/rna/seurat_clusters_to_groups/proj.rds"
+        project_in = "results_groups/{group}/rna/seurat_embed_all/proj.rds"
+        # project_in = "results_groups/{group}/rna/seurat_clusters_to_groups/proj.rds"
     output:
         rna_harmony_mat = "results_groups/{group}/rna/seurat_write_rna_all/rna_harmony_mat.mtx",
         rna_harmony_rows = "results_groups/{group}/rna/seurat_write_rna_all/rna_harmony_rows.txt",
