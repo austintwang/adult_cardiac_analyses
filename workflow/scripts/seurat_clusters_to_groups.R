@@ -40,8 +40,9 @@ proj <- readRDS(file = input_paths[["project_integrated"]])
 # proj <- AddMetaData(proj, sub_data)
 
 cells_intersect <- intersect(Cells(proj), rownames((sub_data)))
-label_data <- proj@meta.data[, "cell_types_l1", drop = FALSE]
-label_data[cells_intersect, ] <- sub_data[cells_intersect, , drop = FALSE]
+# label_data <- proj@meta.data[, "cell_types_l1", drop = FALSE]
+# label_data[cells_intersect, ] <- sub_data[cells_intersect, , drop = FALSE]
+label_data <- sub_data[cells_intersect, , drop = FALSE]
 # label_data[rownames(sub_data),] <- sub_data
 # colnames(label_data) <- "cell_types_2"
 # head(label_data) ####
