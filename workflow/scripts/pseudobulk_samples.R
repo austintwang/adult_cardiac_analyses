@@ -16,10 +16,10 @@ set.seed(params[["seed"]])
 
 cell_types <- params[["cell_types"]]
 
-out_mat_paths <- params[["out_mats"]]
+out_mat_paths <- output_paths[["out_mats"]]
 names(out_mat_paths) <- cell_types
 
-out_meta_path <- params[["out_metadata"]]
+out_meta_path <- output_paths[["out_metadata"]]
 
 group <- strsplit(wildcards[["group"]], "-")
 region <- group[[1]]
