@@ -35,10 +35,11 @@ for (i in seq_along(mat_paths)) {
 mat_lst_aligned <- vector("list", length(mat_paths))
 for (i in seq_along(mat_paths)) {
     mat_aln <- matrix(0, nrow = length(gene_names), ncol = ncol(mat_lst[[i]]))
+    print(head(mat_aln)) ####
     rownames(mat_aln) <- gene_names
     colnames(mat_aln) <- colnames(mat_lst[[i]])
     mat_aln[rownames(mat_lst[[i]]),] <- mat_lst[[i]]
-    print(head(mat_aln)) ####
+    # print(head(mat_aln)) ####
     mat_lst_aligned[[i]] <- mat_aln
 }
 
