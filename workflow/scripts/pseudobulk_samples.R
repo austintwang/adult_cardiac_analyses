@@ -22,6 +22,7 @@ names(out_mat_paths) <- cell_types
 out_meta_path <- output_paths[["out_metadata"]]
 
 group <- strsplit(wildcards[["group"]], "-")
+print(group) ####
 region <- group[[1]]
 status <- group[[2]]
 sex <- group[[3]]
