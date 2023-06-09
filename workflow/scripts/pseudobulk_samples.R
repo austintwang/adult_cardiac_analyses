@@ -33,7 +33,7 @@ datasets <- unique(proj@meta.data[["dataset"]])
 n_datasets <- length(datasets)
 
 pseudobulk_metadata <- data.frame(
-    dataset = datsets,
+    dataset = datasets,
     region = rep(region, n_datasets),
     status = rep(status, n_datasets),
     sex = rep(status, n_datasets),
