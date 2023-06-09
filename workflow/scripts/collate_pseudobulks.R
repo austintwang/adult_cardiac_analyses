@@ -39,7 +39,7 @@ for (i in seq_along(mat_paths)) {
     colnames(mat_aln) <- colnames(mat_lst[[i]])
     print(head(mat_aln)) ####
     mat_aln[rownames(mat_lst[[i]]),] <- mat_lst[[i]]
-    print(mat_aln[rownames(mat_lst[[i]]),]) ####
+    print(mat_aln[rownames(mat_lst[[i]]),,drop=FALSE]) ####
     mat_lst_aligned[[i]] <- mat_aln
 }
 
