@@ -20,6 +20,7 @@ metadata_paths <- input_paths[["metadata"]]
 mat_lst <- vector("list", length(mat_paths))
 print(length(mat_paths)) ####
 for (i in seq_along(length(mat_paths))) {
+    print(i) ####
     mat <- read.table(mat_paths[[i]], header = TRUE, sep = "\t", row.names = 1)
     mat_lst[[i]] <- mat
     print(head(mat)) ####
