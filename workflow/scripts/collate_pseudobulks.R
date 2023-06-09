@@ -52,5 +52,5 @@ for (i in length(metadata_paths)) {
     metadata <- read.table(metadata_paths[[i]], header = TRUE, sep = "\t", row.names = 1)
     meta_lst[[i]] <- metadata
 }
-meta_merged <- do.call(rbind, met_lst)
+meta_merged <- do.call(rbind, meta_lst)
 write.table(meta_merged, file=output_paths[["metadata"]], quote=FALSE, sep='\t', col.names = NA)
