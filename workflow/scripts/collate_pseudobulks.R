@@ -28,7 +28,7 @@ for (i in seq_along(mat_paths)) {
     print(i) ####
     mat <- read.table(mat_paths[[i]], header = TRUE, sep = "\t", row.names = 1)
     mat_lst[[i]] <- mat
-    print(head(mat)) ####
+    # print(head(mat)) ####
     gene_names <- union(gene_names, rownames(mat))
 }
 
@@ -38,7 +38,7 @@ for (i in seq_along(mat_paths)) {
     rownames(mat_aln) <- gene_names
     colnames(mat_aln) <- colnames(mat_lst[[i]])
     print(head(mat_aln)) ####
-    mat_aln[rownames(mat_lst[[i]]),] <- mat_lst[[i]]
+    mat_aln[rownames(mat_lst[[i]]),,drop=FALSE] <- mat_lst[[i]]
     print(mat_aln[rownames(mat_lst[[i]]),,drop=FALSE]) ####
     mat_lst_aligned[[i]] <- mat_aln
 }
