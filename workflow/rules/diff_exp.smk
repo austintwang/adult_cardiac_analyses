@@ -29,7 +29,6 @@ rule collate_pseudobulks:
         out_metadata = "results_diff_exp/label/{label}/collate_pseudobulks/metadata.tsv",
     params:
         seed = config["seurat_seed"],
-        cell_types = config["l1_labels"],
     log:
         console = "logs/diff_exp/label/{label}/collate_pseudobulks/console.log"
     conda:

@@ -21,7 +21,7 @@ mat_lst <- vector("list", length(mat_paths))
 for (i in seq_along(length(mat_paths))) {
     mat <- read.table(mat_paths[[i]], header = TRUE, sep = "\t", row.names = 1)
     mat_lst[[i]] <- mat
-    print(mat) ####
+    head(mat) ####
 }
 # print(mat_lst) ####
 
