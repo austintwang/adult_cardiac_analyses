@@ -38,8 +38,9 @@ for (i in seq_along(mat_paths)) {
     rownames(mat_aln) <- gene_names
     colnames(mat_aln) <- colnames(mat_lst[[i]])
     print(head(mat_aln)) ####
+    print(head(rownames(mat_lst[[i]]))) ####
+    print(head(mat_aln[rownames(mat_lst[[i]]),,drop=FALSE])) ####
     mat_aln[rownames(mat_lst[[i]]),,drop=FALSE] <- mat_lst[[i]]
-    print(mat_aln[rownames(mat_lst[[i]]),,drop=FALSE]) ####
     mat_lst_aligned[[i]] <- mat_aln
 }
 
