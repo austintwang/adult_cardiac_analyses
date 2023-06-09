@@ -25,8 +25,8 @@ rule collate_pseudobulks:
         mats = expand("results_groups/{group}/rna/pseudobulk_samples/label/{label}/mat.tsv", group=group_names, allow_missing=True),
         metadata = expand("results_groups/{group}/rna/pseudobulk_samples/metadata.tsv", group=group_names)
     output:
-        mat_merged = "results_diff_exp/label/{label}/collate_pseudobulks/mat.tsv",
-        out_metadata = "results_diff_exp/label/{label}/collate_pseudobulks/metadata.tsv",
+        mat = "results_diff_exp/label/{label}/collate_pseudobulks/mat.tsv",
+        metadata = "results_diff_exp/label/{label}/collate_pseudobulks/metadata.tsv",
     params:
         seed = config["seurat_seed"],
     log:
