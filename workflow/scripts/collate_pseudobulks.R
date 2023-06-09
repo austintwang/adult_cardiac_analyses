@@ -34,7 +34,7 @@ for (i in seq_along(mat_paths)) {
 
 mat_lst_aligned <- vector("list", length(mat_paths))
 for (i in seq_along(mat_paths)) {
-    mat_aln <- matrix(length(gene_names), ncol( mat_lst[[i]]))
+    mat_aln <- matrix(0, nrow = length(gene_names), ncol = ncol( mat_lst[[i]]))
     mat_aln[rownames(mat_lst[[i]]),] <- mat_lst[[i]]
     mat_lst_aligned[[i]] <- mat_aln
 }
