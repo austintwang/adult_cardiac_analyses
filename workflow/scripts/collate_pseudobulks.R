@@ -22,6 +22,7 @@ for (i in seq_along(length(mat_paths))) {
     mat <- read.table(mat_paths[[i]], header = TRUE, sep = "\t", row.names = 1)
     mat_lst[[i]] <- mat
 }
+print(mat_lst) ####
 
 cbind_op <- function(x, y) {cbind.fill(x, y, fill = 0)}
 mat_merged <- do.call(cbind_op, mat_lst)
