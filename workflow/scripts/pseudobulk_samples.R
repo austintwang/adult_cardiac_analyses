@@ -49,7 +49,7 @@ for (c in cell_types) {
     colnames(out_mat) <- datasets
     for (d in datasets) {
         sel <- (proj@meta.data[["dataset"]] == d) & (proj@meta.data[["cell_types_l1"]] == c)
-        out_mat[,d] <- rowSums(GetAssayData(object = proj, slot = "counts")[,sel])
+        out_mat[,d] <- rowSums(GetAssayData(object = proj, slot = "counts")[,sel,drop=FALSE])
     }
     out_mats[[c]] <- out_mat
 }
