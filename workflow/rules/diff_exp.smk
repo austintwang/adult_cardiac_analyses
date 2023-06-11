@@ -36,5 +36,21 @@ rule collate_pseudobulks:
     script:
         "../scripts/collate_pseudobulks.R"
 
-
+rule run_deseq:
+    """
+    Run DESeq2 for differential expression analyses
+    """
+    input:
+        mat = "results_diff_exp/label/{label}/collate_pseudobulks/mat.tsv",
+        metadata = "results_diff_exp/label/{label}/collate_pseudobulks/metadata.tsv",
+    output:
+        tmp = "results_diff_exp/label/{label}/run_deseq_tmp/tmp.txt",
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/diff_exp/label/{label}/run_deseq/console.log"
+    conda:
+        "../envs/seurat.yaml"
+    script:
+        "../scripts/run_deseq.R"
 
