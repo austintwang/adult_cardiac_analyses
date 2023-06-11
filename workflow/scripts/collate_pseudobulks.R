@@ -26,7 +26,7 @@ mat_lst <- vector("list", length(mat_paths))
 gene_names <- vector()
 for (i in seq_along(mat_paths)) {
     print(i) ####
-    mat <- read.table(mat_paths[[i]], header = TRUE, sep = "\t", row.names = 1)
+    mat <- as.matrix(read.table(mat_paths[[i]], header = TRUE, sep = "\t", row.names = 1))
     mat_lst[[i]] <- mat
     # print(head(mat)) ####
     gene_names <- union(gene_names, rownames(mat))
