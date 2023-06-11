@@ -55,6 +55,7 @@ write.table(mat_merged, file=output_paths[["mat"]], quote=FALSE, sep='\t', col.n
 meta_lst <- vector("list", length(metadata_paths))
 for (i in length(metadata_paths)) {
     metadata <- read.table(metadata_paths[[i]], header = TRUE, sep = "\t", row.names = 1)
+    print(metadata) ####
     meta_lst[[i]] <- metadata
 }
 meta_merged <- do.call(rbind, meta_lst)
