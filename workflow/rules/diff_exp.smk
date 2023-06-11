@@ -50,7 +50,7 @@ rule run_deseq:
     log:
         console = "logs/diff_exp/label/{label}/run_deseq/console.log"
     conda:
-        "../envs/seurat.yaml"
+        "../envs/deseq.yaml"
     script:
         "../scripts/run_deseq.R"
 
