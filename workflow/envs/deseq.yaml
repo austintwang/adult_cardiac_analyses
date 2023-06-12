@@ -3,6 +3,6 @@ channels:
   - bioconda
   - nodefaults
 dependencies:
-  - conda-forge::r-base=4.3.0
+  - conda-forge::r-base=4.2
   - conda-forge::r-ggplot2=3.3.5
   - bioconda::bioconductor-deseq2=1.38.0
