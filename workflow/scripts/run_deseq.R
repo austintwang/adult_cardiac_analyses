@@ -27,7 +27,11 @@ dds <- DESeqDataSetFromMatrix(
     design = ~ region + status
     # design = ~ region + status + sex
 )
-dds <- DESeq(dds)
+
+dds <- estimateSizeFactors(dds, type = 'iterate')
+dds <- estimateDispersions(dds)
+dds <- nbinomWaldTest(dds)
+
 resultsNames(dds) # lists the coefficients
 
 
