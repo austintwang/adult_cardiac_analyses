@@ -55,6 +55,9 @@ dev.off()
 coef <- resultsNames(dds) # lists the coefficients
 
 for (c in coef) {
+    if (c == "Intercept") {
+        next
+    }
     res_noshrink <- results(dds, name=c)
     res_shrink <- lfcShrink(dds, coef=c, type="apeglm")
 
