@@ -6,4 +6,4 @@ dependencies:
   - conda-forge::r-base=4.2
   - conda-forge::r-ggplot2=3.4.2
   - bioconda::bioconductor-deseq2=1.38.0
-  - bioconda::bioconductor-deseq2=1.20.0
+  - bioconda::bioconductor-apeglm=1.20.0
