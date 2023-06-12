@@ -29,6 +29,21 @@ dds <- DESeqDataSetFromMatrix(
     design = ~ region + status
     # design = ~ region + status + sex
 )
+dds <- tryCatch({
+    DESeqDataSetFromMatrix(
+        countData = mat,
+        colData = metadata,
+        design = ~ status + region
+        # design = ~ region + status + sex
+    )
+}, error = function(e) {
+    DESeqDataSetFromMatrix(
+        countData = mat,
+        colData = metadata,
+        design = ~ status
+        # design = ~ region + status + sex
+    )
+})
 dds$condition <- relevel(dds$region, ref = "lv")
 dds$status <- relevel(dds$status, ref = "healthy")
 
@@ -36,7 +51,38 @@ dds <- estimateSizeFactors(dds, type = "poscounts")
 dds <- estimateDispersions(dds)
 dds <- nbinomWaldTest(dds)
 
-print(resultsNames(dds))# lists the coefficients
+coef <- resultsNames(dds) # lists the coefficients
+
+for (c in coef) {
+    res_noshrink <- results(dds, name=coef)
+    res_shrink <- lfcShrink(dds, coef=coef, type="apeglm")
+
+    out_dir <- file.path(output_paths[["out_dir"]], c)
+    dir.create(out_dir, recursive = TRUE)
+
+    res_noshrink_ordered <- as.data.frame(res[order(res$res_noshrink),])
+    write.table(res_noshrink_ordered, file=file.path(out_dir, "noshrink.tsv"), quote=FALSE, sep='\t', col.names = NA)
+
+    res_shrink_ordered <- as.data.frame(res[order(res$res_shrink),])
+    write.table(res_shrink_ordered, file=file.path(out_dir, "shrink.tsv"), quote=FALSE, sep='\t', col.names = NA)
+
+    pdf(file.path(out_dir, "dispersion_estimates.pdf"))
+    plotDispEsts(dds)
+    dev.off()
+
+    pdf(file.path(out_dir, "lfc_noshrink.pdf"))
+    plotMA(res_noshrink, ylim=c(-2,2))
+    dev.off() 
+
+    pdf(file.path(out_dir, "lfc_shrink.pdf"))
+    plotMA(res_shrink, ylim=c(-2,2))
+    dev.off() 
+
+    pdf(file.path(out_dir, "lfc_comparison.pdf"))
+    plot(res$log2FoldChange, lfc$log2FoldChange); abline(0,1)
+    dev.off() 
+
+}
 
 
 
