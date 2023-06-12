@@ -59,7 +59,8 @@ for (c in coef) {
         next
     }
     res_noshrink <- results(dds, name=c)
-    res_shrink <- lfcShrink(dds, coef=c, type="apeglm")
+    # res_shrink <- lfcShrink(dds, coef=c, type="apeglm")
+    res_shrink <- lfcShrink(dds, coef=c, type="normal")
 
     out_dir <- file.path(coefficients_dir, c)
     dir.create(out_dir, recursive = TRUE)
