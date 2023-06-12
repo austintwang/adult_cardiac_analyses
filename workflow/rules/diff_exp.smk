@@ -44,8 +44,8 @@ rule run_deseq:
         mat = "results_diff_exp/label/{label}/collate_pseudobulks/mat.tsv",
         metadata = "results_diff_exp/label/{label}/collate_pseudobulks/metadata.tsv",
     output:
-        dispersion_plot = "results_diff_exp/label/{label}/run_deseq_tmp/dispersion_estimates.pdf",
-        coefficients = directory("results_diff_exp/label/{label}/run_deseq_tmp/coefficients")
+        dispersion_plot = "results_diff_exp/label/{label}/run_deseq/dispersion_estimates.pdf",
+        coefficients = directory("results_diff_exp/label/{label}/run_deseq/coefficients")
     params:
         seed = config["seurat_seed"],
     log:

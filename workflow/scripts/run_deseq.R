@@ -79,7 +79,7 @@ for (c in coef) {
     dev.off() 
 
     pdf(file.path(out_dir, "lfc_comparison.pdf"))
-    plot(res$log2FoldChange, lfc$log2FoldChange); abline(0,1)
+    plot(res_noshrink$log2FoldChange, res_shrink$log2FoldChange); abline(0,1)
     dev.off() 
 
 }
