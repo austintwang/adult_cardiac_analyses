@@ -32,7 +32,7 @@ dds <- estimateSizeFactors(dds, type = 'iterate')
 dds <- estimateDispersions(dds)
 dds <- nbinomWaldTest(dds)
 
-resultsNames(dds) # lists the coefficients
+print(resultsNames(dds) )# lists the coefficients
 
 
 
