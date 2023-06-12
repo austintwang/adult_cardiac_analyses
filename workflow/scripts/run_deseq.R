@@ -43,7 +43,7 @@ dds <- tryCatch({
     DESeqDataSetFromMatrix(
         countData = mat,
         colData = metadata,
-        design = ~ status
+        design = ~ region
         # design = ~ region + status + sex
     )
 })
@@ -61,8 +61,8 @@ dev.off()
 coef <- resultsNames(dds) # lists the coefficients
 
 for (c in coef) {
-    res_noshrink <- results(dds, name=coef)
-    res_shrink <- lfcShrink(dds, coef=coef, type="apeglm")
+    res_noshrink <- results(dds, name=c)
+    res_shrink <- lfcShrink(dds, coef=c, type="apeglm")
 
     out_dir <- file.path(coefficients_dir, c)
     dir.create(out_dir, recursive = TRUE)
