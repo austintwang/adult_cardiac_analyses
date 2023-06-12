@@ -29,12 +29,14 @@ dds <- DESeqDataSetFromMatrix(
     design = ~ region + status
     # design = ~ region + status + sex
 )
+dds$condition <- relevel(dds$region, ref = "lv")
+dds$status <- relevel(dds$status, ref = "healthy")
 
 dds <- estimateSizeFactors(dds, type = "poscounts")
 dds <- estimateDispersions(dds)
 dds <- nbinomWaldTest(dds)
 
-print(resultsNames(dds) )# lists the coefficients
+print(resultsNames(dds))# lists the coefficients
 
 
 
