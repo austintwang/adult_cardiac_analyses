@@ -16,6 +16,9 @@ set.seed(params[["seed"]])
 
 mat_path <- input_paths[["mat"]]
 metadata_path <- input_paths[["metadata"]]
+coefficients_dir <- output_paths[["coefficients"]]
+dispersion_plot_path <- output_paths[["dispersion_plot"]]
+
 
 mat <- as.matrix(read.table(mat_path, header = TRUE, sep = "\t", row.names = 1))
 metadata_chr <- read.table(metadata_path, header = TRUE, sep = "\t", row.names = 1)
@@ -51,13 +54,17 @@ dds <- estimateSizeFactors(dds, type = "poscounts")
 dds <- estimateDispersions(dds)
 dds <- nbinomWaldTest(dds)
 
+pdf(dispersion_plot_path)
+plotDispEsts(dds)
+dev.off()
+
 coef <- resultsNames(dds) # lists the coefficients
 
 for (c in coef) {
     res_noshrink <- results(dds, name=coef)
     res_shrink <- lfcShrink(dds, coef=coef, type="apeglm")
 
-    out_dir <- file.path(output_paths[["out_dir"]], c)
+    out_dir <- file.path(coefficients_dir, c)
     dir.create(out_dir, recursive = TRUE)
 
     res_noshrink_ordered <- as.data.frame(res[order(res$res_noshrink),])
@@ -65,10 +72,6 @@ for (c in coef) {
 
     res_shrink_ordered <- as.data.frame(res[order(res$res_shrink),])
     write.table(res_shrink_ordered, file=file.path(out_dir, "shrink.tsv"), quote=FALSE, sep='\t', col.names = NA)
-
-    pdf(file.path(out_dir, "dispersion_estimates.pdf"))
-    plotDispEsts(dds)
-    dev.off()
 
     pdf(file.path(out_dir, "lfc_noshrink.pdf"))
     plotMA(res_noshrink, ylim=c(-2,2))
