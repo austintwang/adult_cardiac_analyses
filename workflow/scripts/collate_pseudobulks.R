@@ -57,10 +57,11 @@ for (i in seq_along(metadata_paths)) {
 }
 
 mat_merged <- do.call(cbind, mat_lst_aligned)
-mat_merged <- mat_merged[, colSums(mat_merged) > 0, drop = FALSE]
+nonzeros <- colSums(mat_merged) > 0
+mat_merged <- mat_merged[, nonzeros, drop = FALSE]
 print(head(mat_merged)) ####
 write.table(mat_merged, file=output_paths[["mat"]], quote=FALSE, sep='\t', col.names = NA)
 
 meta_merged <- do.call(rbind, meta_lst)
-meta_merged <- meta_merged[colSums(mat_merged) > 0, , drop = FALSE]
+meta_merged <- meta_merged[nonzeros, , drop = FALSE]
 write.table(meta_merged, file=output_paths[["metadata"]], quote=FALSE, sep='\t', col.names = NA)
