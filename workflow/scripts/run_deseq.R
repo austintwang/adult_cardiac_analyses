@@ -28,7 +28,9 @@ dds <- DESeqDataSetFromMatrix(
     # design = ~ region + status + sex
 )
 
-dds <- estimateSizeFactors(dds, type = 'iterate')
+cts <- counts(dds)
+geoMeans <- apply(cts, 1, function(row) if (all(row == 0)) 0 else exp(mean(log(row[row != 0]))))
+dds <- estimateSizeFactors(dds, geoMeans=geoMeans)
 dds <- estimateDispersions(dds)
 dds <- nbinomWaldTest(dds)
 
