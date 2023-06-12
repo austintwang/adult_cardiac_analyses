@@ -64,10 +64,10 @@ for (c in coef) {
     out_dir <- file.path(coefficients_dir, c)
     dir.create(out_dir, recursive = TRUE)
 
-    res_noshrink_ordered <- as.data.frame(res[order(res$res_noshrink),])
+    res_noshrink_ordered <- as.data.frame(res_noshrink[order(res_noshrink$pvalue),])
     write.table(res_noshrink_ordered, file=file.path(out_dir, "noshrink.tsv"), quote=FALSE, sep='\t', col.names = NA)
 
-    res_shrink_ordered <- as.data.frame(res[order(res$res_shrink),])
+    res_shrink_ordered <- as.data.frame(res_shrink[order(res_shrink$pvalue),])
     write.table(res_shrink_ordered, file=file.path(out_dir, "shrink.tsv"), quote=FALSE, sep='\t', col.names = NA)
 
     pdf(file.path(out_dir, "lfc_noshrink.pdf"))
