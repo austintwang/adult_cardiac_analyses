@@ -21,6 +21,8 @@ mat <- as.matrix(read.table(mat_path, header = TRUE, sep = "\t", row.names = 1))
 metadata_chr <- read.table(metadata_path, header = TRUE, sep = "\t", row.names = 1)
 metadata <- as.data.frame(unclass(metadata_chr), stringsAsFactors = TRUE)
 
+print(colSums(mat)) ####
+
 dds <- DESeqDataSetFromMatrix(
     countData = mat,
     colData = metadata,
