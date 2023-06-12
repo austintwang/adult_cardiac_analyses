@@ -21,9 +21,12 @@ mat <- as.matrix(read.table(mat_path, header = TRUE, sep = "\t", row.names = 1))
 metadata_chr <- read.table(metadata_path, header = TRUE, sep = "\t", row.names = 1)
 metadata <- as.data.frame(unclass(metadata_chr), stringsAsFactors = TRUE)
 
-dds <- DESeqDataSetFromMatrix(countData = mat,
-                              colData = metadata,
-                              design = ~ region + status + sex)
+dds <- DESeqDataSetFromMatrix(
+    countData = mat,
+    colData = metadata,
+    design = ~ region + status
+    # design = ~ region + status + sex
+)
 dds <- DESeq(dds)
 resultsNames(dds) # lists the coefficients
 
