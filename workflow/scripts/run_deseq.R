@@ -4,7 +4,7 @@ console_log <- file(snakemake@log[["console"]], open = "wt")
 sink(console_log)
 sink(console_log, type = "message")
 
-library("plyr")
+library("DESeq2")
 
 params = snakemake@params 
 wildcards = snakemake@wildcards
