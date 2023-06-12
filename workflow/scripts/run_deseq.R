@@ -14,7 +14,7 @@ log_paths = snakemake@log
 
 set.seed(params[["seed"]])
 
-mat_path <- input_paths[["mats"]]
+mat_path <- input_paths[["mat"]]
 metadata_path <- input_paths[["metadata"]]
 
 mat <- as.matrix(read.table(mat_path, header = TRUE, sep = "\t", row.names = 1))
