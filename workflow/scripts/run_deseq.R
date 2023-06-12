@@ -28,10 +28,7 @@ dds <- DESeqDataSetFromMatrix(
     # design = ~ region + status + sex
 )
 
-cts <- counts(dds)
-geoMeans <- apply(cts, 1, function(row) if (all(row == 0)) 0 else exp(mean(log(row[row != 0]))))
-print(geoMeans) ####
-dds <- estimateSizeFactors(dds, geoMeans=geoMeans)
+dds <- estimateSizeFactors(dds, type = "poscounts")
 dds <- estimateDispersions(dds)
 dds <- nbinomWaldTest(dds)
 
