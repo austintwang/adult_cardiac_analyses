@@ -28,6 +28,7 @@ status <- group[[2]]
 sex <- group[[3]]
 
 proj <- readRDS(file = input_paths[["project_in"]])
+DefaultAssay(object = proj) <- "RNA_test"
 
 datasets <- unique(proj@meta.data[["dataset"]])
 n_datasets <- length(datasets)
