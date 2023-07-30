@@ -9,3 +9,4 @@ dependencies:
   - bioconda::bioconductor-apeglm=1.22.1
   - bioconda::bioconductor-sva=3.48.0
   - bioconda::bioconductor-genomicranges=1.52.0
+  - bioconda::bioconductor-genefilter=1.82.1
