@@ -8,9 +8,9 @@ dependencies:
   - bioconda::bioconductor-deseq2=1.40.2
   - bioconda::bioconductor-apeglm=1.22.1
   - bioconda::bioconductor-sva=3.48.0
-  - bioconda::bioconductor-genomicranges=1.52.0
-  - bioconda::bioconductor-genefilter=1.82.1
-  - bioconda::bioconductor-annotationdbi=1.62.2
-  - bioconda::bioconductor-keggrest=1.40.0
-  - bioconda::bioconductor-xvector=0.40.0
-  - bioconda::bioconductor-summarizedexperiment=1.30.2
+  # - bioconda::bioconductor-genomicranges=1.52.0
+  # - bioconda::bioconductor-genefilter=1.82.1
+  # - bioconda::bioconductor-annotationdbi=1.62.2
+  # - bioconda::bioconductor-keggrest=1.40.0
+  # - bioconda::bioconductor-xvector=0.40.0
+  # - bioconda::bioconductor-summarizedexperiment=1.30.2
