@@ -12,3 +12,4 @@ dependencies:
   - bioconda::bioconductor-genefilter=1.82.1
   - bioconda::bioconductor-annotationdbi=1.62.2
   - bioconda::bioconductor-keggrest=1.40.0
+  - bioconda::bioconductor-xvector=0.40.0
