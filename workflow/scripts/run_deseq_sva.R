@@ -68,6 +68,7 @@ dds$SV1 <- fit$sv[,1]
 dds$SV2 <- fit$sv[,2]
 
 dds_df <- as.data.frame(colData(dds))
+print(dds_df) ####
 if (incl_region) {
     plt <- ggplot(dds_df, aes(x="SV1", y="SV2", color="status", shape="region"))
 } else {
