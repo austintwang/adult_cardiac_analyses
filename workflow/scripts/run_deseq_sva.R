@@ -74,7 +74,7 @@ if (incl_region) {
 } else {
     plt <- ggplot(dds_df, aes(x="SV1", y="SV2", color="status"))
 }
-ggsave(sv_plot_path, plot = plt)
+ggsave(sv_plot_path, plt, device = "pdf")
 
 if (incl_region) {
     design(dds) <- ~ status + region + SV1 + SV2
