@@ -70,9 +70,9 @@ dds$SV2 <- fit$sv[,2]
 dds_df <- as.data.frame(colData(dds))
 print(dds_df) ####
 if (incl_region) {
-    plt <- ggplot(dds_df, aes(x="SV1", y="SV2", color="status", shape="region")) + geom_point()
+    plt <- ggplot(dds_df, aes(x=SV1, y=SV2, color=status, shape=region)) + geom_point()
 } else {
-    plt <- ggplot(dds_df, aes(x="SV1", y="SV2", color="status")) + geom_point()
+    plt <- ggplot(dds_df, aes(x=SV1, y=SV2, color=status)) + geom_point()
 }
 ggsave(sv_plot_path, plt, device = "pdf")
 
