@@ -64,6 +64,7 @@ rule run_deseq_sva:
         metadata = "results_diff_exp/label/{label}/collate_pseudobulks/metadata.tsv",
     output:
         dispersion_plot = "results_diff_exp/label/{label}/run_deseq_sva/dispersion_estimates.pdf",
+        sv_plot = "results_diff_exp/label/{label}/run_deseq_sva/sv.pdf",
         coefficients = directory("results_diff_exp/label/{label}/run_deseq_sva/coefficients")
     params:
         seed = config["seurat_seed"],

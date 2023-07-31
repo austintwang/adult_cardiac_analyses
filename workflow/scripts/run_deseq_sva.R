@@ -6,6 +6,7 @@ sink(console_log, type = "message")
 
 library("DESeq2")
 library(sva)
+library(ggplot2)
 
 params = snakemake@params 
 wildcards = snakemake@wildcards
@@ -19,6 +20,7 @@ mat_path <- input_paths[["mat"]]
 metadata_path <- input_paths[["metadata"]]
 coefficients_dir <- output_paths[["coefficients"]]
 dispersion_plot_path <- output_paths[["dispersion_plot"]]
+sv_plot_path <- output_paths[["sv_plot"]]
 
 
 mat <- as.matrix(read.table(mat_path, header = TRUE, sep = "\t", row.names = 1))
@@ -64,6 +66,14 @@ fit <- svaseq(norm.cts, mod=mm, mod0=mm0, n.sv=2)
 
 dds$SV1 <- fit$sv[,1]
 dds$SV2 <- fit$sv[,2]
+ 
+if (incl_region) {
+    plt <- ggplot(colData(dds), aes(x="SV1", y="SV2", color="status", shape="region"))
+} else {
+    plt <- ggplot(colData(dds), aes(x="SV1", y="SV2", color="status"))
+}
+ggsave(sv_plot_path, plot = plt)
+
 if (incl_region) {
     design(dds) <- ~ status + region + SV1 + SV2
 } else {
