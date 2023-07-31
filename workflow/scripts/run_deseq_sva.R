@@ -56,9 +56,9 @@ dds <- estimateSizeFactors(dds, type = "poscounts")
 
 norm.cts <- counts(dds, normalized=TRUE)
 if (incl_region) {
-    mm <- model.matrix(~ status + region, colData(dds))
+    mm <- model.matrix(~ status + region, colData(dds)) + geom_point()
 } else {
-    mm <- model.matrix(~ status, colData(dds))
+    mm <- model.matrix(~ status, colData(dds)) + geom_point()
 }
 mm0 <- model.matrix(~ 1, colData(dds))
 norm.cts <- norm.cts[rowSums(norm.cts) > 0,]
