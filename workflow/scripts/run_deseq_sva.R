@@ -33,23 +33,23 @@ data <- tryCatch({
     dds <- DESeqDataSetFromMatrix(
         countData = mat,
         colData = metadata,
-        design = ~ status + region
-        # design = ~ region + status + sex
+        # design = ~ status + region
+        design = ~ region + status + sex
     )
     list(dds=dds, incl_region=TRUE)
 }, error = function(e) {
     dds <- DESeqDataSetFromMatrix(
         countData = mat,
         colData = metadata,
-        design = ~ status
-        # design = ~ region + status + sex
+        # design = ~ status + region
+        design = ~ status + sex
     )
     list(dds=dds, incl_region=FALSE)
 })
 dds <- data[["dds"]]
 incl_region <- data[["incl_region"]]
 
-dds$condition <- relevel(dds$region, ref = "lv")
+dds$region <- relevel(dds$region, ref = "lv")
 dds$status <- relevel(dds$status, ref = "healthy")
 
 dds <- estimateSizeFactors(dds, type = "poscounts")
@@ -77,9 +77,9 @@ if (incl_region) {
 ggsave(sv_plot_path, plt, device = "pdf")
 
 if (incl_region) {
-    design(dds) <- ~ status + region + SV1 + SV2
+    design(dds) <- ~ status + region + sex + SV1 + SV2
 } else {
-    design(dds) <- ~ status + SV1 + SV2
+    design(dds) <- ~ status + sex + SV1 + SV2
 }
 
 dds <- estimateDispersions(dds)

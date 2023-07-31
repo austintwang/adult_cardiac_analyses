@@ -31,15 +31,15 @@ data <- tryCatch({
     dds <- DESeqDataSetFromMatrix(
         countData = mat,
         colData = metadata,
-        design = ~ status + region
-        # design = ~ region + status + sex
+        # design = ~ status + region
+        design = ~ region + status + sex
     )
     list(dds=dds, incl_region=TRUE)
 }, error = function(e) {
     dds <- DESeqDataSetFromMatrix(
         countData = mat,
         colData = metadata,
-        design = ~ status
+        design = ~ status + sex
         # design = ~ region + status + sex
     )
     list(dds=dds, incl_region=FALSE)
@@ -47,7 +47,7 @@ data <- tryCatch({
 dds <- data[["dds"]]
 incl_region <- data[["incl_region"]]
 
-dds$condition <- relevel(dds$region, ref = "lv")
+dds$region <- relevel(dds$region, ref = "lv")
 dds$status <- relevel(dds$status, ref = "healthy")
 
 dds <- estimateSizeFactors(dds, type = "poscounts")

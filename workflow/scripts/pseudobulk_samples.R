@@ -37,7 +37,7 @@ pseudobulk_metadata <- data.frame(
     dataset = datasets,
     region = rep(region, n_datasets),
     status = rep(status, n_datasets),
-    sex = rep(status, n_datasets),
+    sex = rep(sex, n_datasets),
     stringsAsFactors = FALSE
 )
 write.table(pseudobulk_metadata, file=out_meta_path, quote=FALSE, sep='\t', col.names = NA)
