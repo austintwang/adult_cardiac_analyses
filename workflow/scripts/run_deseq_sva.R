@@ -66,11 +66,12 @@ fit <- svaseq(norm.cts, mod=mm, mod0=mm0, n.sv=2)
 
 dds$SV1 <- fit$sv[,1]
 dds$SV2 <- fit$sv[,2]
- 
+
+dds_df <- as.data.frame(colData(dds))
 if (incl_region) {
-    plt <- ggplot(colData(dds), aes(x="SV1", y="SV2", color="status", shape="region"))
+    plt <- ggplot(dds_df, aes(x="SV1", y="SV2", color="status", shape="region"))
 } else {
-    plt <- ggplot(colData(dds), aes(x="SV1", y="SV2", color="status"))
+    plt <- ggplot(dds_df, aes(x="SV1", y="SV2", color="status"))
 }
 ggsave(sv_plot_path, plot = plt)
 
