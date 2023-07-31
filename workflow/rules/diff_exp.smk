@@ -55,3 +55,21 @@ rule run_deseq:
     script:
         "../scripts/run_deseq.R"
 
+rule run_deseq_sva:
+    """
+    Run DESeq2 with SVA for differential expression analyses
+    """
+    input:
+        mat = "results_diff_exp/label/{label}/collate_pseudobulks/mat.tsv",
+        metadata = "results_diff_exp/label/{label}/collate_pseudobulks/metadata.tsv",
+    output:
+        dispersion_plot = "results_diff_exp/label/{label}/run_deseq_sva/dispersion_estimates.pdf",
+        coefficients = directory("results_diff_exp/label/{label}/run_deseq_sva/coefficients")
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/diff_exp/label/{label}/run_deseq_sva/console.log"
+    conda:
+        "../envs/deseq.yaml"
+    script:
+        "../scripts/run_deseq.R"

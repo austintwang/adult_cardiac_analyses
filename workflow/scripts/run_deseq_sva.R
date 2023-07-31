@@ -5,7 +5,7 @@ sink(console_log)
 sink(console_log, type = "message")
 
 library("DESeq2")
-# library(sva)
+library(sva)
 
 params = snakemake@params 
 wildcards = snakemake@wildcards
@@ -52,23 +52,23 @@ dds$status <- relevel(dds$status, ref = "healthy")
 
 dds <- estimateSizeFactors(dds, type = "poscounts")
 
-# norm.cts <- counts(dds, normalized=TRUE)
-# if (incl_region) {
-#     mm <- model.matrix(~ status + region, colData(dds))
-# } else {
-#     mm <- model.matrix(~ status, colData(dds))
-# }
-# mm0 <- model.matrix(~ 1, colData(dds))
-# norm.cts <- norm.cts[rowSums(norm.cts) > 0,]
-# fit <- svaseq(norm.cts, mod=mm, mod0=mm0, n.sv=2)
+norm.cts <- counts(dds, normalized=TRUE)
+if (incl_region) {
+    mm <- model.matrix(~ status + region, colData(dds))
+} else {
+    mm <- model.matrix(~ status, colData(dds))
+}
+mm0 <- model.matrix(~ 1, colData(dds))
+norm.cts <- norm.cts[rowSums(norm.cts) > 0,]
+fit <- svaseq(norm.cts, mod=mm, mod0=mm0, n.sv=2)
 
-# dds$SV1 <- fit$sv[,1]
-# dds$SV2 <- fit$sv[,2]
-# if (incl_region) {
-#     design(dds) <- ~ status + region + SV1 + SV2
-# } else {
-#     design(dds) <- ~ status + SV1 + SV2
-# }
+dds$SV1 <- fit$sv[,1]
+dds$SV2 <- fit$sv[,2]
+if (incl_region) {
+    design(dds) <- ~ status + region + SV1 + SV2
+} else {
+    design(dds) <- ~ status + SV1 + SV2
+}
 
 dds <- estimateDispersions(dds)
 dds <- nbinomWaldTest(dds)
