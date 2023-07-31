@@ -72,4 +72,4 @@ rule run_deseq_sva:
     conda:
         "../envs/deseq.yaml"
     script:
-        "../scripts/run_deseq.R"
+        "../scripts/run_deseq_sva.R"
