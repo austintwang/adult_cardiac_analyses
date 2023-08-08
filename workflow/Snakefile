@@ -153,6 +153,8 @@ rule diff_exp:
         expand("results_diff_exp/label/{label}/collate_pseudobulks/mat.tsv", label=config["l1_labels"]),
         expand("results_diff_exp/label/{label}/run_deseq/coefficients", label=config["l1_labels"]),
         expand("results_diff_exp/label/{label}/run_deseq_sva/coefficients", label=config["l1_labels"]),
+        expand("results_diff_exp/label/{label}/run_deseq_lv/coefficients", label=config["l1_labels"]),
+        expand("results_diff_exp/label/{label}/run_deseq_sva_lv/coefficients", label=config["l1_labels"]),
 
 rule l1_finalize:
     """

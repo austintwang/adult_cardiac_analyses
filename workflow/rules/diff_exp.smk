@@ -74,3 +74,42 @@ rule run_deseq_sva:
         "../envs/deseq.yaml"
     script:
         "../scripts/run_deseq_sva.R"
+
+rule run_deseq_lv:
+    """
+    Run DESeq2 for differential expression analyses
+    """
+    input:
+        mat = "results_diff_exp/label/{label}/collate_pseudobulks/mat.tsv",
+        metadata = "results_diff_exp/label/{label}/collate_pseudobulks/metadata.tsv",
+    output:
+        dispersion_plot = "results_diff_exp/label/{label}/run_deseq_lv/dispersion_estimates.pdf",
+        coefficients = directory("results_diff_exp/label/{label}/run_deseq_lv/coefficients")
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/diff_exp/label/{label}/run_deseq_lv/console.log"
+    conda:
+        "../envs/deseq.yaml"
+    script:
+        "../scripts/run_deseq_lv.R"
+
+rule run_deseq_sva_lv:
+    """
+    Run DESeq2 with SVA for differential expression analyses
+    """
+    input:
+        mat = "results_diff_exp/label/{label}/collate_pseudobulks/mat.tsv",
+        metadata = "results_diff_exp/label/{label}/collate_pseudobulks/metadata.tsv",
+    output:
+        dispersion_plot = "results_diff_exp/label/{label}/run_deseq_sva_lv/dispersion_estimates.pdf",
+        sv_plot = "results_diff_exp/label/{label}/run_deseq_sva_lv/sv.pdf",
+        coefficients = directory("results_diff_exp/label/{label}/run_deseq_sva_lv/coefficients")
+    params:
+        seed = config["seurat_seed"],
+    log:
+        console = "logs/diff_exp/label/{label}/run_deseq_sva_lv/console.log"
+    conda:
+        "../envs/deseq.yaml"
+    script:
+        "../scripts/run_deseq_sva_lv.R"
