@@ -37,8 +37,12 @@ dds <- DESeqDataSetFromMatrix(
 
 dds <- dds[, dds$region %in% c("lv")]
 dds$region <- droplevels(dds$region)
+dds$status <- droplevels(dds$status)
+dds$sex <- droplevels(dds$sex)
 
-dds$status <- relevel(dds$status, ref = "healthy")
+if ("healthy" in levels(dds$status)) {
+    dds$status <- relevel(dds$status, ref = "healthy")
+}
 
 dds <- estimateSizeFactors(dds, type = "poscounts")
 

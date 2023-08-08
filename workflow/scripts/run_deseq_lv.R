@@ -38,10 +38,12 @@ dds$region <- droplevels(dds$region)
 dds$status <- droplevels(dds$status)
 dds$sex <- droplevels(dds$sex)
 
-print(levels(dds$sex)) ####
-print(levels(dds$status)) ####
+# print(levels(dds$sex)) ####
+# print(levels(dds$status)) ####
 
-dds$status <- relevel(dds$status, ref = "healthy")
+if ("healthy" in levels(dds$status)) {
+    dds$status <- relevel(dds$status, ref = "healthy")
+}
 
 dds <- estimateSizeFactors(dds, type = "poscounts")
 
