@@ -33,6 +33,24 @@ dds <- DESeqDataSetFromMatrix(
     design = ~ status + sex
 )
 
+data <- tryCatch({
+    dds <- DESeqDataSetFromMatrix(
+        countData = mat,
+        colData = metadata,
+        design = ~ status + sex
+    )
+    list(dds=dds, incl_sex=TRUE)
+}, error = function(e) {
+    dds <- DESeqDataSetFromMatrix(
+        countData = mat,
+        colData = metadata,
+        design = ~ status + sex
+    )
+    list(dds=dds, incl_sex=FALSE)
+})
+dds <- data[["dds"]]
+incl_sex <- data[["incl_sex"]]
+
 dds <- dds[, dds$region %in% c("lv")]
 dds$region <- droplevels(dds$region)
 
