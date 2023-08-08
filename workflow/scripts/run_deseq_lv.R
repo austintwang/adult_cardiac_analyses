@@ -44,7 +44,7 @@ data <- tryCatch({
     dds <- DESeqDataSetFromMatrix(
         countData = mat,
         colData = metadata,
-        design = ~ status + sex
+        design = ~ status
     )
     list(dds=dds, incl_sex=FALSE)
 })
