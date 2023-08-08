@@ -27,12 +27,6 @@ metadata <- as.data.frame(unclass(metadata_chr), stringsAsFactors = TRUE)
 
 print(colSums(mat)) ####
 
-dds <- DESeqDataSetFromMatrix(
-    countData = mat,
-    colData = metadata,
-    design = ~ status + sex
-)
-
 data <- tryCatch({
     dds <- DESeqDataSetFromMatrix(
         countData = mat,
