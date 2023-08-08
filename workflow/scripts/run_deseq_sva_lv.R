@@ -29,23 +29,11 @@ metadata <- as.data.frame(unclass(metadata_chr), stringsAsFactors = TRUE)
 
 print(colSums(mat)) ####
 
-data <- tryCatch({
-    dds <- DESeqDataSetFromMatrix(
-        countData = mat,
-        colData = metadata,
-        design = ~ status + sex
-    )
-    list(dds=dds, incl_sex=TRUE)
-}, error = function(e) {
-    dds <- DESeqDataSetFromMatrix(
-        countData = mat,
-        colData = metadata,
-        design = ~ status
-    )
-    list(dds=dds, incl_sex=FALSE)
-})
-dds <- data[["dds"]]
-incl_sex <- data[["incl_sex"]]
+dds <- DESeqDataSetFromMatrix(
+    countData = mat,
+    colData = metadata,
+    design = ~ status + sex
+)
 
 dds <- dds[, dds$region %in% c("lv")]
 dds$region <- droplevels(dds$region)
@@ -55,11 +43,7 @@ dds$status <- relevel(dds$status, ref = "healthy")
 dds <- estimateSizeFactors(dds, type = "poscounts")
 
 norm.cts <- counts(dds, normalized=TRUE)
-if (incl_sex) {
-    mm <- model.matrix(~ status + sex, colData(dds))
-} else {
-    mm <- model.matrix(~ status, colData(dds))
-}
+mm <- model.matrix(~ status + sex, colData(dds))
 mm0 <- model.matrix(~ 1, colData(dds))
 norm.cts <- norm.cts[rowSums(norm.cts) > 0,]
 fit <- svaseq(norm.cts, mod=mm, mod0=mm0, n.sv=2)
@@ -68,18 +52,10 @@ dds$SV1 <- fit$sv[,1]
 dds$SV2 <- fit$sv[,2]
 
 dds_df <- as.data.frame(colData(dds))
-if (incl_sex) {
-    plt <- ggplot(dds_df, aes(x=SV1, y=SV2, color=status, shape=sex)) + geom_point()
-} else {
-    plt <- ggplot(dds_df, aes(x=SV1, y=SV2, color=status)) + geom_point()
-}
+plt <- ggplot(dds_df, aes(x=SV1, y=SV2, color=status, shape=sex)) + geom_point()
 ggsave(sv_plot_path, plt, device = "pdf")
 
-if (incl_region) {
-    design(dds) <- ~ status + sex + SV1 + SV2
-} else {
-    design(dds) <- ~ status + SV1 + SV2
-}
+design(dds) <- ~ status + sex + SV1 + SV2
 dds <- estimateDispersions(dds)
 dds <- nbinomWaldTest(dds)
 
