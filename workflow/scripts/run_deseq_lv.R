@@ -35,9 +35,11 @@ dds <- DESeqDataSetFromMatrix(
 
 dds <- dds[, dds$region %in% c("lv")]
 dds$region <- droplevels(dds$region)
+dds$status <- droplevels(dds$status)
+dds$sex <- droplevels(dds$sex)
 
-print(dds)
-print(levels(dds$status) )####
+print(levels(dds$sex)) ####
+print(levels(dds$status)) ####
 
 dds$status <- relevel(dds$status, ref = "healthy")
 
