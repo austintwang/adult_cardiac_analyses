@@ -40,7 +40,7 @@ dds$region <- droplevels(dds$region)
 dds$status <- droplevels(dds$status)
 dds$sex <- droplevels(dds$sex)
 
-if ("healthy" in levels(dds$status)) {
+if ("healthy" %in% levels(dds$status)) {
     dds$status <- relevel(dds$status, ref = "healthy")
 }
 

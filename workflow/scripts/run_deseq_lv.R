@@ -41,7 +41,7 @@ dds$sex <- droplevels(dds$sex)
 # print(levels(dds$sex)) ####
 # print(levels(dds$status)) ####
 
-if ("healthy" in levels(dds$status)) {
+if ("healthy" %in% levels(dds$status)) {
     dds$status <- relevel(dds$status, ref = "healthy")
 }
 
