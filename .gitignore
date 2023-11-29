@@ -1,0 +1,15 @@
+.DS_Store
+.snakemake
+.vscode
+apptainer
+inputs
+logs
+reference
+resources
+results*
+tmp
+emb_export
+export_l1
+qc*
+sherlock
+slurm_out
