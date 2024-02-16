@@ -1,0 +1,34 @@
+channels:
+  - bioconda
+  - conda-forge
+  - nodefaults
+dependencies:
+  - conda-forge::python>=3.7
+  - bedtools
+  # - black
+  # - click
+  # - macs2
+  # - matplotlib
+  # - numpy
+  - pandas
+  # - pip
+  - pyranges
+  - pysam
+  # - python>=3.6
+  - samtools>=1.9  # to avoid open ssl issue: https://github.com/merenlab/anvio/issues/1479
+  - scipy
+  # - seaborn
+  # - snakemake>=7.0
+  # - sphinx
+  - tabix
+  # - yaml
+  # The following 3 are needed to compile hic-straw in HPC
+  # You may need to remove them if working on macosx
+  # - gcc
+  # - gxx
+  # - zlib
+  # - conda-forge::libcurl
+  - bioconda::hic-straw
+  # - pip:
+    # - sphinx_rtd_theme
+    # - hic-straw

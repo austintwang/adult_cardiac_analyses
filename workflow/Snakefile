@@ -14,8 +14,10 @@ for s, v in config["superregions"].items():
 
 samples = []
 groups = {}
+groups_unisex = {}
 batch_data = {}
 supergroups = {}
+sample_to_group = {}
 with open("config/samples.tsv") as sample_file:
     h = sample_file.readline().rstrip('\n').split('\t')
     series_ind = h.index("Series")
@@ -40,7 +42,9 @@ with open("config/samples.tsv") as sample_file:
         group_name = f"{region}-{status}-{sex}"
         samples.append(series)
         groups.setdefault(group_name, []).append(series)
+        groups_unisex.setdefault(f"{region}-{status}", []).append(series)
         batch_data[series] = batch
+        sample_to_group[series] = group_name
 
         supergroup_name = superregion_map[region]
         supergroups.setdefault(supergroup_name, set()).add(group_name)
@@ -52,7 +56,44 @@ for k, v in supergroups.items():
         group_to_supergroup[g] = k
 
 group_names = list(groups.keys())
+group_unisex_names = list(groups_unisex.keys())
 supergroup_names = list(supergroups.keys())
+
+hic_regions = set(config["hic_regions"])
+hic_labels = config["hic_labels"]
+
+groups_hic = {}
+groups_unisex_hic = {}
+hic_files = {}
+with open("config/hic_samples.tsv") as sample_file:
+    h = sample_file.readline().rstrip('\n').split('\t')
+    exp_ind = h.index("Experiment")
+    region_ind = h.index("Region")
+    status_ind = h.index("Status")
+    sex_ind = h.index("Sex")
+    file_ind = h.index("File")
+
+    samples = []
+    for line in sample_file:
+        if line.startswith("#"):
+            continue
+        entries = line.rstrip('\n').split('\t')
+        experiment = entries[exp_ind]
+        region = entries[region_ind]
+        # print(region) ####
+        if region not in hic_regions:
+            # print(region) ####
+            continue
+        status = entries[status_ind]
+        sex = entries[sex_ind]
+        file = entries[file_ind]
+
+        group_name = f"{region}-{status}-{sex}"
+        groups_hic.setdefault(group_name, []).append(experiment)
+        groups_unisex_hic.setdefault(f"{region}-{status}", []).append(experiment)
+        hic_files[experiment] = file
+
+group_unisex_names_hic = list(groups_unisex_hic.keys())
 
 
 # subcluster_jobs = []
@@ -99,6 +140,10 @@ include:
     "rules/export.smk"
 include:
     "rules/diff_exp.smk"
+include:
+    "rules/soupx.smk"
+include:
+    "rules/abc.smk"
 
 rule all:
     """
@@ -111,7 +156,31 @@ rule all:
         # expand("results_groups/{group}/rna/seurat_named_cluster_markers_refined/markers.tsv", group=group_names),
         # expand("results_groups/{group}/rna/seurat_add_seq_emb/proj.rds", group=group_names),
         # expand("results_groups/{group}/rna/seurat_embed_all/proj.rds", group=group_names),
-        # expand("results_groups/{group}/rna/seurat_write_rna_all/metadata.tsv", group=group_names),
+        # expand("results/{sample}/rna/seurat_soupx_filtered/proj.rds", group=group_names),
+
+
+rule abc:
+    """
+    Run ABC enhancer-gene linking
+    """
+    input:
+        expand("results_unisex/{group}/abc/{label}/neighborhoods/GeneList.txt", group=group_unisex_names_hic, label=hic_labels),
+        [
+            f"results_unisex/{group}/abc/{label}/predictions/{experiment}/EnhancerPredictionsAllPutative.tsv.gz"
+            for group in group_unisex_names if group in groups_unisex_hic
+            for label in config["hic_labels"]
+            for experiment in groups_unisex_hic[group]
+        ]
+
+
+rule soupx:
+    """
+    Run ambient RNA decontamination on filtered data
+    """
+    input: 
+        expand("results/{sample}/rna/seurat_soupx_filtered/proj.rds", sample=samples),
+        "qc_all/seurat_soupx_filtered.pdf",
+        expand("results/{sample}/rna/seurat_soupx_filtered/adjusted_counts/counts_mat.mtx", sample=samples),
 
 rule export_l1:
     """
@@ -265,8 +334,8 @@ rule get_dataset_info:
         series = get_series,
         replicate = 1,
         dcc_mode = config["dcc_mode"],
-        dcc_api_key = os.environ["DCC_API_KEY"], 
-        dcc_secret_key = os.environ["DCC_SECRET_KEY"]
+        dcc_api_key = os.environ.get("DCC_API_KEY"), 
+        dcc_secret_key = os.environ.get("DCC_SECRET_KEY")
     log:
         directory("logs/{sample}/get_dataset_info")
     conda:
@@ -285,8 +354,8 @@ rule query_fragments:
         series = get_series,
         replicate = 1,
         dcc_mode = config["dcc_mode"],
-        dcc_api_key = os.environ["DCC_API_KEY"], 
-        dcc_secret_key = os.environ["DCC_SECRET_KEY"]
+        dcc_api_key = os.environ.get("DCC_API_KEY"), 
+        dcc_secret_key = os.environ.get("DCC_SECRET_KEY")
     log:
         directory("logs/{sample}/query_fragments")
     conda:
@@ -303,8 +372,8 @@ rule download_fragments:
     output:
         "results/{sample}/fetch/fragments.tar.gz"
     params:
-        usr = os.environ["DCC_API_KEY"],
-        pwd = os.environ["DCC_SECRET_KEY"]
+        usr = os.environ.get("DCC_API_KEY"),
+        pwd = os.environ.get("DCC_SECRET_KEY")
     conda:
         "envs/fetch.yaml"
     shell:
@@ -356,8 +425,8 @@ rule query_expression:
         series = get_series,
         replicate = 1,
         dcc_mode = config["dcc_mode"],
-        dcc_api_key = os.environ["DCC_API_KEY"], 
-        dcc_secret_key = os.environ["DCC_SECRET_KEY"]
+        dcc_api_key = os.environ.get("DCC_API_KEY"), 
+        dcc_secret_key = os.environ.get("DCC_SECRET_KEY")
     log:
         directory("logs/{sample}/query_expression")
     conda:
@@ -375,8 +444,8 @@ rule query_expression_raw:
         series = get_series,
         replicate = 1,
         dcc_mode = config["dcc_mode"],
-        dcc_api_key = os.environ["DCC_API_KEY"], 
-        dcc_secret_key = os.environ["DCC_SECRET_KEY"]
+        dcc_api_key = os.environ.get("DCC_API_KEY"), 
+        dcc_secret_key = os.environ.get("DCC_SECRET_KEY")
     log:
         directory("logs/{sample}/query_expression_raw")
     conda:
@@ -393,8 +462,8 @@ rule download_expression:
     output:
         "results/{sample}/fetch/expression.tar.gz"
     params:
-        usr = os.environ["DCC_API_KEY"],
-        pwd = os.environ["DCC_SECRET_KEY"]
+        usr = os.environ.get("DCC_API_KEY"),
+        pwd = os.environ.get("DCC_SECRET_KEY")
     conda:
         "envs/fetch.yaml"
     shell:
@@ -416,8 +485,8 @@ rule download_expression_raw:
     output:
         "results/{sample}/fetch/expression_raw.tar.gz"
     params:
-        usr = os.environ["DCC_API_KEY"],
-        pwd = os.environ["DCC_SECRET_KEY"]
+        usr = os.environ.get("DCC_API_KEY"),
+        pwd = os.environ.get("DCC_SECRET_KEY")
     conda:
         "envs/fetch.yaml"
     shell:

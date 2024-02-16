@@ -72,8 +72,14 @@ doublet_formation_rate: 0.06
 gtf: https://www.encodeproject.org/files/ENCFF159KBI/@@download/ENCFF159KBI.gtf.gz
 
 seq_emb_dir: /mnt/lab_data3/salil512/adult_heart/post_analysis/embeddings
-
 atac_emb_dir: /mnt/lab_data3/salil512/adult_heart/1_cell_atlas/preharmony_embedding_export
+
+pseudobulk_frags_dir: /mnt/lab_data3/salil512/adult_heart/2_chrombpnet/2_celltype_fragments/fragments
+peaks_dir: /mnt/lab_data3/salil512/adult_heart/2_chrombpnet/3_peaks
+
+abc_genes_url: https://raw.githubusercontent.com/broadinstitute/ABC-Enhancer-Gene-Prediction/main/reference/hg38/CollapsedGeneBounds.hg38.bed
+
+hic_url: https://www.encodeproject.org/files/{file}/@@download/{file}.hic
 
 superregions:
   atrial:
@@ -99,3 +105,22 @@ l1_labels:
 
 supergroup_labels:
   - cardiomyocyte
+
+hic_labels:
+  - adipocyte
+  - cardiomyocyte
+  - endocardial
+  - endothelial_cell
+  - fibroblast
+  - lymphocyte
+  - macrophage
+  # - mesothelial_cell
+  - neuronal
+  - pericyte
+  - smooth_muscle_cell
+  - mast_cell
+
+hic_regions:
+  - lv
+
+scratch_dir: /srv/scratch/atwang
