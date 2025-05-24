@@ -348,8 +348,8 @@ def process_vc(hic):
 
 def make_predictions(
     chromosome, enhancers, genes, window, tss_slop, hic_file, hic_type, hic_resolution, 
-    hic_gamma_reference, tss_hic_contribution, scale_hic_using_powerlaw,
-    hic_gamma, hic_scale, chrom_sizes_map
+    hic_gamma, hic_scale, hic_gamma_reference, tss_hic_contribution, scale_hic_using_powerlaw,
+    chrom_sizes_map
 ):
     pred = make_pred_table(chromosome, enhancers, genes, window, chrom_sizes_map)
     pred = annotate_predictions(pred, tss_slop)

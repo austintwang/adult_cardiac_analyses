@@ -123,4 +123,26 @@ hic_labels:
 hic_regions:
   - lv
 
+as_labels:
+  - adipocyte
+  - cardiomyocyte
+  - endocardial
+  - endothelial_cell
+  - fibroblast
+  - lymphocyte
+  - macrophage
+  # - mesothelial_cell
+  - neuronal
+  - pericyte
+  - smooth_muscle_cell
+  - mast_cell
+
+as_regions:
+  - lv
+
+vcf_path: /oak/stanford/groups/akundaje/atwang/adult_heart_wgs/LR/{dir}/clair3/phased_merge_output.vcf.gz
+total_counts_atac_path: /mnt/lab_data3/salil512/adult_heart/5_differential_accessibility/5_deseq2/1_matrices/{label}_all_mtx.tsv
+
+rasqual_url: https://github.com/natsuhiko/rasqual.git
+
 scratch_dir: /srv/scratch/atwang

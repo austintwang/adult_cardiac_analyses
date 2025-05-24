@@ -1,67 +1,67 @@
-Series	Region	Status	Sex	Batch
-ENCSR889JIE	lv	nonischemic	f	A
-ENCSR196JUO	lv	inflammatory	m	A
-ENCSR716XVF	lv	nonischemic	f	C
-ENCSR487MGY	lv	nonischemic	f	C
-ENCSR305JVN	lv	nonischemic	m	B
-ENCSR038TKH	lv	inflammatory	m	B
-ENCSR323AMA	lv	nonischemic	m	D
-ENCSR196LCO	lv	nonischemic	m	D
-ENCSR891TJB	lv	nonischemic	f	B
-ENCSR056LAM	lv	ischemic	m	A
-ENCSR535LSU	lv	ischemic	f	C
-ENCSR418BIA	lv	ischemic	m	B
-ENCSR725MMM	lv	ischemic	m	B
-ENCSR861PPJ	lv	ischemic	m	C
-ENCSR882CKY	lv	ischemic	m	B
-ENCSR060VMC	lv	ischemic	f	D
-ENCSR549BXX	lv	ischemic	m	D
-ENCSR100UGC	lv	healthy	m	C
-ENCSR703OZJ	lv	healthy	f	C
-ENCSR870POU	lv	healthy	m	B
-ENCSR000ULP	lv	healthy	m	D
-ENCSR938QYK	lv	healthy	m	C
-ENCSR966RKP	lv	healthy	m	C
-ENCSR239BIN	lv	healthy	m	B
-ENCSR623PHF	lv	healthy	m	A
-ENCSR707XPP	lv	healthy	m	A
-ENCSR529JMP	lv	healthy	m	A
-ENCSR243CWX	lv	healthy	m	A
-ENCSR730AXV	lv	healthy	f	
-ENCSR954THM	lv	healthy	m	
-ENCSR983ILQ	lv	healthy	f	
-ENCSR673CAA	lv	healthy	f	
-ENCSR188XNY	lv	healthy	m	
-ENCSR523NMC	lv	healthy	f	
-ENCSR629CZM	lv	ischemic	m	D
-ENCSR793XGJ	lv	ischemic	m	D
-ENCSR304NKV	lv	ischemic	m	A
-ENCSR613LBN	la	healthy	m	
-ENCSR923FKN	la	healthy	m	
-ENCSR351CSQ	la	healthy	f	
-ENCSR218RZE	ra	healthy	m	
-ENCSR002WBD	ra	healthy	f	
-ENCSR488VFJ	ra	healthy	f	
-ENCSR793DNM	lv	healthy	f	
-ENCSR568QKW	lv	healthy	f	
-ENCSR245BNT	lv	healthy	f	
-ENCSR508WRP	lv	healthy	f	
-ENCSR956ZER	lv	ischemic	m	
-ENCSR265ZRW	lv	nonischemic	m	
-ENCSR822CXI	lv	nonischemic	m	
-ENCSR573DJW	lv	nonischemic	m	
-ENCSR300BCB	lv	ischemic	m	
-ENCSR768WQT	lv	nonischemic	m	
-ENCSR511RDV	rv	healthy	f	
-ENCSR534YJW	rv	healthy	f	
-ENCSR079UEO	rv	healthy	f	
-ENCSR987VTJ	lv	healthy	m	
-ENCSR320RLS	rv	healthy	m	
-ENCSR201BHG	rv	healthy	m	
-ENCSR371YIY	lv	inflammatory	m	
-ENCSR884JZC	lv	inflammatory	m	
-ENCSR664QSO	lv	nonischemic	m	
-ENCSR316UWS	lv	inflammatory	m	
-ENCSR407GDZ	lv	inflammatory	m	
-ENCSR488WYF	lv	inflammatory	m	
-ENCSR137EAT	lv	inflammatory	f	
+Series	Region	Status	Sex	Donor
+ENCSR889JIE	lv	nonischemic	f	UW257
+ENCSR196JUO	lv	inflammatory	m	UW258
+ENCSR716XVF	lv	nonischemic	f	UW260
+ENCSR487MGY	lv	nonischemic	f	UW224
+ENCSR305JVN	lv	nonischemic	m	UW231
+ENCSR038TKH	lv	inflammatory	m	UW236
+ENCSR323AMA	lv	nonischemic	m	UW242
+ENCSR196LCO	lv	nonischemic	m	UW288
+ENCSR891TJB	lv	nonischemic	f	UW214
+ENCSR056LAM	lv	ischemic	m	UW228
+ENCSR535LSU	lv	ischemic	f	UW232
+ENCSR418BIA	lv	ischemic	m	UW241
+ENCSR725MMM	lv	ischemic	m	UW252
+ENCSR861PPJ	lv	ischemic	m	UW215
+ENCSR882CKY	lv	ischemic	m	UW217
+ENCSR060VMC	lv	ischemic	f	UW225
+ENCSR549BXX	lv	ischemic	m	UW253
+ENCSR100UGC	lv	healthy	m	W101
+ENCSR703OZJ	lv	healthy	f	W109
+ENCSR870POU	lv	healthy	m	W174
+ENCSR000ULP	lv	healthy	m	W186
+ENCSR938QYK	lv	healthy	m	W139
+ENCSR966RKP	lv	healthy	m	W162
+ENCSR239BIN	lv	healthy	m	W136
+ENCSR623PHF	lv	healthy	m	W119
+ENCSR707XPP	lv	healthy	m	W120
+ENCSR529JMP	lv	healthy	m	W149
+ENCSR243CWX	lv	healthy	m	W169
+ENCSR730AXV	lv	healthy	f	W170
+ENCSR954THM	lv	healthy	m	W168
+ENCSR983ILQ	lv	healthy	f	W146
+ENCSR673CAA	lv	healthy	f	W96
+ENCSR188XNY	lv	healthy	m	W92
+ENCSR523NMC	lv	healthy	f	W87
+ENCSR629CZM	lv	ischemic	m	UW202
+ENCSR793XGJ	lv	ischemic	m	UW250
+ENCSR304NKV	lv	ischemic	m	UW206
+ENCSR613LBN	la	healthy	m	W78
+ENCSR923FKN	la	healthy	m	W76
+ENCSR351CSQ	la	healthy	f	W73
+ENCSR218RZE	ra	healthy	m	W78
+ENCSR002WBD	ra	healthy	f	W72
+ENCSR488VFJ	ra	healthy	f	W73
+ENCSR793DNM	lv	healthy	f	W73
+ENCSR568QKW	lv	healthy	f	W72
+ENCSR245BNT	lv	healthy	f	W71
+ENCSR508WRP	lv	healthy	f	W61
+ENCSR956ZER	lv	ischemic	m	UW204
+ENCSR265ZRW	lv	nonischemic	m	UW195
+ENCSR822CXI	lv	nonischemic	m	UW192
+ENCSR573DJW	lv	nonischemic	m	UW196
+ENCSR300BCB	lv	ischemic	m	UW197
+ENCSR768WQT	lv	nonischemic	m	UW199
+ENCSR511RDV	rv	healthy	f	W73
+ENCSR534YJW	rv	healthy	f	W72
+ENCSR079UEO	rv	healthy	f	W61
+ENCSR987VTJ	lv	healthy	m	W78
+ENCSR320RLS	rv	healthy	m	W78
+ENCSR201BHG	rv	healthy	m	W78
+ENCSR371YIY	lv	inflammatory	m	UW188
+ENCSR884JZC	lv	inflammatory	m	UW323
+ENCSR664QSO	lv	nonischemic	m	UW320
+ENCSR316UWS	lv	inflammatory	m	UW324
+ENCSR407GDZ	lv	inflammatory	m	UW182
+ENCSR488WYF	lv	inflammatory	m	UW227
+ENCSR137EAT	lv	inflammatory	f	UW249

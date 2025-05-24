@@ -3,7 +3,7 @@ rule seurat_name_group_1:
     Seurat first-round RNA cluster naming
     """
     input:
-        project_in =  "results_groups/{group}/rna/seurat_add_batch_data/proj.rds"
+        project_in = "results_groups/{group}/rna/seurat_cluster_rna/proj.rds"
     output:
         project_out = "results_groups/{group}/rna/seurat_name_group_1/proj.rds",
         umap = "results_groups/{group}/rna/seurat_name_group_1/umap.pdf",

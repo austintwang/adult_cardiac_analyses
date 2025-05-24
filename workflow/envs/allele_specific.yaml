@@ -1,0 +1,13 @@
+channels:
+  - conda-forge
+  - bioconda
+  - nodefaults
+dependencies:
+  - conda-forge::r-base=4.2
+  - conda-forge::python=3.10.6
+  - conda-forge::polars=0.20.16
+  - conda-forge::gsl=2.7
+  - conda-forge::clapack=3.2.1
+  - bioconda::pysam=0.22.0
+  - bioconda::samtools=1.19.2
+  - bioconda::bcftools=1.19

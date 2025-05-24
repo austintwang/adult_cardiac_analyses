@@ -15,7 +15,7 @@ for s, v in config["superregions"].items():
 samples = []
 groups = {}
 groups_unisex = {}
-batch_data = {}
+donor_data = {}
 supergroups = {}
 sample_to_group = {}
 with open("config/samples.tsv") as sample_file:
@@ -24,7 +24,7 @@ with open("config/samples.tsv") as sample_file:
     region_ind = h.index("Region")
     status_ind = h.index("Status")
     sex_ind = h.index("Sex")
-    batch_ind = h.index("Batch")
+    donor_ind = h.index("Donor")
 
     samples = []
     for line in sample_file:
@@ -35,15 +35,13 @@ with open("config/samples.tsv") as sample_file:
         region = entries[region_ind]
         status = entries[status_ind]
         sex = entries[sex_ind]
-        batch = entries[batch_ind]
-        if batch == "":
-            batch = "Other"
+        donor = entries[donor_ind]
 
         group_name = f"{region}-{status}-{sex}"
         samples.append(series)
         groups.setdefault(group_name, []).append(series)
         groups_unisex.setdefault(f"{region}-{status}", []).append(series)
-        batch_data[series] = batch
+        donor_data[series] = donor
         sample_to_group[series] = group_name
 
         supergroup_name = superregion_map[region]
@@ -95,6 +93,46 @@ with open("config/hic_samples.tsv") as sample_file:
 
 group_unisex_names_hic = list(groups_unisex_hic.keys())
 
+as_regions = set(config["as_regions"])
+as_labels = config["as_labels"]
+
+donor_to_wgs_dir = {}
+with open("config/wgs_samples.tsv") as sample_file:
+    h = sample_file.readline().rstrip('\n').split('\t')
+    donor_ind = h.index("Donor")
+    dir_ind = h.index("Directory")
+
+    for line in sample_file:
+        if line.startswith("#"):
+            continue
+        entries = line.rstrip('\n').split('\t')
+        donor = entries[donor_ind]
+        wdir = entries[dir_ind]
+        donor_to_wgs_dir[donor] = wdir
+
+groups_wgs = {}
+for k, v in groups.items():
+    region = k.split("-")[0]
+    if region not in as_regions:
+        continue
+    for s in v:
+        donor = donor_data[s]
+        if donor in donor_to_wgs_dir:
+            wgs_dir = donor_to_wgs_dir[donor]
+            groups_wgs.setdefault(k, []).append((wgs_dir, s),)
+
+groups_unisex_wgs = {}
+for k, v in groups_unisex.items():
+    region = k.split("-")[0]
+    if region not in as_regions:
+        continue
+    for s in v:
+        donor = donor_data[s]
+        if donor in donor_to_wgs_dir:
+            wgs_dir = donor_to_wgs_dir[donor]
+            groups_unisex_wgs.setdefault(k, []).append((wgs_dir, s),)
+
+group_unisex_names_wgs = list(groups_unisex_wgs.keys())
 
 # subcluster_jobs = []
 # with open(workflow.source_path("files/subcluster_jobs.txt")) as f:
@@ -144,6 +182,8 @@ include:
     "rules/soupx.smk"
 include:
     "rules/abc.smk"
+include:
+    "rules/allele_specific.smk"
 
 rule all:
     """
@@ -157,6 +197,14 @@ rule all:
         # expand("results_groups/{group}/rna/seurat_add_seq_emb/proj.rds", group=group_names),
         # expand("results_groups/{group}/rna/seurat_embed_all/proj.rds", group=group_names),
         # expand("results/{sample}/rna/seurat_soupx_filtered/proj.rds", group=group_names),
+
+
+rule allele_specific:
+    """
+    Run allele-specific analysis
+    """
+    input:
+        expand("results_unisex/{group}/allele_specific/label/{label}/atac/rasqual_output.txt", group=group_unisex_names_wgs, label=as_labels)
 
 
 rule abc:
@@ -414,6 +462,52 @@ rule move_fragments:
     shell:
         "cp {input}/fragments.tsv.gz {output.frag}; "
         "cp {input}/fragments.tsv.gz.tbi {output.frag_ind};"
+
+
+rule query_bam_atac:
+    """
+    Query ENCODE portal for BAM
+    """
+    output:
+        "results/{sample}/fetch/bam_atac_url.txt"
+    params:
+        series = get_series,
+        replicate = 1,
+        dcc_mode = config["dcc_mode"],
+        dcc_api_key = os.environ.get("DCC_API_KEY"), 
+        dcc_secret_key = os.environ.get("DCC_SECRET_KEY")
+    log:
+        directory("logs/{sample}/query_bam_atac")
+    conda:
+        "envs/fetch.yaml"
+    script:
+        "scripts/get_bam_atac_url.py"
+
+
+rule download_bam_atac:
+    """
+    Download BAM
+    """
+    input:
+        "results/{sample}/fetch/bam_atac_url.txt"
+    output:
+        "results/{sample}/fetch/atac.bam"
+    params:
+        usr = os.environ.get("DCC_API_KEY"),
+        pwd = os.environ.get("DCC_SECRET_KEY")
+    conda:
+        "envs/fetch.yaml"
+    shell:
+        "filename=$(basename -- \"$(< {input})\"); "
+        "extension=\"${{filename##*.}}\"; "
+        "fid=\"${{filename%%.*}}\"; "
+        "alturl=\"https://www.encodeproject.org/files/${{fid}}/@@download/${{filename}}\"; "
+        # "echo $alturl; " ####
+        "curl --no-progress-meter -L -f $(< {input}) > {output} || "
+        "curl --no-progress-meter -L -f -u {params.usr}:{params.pwd} $(< {input}) > {output} || "
+        "curl --no-progress-meter -L -f -u {params.usr}:{params.pwd} \"$alturl\" > {output} "
+
+
 
 rule query_expression:
     """
